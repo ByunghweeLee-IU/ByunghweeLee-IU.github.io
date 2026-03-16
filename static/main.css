@@ -1,37 +1,22 @@
-/* ============================================================================
-   FOLIATE - Default Stylesheet
-   A minimal, themeable stylesheet for foliate static sites.
-   ============================================================================ */
-
-/* ============================================================================
-   CSS VARIABLES - Customize these to theme your site
-   ============================================================================ */
-
 :root {
-  /* Primary Colors */
-  --color-primary: #232D4B;
-  --color-primary-dark: #133584;
-  --color-secondary: #7c3aed;
-  --color-accent: #f59e0b;
-
-  /* Typography */
-  --font-family-sans: "Inter", "SF Pro Display", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --color-primary: #17324d;
+  --color-primary-dark: #0d2438;
+  --color-secondary: #8b3f2f;
+  --color-accent: #c68b2c;
+  --text-primary: #17212b;
+  --text-secondary: #4a5a68;
+  --text-muted: #788593;
+  --background-primary: #fcfaf6;
+  --background-panel: rgba(252, 250, 246, 0.9);
+  --background-soft: #f1ece4;
+  --background-code: #efe8dd;
+  --border-light: #ddd4c5;
+  --border-medium: #c4b7a2;
+  --shadow-soft: 0 20px 60px rgba(13, 36, 56, 0.08);
+  --font-family-sans: "Source Sans 3", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-serif: "Fraunces", Georgia, serif;
   --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  --font-family-serif: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
-
-  /* Neutral Colors */
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
-  --background-primary: #ffffff;
-  --background-code: #f3f4f6;
-  --border-light: #e5e7eb;
-  --border-medium: #d1d5db;
 }
-
-/* ============================================================================
-   BASE TYPOGRAPHY & LAYOUT
-   ============================================================================ */
 
 html {
   font-size: 16px;
@@ -39,211 +24,146 @@ html {
 }
 
 body {
-  width: 90%;
-  max-width: 800px;
-  padding: 0 5%;
+  width: min(92%, 860px);
   margin: 0 auto;
+  padding: 0;
   font-family: var(--font-family-sans);
   font-size: 1.1rem;
-  background-color: var(--background-primary);
+  line-height: 1.65;
   color: var(--text-primary);
-  line-height: 1.6;
+  background:
+    radial-gradient(circle at top left, rgba(198, 139, 44, 0.12), transparent 28%),
+    linear-gradient(180deg, #f5efe6 0%, var(--background-primary) 18%, var(--background-primary) 100%);
+  background-color: var(--background-primary);
   overflow-x: hidden;
 }
 
-/* ============================================================================
-   LAYOUT COMPONENTS
-   ============================================================================ */
-
 article {
-  padding: 3rem 0;
   width: 100%;
+  padding: 2rem 0 3.5rem;
 }
 
 section {
-  padding: 1rem 0;
   width: 100%;
+  padding: 1rem 0;
 }
 
-/* ============================================================================
-   TYPOGRAPHY
-   ============================================================================ */
+.content {
+  padding: 1.8rem 2rem 0;
+  border: 1px solid rgba(196, 183, 162, 0.65);
+  border-radius: 24px;
+  background: var(--background-panel);
+  box-shadow: var(--shadow-soft);
+}
+
+.content > :first-child {
+  margin-top: 0;
+}
 
 p {
-  margin: 1.4rem 0;
-  width: 100%;
+  margin: 1.3rem 0;
 }
 
-h1 + p {
-  margin-top: 0.6rem;
-}
-
-header h1 {
-  font-size: 1.7rem;
-  color: var(--text-secondary);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-section h1, .content h1, h1 {
-  font-size: 1.6rem;
-  color: var(--color-primary);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-top: 1.5rem;
-  margin-bottom: 0.8rem;
-}
-
-h2 {
-  font-family: var(--font-family-sans);
-  color: var(--color-secondary);
-  font-style: normal;
-  font-weight: normal;
-  font-size: 1.4rem;
-}
-
-h3 {
-  font-family: var(--font-family-sans);
-  color: var(--text-secondary);
-  font-style: normal;
-  font-size: 1.25rem;
-}
-
-h4 {
-  color: var(--color-primary);
-  font-style: normal;
-  font-size: 1.15rem;
-}
-
-h5 {
-  color: var(--color-secondary);
-  font-style: normal;
-  font-size: 1.1rem;
-}
-
-h6 {
-  color: var(--color-secondary);
-  font-style: normal;
-  font-size: 1.05rem;
-}
-
-/* ============================================================================
-   LISTS
-   ============================================================================ */
-
-ul, ol {
-  padding-left: 2rem;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-}
-
-li:not(:first-child) {
-  margin-top: 0.25rem;
+ul,
+ol {
+  padding-left: 1.5rem;
 }
 
 li {
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+  margin-top: 0.3rem;
 }
 
-/* ============================================================================
-   BLOCK ELEMENTS
-   ============================================================================ */
+.content ul li::marker,
+.content ol li::marker {
+  color: var(--color-secondary);
+}
+
+header h1,
+h1,
+h2 {
+  font-family: var(--font-family-serif);
+}
+
+header h1 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+section h1,
+.content h1,
+h1 {
+  margin: 1.8rem 0 0.8rem;
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 1.6rem 0 0.7rem;
+  font-size: 1.45rem;
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-secondary);
+}
 
 blockquote {
   margin: 1.4rem 0;
-  padding-left: 2rem;
-  border-left: 3px solid var(--text-muted);
+  padding: 0.5rem 0 0.5rem 1.4rem;
+  border-left: 3px solid var(--color-accent);
+  color: var(--text-secondary);
   font-style: italic;
 }
 
 table {
+  width: 100%;
   margin: 1.4rem 0;
   border-collapse: collapse;
-  width: 100%;
 }
 
-th, td {
-  padding: 0.5rem;
+th,
+td {
+  padding: 0.65rem;
   border: 1px solid var(--border-light);
   text-align: left;
 }
 
 th {
-  background-color: var(--background-code);
+  background: var(--background-soft);
 }
 
 hr {
-  border: none;
-  border-top: 1px solid var(--border-light);
   margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid var(--border-light);
 }
-
-/* ============================================================================
-   IMAGES & FIGURES
-   ============================================================================ */
 
 img {
   max-width: 100%;
   height: auto;
 }
 
-.content p > img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
-  height: auto;
-  box-sizing: border-box;
-}
-
-figure {
-  margin: 2rem 0;
-  padding: 0;
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  text-align: center;
-}
-
-/* ============================================================================
-   CODE BLOCKS
-   ============================================================================ */
-
-pre {
-  margin: 1.4rem 0;
-  padding: 1rem;
-  background: var(--background-code);
-  border-radius: 4px;
-  overflow-x: auto;
-}
-
-pre > code {
-  font-size: 0.9rem;
-  display: block;
-}
-
-code {
-  font-family: var(--font-family-mono);
-  font-size: 0.9em;
-}
-
+pre,
 .codehilite,
 .highlight {
-  width: 100%;
-  padding: 0;
-  background: var(--background-code);
-  border-radius: 4px;
   margin: 1.4rem 0;
+  background: var(--background-code);
+  border-radius: 12px;
   overflow-x: auto;
+}
+
+pre {
+  padding: 1rem;
 }
 
 .codehilite pre,
@@ -251,128 +171,36 @@ code {
   margin: 0;
   padding: 1rem;
   background: none;
-  border-radius: 0;
-  border: none;
 }
 
-.codehilite code,
-.highlight code {
-  background: none !important;
-  border: none;
-  padding: 0;
+code {
+  font-family: var(--font-family-mono);
+  font-size: 0.92em;
 }
-
-/* Pygments syntax highlighting (friendly theme) */
-.highlight .c { color: #60A0B0; font-style: italic } /* Comment */
-.highlight .err { border: 1px solid #F00 } /* Error */
-.highlight .k { color: #007020; font-weight: bold } /* Keyword */
-.highlight .o { color: #666 } /* Operator */
-.highlight .ch { color: #60A0B0; font-style: italic } /* Comment.Hashbang */
-.highlight .cm { color: #60A0B0; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #007020 } /* Comment.Preproc */
-.highlight .c1 { color: #60A0B0; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #60A0B0; background-color: #FFF0F0 } /* Comment.Special */
-.highlight .gd { color: #A00000 } /* Generic.Deleted */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #F00 } /* Generic.Error */
-.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.highlight .gi { color: #00A000 } /* Generic.Inserted */
-.highlight .go { color: #888 } /* Generic.Output */
-.highlight .gp { color: #C65D09; font-weight: bold } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.highlight .gt { color: #04D } /* Generic.Traceback */
-.highlight .kc { color: #007020; font-weight: bold } /* Keyword.Constant */
-.highlight .kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
-.highlight .kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
-.highlight .kp { color: #007020 } /* Keyword.Pseudo */
-.highlight .kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #902000 } /* Keyword.Type */
-.highlight .m { color: #40A070 } /* Literal.Number */
-.highlight .s { color: #4070A0 } /* Literal.String */
-.highlight .na { color: #4070A0 } /* Name.Attribute */
-.highlight .nb { color: #007020 } /* Name.Builtin */
-.highlight .nc { color: #0E84B5; font-weight: bold } /* Name.Class */
-.highlight .no { color: #60ADD5 } /* Name.Constant */
-.highlight .nd { color: #555; font-weight: bold } /* Name.Decorator */
-.highlight .ni { color: #D55537; font-weight: bold } /* Name.Entity */
-.highlight .ne { color: #007020 } /* Name.Exception */
-.highlight .nf { color: #06287E } /* Name.Function */
-.highlight .nl { color: #002070; font-weight: bold } /* Name.Label */
-.highlight .nn { color: #0E84B5; font-weight: bold } /* Name.Namespace */
-.highlight .nt { color: #062873; font-weight: bold } /* Name.Tag */
-.highlight .nv { color: #BB60D5 } /* Name.Variable */
-.highlight .ow { color: #007020; font-weight: bold } /* Operator.Word */
-.highlight .w { color: #BBB } /* Text.Whitespace */
-.highlight .mb { color: #40A070 } /* Literal.Number.Bin */
-.highlight .mf { color: #40A070 } /* Literal.Number.Float */
-.highlight .mh { color: #40A070 } /* Literal.Number.Hex */
-.highlight .mi { color: #40A070 } /* Literal.Number.Integer */
-.highlight .mo { color: #40A070 } /* Literal.Number.Oct */
-.highlight .sa { color: #4070A0 } /* Literal.String.Affix */
-.highlight .sb { color: #4070A0 } /* Literal.String.Backtick */
-.highlight .sc { color: #4070A0 } /* Literal.String.Char */
-.highlight .dl { color: #4070A0 } /* Literal.String.Delimiter */
-.highlight .sd { color: #4070A0; font-style: italic } /* Literal.String.Doc */
-.highlight .s2 { color: #4070A0 } /* Literal.String.Double */
-.highlight .se { color: #4070A0; font-weight: bold } /* Literal.String.Escape */
-.highlight .sh { color: #4070A0 } /* Literal.String.Heredoc */
-.highlight .si { color: #70A0D0; font-style: italic } /* Literal.String.Interpol */
-.highlight .sx { color: #C65D09 } /* Literal.String.Other */
-.highlight .sr { color: #235388 } /* Literal.String.Regex */
-.highlight .s1 { color: #4070A0 } /* Literal.String.Single */
-.highlight .ss { color: #517918 } /* Literal.String.Symbol */
-.highlight .bp { color: #007020 } /* Name.Builtin.Pseudo */
-.highlight .fm { color: #06287E } /* Name.Function.Magic */
-.highlight .vc { color: #BB60D5 } /* Name.Variable.Class */
-.highlight .vg { color: #BB60D5 } /* Name.Variable.Global */
-.highlight .vi { color: #BB60D5 } /* Name.Variable.Instance */
-.highlight .vm { color: #BB60D5 } /* Name.Variable.Magic */
-.highlight .il { color: #40A070 } /* Literal.Number.Integer.Long */
-
-/* ============================================================================
-   LINKS
-   ============================================================================ */
 
 a {
   color: var(--color-primary-dark);
-  text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
 }
 
 a:hover {
   color: var(--color-secondary);
-  text-decoration: underline;
 }
 
-a.wikilink {
-  color: var(--color-primary-dark);
-  text-decoration: none;
-}
-
-a.wikilink:hover {
-  color: var(--color-secondary);
-  text-decoration: underline;
-}
-
-/* External links */
 a[href^="http"]:not(.wikilink),
 a[href^="https"]:not(.wikilink) {
   color: var(--text-secondary);
-  text-decoration: none;
 }
 
 a[href^="http"]:not(.wikilink):hover,
 a[href^="https"]:not(.wikilink):hover {
   color: var(--color-accent);
-  text-decoration: underline;
 }
 
-/* Header anchor links */
 .header-anchor {
   color: var(--text-muted);
-  text-decoration: none;
   margin-left: 0.4em;
-  font-weight: normal;
   opacity: 0;
   transition: opacity 0.15s ease-in-out;
 }
@@ -386,76 +214,67 @@ h6:hover .header-anchor {
   opacity: 1;
 }
 
-.header-anchor:hover {
-  color: var(--color-secondary);
+nav.top-nav {
+  padding-top: 1.25rem;
+  margin-bottom: 1.2rem;
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(196, 183, 162, 0.7);
+  border-radius: 20px;
+  background: rgba(252, 250, 246, 0.84);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(10px);
+}
+
+.site-wordmark {
+  font-family: var(--font-family-serif);
+  font-size: 1.25rem;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
   text-decoration: none;
 }
 
-/* ============================================================================
-   NAVIGATION
-   ============================================================================ */
+.site-wordmark:hover {
+  color: var(--color-secondary);
+}
 
-nav.top-nav {
-  text-align: center;
-  padding: 1.5rem 0 0.5rem 0;
-  font-family: var(--font-family-sans);
-  font-size: 0.95rem;
-  border-bottom: 1px solid var(--border-light);
-  margin-bottom: 2rem;
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.75rem;
 }
 
 nav.top-nav a {
   color: var(--color-primary);
   text-decoration: none;
-  padding: 0 0.5rem;
+  padding: 0.15rem 0.25rem;
 }
 
 nav.top-nav a:hover {
   color: var(--color-secondary);
 }
 
-nav.top-nav .nav-separator {
-  color: var(--text-muted);
-  padding: 0 0.25rem;
-}
-
-nav.top-nav .nav-logo {
+.nav-logo {
   height: 1.3em;
   width: auto;
   vertical-align: middle;
   margin: 0 0.2rem 3px 0;
 }
 
-/* ============================================================================
-   FOOTER
-   ============================================================================ */
-
-.footer-separator {
-  border-top: 1px solid var(--border-light);
-  margin: 2rem 0 1rem 0;
-}
-
-footer {
-  padding: 1rem 0 4rem 0;
-}
-
-.footer-text {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-}
-
 .page-dates {
-  font-size: 0.7rem;
+  margin: 0.3rem 0 1rem;
   color: var(--text-muted);
-  font-family: var(--font-family-sans);
-  margin: 0.3rem 0 1rem 0;
-  font-weight: normal;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
-
-/* ============================================================================
-   HOME PAGE SECTIONS
-   ============================================================================ */
 
 .recent-pages {
   margin-top: 3rem;
@@ -464,187 +283,84 @@ footer {
 }
 
 .recent-pages h2 {
-  font-size: 1.3rem;
-  margin-bottom: 1.5rem;
-  color: var(--color-secondary);
+  margin-bottom: 1rem;
 }
 
-.recent-pages ul.page-list {
+.page-list {
   list-style: none;
   padding: 0;
-  margin: 1rem 0 0 0;
 }
 
-.recent-pages .page-list li {
-  margin-bottom: 0.1rem;
-  padding: 0.1rem 0;
+.page-list li {
   display: flex;
   align-items: baseline;
-  gap: 2rem;
-}
-
-.recent-pages .page-list a {
-  font-size: 1.1rem;
-  text-decoration: none;
-  color: var(--color-primary);
-}
-
-.recent-pages .page-list a:hover {
-  color: var(--color-secondary);
-  text-decoration: underline;
+  gap: 1.5rem;
+  padding: 0.25rem 0;
 }
 
 .page-date {
-  font-size: 1rem;
-  color: var(--text-muted);
-  flex-shrink: 0;
-  text-align: right;
-  font-weight: normal;
-  font-family: var(--font-family-mono);
   width: 10ch;
-  display: inline-block;
   margin-left: 0.5rem;
+  color: var(--text-muted);
+  font-family: var(--font-family-mono);
+  font-size: 0.92rem;
+  text-align: right;
+  flex-shrink: 0;
 }
 
-/* ============================================================================
-   KATEX MATH RENDERING
-   ============================================================================ */
+.footer-separator {
+  margin: 1.5rem 0 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+footer {
+  padding: 1rem 0 4rem;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
 
 .katex-display {
-  text-align: center;
   margin: 1em 0;
+  text-align: center;
 }
 
-article .katex-display,
-article .katex {
-  width: auto;
-  max-width: none;
-  margin-left: 0;
-  margin-right: 0;
-}
-
-/* ============================================================================
-   RESPONSIVE DESIGN
-   ============================================================================ */
-
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   body {
-    width: 95%;
-    padding: 0 2.5%;
+    width: min(94%, 860px);
     font-size: 1rem;
   }
 
   article {
-    padding: 1.5rem 0;
+    padding-top: 1.5rem;
   }
 
-  nav.top-nav {
-    padding: 0.5rem 0 0.3rem 0;
-    margin-bottom: 0.8rem;
-    font-size: 0.75rem;
-    white-space: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  .nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  nav.top-nav a {
-    padding: 0 0.15rem;
-    display: inline-block;
+  .nav-links {
+    justify-content: flex-start;
+    gap: 0.5rem 0.9rem;
   }
 
-  nav.top-nav .nav-separator {
-    padding: 0 0.05rem;
-    font-size: 0.6rem;
+  .content {
+    padding: 1.35rem 1.15rem 0;
+    border-radius: 18px;
   }
 
-  nav.top-nav .nav-logo {
-    height: 0.9em;
-    margin: 0 0.1rem 1px 0;
+  .page-list li {
+    flex-direction: column;
+    gap: 0.2rem;
   }
 
-  header h1 {
-    font-size: 1.4rem;
-    margin-bottom: 0.3rem;
-  }
-
-  section h1, .content h1, h1 {
-    font-size: 1.3rem;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-  }
-
-  h3 {
-    font-size: 1.1rem;
-  }
-
-  h4 {
-    font-size: 1.05rem;
-  }
-
-  h5, h6 {
-    font-size: 1rem;
-  }
-
-  p {
-    margin: 1rem 0;
-  }
-
-  .page-dates {
-    font-size: 0.65rem;
-    margin: 0.2rem 0 0.5rem 0;
-  }
-
-  ul, ol {
-    padding-left: 1.2rem;
-  }
-
-  .footer-separator {
-    margin: 1.5rem 0 0.5rem 0;
-  }
-
-  footer {
-    padding: 0.5rem 0 2rem 0;
-  }
-
-  .footer-text {
-    font-size: 0.85rem;
-  }
-
-  p, li, blockquote {
-    max-width: 100%;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-
-  * {
-    max-width: 100%;
-    box-sizing: border-box;
-  }
-
-  a {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-
-  pre {
-    overflow-x: auto;
-    max-width: 100%;
-    font-size: 0.85rem;
-  }
-
-  code {
-    word-break: break-word;
-    font-size: 0.9rem;
-  }
-
-  blockquote {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
+  .page-date {
+    width: auto;
+    margin-left: 0;
+    text-align: left;
   }
 }

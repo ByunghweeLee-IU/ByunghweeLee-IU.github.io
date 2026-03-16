@@ -1,4 +1,12 @@
-/wiki/visibility/
-/wiki/index.md/
-/wiki/test-about/
-/wiki/about/test-about/
+/visibility/
+/cv/
+/research/
+/publications/
+/index/
+/talks/
+/about/
+/notes/index/
+/notes/research/index/
+/notes/reading/index/
+/notes/misc/index/
+/notes/ideas/index/

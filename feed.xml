@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
-  <title>BH wiki</title>
-  <subtitle>BH wiki - Recent updates</subtitle>
+  <title>Byunghwee Lee</title>
+  <subtitle>Byunghwee Lee - Recent updates</subtitle>
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-16T23:00:19Z</updated>
+  <updated>2026-03-16T23:37:31Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -15,9 +15,197 @@
 
   
   <entry>
+    <title>CV</title>
+    <link href="https://ByunghweeLee-IU.github.io/cv/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/cv/</id>
+    <published>2026-03-16T23:37:31Z</published>
+    <updated>2026-03-16T23:37:31Z</updated>
+    
+    <content type="html"><![CDATA[<p>My current CV is available here: <a href="/assets/byunghwee-cv.pdf" rel="nofollow">Download CV</a></p>
+<h2 id="snapshot">Snapshot<a class="header-anchor" href="#snapshot" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Current position</li>
+<li>Research areas</li>
+<li>Email / website / scholar links</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Byunghwee Lee</title>
+    <link href="https://ByunghweeLee-IU.github.io/index/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/index/</id>
+    <published>2026-03-16T23:37:07Z</published>
+    <updated>2026-03-16T23:37:07Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="welcome">Welcome<a class="header-anchor" href="#welcome" title="Link to this section" rel="nofollow">#</a></h2>
+<p>I use this site as a home for my academic profile, selected work, and public notes.</p>
+<ul>
+<li>Learn more <a href="/wiki/about/" rel="nofollow">about me</a></li>
+<li>Browse current <a href="/wiki/research/" rel="nofollow">research</a></li>
+<li>See <a href="/wiki/publications/" rel="nofollow">publications</a> and <a href="/wiki/talks/" rel="nofollow">talks</a></li>
+<li>Explore my <a href="/wiki/notes/" rel="nofollow">notes</a></li>
+<li>Download my <a href="byunghwee-cv.pdf" rel="nofollow">CV</a></li>
+</ul>
+<h2 id="focus-areas">Focus Areas<a class="header-anchor" href="#focus-areas" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Research projects and collaborations</li>
+<li>Reading notes and literature tracking</li>
+<li>Early-stage ideas and working memos</li>
+<li>Public-facing updates for talks and publications</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Miscellaneous Notes</title>
+    <link href="https://ByunghweeLee-IU.github.io/notes/misc/index/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/notes/misc/index/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>This section is a flexible home for assorted notes, references, and brief updates.</p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Ideas</title>
+    <link href="https://ByunghweeLee-IU.github.io/notes/ideas/index/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/notes/ideas/index/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>Use this space for early-stage ideas that you want to keep visible and revisitable.</p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Reading Notes</title>
+    <link href="https://ByunghweeLee-IU.github.io/notes/reading/index/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/notes/reading/index/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>This area is for literature summaries, annotated bibliographies, and reading reflections.</p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Research Notes</title>
+    <link href="https://ByunghweeLee-IU.github.io/notes/research/index/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/notes/research/index/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>Public research notes live here.</p>
+<ul>
+<li>Project logs</li>
+<li>Method notes</li>
+<li>Data and workflow memos</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Notes</title>
+    <link href="https://ByunghweeLee-IU.github.io/notes/index/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/notes/index/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>This section collects public notes maintained in Obsidian and published through Foliate.</p>
+<h2 id="browse-by-topic">Browse by Topic<a class="header-anchor" href="#browse-by-topic" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="/wiki/notes/research/" rel="nofollow">Research notes</a></li>
+<li><a href="/wiki/notes/reading/" rel="nofollow">Reading notes</a></li>
+<li><a href="/wiki/notes/ideas/" rel="nofollow">Ideas</a></li>
+<li><a href="/wiki/notes/misc/" rel="nofollow">Miscellaneous</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Talks</title>
+    <link href="https://ByunghweeLee-IU.github.io/talks/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/talks/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>Use this page to list conference presentations, invited talks, workshops, and guest lectures.</p>
+<h2 id="recent-talks">Recent Talks<a class="header-anchor" href="#recent-talks" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Talk title, venue, date</li>
+<li>Talk title, venue, date</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Publications</title>
+    <link href="https://ByunghweeLee-IU.github.io/publications/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/publications/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>List journal articles, conference papers, working papers, or other writing here.</p>
+<h2 id="selected-publications">Selected Publications<a class="header-anchor" href="#selected-publications" title="Link to this section" rel="nofollow">#</a></h2>
+<ol>
+<li>Author, A., &amp; Lee, B. (Year). Title. <em>Journal Name</em>.</li>
+<li>Author, A., Lee, B., &amp; Author, C. (Year). Title. <em>Journal Name</em>.</li>
+</ol>
+<h2 id="working-papers">Working Papers<a class="header-anchor" href="#working-papers" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Title</li>
+<li>Title</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Research</title>
+    <link href="https://ByunghweeLee-IU.github.io/research/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/research/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>This page can serve as a landing page for your main research agenda.</p>
+<h2 id="current-themes">Current Themes<a class="header-anchor" href="#current-themes" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Theme 1</li>
+<li>Theme 2</li>
+<li>Theme 3</li>
+</ul>
+<h2 id="ongoing-projects">Ongoing Projects<a class="header-anchor" href="#ongoing-projects" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Project title, collaborators, and short summary</li>
+<li>Project title, collaborators, and short summary</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>About</title>
+    <link href="https://ByunghweeLee-IU.github.io/about/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/about/</id>
+    <published>2026-03-16T23:25:37Z</published>
+    <updated>2026-03-16T23:25:37Z</updated>
+    
+    <content type="html"><![CDATA[<p>I am building this site with Foliate and managing the content in Obsidian.</p>
+<p>Use this page for a short academic biography, institutional affiliation, research interests, and contact information.</p>
+<h2 id="suggested-sections">Suggested Sections<a class="header-anchor" href="#suggested-sections" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>One-paragraph bio</li>
+<li>Current position and affiliation</li>
+<li>Research interests</li>
+<li>Contact links</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
     <title>My page</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/visibility/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/visibility/</id>
+    <link href="https://ByunghweeLee-IU.github.io/visibility/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/visibility/</id>
     <published>2026-03-16T23:00:19Z</published>
     <updated>2026-03-16T23:00:19Z</updated>
     

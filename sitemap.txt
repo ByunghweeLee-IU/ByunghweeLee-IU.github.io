@@ -4,9 +4,9 @@
 /publications/
 /index/
 /talks/
+/notes/
 /about/
-/notes/index/
-/notes/research/index/
-/notes/reading/index/
-/notes/misc/index/
-/notes/ideas/index/
+/notes/ideas/
+/notes/research/
+/notes/misc/
+/notes/reading/

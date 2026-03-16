@@ -48,6 +48,14 @@
     "tags": []
   },
   {
+    "title": "Notes",
+    "path": "notes",
+    "url": "/notes/",
+    "content": "This section collects public notes maintained in Obsidian and published through Foliate.\n\n## Browse by Topic\n\n- [Research notes](/notes/research/)\n- [Reading notes](/notes/reading/)\n- [Ideas](/notes/ideas/)\n- [Miscellaneous](/notes/misc/)",
+    "published": "2026-03-16T23:46:26.277380+00:00",
+    "tags": []
+  },
+  {
     "title": "About",
     "path": "about",
     "url": "/about/",
@@ -56,43 +64,35 @@
     "tags": []
   },
   {
-    "title": "Notes",
-    "path": "notes/index",
-    "url": "/notes/index/",
-    "content": "This section collects public notes maintained in Obsidian and published through Foliate.\n\n## Browse by Topic\n\n- [Research notes](/notes/research/)\n- [Reading notes](/notes/reading/)\n- [Ideas](/notes/ideas/)\n- [Miscellaneous](/notes/misc/)",
-    "published": "2026-03-16T23:25:37.544830+00:00",
+    "title": "Ideas",
+    "path": "notes/ideas",
+    "url": "/notes/ideas/",
+    "content": "Use this space for early-stage ideas that you want to keep visible and revisitable.",
+    "published": "2026-03-16T23:46:26.277690+00:00",
     "tags": []
   },
   {
     "title": "Research Notes",
-    "path": "notes/research/index",
-    "url": "/notes/research/index/",
+    "path": "notes/research",
+    "url": "/notes/research/",
     "content": "Public research notes live here.\n\n- Project logs\n- Method notes\n- Data and workflow memos",
-    "published": "2026-03-16T23:25:37.544926+00:00",
-    "tags": []
-  },
-  {
-    "title": "Reading Notes",
-    "path": "notes/reading/index",
-    "url": "/notes/reading/index/",
-    "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
-    "published": "2026-03-16T23:25:37.545010+00:00",
+    "published": "2026-03-16T23:46:26.277538+00:00",
     "tags": []
   },
   {
     "title": "Miscellaneous Notes",
-    "path": "notes/misc/index",
-    "url": "/notes/misc/index/",
+    "path": "notes/misc",
+    "url": "/notes/misc/",
     "content": "This section is a flexible home for assorted notes, references, and brief updates.",
-    "published": "2026-03-16T23:25:37.545161+00:00",
+    "published": "2026-03-16T23:46:26.277764+00:00",
     "tags": []
   },
   {
-    "title": "Ideas",
-    "path": "notes/ideas/index",
-    "url": "/notes/ideas/index/",
-    "content": "Use this space for early-stage ideas that you want to keep visible and revisitable.",
-    "published": "2026-03-16T23:25:37.545087+00:00",
+    "title": "Reading Notes",
+    "path": "notes/reading",
+    "url": "/notes/reading/",
+    "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
+    "published": "2026-03-16T23:46:26.277618+00:00",
     "tags": []
   }
 ]

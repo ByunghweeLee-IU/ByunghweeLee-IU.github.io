@@ -10,3 +10,5 @@
 /notes/research/
 /notes/misc/
 /notes/reading/
+/notes/research/index/
+/notes/reading/index/

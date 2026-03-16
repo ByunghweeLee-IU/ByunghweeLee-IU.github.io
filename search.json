@@ -94,5 +94,21 @@
     "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
     "published": "2026-03-16T23:46:26.277618+00:00",
     "tags": []
+  },
+  {
+    "title": "Research Notes",
+    "path": "notes/research/index",
+    "url": "/notes/research/index/",
+    "content": "Public research notes live here.\n\n- Project logs\n- Method notes\n- Data and workflow memos",
+    "published": "2026-03-16T23:48:40.906282+00:00",
+    "tags": []
+  },
+  {
+    "title": "Reading Notes",
+    "path": "notes/reading/index",
+    "url": "/notes/reading/index/",
+    "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
+    "published": "2026-03-16T23:48:43.564662+00:00",
+    "tags": []
   }
 ]

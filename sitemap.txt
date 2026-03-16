@@ -6,9 +6,14 @@
 /talks/
 /notes/
 /about/
+/wiki/notes/
 /notes/ideas/
 /notes/research/
 /notes/misc/
 /notes/reading/
+/wiki/notes/ideas/
+/wiki/notes/research/
+/wiki/notes/misc/
+/wiki/notes/reading/
 /notes/research/index/
 /notes/reading/index/

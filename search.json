@@ -64,6 +64,14 @@
     "tags": []
   },
   {
+    "title": "Redirecting to Notes",
+    "path": "wiki/notes",
+    "url": "/wiki/notes/",
+    "content": "<meta http-equiv=\"refresh\" content=\"0; url=/notes/\">\n\nThis page has moved to [Notes](/notes/).",
+    "published": "2026-03-16T23:51:16.715232+00:00",
+    "tags": []
+  },
+  {
     "title": "Ideas",
     "path": "notes/ideas",
     "url": "/notes/ideas/",
@@ -96,6 +104,38 @@
     "tags": []
   },
   {
+    "title": "Redirecting to Ideas",
+    "path": "wiki/notes/ideas",
+    "url": "/wiki/notes/ideas/",
+    "content": "<meta http-equiv=\"refresh\" content=\"0; url=/notes/ideas/\">\n\nThis page has moved to [Ideas](/notes/ideas/).",
+    "published": "2026-03-16T23:51:16.715650+00:00",
+    "tags": []
+  },
+  {
+    "title": "Redirecting to Research Notes",
+    "path": "wiki/notes/research",
+    "url": "/wiki/notes/research/",
+    "content": "<meta http-equiv=\"refresh\" content=\"0; url=/notes/research/\">\n\nThis page has moved to [Research Notes](/notes/research/).",
+    "published": "2026-03-16T23:51:16.715409+00:00",
+    "tags": []
+  },
+  {
+    "title": "Redirecting to Miscellaneous Notes",
+    "path": "wiki/notes/misc",
+    "url": "/wiki/notes/misc/",
+    "content": "<meta http-equiv=\"refresh\" content=\"0; url=/notes/misc/\">\n\nThis page has moved to [Miscellaneous Notes](/notes/misc/).",
+    "published": "2026-03-16T23:51:16.715750+00:00",
+    "tags": []
+  },
+  {
+    "title": "Redirecting to Reading Notes",
+    "path": "wiki/notes/reading",
+    "url": "/wiki/notes/reading/",
+    "content": "<meta http-equiv=\"refresh\" content=\"0; url=/notes/reading/\">\n\nThis page has moved to [Reading Notes](/notes/reading/).",
+    "published": "2026-03-16T23:51:16.715515+00:00",
+    "tags": []
+  },
+  {
     "title": "Research Notes",
     "path": "notes/research/index",
     "url": "/notes/research/index/",
@@ -108,7 +148,7 @@
     "path": "notes/reading/index",
     "url": "/notes/reading/index/",
     "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
-    "published": "2026-03-16T23:48:43.564662+00:00",
+    "published": "2026-03-16T23:50:14.628329+00:00",
     "tags": []
   }
 ]

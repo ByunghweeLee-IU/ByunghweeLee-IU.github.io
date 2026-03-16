@@ -1,0 +1,4 @@
+/wiki/visibility/
+/wiki/index.md/
+/wiki/test-about/
+/wiki/about/test-about/

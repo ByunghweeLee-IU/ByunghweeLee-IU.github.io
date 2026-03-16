@@ -1,0 +1,98 @@
+[
+  {
+    "title": "My page",
+    "path": "visibility",
+    "url": "/wiki/visibility/",
+    "content": "",
+    "published": "2026-03-16T23:00:19.310534+00:00",
+    "tags": []
+  },
+  {
+    "title": "Notes",
+    "path": "notes",
+    "url": "/wiki/notes/",
+    "content": "This section collects public notes maintained in Obsidian and published through Foliate.\n\n## Browse by Topic\n\n- [Research notes](/wiki/notes/research/)\n- [Reading notes](/wiki/notes/reading/)\n- [Ideas](/wiki/notes/ideas/)\n- [Miscellaneous](/wiki/notes/misc/)",
+    "published": "2026-03-16T23:55:27.700195+00:00",
+    "tags": []
+  },
+  {
+    "title": "CV",
+    "path": "cv",
+    "url": "/wiki/cv/",
+    "content": "My current CV is available here: [Download CV](/assets/byunghwee-cv.pdf)\n\n\n\n## Snapshot\n\n- Current position\n- Research areas\n- Email / website / scholar links",
+    "published": "2026-03-16T23:37:31.692529+00:00",
+    "tags": []
+  },
+  {
+    "title": "Research",
+    "path": "research",
+    "url": "/wiki/research/",
+    "content": "This page can serve as a landing page for your main research agenda.\n\n## Current Themes\n\n- Theme 1\n- Theme 2\n- Theme 3\n\n## Ongoing Projects\n\n- Project title, collaborators, and short summary\n- Project title, collaborators, and short summary",
+    "published": "2026-03-16T23:25:37.544481+00:00",
+    "tags": []
+  },
+  {
+    "title": "Publications",
+    "path": "publications",
+    "url": "/wiki/publications/",
+    "content": "List journal articles, conference papers, working papers, or other writing here.\n\n## Selected Publications\n\n1. Author, A., & Lee, B. (Year). Title. *Journal Name*.\n2. Author, A., Lee, B., & Author, C. (Year). Title. *Journal Name*.\n\n## Working Papers\n\n- Title\n- Title",
+    "published": "2026-03-16T23:25:37.544569+00:00",
+    "tags": []
+  },
+  {
+    "title": "Byunghwee Lee",
+    "path": "index",
+    "url": "/wiki/index/",
+    "content": "## Welcome\n\nI use this site as a home for my academic profile, selected work, and public notes.\n\n- Learn more [about me](/about/)\n- Browse current [research](/research/)\n- See [publications](/publications/) and [talks](/talks/)\n- Explore my [notes](/wiki/notes/)\n- Download my [CV](byunghwee-cv.pdf)\n\n## Focus Areas\n\n- Research projects and collaborations\n- Reading notes and literature tracking\n- Early-stage ideas and working memos\n- Public-facing updates for talks and publications",
+    "published": "2026-03-16T23:55:27.699622+00:00",
+    "tags": []
+  },
+  {
+    "title": "Talks",
+    "path": "talks",
+    "url": "/wiki/talks/",
+    "content": "Use this page to list conference presentations, invited talks, workshops, and guest lectures.\n\n## Recent Talks\n\n- Talk title, venue, date\n- Talk title, venue, date",
+    "published": "2026-03-16T23:25:37.544649+00:00",
+    "tags": []
+  },
+  {
+    "title": "About",
+    "path": "about",
+    "url": "/wiki/about/",
+    "content": "I am building this site with Foliate and managing the content in Obsidian.\n\nUse this page for a short academic biography, institutional affiliation, research interests, and contact information.\n\n## Suggested Sections\n\n- One-paragraph bio\n- Current position and affiliation\n- Research interests\n- Contact links",
+    "published": "2026-03-16T23:25:37.544399+00:00",
+    "tags": []
+  },
+  {
+    "title": "Ideas",
+    "path": "notes/ideas",
+    "url": "/wiki/notes/ideas/",
+    "content": "Use this space for early-stage ideas that you want to keep visible and revisitable.",
+    "published": "2026-03-16T23:55:27.700428+00:00",
+    "tags": []
+  },
+  {
+    "title": "Research Notes",
+    "path": "notes/research",
+    "url": "/wiki/notes/research/",
+    "content": "Public research notes live here.\n\n- Project logs\n- Method notes\n- Data and workflow memos",
+    "published": "2026-03-16T23:55:27.700288+00:00",
+    "tags": []
+  },
+  {
+    "title": "Miscellaneous Notes",
+    "path": "notes/misc",
+    "url": "/wiki/notes/misc/",
+    "content": "This section is a flexible home for assorted notes, references, and brief updates.",
+    "published": "2026-03-16T23:55:27.700499+00:00",
+    "tags": []
+  },
+  {
+    "title": "Reading Notes",
+    "path": "notes/reading",
+    "url": "/wiki/notes/reading/",
+    "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
+    "published": "2026-03-16T23:55:27.700359+00:00",
+    "tags": []
+  }
+]

@@ -75,8 +75,8 @@
     "title": "Tips",
     "path": "notes/Tips",
     "url": "/wiki/notes/Tips/",
-    "content": "* [[VS code tips]]",
-    "published": "2026-03-17T00:32:37.665169+00:00",
+    "content": "* [VS_code_tips](/wiki/notes/Tips/VS_code_tips)\n* \n*",
+    "published": "2026-03-17T00:36:13.049165+00:00",
     "tags": []
   },
   {
@@ -113,10 +113,10 @@
   },
   {
     "title": "vscode tips",
-    "path": "notes/Tips/VS code tips",
-    "url": "/wiki/notes/Tips/VS code tips/",
-    "content": "- [[VS code tip1]]\n- [[VS code tip2]]",
-    "published": "2026-03-17T00:32:45.455056+00:00",
+    "path": "notes/Tips/VS_code_tips",
+    "url": "/wiki/notes/Tips/VS_code_tips/",
+    "content": "- [[VS_code_tip1]]\n- [[VS_code_tip2]]",
+    "published": "2026-03-17T00:35:54.133289+00:00",
     "tags": []
   }
 ]

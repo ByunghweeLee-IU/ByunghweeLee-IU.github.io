@@ -12,4 +12,4 @@
 /wiki/notes/research/
 /wiki/notes/misc/
 /wiki/notes/reading/
-/wiki/notes/Tips/VS code tips/
+/wiki/notes/Tips/VS_code_tips/

@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T00:32:45Z</updated>
+  <updated>2026-03-17T00:36:13Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -15,28 +15,29 @@
 
   
   <entry>
-    <title>vscode tips</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS code tips/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS code tips/</id>
-    <published>2026-03-17T00:32:45Z</published>
-    <updated>2026-03-17T00:32:45Z</updated>
+    <title>Tips</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/</id>
+    <published>2026-03-17T00:36:13Z</published>
+    <updated>2026-03-17T00:36:13Z</updated>
     
     <content type="html"><![CDATA[<ul>
-<li><a class="wikilink" href="/wiki/VS code tip1/" rel="nofollow">VS code tip1</a></li>
-<li><a class="wikilink" href="/wiki/VS code tip2/" rel="nofollow">VS code tip2</a></li>
+<li><a href="/wiki/notes/Tips/VS_code_tips" rel="nofollow">VS_code_tips</a></li>
+<li>*</li>
 </ul>]]></content>
     
   </entry>
   
   <entry>
-    <title>Tips</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/</id>
-    <published>2026-03-17T00:32:37Z</published>
-    <updated>2026-03-17T00:32:37Z</updated>
+    <title>vscode tips</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tips/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tips/</id>
+    <published>2026-03-17T00:35:54Z</published>
+    <updated>2026-03-17T00:35:54Z</updated>
     
     <content type="html"><![CDATA[<ul>
-<li><a class="wikilink" href="/wiki/VS code tips/" rel="nofollow">VS code tips</a></li>
+<li><a class="wikilink" href="/wiki/VS_code_tip1/" rel="nofollow">VS code tip1</a></li>
+<li><a class="wikilink" href="/wiki/VS_code_tip2/" rel="nofollow">VS code tip2</a></li>
 </ul>]]></content>
     
   </entry>

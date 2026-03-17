@@ -11,3 +11,4 @@
 /wiki/notes/research/
 /wiki/notes/misc/
 /wiki/notes/reading/
+/wiki/notes/Tips/VS code tips/

@@ -11,8 +11,8 @@
     "title": "Home",
     "path": "Home",
     "url": "/wiki/Home/",
-    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Notes](/wiki/notes/)\n- [Research Notes](/wiki/notes/research/)\n- [Reading Notes](/wiki/notes/reading/)\n- [Ideas](/wiki/notes/ideas/)\n- [Miscellaneous](/wiki/notes/misc/)\n\n## About This Wiki\n\nThis wiki is where I collect public notes, reading summaries, project fragments, and working ideas.",
-    "published": "2026-03-17T00:12:50.577075+00:00",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Notes](/wiki/notes/)\n- [Research Notes](/wiki/notes/research/)\n- [Reading Notes](/wiki/notes/reading/)\n- [Tips](/wiki/notes/Tips/)\n- [Miscellaneous](/wiki/notes/misc/)\n\n## About This Wiki\n\nThis wiki is where I collect public notes, reading summaries, project fragments, and working ideas.",
+    "published": "2026-03-17T00:26:38.244087+00:00",
     "tags": []
   },
   {
@@ -101,6 +101,14 @@
     "url": "/wiki/notes/reading/",
     "content": "This area is for literature summaries, annotated bibliographies, and reading reflections.",
     "published": "2026-03-16T23:55:27.700359+00:00",
+    "tags": []
+  },
+  {
+    "title": "vscode tips",
+    "path": "notes/Tips/VS code tips",
+    "url": "/wiki/notes/Tips/VS code tips/",
+    "content": "- [[VS code tip1]]\n- [[VS code tip2]]\n-",
+    "published": "2026-03-17T00:24:11.349463+00:00",
     "tags": []
   }
 ]

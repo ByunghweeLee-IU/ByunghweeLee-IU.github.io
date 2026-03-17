@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T00:18:16Z</updated>
+  <updated>2026-03-17T00:26:38Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,43 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.6.0">foliate</generator>
 
+  
+  <entry>
+    <title>Home</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
+    <published>2026-03-17T00:26:38Z</published>
+    <updated>2026-03-17T00:26:38Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
+<h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="/wiki/notes/" rel="nofollow">Notes</a></li>
+<li><a href="/wiki/notes/research/" rel="nofollow">Research Notes</a></li>
+<li><a href="/wiki/notes/reading/" rel="nofollow">Reading Notes</a></li>
+<li><a href="/wiki/notes/Tips/" rel="nofollow">Tips</a></li>
+<li><a href="/wiki/notes/misc/" rel="nofollow">Miscellaneous</a></li>
+</ul>
+<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This wiki is where I collect public notes, reading summaries, project fragments, and working ideas.</p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>vscode tips</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS code tips/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS code tips/</id>
+    <published>2026-03-17T00:24:11Z</published>
+    <updated>2026-03-17T00:24:11Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><a class="wikilink" href="/wiki/VS code tip1/" rel="nofollow">VS code tip1</a></li>
+<li>
+<h2 id="vs-code-tip2"><a class="wikilink" href="/wiki/VS code tip2/" rel="nofollow">VS code tip2</a><a class="header-anchor" href="#vs-code-tip2" title="Link to this section" rel="nofollow">#</a></h2>
+</li>
+</ul>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Notes</title>
@@ -30,27 +67,6 @@
 <li><a href="/wiki/notes/ideas/" rel="nofollow">Ideas</a></li>
 <li><a href="/wiki/notes/misc/" rel="nofollow">Miscellaneous</a></li>
 </ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Home</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-03-17T00:12:50Z</published>
-    <updated>2026-03-17T00:12:50Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
-<h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="/wiki/notes/" rel="nofollow">Notes</a></li>
-<li><a href="/wiki/notes/research/" rel="nofollow">Research Notes</a></li>
-<li><a href="/wiki/notes/reading/" rel="nofollow">Reading Notes</a></li>
-<li><a href="/wiki/notes/ideas/" rel="nofollow">Ideas</a></li>
-<li><a href="/wiki/notes/misc/" rel="nofollow">Miscellaneous</a></li>
-</ul>
-<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This wiki is where I collect public notes, reading summaries, project fragments, and working ideas.</p>]]></content>
     
   </entry>
   

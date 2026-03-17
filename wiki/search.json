@@ -11,16 +11,16 @@
     "title": "Home",
     "path": "Home",
     "url": "/wiki/Home/",
-    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Notes](/wiki/notes/)\n- [Research Notes](/wiki/notes/research/)\n- [Reading Notes](/wiki/notes/reading/)\n- [Tips](/wiki/notes/Tips/)\n- [Miscellaneous](/wiki/notes/misc/)\n\n## About This Wiki\n\nThis wiki is where I collect public notes, reading summaries, project fragments, and working ideas.",
-    "published": "2026-03-17T00:26:38.244087+00:00",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Notes](notes.md)\n- [Research Notes](notes/research.md)\n- [Reading Notes](notes/reading.md)\n- [Tips](notes/Tips.md)\n- [Miscellaneous](notes/misc.md)\n\n## About This Wiki\n\nThis wiki is where I collect public notes, reading summaries, project fragments, and working ideas.",
+    "published": "2026-03-17T00:39:59.224918+00:00",
     "tags": []
   },
   {
     "title": "Notes",
     "path": "notes",
     "url": "/wiki/notes/",
-    "content": "This section collects public notes maintained in Obsidian and published through Foliate.\n\nExplore my Obsidian notes. \n\n## Browse by Topic\n\n- [Research notes](/wiki/notes/research/)\n- [Reading notes](/wiki/notes/reading/)\n- [Ideas](/wiki/notes/ideas/)\n- [Miscellaneous](/wiki/notes/misc/)",
-    "published": "2026-03-17T00:18:16.761854+00:00",
+    "content": "This section collects public notes maintained in Obsidian and published through Foliate.\n\nExplore my Obsidian notes. \n\n## Browse by Topic\n\n- [Research notes](notes/research.md)\n- [Reading notes](notes/reading.md)\n- [Tips](notes/Tips.md)\n- [Ideas](notes/ideas.md)\n- [Miscellaneous](notes/misc.md)",
+    "published": "2026-03-17T00:42:24.805454+00:00",
     "tags": []
   },
   {
@@ -75,8 +75,8 @@
     "title": "Tips",
     "path": "notes/Tips",
     "url": "/wiki/notes/Tips/",
-    "content": "* [VS_code_tips](/wiki/notes/Tips/VS_code_tips)\n* \n*",
-    "published": "2026-03-17T00:36:13.049165+00:00",
+    "content": "Short practical notes, editor tricks, and workflow reminders.\n\n## Browse Tips\n\n- [VS Code tips](Tips/VS_code_tips.md)",
+    "published": "2026-03-17T00:42:24.805622+00:00",
     "tags": []
   },
   {
@@ -112,11 +112,27 @@
     "tags": []
   },
   {
-    "title": "vscode tips",
+    "title": "VS Code Tip 1",
+    "path": "notes/Tips/VS_code_tip1",
+    "url": "/wiki/notes/Tips/VS_code_tip1/",
+    "content": "This is tip 1.",
+    "published": "2026-03-17T00:42:24.806397+00:00",
+    "tags": []
+  },
+  {
+    "title": "VS Code Tip 2",
+    "path": "notes/Tips/VS_code_tip2",
+    "url": "/wiki/notes/Tips/VS_code_tip2/",
+    "content": "This is tip 2.",
+    "published": "2026-03-17T00:42:24.806656+00:00",
+    "tags": []
+  },
+  {
+    "title": "VS Code Tips",
     "path": "notes/Tips/VS_code_tips",
     "url": "/wiki/notes/Tips/VS_code_tips/",
-    "content": "- [[VS_code_tip1]]\n- [[VS_code_tip2]]",
-    "published": "2026-03-17T00:35:54.133289+00:00",
+    "content": "This page collects small VS Code notes in one place.\n\n## Tips\n\n- [VS Code Tip 1](VS_code_tip1.md)\n- [VS Code Tip 2](VS_code_tip2.md)",
+    "published": "2026-03-17T00:42:24.806850+00:00",
     "tags": []
   }
 ]

@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260316b">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Atom Feed autodiscovery -->
@@ -39,7 +39,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body>
+<body data-page-path="cv">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee</a>
@@ -93,18 +93,51 @@
 
     <article>
         
+
 <header>
     <h1>CV</h1>
     
 </header>
 
+
 <section class="content">
     <p>My current CV is available here: <a href="/assets/byunghwee-cv.pdf" rel="nofollow">Download CV</a></p>
-<h2 id="snapshot">Snapshot<a class="header-anchor" href="#snapshot" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="current-position">Current Position<a class="header-anchor" href="#current-position" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li>Current position</li>
-<li>Research areas</li>
-<li>Email / website / scholar links</li>
+<li>Postdoctoral Research Associate, School of Data Science, University of Virginia</li>
+<li>Charlottesville, Virginia</li>
+<li>Advisor: Yong-Yeol Ahn</li>
+</ul>
+<h2 id="education">Education<a class="header-anchor" href="#education" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>PhD in Physics, KAIST, 2021</li>
+<li>BS in Physics, KAIST, 2013</li>
+</ul>
+<h2 id="previous-positions">Previous Positions<a class="header-anchor" href="#previous-positions" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Postdoctoral Researcher, Indiana University, 2023-2025</li>
+<li>Senior Researcher, Sungkyunkwan University / Institute of Basic Science, 2022-2023</li>
+<li>Researcher / Curator, National Science Museum, 2021-2022</li>
+<li>Postdoctoral Researcher, KAIST Natural Science Research Institute, 2021</li>
+</ul>
+<h2 id="research-areas">Research Areas<a class="header-anchor" href="#research-areas" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Computational social science</li>
+<li>Cultural analytics and computational art history</li>
+<li>Network science</li>
+<li>Representation learning and multimodal AI</li>
+<li>Human beliefs, judgment, and online discourse</li>
+</ul>
+<h2 id="selected-recognition">Selected Recognition<a class="header-anchor" href="#selected-recognition" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Datapalooza 2025 Best in Show Award, University of Virginia School of Data Science. <a href="https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025" rel="nofollow">News</a></li>
+<li>Best Poster Presentation, Korean Physical Society Meeting, 2020</li>
+<li>Best Oral Presentation, Korean Physical Society Meeting, 2019</li>
+</ul>
+<h2 id="links">Links<a class="header-anchor" href="#links" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Email: <a href="mailto:wzn3hf@virginia.edu">wzn3hf@virginia.edu</a></li>
+<li>ORCID: <a href="https://orcid.org/0000-0003-2369-2022" rel="nofollow">0000-0003-2369-2022</a></li>
 </ul>
 </section>
 
@@ -137,6 +170,44 @@
                 throwOnError: false,
                 ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
                 ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+                if (!href.endsWith(".md")) return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
             });
         });
     </script>

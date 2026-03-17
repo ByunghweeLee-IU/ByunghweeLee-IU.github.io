@@ -1,0 +1,633 @@
+% Tagged PDF setup — produces accessible PDF with structure tags.
+\DocumentMetadata{
+  lang = en,
+  pdfstandard = a-2b,
+  pdfstandard = ua-1,
+  pdfversion = 2.0,
+  testphase = {phase-II},
+}
+\documentclass[10pt]{article}
+
+% {{{ packages
+\usepackage{hyperref}
+\usepackage{calc}
+\usepackage[paper=letterpaper,
+            marginparwidth=0.9in,     % Length of section titles
+            marginparsep=.06in,       % Space between titles and text
+            left=1.75in,
+            right=-0.1in,
+            top=0.7in,
+            bottom=0.7in,
+            includemp]{geometry}
+\usepackage{etoolbox}
+\usepackage{fontspec}
+\usepackage[backend=biber,maxnames=99,style=numeric,sorting=ydnt,defernumbers]{biblatex} %sorting=ydnt
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{xcolor}
+\setmainfont{TeX Gyre Pagella}
+\setmonofont{Inconsolatazi4-Regular.otf}[BoldFont=Inconsolatazi4-Bold.otf]
+\usepackage{fontawesome5}
+\usepackage{paralist}
+\usepackage{orcidlink}
+
+\usepackage{luatexko}
+\setmainfont{TeX Gyre Pagella}
+\setmainhangulfont{Noto Serif CJK KR}
+\setsanshangulfont{Noto Sans CJK KR}
+
+% }}}
+
+% bibliography  {{{
+\addbibresource{byunghwee.bib}
+
+
+% Highlight Me
+% Highlight HAVI collaborators
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\newcommand*{\highlightname}[1]{\textcolor{darkblue}{\textbf{#1}}}
+
+\newcommand*{\ishavicollaborator}{%
+  \ifboolexpr{
+    ( test {\ifdefstring{\namepartfamily}{Schich}} and test {\ifdefstring{\namepartgiven}{Maximilian}} )
+    or
+    ( test {\ifdefstring{\namepartfamily}{Ahn}} and test {\ifdefstring{\namepartgiven}{Yong-Yeol}} )
+  }%
+}
+
+% Highlight me
+\newcommand*{\isme}{%
+  \ifboolexpr{
+    test {\ifdefstring{\namepartfamily}{Lee}} and
+    test {\ifdefstring{\namepartgiven}{Byunghwee}}
+  }%
+}
+
+% Byunghwee name addon per entry
+\newcommand*{\meaddon}{%
+  \iffieldequalstr{entrykey}{kim2025investigating}{\textsuperscript{$\dagger$}}{}%
+  \iffieldequalstr{entrykey}{kim2020multi}{\textsuperscript{$\dagger$}}{}%
+  \iffieldequalstr{entrykey}{kim2025combined}{\textsuperscript{$\ast$}}{}%
+}
+
+\renewcommand*{\mkbibnamefamily}[1]{%
+  \isme{{\bfseries\boldmath #1\meaddon}}{#1}%
+}
+
+\renewcommand*{\mkbibnamegiven}[1]{%
+  \isme{{\bfseries\boldmath #1}}{#1}%
+}
+
+% Layouts  {{{
+\reversemarginpar
+\setlength{\parindent}{0in}
+
+% page numbers
+% page numbers
+\pagestyle{fancy}
+\fancyhf{}                       % header/footer 모두 초기화
+\renewcommand{\headrulewidth}{0pt} % 위쪽 선 제거
+\renewcommand{\footrulewidth}{0pt}
+
+\fancyfootoffset{\marginparsep+\marginparwidth}
+
+
+\newlength{\footpageshift}
+\setlength{\footpageshift}
+          {0.5\textwidth+0.5\marginparsep+0.5\marginparwidth-2in}
+\lfoot{\hspace{\footpageshift}%
+       \parbox{4in}{\, \hfill %
+                    \arabic{page} of \protect\pageref*{LastPage} % +LP
+                    \hfill \,}}
+%}}}
+
+%{{{ Fonts and colors
+\linespread{1.05}        % Tighter than full CV
+
+\definecolor{darkpink}{rgb}{0.48,0.13,0.13}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkpink,urlcolor=darkpink,
+            anchorcolor=darkpink,citecolor=darkpink,
+            pdftitle={Curriculum Vitae - Byunghwee Lee},
+            pdfauthor={Byunghwee Lee},
+            pdfsubject={Academic CV},
+            pdflang={en},
+            pdfdisplaydoctitle=true}
+%}}}
+
+
+%\newcommand{\makeheading}[2]{%
+%{\hspace*{-\marginparsep minus \marginparwidth}%
+%\begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+%{\Large \textbf{#1}} \, {\Large \textbf{#2}} \\
+%\rule{\columnwidth}{.1pt} %
+%\end{minipage}
+%}
+%}
+
+\newcommand{\makeheading}[2]{%
+{\hspace*{-\marginparsep minus \marginparwidth}%
+\begin{minipage}[t]{\textwidth+\marginparwidth+\marginparsep}%
+{\Large \textbf{#1}} \, {\Large \textbf{#2}}%
+\hfill {\normalsize Last updated: \today}\\
+\rule{\columnwidth}{.1pt} %
+\end{minipage}
+}
+}
+
+
+%{{{ Sections
+\renewcommand{\section}[2]%
+        {\pagebreak[2]\vspace{1.3\baselineskip}%
+         \phantomsection\addcontentsline{toc}{section}{#1}%
+         \hspace{0in}%
+         \marginpar{%
+         \raggedright \scshape #1}#2}
+\renewcommand{\subsection}[2]%
+        {\pagebreak[2]\vspace{1.3\baselineskip}%
+         \phantomsection\addcontentsline{toc}{subsection}{#1}%
+         \hspace{0in} \textbf{#1} #2}
+
+
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%}}}
+
+%{{{ Lists
+\newenvironment{outerlist}[1][\enskip\textbullet]%
+{\vspace{-0.5\baselineskip}\begin{itemize}[#1]}{\setlength{\partopsep}{0pt}\setlength{\topsep}{0pt}\end{itemize}\vspace{-1\baselineskip}}
+
+\newenvironment{lonelist}[1][\enskip\textbullet]%
+        {\vspace{-\baselineskip}\begin{list}{#1}{%
+        \setlength{\partopsep}{0pt}%
+        \setlength{\topsep}{0pt} }}
+        {\end{list}\vspace{-1\baselineskip}}
+
+\newenvironment{innerlist}[1][\enskip\textbullet]%
+{\vspace{0.2\baselineskip}\begin{compactitem}[#1]}{\end{compactitem}\vspace{0.2\baselineskip}}
+%}}}
+
+\begin{document}
+
+%{{{ Name
+\makeheading{Byunghwee}{Lee}
+%}}}
+
+\vspace{0.3\baselineskip}
+\noindent
+\textit{My research lies at the intersection of AI, data science, and society, where I develop computational methods to study art and culture, human beliefs, and social dynamics at scale.}
+
+
+%{{{ Contact information
+\section{Contact Information}{
+\newlength{\rcollength}\setlength{\rcollength}{2.1in}%
+\begin{tabular}[t]{@{}p{\textwidth-\rcollength+20pt}p{\rcollength-20pt}}
+Postdoctoral Research Associate & \faEnvelope~\href{mailto:wzn3hf@virginia.edu}{\texttt{wzn3hf@virginia.edu}}\\
+School of Data Science, University of Virginia & \faOrcid~\href{https://orcid.org/0000-0003-2369-2022}{\texttt{0000-0003-2369-2022}}\\
+1919 Ivy Rd., Charlottesville, VA 22903
+\end{tabular}}
+%}}}
+
+\section{Research Interests}
+Computational Social Science, Cultural Analytics, Computational Art History, Network Science, Representation Learning, Generative/Multimodal AI.
+
+
+\section{Highlights}
+\textbf{AI and Human Beliefs}
+\begin{innerlist}
+\item \textbf{Belief representation with LLMs}: 
+\emph{Nature Human Behavior}, 2025; 
+\emph{arXiv preprint}, 2025
+\end{innerlist}
+
+\textbf{Network Science, Social Systems, and Online Media}
+\begin{innerlist}
+\item \textbf{Network Dynamics of Social Media}: 
+\emph{Physica A}, 2025; 
+\emph{Phys. Rev. Res.}, 2021
+
+\item \textbf{Online Discourse and Infodemics}: 
+\emph{Explainable AI in Healthcare and Medicine}, 2020; 
+\emph{Public Health and Informatics}, 2021; 
+\emph{한국사회}, 2020
+\end{innerlist}
+
+\textbf{Data-driven Analysis of Art, Culture, and Creativity}
+\begin{innerlist}
+\item \textbf{Computational Art History}: 
+\emph{PNAS}, 2020; 
+\emph{Sci. Rep.}, 2025; 
+\emph{PLOS One}, 2018; 
+\emph{New Phys.: Sae Mulli}, 2016
+
+\item \textbf{Multimodal AI for Art}: 
+\emph{arXiv preprint}, 2025; 
+\emph{SSRN preprint}, 2025
+
+\item \textbf{Stylometry and Historical Texts}: 
+\emph{JKPS}, 2020; 
+\emph{New Phys.: Sae Mulli}, 2016
+\end{innerlist}
+
+
+
+\section{Selected Publications}
+\textbf{Belief and AI} — \textbf{A semantic embedding space based on large language models for modelling human beliefs}.  
+Byunghwee Lee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  
+\textit{Nature Human Behaviour}, 2025.  
+\href{https://doi.org/10.1038/s41562-025-02228-z}{[Link]}
+
+\begin{innerlist}
+\item Highlighted by \textit{Phys.org}  
+\href{https://phys.org/news/2025-06-llms-delve-online-debates-human.html}{[News]}
+\end{innerlist}
+\vspace{0.4\baselineskip}
+
+\textbf{Art and Data Science} — \textbf{Dissecting landscape art history using information theory}.  
+Byunghwee Lee, Min Kyung Seo, Daniel Kim, In-Seob Shin, Maximilian Schich, Hawoong Jeong, and Seung Kee Han.  
+\textit{Proceedings of the National Academy of Sciences (PNAS)}, 117(43), 26580–26590 (2020).  
+\href{https://doi.org/10.1073/pnas.2011927117}{[Link]}
+
+\begin{innerlist}
+\item Featured in the \textit{PNAS “In This Issue”} section  
+
+\item Accompanied by a commentary paper  
+\href{https://doi.org/10.1073/pnas.2018652117}{[Link]}
+
+\item Highlighted by media including \href{https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-composition-of-landscape-paintings-changed-over-time/}{\textit{Forbes}}, \href{https://www.inverse.com/science/math-uncovers-art-secrets}{\textit{Inverse}}, \href{https://www.sciencedaily.com/releases/2020/11/201113105835.htm}{\textit{Science Daily}}, 
+\href{https://kaist.ac.kr/news/html/news/?mode=V&mng_no=10630&skey=keyword&sval=%eb%b3%b5%ec%9e%a1%ea%b3%84&list_s_date=&list_e_date=&GotoPage=1}{KAIST News},
+\href{https://www.dongascience.com/news/41209}{\textit{Donga Science}}, and
+\href{https://dl.dongascience.com/dl/magazine/detail/S202103N016}{과학동아}. 
+\end{innerlist}
+\vspace{0.4\baselineskip}
+
+\textbf{Network Science} — \textbf{Network analysis reveals news press landscape and asymmetric user polarization}.  
+Byunghwee Lee, Hyo-sun Ryu, Jae Kook Lee, Hawoong Jeong, Beom Jun Kim. 
+\textit{Physica A: Statistical Mechanics and its Applications}, p.130842 (2025)
+\href{https://doi.org/10.1016/j.physa.2025.130842}{[Link]}
+\begin{innerlist}
+\item Highlighted by \textit{SKKU Media}  
+\href{https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&articleNo=129197}{[News]}
+\end{innerlist}
+
+%}}}
+
+%{{{ Education
+\section{Education}
+Ph.D. Physics, KAIST (Daejeon, South Korea) \hfill Feb. 2021
+\begin{innerlist}
+    \item[] Dissertation: \emph{Art and Complexity in the Era of Big Data} (Advisor: Hawoong Jeong)
+\end{innerlist}
+B.S. Physics, KAIST (Daejeon, South Korea)\hfill Feb. 2013
+
+
+
+%{{{ Positions
+\section{Academic \& Professional Positions}
+\textbf{University of Virginia}, Charlottesville, VA, USA
+\begin{innerlist}
+\item[] Postdoctoral Research Associate (Advisor: Yong-Yeol Ahn) \hfill Aug. 2025--
+\end{innerlist}
+\textbf{Indiana University}, Bloomington, IN, USA
+\begin{innerlist}
+\item[] Postdoctoral Researcher, Luddy School of Informatics, Computing, and Engineering
+\\ (Advisor: Jisun An, Haewoon Kwak, and Yong-Yeol Ahn) \hfill Mar. 2023 -- Aug. 2025
+\end{innerlist}
+\textbf{Sungkyunkwan University}, South Korea
+\begin{innerlist}
+\item[] Senior researcher, Institute of Basic Science (Advisor: Beom Jun Kim) \hfill Sep. 2022 -- Feb. 2023
+\end{innerlist}
+\textbf{National Science Museum}, South Korea
+\begin{innerlist}
+\item[] Researcher / Curator \hfill Jun. 2021 -- Sep. 2022
+\item[] Contributed to the advancement of museum data management system
+\end{innerlist}
+\textbf{Korea Advanced Institute of Science and Technology (KAIST)}, South Korea
+\begin{innerlist}
+\item[] Post-doctoral researcher, Natural Science Research Institute\\ (Advisor: Hawoong Jeong) \hfill Mar. 2021 -- Jun. 2021
+\end{innerlist}
+
+
+
+\section{Professional License}
+{\textbf{National Certificate on Museum and Art Gallery Curator (level 3)}
+\begin{innerlist}
+\item[] Ministry of Culture, Sports and Tourism, South Korea \hfill Oct. 2022
+\end{innerlist}}
+
+\section{Awards}
+\textbf{Oral and Poster Presentation Awards}
+\begin{innerlist}
+\item[] Datapalooza 2025 Best in Show Award, School of Data Science, University of Virginia\\(\textit{\$750 Travel award})
+\href{https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025}{[News]}
+\hfill Nov.~2025
+
+\item[] Korean Physical Society Meeting, Best Poster Presentation
+\hfill Jul.~2020
+
+\item[] Korean Physical Society Meeting, Best Oral Presentation
+\hfill Apr.~2019
+
+\item[] Korea Academy of Complexity Studies,\\ Best Oral Presentation \hfill Nov. 2013; Nov. 2014; Nov. 2015; Nov. 2017
+
+\item[] Conference on Complex Systems (Arizona, USA), Best Poster Award 
+\hfill Oct.~2015
+
+\item[] STATPHYS25 Satellite Meeting: Computational Methods for Bio and Complex Systems \\Best Poster Award
+\hfill Jul.~2013
+\end{innerlist}
+
+
+
+
+
+
+\section{Selected Media Coverage}
+\textbf{Selected media coverage of research}
+\begin{innerlist}
+\item LLMs delve into online debates to create a detailed map of human beliefs, \textit{Phys.org}, Jun. 2025. \href{https://phys.org/news/2025-06-llms-delve-online-debates-human.html}{[News]}
+
+\item The human quest for discovering mathematical beauty in the arts, \emph{PNAS} Commentary, October 23, 2020. \href{https://www.pnas.org/doi/10.1073/pnas.2018652117}{[Link]}
+
+\item Math shows How the composition of landscape paintings changed over time, \textit{Forbes}, Oct. 23. 2020. \href{https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-composition-of-landscape-paintings-changed-over-time/}{[Link]} 
+
+\item Math uncovers hidden patterns in these historic art masterpieces, \textit{Inverse}, Oct. 13. 2020. \href{https://www.inverse.com/science/math-uncovers-art-secrets}{[Link]}
+
+\item Drawing the Line to Answer Art’s Big Questions, \textit{KAIST News} \href{https://kaist.ac.kr/news/html/news/?mode=V&mng_no=10630&skey=keyword&sval=%eb%b3%b5%ec%9e%a1%ea%b3%84&list_s_date=&list_e_date=&GotoPage=1}{[Link]}
+
+\item 명화 속 빛의 비밀, 데이터는 알고 있다 (\textit{Data reveals the hidden secrets of light in masterpieces}), \textit{과학동아}, Mar. 2021. \href{https://dl.dongascience.com/dl/magazine/detail/S202103N016}{[Link]} 
+
+\item 학제 간 경계를 넘은 융합 연구, 양극화된 댓글 네트워크를 확인하다 (\textit{Interdisciplinary research across boundaries reveals polarized comment networks}), \textit{SKKU Media}, Aug. 2025.
+\href{https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&articleNo=129197}{[Link]}
+\end{innerlist}
+
+
+%\section{Publications}
+%\textbf{Peer-reviewed Publications\\($^\dagger$: equal contribution; $^\ast$: Co-corresponding author)}
+%{\renewcommand*{\bibfont}{}\printbibliography[heading=none]}
+
+
+\section{Publications}
+\textbf{Preprints and Manuscripts Under Review\\($^\dagger$: equal contribution; $^\ast$: Co-corresponding author)}
+\begin{refsection}
+\nocite{*}
+{\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{P#1}}%
+ \renewcommand*{\bibfont}{}%
+ \printbibliography[
+   heading=none,
+   keyword=preprint,
+   resetnumbers=true
+ ]}
+\end{refsection}
+
+\textbf{Peer-reviewed Publications\\($^\dagger$: equal contribution; $^\ast$: Co-corresponding author)}
+\begin{refsection}
+\nocite{*}
+{\renewcommand*{\bibfont}{}\printbibliography[
+  heading=none,
+  keyword=peerreviewed,
+  resetnumbers=true
+]}
+\end{refsection}
+
+%In preparation
+\textbf{Manuscripts in Preparation}
+\begin{innerlist}
+\item \textbf{The geometry of persuasion: Quantifying belief change in a latent embedding space}.  
+\textbf{Byunghwee Lee}, Jisun An, Haewoon Kwak, Yong-Yeol Ahn.  
+\emph{In preparation}.
+
+\end{innerlist}
+
+\section{Articles and Book chapters}
+\textbf{Articles and Magazines}
+\begin{innerlist}
+
+\item \textbf{Math reveals the evolution of composition in paintings}, 
+Byunghwee Lee, Hawoong Jeong, 
+\textit{The Science Breaker}, Dec. 29. 2021. 
+\href{https://doi.org/10.25250/thescbr.brk609}{[Link]}
+
+\item \textbf{Art history seen through the eyes of physics (in Korean)}, 
+Byunghwee Lee, 
+\textit{APCTP Crossroad Webzine}, Apr. 2021. 
+\href{https://webzine.kps.or.kr/?p=5_view&idx=16551}{[Link]}
+
+\item \textbf{네트워크 과학으로 살펴보는 사회적 거리두기와 접촉자 추적의 원리 
+(Principles of Social Distancing and Contact Tracing through Network Science)}, 
+Byunghwee Lee, Hawoong Jeong, 
+\textit{BT News} (Newsletter of the Korean Society of Biotechnology), Apr. 2021. 
+\href{https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE10553023}{[Link]}
+\end{innerlist}
+
+\textbf{Book Chapters}
+\begin{innerlist}
+\item \textbf{전염의 복잡계 과학적 접근 
+(Complex Science Approaches to the Contagion Phenomena)}, 
+Byunghwee Lee, Hawoong Jeong, 
+in \textit{Imagination of Contagion}, pp.~101--137, 2017.
+\end{innerlist}
+
+
+\section{Teaching Experience}
+\textit{Courses assisted:} Nonlinear Dynamics, Thermal Physics, College Physics, General Physics.
+
+\begin{innerlist}
+
+\item \textbf{Instructor} Python-Based Big Data Analysis Workshop,  
+Department of Sociology, Korea University \hfill May--June 2020\\  
+- Designed and taught a six-session workshop on Python-based data analysis covering Python fundamentals, text analysis, topic modeling, and network analysis through lectures and hands-on labs.
+
+\item \textbf{Undergraduate Research Mentor} \hfill 2020--2021 \\
+- Supervised Sang Jin Jeon on \textit{information-spectrum-based analysis of musical structure}.
+
+\item \textbf{Independent Research Mentor}  
+Institut Teknologi Bandung (ITB) -- KAIST Undergraduate Exchange Program \hfill Oct.--Nov. 2015 \\ 
+- Mentored Ridho Muhammad Akbar on \textit{network-based spatial analysis of climate change data}.
+
+\item \textbf{Teaching Assistant}, Department of Physics, KAIST  \\ 
+- Nonlinear Dynamics \hfill Fall 2015  \\
+- Thermal Physics (led recitation sections) \hfill Spring 2015  \\
+- College Physics (led recitation sections) \hfill Spring 2014  \\
+- General Physics (led recitation sections) \hfill Spring 2013  
+\end{innerlist}
+
+\section{Peer Review Service}
+Reviewer for: 
+\textit{EPJ Data Science}, 
+\textit{Scientific Reports}, 
+\textit{ICWSM}, 
+\textit{PLOS ONE}, 
+\textit{The Web Conference PhD Symposium}, 
+\textit{Advances in Complex Systems}, 
+\textit{Humanities and Social Sciences Communications}, 
+\textit{New Physics: Sae Mulli}.
+
+\section{Skills}
+\textbf{Programming and Data Science:}
+Python (NumPy, Pandas, SciPy), PyTorch, Scikit-Learn, NetworkX, parallel computing, machine learning, natural language processing, large language model APIs (OpenAI, Hugging Face).
+
+\textbf{Data Analysis and Visualization:}
+Network analysis, text analysis, topic modeling, data visualization (Matplotlib, d3.js), network visualization tools (Gephi).
+
+\textbf{Software and Tools:}
+Git, Linux/Unix, LaTeX, Adobe Illustrator, Final Cut Pro.
+
+\textbf{Other Programming Languages:}
+Matlab, R, Java, HTML/CSS, Processing.
+
+\textbf{Languages:}
+Korean (Native), English (Professional proficiency).
+
+
+\section{Conference Presentations}
+\textbf{2026}
+\begin{innerlist}
+\item (Poster) \textbf{Byunghwee Lee}, Haewoon Kwak, Jisun An, Yong-Yeol Ahn\\
+\textit{Social judgement theory in a belief embedding space} NetSci 2026, Boston, MA, USA, June 1-5, 2026.
+\end{innerlist}
+
+
+\textbf{2025}
+\begin{innerlist}
+\item (Oral) \textbf{Byunghwee Lee}, Sangyeon Kim, Filippo Menczer, Yong-Yeol Ahn, Haewoon Kwak, Jisun An.\\
+\textit{Can LLMs infer political affiliation from non-political discourse?} International Conference on Computational Social Science (IC2S2), Norrköping, Sweden, Jul. 2025.
+\end{innerlist}
+
+\textbf{2024}
+\begin{innerlist}
+\item (Plenary talk) \textbf{Byunghwee Lee}, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, Jisun An.\\
+\textit{Neural embedding of beliefs reveals the role of relative dissonance in human decision-making}. International Conference on Computational Social Science (IC2S2), Philadelphia, USA, Jul. 2024.
+
+\item (Poster) Taekho You (presenter), Jin Kim, \textbf{Byunghwee Lee}, Jinhyuk Yun.\\
+\textit{Understanding the Creativity through Evolution of Western Painting Art Using the Stable Diffusion Model}. International Conference on Computational Social Science (IC2S2), Philadelphia, USA, Jul. 2024.
+\end{innerlist}
+
+\textbf{2020}
+\begin{innerlist}
+\item (Poster) \textbf{Byunghwee Lee}, Min Kyung Seo, Daniel Kim, In-seob Shin, Maximilian Schich, Hawoong Jeong, Seung Kee Han.\\
+\textit{Information-theoretic dissection of painting reveals the evolution of composition of landscape painting}. NetSci, Rome (Virtual), Sep. 2020.
+
+\item (Poster) \textbf{Byunghwee Lee}, Min Kyung Seo, Daniel Kim, In-seob Shin, Maximilian Schich, Hawoong Jeong, Seung Kee Han.\\
+\textit{Revealing the evolution of composition of landscape painting through the lens of information theory}. Korean Physical Society Meeting (Virtual), Jul. 2020.
+\end{innerlist}
+
+\textbf{2019}
+\begin{innerlist}
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Dongwoo Kim, Hawoong Jeong.\\
+\textit{Information-theoretic dissection of landscape paintings reveals conceptual overlap in art historiography}. Statistical Physics Workshop, Oct. 2019.
+
+\item (Poster) \textbf{Byunghwee Lee}, Min Kyung Seo, Daniel Kim, In-seob Shin, Hawoong Jeong, Seung Kee Han.\\
+\textit{Information-theoretic analysis of composition in painting and the composition-similarity network of painters}. NetSci, University of Vermont, May 2019.
+
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Dongwoo Kim, Hawoong Jeong.\\
+\textit{Large-scale information theoretic analysis of composition in painting}. Korean Physical Society Meeting, Apr. 2019.
+\end{innerlist}
+
+\textbf{2017}
+\begin{innerlist}
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong.\\
+\textit{Inferring Posthumous Fame from Social Network Location Using a Half Millennium Historical Documents}. Korean Society of Complex Systems Conference, 2017.
+
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong.\\
+\textit{Historical records and patterns of fame}. KAIST Econophysics Workshop, 2017.
+
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong.\\
+\textit{Inferring Posthumous Fame from Social Network Location Using a Half Millennium Historical Documents}. Statistical Physics Workshop, 2017.
+\end{innerlist}
+
+\textbf{2016}
+\begin{innerlist}
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong.\\
+\textit{Analysis of Spatio-temporal Pattern of Historical Cities in the Annals of the Joseon Dynasty}. Workshop on Special Topics in Statistical Physics \& Complex Systems, 2016.
+
+\item (Oral) \textbf{Byunghwee Lee}, Kibum Kim, Daniel Kim, Beom Jun Kim, Hawoong Jeong.\\
+\textit{Understanding spatiotemporal patterns in the Annals of the Joseon Dynasty}. Korean Physical Society Fall Meeting, 2016.
+
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong, Seunghye Sun, Juyong Park.\\
+\textit{Quantitative analysis on contrast effect in the evolution of paintings}. STATPHYS 26, 2016.
+
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong, Seunghye Sun, Juyong Park.\\
+\textit{Quantitative analysis of color contrast in the evolution of painting}. NetSci, 2016.
+\end{innerlist}
+
+\textbf{2015}
+\begin{innerlist}
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hawoong Jeong, Juyong Park.\\
+\textit{Evolution of color contrast in art history}. Korean Society of Complex Systems Conference, 2015.
+
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Hang-Hyun Jo, Hawoong Jeong.\\
+\textit{Quantitative analysis of Joseon history using chronological data}. Korean Physical Society Meeting, 2015.
+
+\item (Poster) \textbf{Byunghwee Lee}, Daniel Kim, Hang-Hyun Jo, Hawoong Jeong.\\
+\textit{Understanding motives of historical events through the Annals of the Joseon Dynasty}. Conference on Complex Systems, 2015.
+\end{innerlist}
+
+\textbf{2014}
+\begin{innerlist}
+\item (Oral) \textbf{Byunghwee Lee}, Daniel Kim, Kihong Chung, Hawoong Jeong.\\
+\textit{Network structure in the Annals of the Joseon Dynasty}. Korean Society of Complex Systems Conference, 2014.
+
+\item (Poster) \textbf{Byunghwee Lee}, Daniel Kim, Kihong Chung, Hawoong Jeong.\\
+\textit{Stylometry and Network Analysis on the Annals of the Joseon Dynasty}. Korean Physical Society Meeting, 2014.
+\end{innerlist}
+
+\textbf{2013}
+\begin{innerlist}
+\item (Oral) \textbf{Byung-hwee Lee}, Daniel Kim, Hawoong Jeong.\\
+\textit{Statistical analysis of the Annals of the Joseon Dynasty}. Complex Systems Conference, 2013.
+
+\item (Poster) \textbf{Byung-hwee Lee}, Daniel Kim, Hawoong Jeong.\\
+\textit{Web Search Trend Based Social Network Construction}. Korean Physical Society Meeting, 2013.
+
+\item (Poster) Daniel Kim, \textbf{Byung-hwee Lee}, Hawoong Jeong.\\
+\textit{Quantitative Analysis of the Annals of the Joseon Dynasty}. STATPHYS 25, 2013.
+\end{innerlist}
+
+
+\section{Selected Invited Talks and Seminars}
+\textbf{2025}
+\begin{innerlist}
+\item \textbf{A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs}.\\
+Max Planck Institute for Security and Privacy (MPI-SP) DSLAB Seminar, Aug. 2025.
+\item \textbf{A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs}.\\
+KDI School, Jun. 2025.
+\item \textbf{A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs}.\\
+Soongsil University, Jun. 2025.
+\end{innerlist}
+
+\textbf{2024}
+\begin{innerlist}
+\item \textbf{Network Analysis Reveals News Press Landscape and User Polarization}.\\
+Sungkyunkwan University, Feb. 2024.
+\end{innerlist}
+
+\textbf{2023}
+\begin{innerlist}
+\item \textbf{Understanding Art and Culture through Data Science}.\\
+Chonnam National University, Dec. 2023.
+\end{innerlist}
+
+\textbf{2022}
+\begin{innerlist}
+\item \textbf{Art and Artists through the Lens of Statistical Physics}.\\
+Chosun University, Dec. 2022.
+\item \textbf{Understanding Art and Culture through Data Science}.\\
+Chonnam National University, Dec. 2022.
+\end{innerlist}
+
+\textbf{2021}
+\begin{innerlist}
+
+\item \textbf{Can We Understand Art through Physics? Art through the Lens of Complex Systems and Big Data}.\\
+Chosun University, Oct. 2021.
+
+\end{innerlist}
+
+
+
+
+
+\end{document}
+

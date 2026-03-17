@@ -7,14 +7,14 @@
 
     <!-- Description for search engines -->
     
-    <meta name="description" content="Personal website for research, publications, talks, and notes.">
+    <meta name="description" content="Research at the intersection of AI, data science, art, culture, and society.">
     
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Byunghwee Lee">
     
-    <meta property="og:description" content="Personal website for research, publications, talks, and notes.">
+    <meta property="og:description" content="Research at the intersection of AI, data science, art, culture, and society.">
     
     <meta property="og:url" content="https://ByunghweeLee-IU.github.io/index/">
     
@@ -24,14 +24,14 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Byunghwee Lee">
     
-    <meta name="twitter:description" content="Personal website for research, publications, talks, and notes.">
+    <meta name="twitter:description" content="Research at the intersection of AI, data science, art, culture, and society.">
     
     
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260316b">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Atom Feed autodiscovery -->
@@ -39,7 +39,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body>
+<body data-page-path="index">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee</a>
@@ -93,27 +93,29 @@
 
     <article>
         
-<header>
-    <h1>Byunghwee Lee</h1>
-    
-</header>
+
 
 <section class="content">
-    <h2 id="welcome">Welcome<a class="header-anchor" href="#welcome" title="Link to this section" rel="nofollow">#</a></h2>
-<p>I use this site as a home for my academic profile, selected work, and public notes.</p>
+    <p><strong>Byunghwee Lee (이병휘)</strong> is a Postdoctoral Research Associate at the School of Data Science, University of Virginia. His research lies at the intersection of AI, data science, and society, with a focus on art and culture, human beliefs, and social dynamics at scale.</p>
+<h2 id="explore">Explore<a class="header-anchor" href="#explore" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li>Learn more <a href="/wiki/about/" rel="nofollow">about me</a></li>
-<li>Browse current <a href="/wiki/research/" rel="nofollow">research</a></li>
-<li>See <a href="/wiki/publications/" rel="nofollow">publications</a> and <a href="/wiki/talks/" rel="nofollow">talks</a></li>
-<li>Explore my <a href="/wiki/Home/" rel="nofollow">Hwiki</a></li>
-<li>Download my <a href="byunghwee-cv.pdf" rel="nofollow">CV</a></li>
+<li>Learn more <a href="about.md" rel="nofollow">about me</a></li>
+<li>Browse current <a href="research.md" rel="nofollow">research</a></li>
+<li>See <a href="publications.md" rel="nofollow">publications</a> and <a href="talks.md" rel="nofollow">talks</a></li>
+<li>Explore my <a href="../Home.md" rel="nofollow">Hwiki</a></li>
+<li>Download my <a href="/assets/byunghwee-cv.pdf" rel="nofollow">CV</a></li>
 </ul>
-<h2 id="focus-areas">Focus Areas<a class="header-anchor" href="#focus-areas" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="current-focus">Current Focus<a class="header-anchor" href="#current-focus" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li>Research projects and collaborations</li>
-<li>Reading notes and literature tracking</li>
-<li>Early-stage ideas and working memos</li>
-<li>Public-facing updates for talks and publications</li>
+<li>Belief representation and political judgment with large language models</li>
+<li>Computational analysis of art history, creativity, and multimodal cultural data</li>
+<li>Network science approaches to online media, polarization, and social systems</li>
+</ul>
+<h2 id="selected-updates">Selected Updates<a class="header-anchor" href="#selected-updates" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>2025: Published <em>A semantic embedding space based on large language models for modelling human beliefs</em> in <em>Nature Human Behaviour</em></li>
+<li>2025: Published <em>Network analysis reveals news press landscape and asymmetric user polarization</em> in <em>Physica A</em></li>
+<li>2025: Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science</li>
 </ul>
 </section>
 
@@ -146,6 +148,44 @@
                 throwOnError: false,
                 ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
                 ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+                if (!href.endsWith(".md")) return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
             });
         });
     </script>

@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T00:46:05Z</updated>
+  <updated>2026-03-17T02:43:23Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -15,74 +15,141 @@
 
   
   <entry>
-    <title>Tips</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/</id>
-    <published>2026-03-17T00:46:05Z</published>
-    <updated>2026-03-17T00:46:05Z</updated>
+    <title>Research Updates and Recognition</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/research-updates/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/research-updates/</id>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
     
-    <content type="html"><![CDATA[<p>Short practical notes, editor tricks, and workflow reminders.</p>
-<h2 id="browse-tips">Browse Tips<a class="header-anchor" href="#browse-tips" title="Link to this section" rel="nofollow">#</a></h2>
+    <content type="html"><![CDATA[<h2 id="awards">Awards<a class="header-anchor" href="#awards" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li><a href="VS_code_tips.md" rel="nofollow">VS Code tips</a></li>
+<li>Datapalooza 2025 Best in Show Award, School of Data Science, University of Virginia</li>
+<li>Best Poster Presentation, Korean Physical Society Meeting, 2020</li>
+<li>Best Oral Presentation, Korean Physical Society Meeting, 2019</li>
+</ul>
+<h2 id="media-and-research-coverage">Media and Research Coverage<a class="header-anchor" href="#media-and-research-coverage" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Belief embeddings paper highlighted by <a href="https://phys.org/news/2025-06-llms-delve-online-debates-human.html" rel="nofollow">Phys.org</a></li>
+<li>Landscape art history paper covered by <a href="https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-composition-of-landscape-paintings-changed-over-time/" rel="nofollow">Forbes</a>, <a href="https://www.inverse.com/science/math-uncovers-art-secrets" rel="nofollow">Inverse</a>, and <em>Science Daily</em></li>
+<li>News press polarization paper highlighted by <a href="https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&amp;articleNo=129197" rel="nofollow">SKKU Media</a></li>
+</ul>
+<h2 id="related-notes">Related Notes<a class="header-anchor" href="#related-notes" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="paper-list.md" rel="nofollow">Paper list</a></li>
 </ul>]]></content>
     
   </entry>
   
   <entry>
-    <title>VS Code Tips</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tips/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tips/</id>
-    <published>2026-03-17T00:42:24Z</published>
-    <updated>2026-03-17T00:42:24Z</updated>
+    <title>Preprints and Work in Progress</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/preprints-and-in-progress/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/preprints-and-in-progress/</id>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
     
-    <content type="html"><![CDATA[<p>This page collects small VS Code notes in one place.</p>
-<h2 id="tips">Tips<a class="header-anchor" href="#tips" title="Link to this section" rel="nofollow">#</a></h2>
+    <content type="html"><![CDATA[<h2 id="preprints">Preprints<a class="header-anchor" href="#preprints" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li><a href="VS_code_tip1.md" rel="nofollow">VS Code Tip 1</a></li>
-<li><a href="VS_code_tip2.md" rel="nofollow">VS Code Tip 2</a></li>
+<li><em>LLMs Can Infer Political Alignment from Online Conversations</em> (2026)</li>
+<li><em>A Benchmark for Zero-Shot Belief Inference in Large Language Models</em> (2025)</li>
+<li><em>Context-aware Multimodal AI Reveals Hidden Pathways in Five Centuries of Art Evolution</em> (2025)</li>
+<li><em>Combined influence of artwork and artist features in predicting user generated art valuation</em> (2025)</li>
+</ul>
+<h2 id="in-preparation">In Preparation<a class="header-anchor" href="#in-preparation" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><em>The geometry of persuasion: Quantifying belief change in a latent embedding space</em></li>
+</ul>
+<h2 id="notes">Notes<a class="header-anchor" href="#notes" title="Link to this section" rel="nofollow">#</a></h2>
+<p>These projects continue my work on belief representation, multimodal AI, art and culture, and political discourse.</p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>News Press Landscape and Asymmetric Polarization</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/</id>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Lee, Byunghwee, Hyo-sun Ryu, Jae Kook Lee, Hawoong Jeong, and Beom Jun Kim. 2025. <em>Network analysis reveals news press landscape and asymmetric user polarization</em>. <em>Physica A</em>.</p>
+<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This paper studies the structure of the news press landscape and user polarization using network analysis. It reflects my broader interest in media systems, public discourse, and online collective behavior.</p>
+<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>It connects network structure to political and media dynamics</li>
+<li>It offers a data-driven view of asymmetry in polarization</li>
+<li>It contributes to my ongoing work on online discourse and social systems</li>
+</ul>
+<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
 </ul>]]></content>
     
   </entry>
   
   <entry>
-    <title>VS Code Tip 2</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tip2/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tip2/</id>
-    <published>2026-03-17T00:42:24Z</published>
-    <updated>2026-03-17T00:42:24Z</updated>
+    <title>Dissecting Landscape Art History with Information Theory</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/landscape-art-history/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/landscape-art-history/</id>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
     
-    <content type="html"><![CDATA[<p>This is tip 2.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>VS Code Tip 1</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tip1/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/Tips/VS_code_tip1/</id>
-    <published>2026-03-17T00:42:24Z</published>
-    <updated>2026-03-17T00:42:24Z</updated>
-    
-    <content type="html"><![CDATA[<p>This is tip 1.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Notes</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/</id>
-    <published>2026-03-17T00:42:24Z</published>
-    <updated>2026-03-17T00:42:24Z</updated>
-    
-    <content type="html"><![CDATA[<p>This section collects public notes maintained in Obsidian and published through Foliate.</p>
-<p>Explore my Obsidian notes. </p>
-<h2 id="browse-by-topic">Browse by Topic<a class="header-anchor" href="#browse-by-topic" title="Link to this section" rel="nofollow">#</a></h2>
+    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Lee, Byunghwee, Min Kyung Seo, Daniel Kim, In-seob Shin, Maximilian Schich, Hawoong Jeong, and Seung Kee Han. 2020. <em>Dissecting landscape art history with information theory</em>. <em>Proceedings of the National Academy of Sciences</em> 117(43): 26580-26590.</p>
+<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This paper uses information-theoretic methods to study long-term changes in the composition of landscape paintings. It is one of the central examples of my work at the intersection of data science, art history, and cultural analytics.</p>
+<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li><a href="notes/research.md" rel="nofollow">Research notes</a></li>
-<li><a href="notes/reading.md" rel="nofollow">Reading notes</a></li>
-<li><a href="notes/Tips.md" rel="nofollow">Tips</a></li>
-<li><a href="notes/ideas.md" rel="nofollow">Ideas</a></li>
-<li><a href="notes/misc.md" rel="nofollow">Miscellaneous</a></li>
+<li>It shows how quantitative methods can reveal broad patterns in visual culture</li>
+<li>It bridges physics-inspired methods with art historical questions</li>
+<li>It helped establish a line of work on computational art history in my research</li>
+</ul>
+<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Belief Embeddings with Large Language Models</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/</id>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Lee, Byunghwee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. 2025. <em>A semantic embedding space based on large language models for modelling human beliefs</em>. <em>Nature Human Behaviour</em>.</p>
+<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This paper develops a semantic embedding space based on large language models to model human beliefs and positions in public debate. The project connects representation learning with computational social science and provides a framework for studying relative belief structure at scale.</p>
+<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>It creates a computational representation of beliefs rather than reducing opinion to simple labels</li>
+<li>It links language model representations to social and political judgment</li>
+<li>It opens a path toward measuring belief change and persuasion in a structured way</li>
+</ul>
+<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="preprints-and-in-progress.md" rel="nofollow">Preprints and work in progress</a></li>
+<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Paper List</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/</id>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
+    
+    <content type="html"><![CDATA[<p>This page provides a small collection of paper notes drawn from my recent research.</p>
+<h2 id="papers">Papers<a class="header-anchor" href="#papers" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="belief-embeddings-llms.md" rel="nofollow">Belief embeddings with large language models</a></li>
+<li><a href="landscape-art-history.md" rel="nofollow">Dissecting landscape art history with information theory</a></li>
+<li><a href="news-press-polarization.md" rel="nofollow">News press landscape and asymmetric polarization</a></li>
+<li><a href="preprints-and-in-progress.md" rel="nofollow">Preprints and work in progress</a></li>
 </ul>]]></content>
     
   </entry>
@@ -91,80 +158,17 @@
     <title>Home</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-03-17T00:39:59Z</published>
-    <updated>2026-03-17T00:39:59Z</updated>
+    <published>2026-03-17T02:43:23Z</published>
+    <updated>2026-03-17T02:43:23Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
 <h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li><a href="notes.md" rel="nofollow">Notes</a></li>
-<li><a href="notes/research.md" rel="nofollow">Research Notes</a></li>
-<li><a href="notes/reading.md" rel="nofollow">Reading Notes</a></li>
-<li><a href="notes/Tips.md" rel="nofollow">Tips</a></li>
-<li><a href="notes/misc.md" rel="nofollow">Miscellaneous</a></li>
+<li><a href="notes/papers/paper-list.md" rel="nofollow">Paper notes</a></li>
+<li><a href="notes/papers/research-updates.md" rel="nofollow">Research updates and recognition</a></li>
 </ul>
 <h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This wiki is where I collect public notes, reading summaries, project fragments, and working ideas.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Miscellaneous Notes</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/misc/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/misc/</id>
-    <published>2026-03-16T23:55:27Z</published>
-    <updated>2026-03-16T23:55:27Z</updated>
-    
-    <content type="html"><![CDATA[<p>This section is a flexible home for assorted notes, references, and brief updates.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Ideas</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/ideas/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/ideas/</id>
-    <published>2026-03-16T23:55:27Z</published>
-    <updated>2026-03-16T23:55:27Z</updated>
-    
-    <content type="html"><![CDATA[<p>Use this space for early-stage ideas that you want to keep visible and revisitable.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Reading Notes</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/reading/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/reading/</id>
-    <published>2026-03-16T23:55:27Z</published>
-    <updated>2026-03-16T23:55:27Z</updated>
-    
-    <content type="html"><![CDATA[<p>This area is for literature summaries, annotated bibliographies, and reading reflections.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Research Notes</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/research/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/research/</id>
-    <published>2026-03-16T23:55:27Z</published>
-    <updated>2026-03-16T23:55:27Z</updated>
-    
-    <content type="html"><![CDATA[<p>Public research notes live here.</p>
-<ul>
-<li>Project logs</li>
-<li>Method notes</li>
-<li>Data and workflow memos</li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>My page</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/visibility/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/visibility/</id>
-    <published>2026-03-16T23:00:19Z</published>
-    <updated>2026-03-16T23:00:19Z</updated>
-    
-    <content type="html"><![CDATA[]]></content>
+<p>This wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.</p>]]></content>
     
   </entry>
   

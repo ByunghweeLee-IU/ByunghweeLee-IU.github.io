@@ -31,7 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260316b">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Atom Feed autodiscovery -->
@@ -39,7 +39,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body>
+<body data-page-path="about">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee</a>
@@ -93,20 +93,33 @@
 
     <article>
         
+
 <header>
     <h1>About</h1>
     
 </header>
 
+
 <section class="content">
-    <p>I am building this site with Foliate and managing the content in Obsidian.</p>
-<p>Use this page for a short academic biography, institutional affiliation, research interests, and contact information.</p>
-<h2 id="suggested-sections">Suggested Sections<a class="header-anchor" href="#suggested-sections" title="Link to this section" rel="nofollow">#</a></h2>
+    <p>I am a Postdoctoral Research Associate at the School of Data Science, University of Virginia, where I work with Yong-Yeol Ahn. My research focuses on computational methods for studying human beliefs, social dynamics, art and culture, and large-scale digital traces.</p>
+<p>Previously, I was a Postdoctoral Researcher at Indiana University, working with Jisun An, Haewoon Kwak, and Yong-Yeol Ahn, and I also worked as a postdoctoral-level senior researcher at Sungkyunkwan University with Beom Jun Kim. I received my PhD in Physics from KAIST under Hawoong Jeong, where my dissertation examined <em>art and complexity in the era of big data</em>, and I also earned my BS in Physics from the KAIST Department of Physics.</p>
+<h2 id="research-interests">Research Interests<a class="header-anchor" href="#research-interests" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li>One-paragraph bio</li>
-<li>Current position and affiliation</li>
-<li>Research interests</li>
-<li>Contact links</li>
+<li>Computational social science</li>
+<li>Cultural analytics and computational art history</li>
+<li>Network science</li>
+<li>Representation learning and multimodal AI</li>
+<li>Human beliefs, judgment, and online discourse</li>
+</ul>
+<h2 id="current-affiliation">Current Affiliation<a class="header-anchor" href="#current-affiliation" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Postdoctoral Research Associate, School of Data Science, University of Virginia</li>
+<li>Charlottesville, Virginia</li>
+</ul>
+<h2 id="contact">Contact<a class="header-anchor" href="#contact" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Email: <a href="mailto:wzn3hf@virginia.edu">wzn3hf@virginia.edu</a></li>
+<li>ORCID: <a href="https://orcid.org/0000-0003-2369-2022" rel="nofollow">0000-0003-2369-2022</a></li>
 </ul>
 </section>
 
@@ -139,6 +152,44 @@
                 throwOnError: false,
                 ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
                 ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+                if (!href.endsWith(".md")) return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
             });
         });
     </script>

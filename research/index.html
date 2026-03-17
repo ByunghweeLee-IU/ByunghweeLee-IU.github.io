@@ -7,14 +7,14 @@
 
     <!-- Description for search engines -->
     
-    <meta name="description" content="Overview of research themes and ongoing work.">
+    <meta name="description" content="Research themes spanning AI, culture, social systems, and computational methods.">
     
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
     <meta property="og:title" content="Research">
     
-    <meta property="og:description" content="Overview of research themes and ongoing work.">
+    <meta property="og:description" content="Research themes spanning AI, culture, social systems, and computational methods.">
     
     <meta property="og:url" content="https://ByunghweeLee-IU.github.io/research/">
     
@@ -24,14 +24,14 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Research">
     
-    <meta name="twitter:description" content="Overview of research themes and ongoing work.">
+    <meta name="twitter:description" content="Research themes spanning AI, culture, social systems, and computational methods.">
     
     
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260316b">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Atom Feed autodiscovery -->
@@ -39,7 +39,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body>
+<body data-page-path="research">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee</a>
@@ -93,23 +93,29 @@
 
     <article>
         
+
 <header>
     <h1>Research</h1>
     
 </header>
 
+
 <section class="content">
-    <p>This page can serve as a landing page for your main research agenda.</p>
-<h2 id="current-themes">Current Themes<a class="header-anchor" href="#current-themes" title="Link to this section" rel="nofollow">#</a></h2>
+    <p>My research lies at the intersection of AI, data science, and society. I develop computational methods to study culture, belief, and collective behavior using large-scale observational data.</p>
+<h2 id="research-themes">Research Themes<a class="header-anchor" href="#research-themes" title="Link to this section" rel="nofollow">#</a></h2>
+<h3 id="ai-human-beliefs-and-political-judgment">AI, Human Beliefs, and Political Judgment<a class="header-anchor" href="#ai-human-beliefs-and-political-judgment" title="Link to this section" rel="nofollow">#</a></h3>
+<p>I study how large language models can represent human belief systems, political judgment, and semantic variation in public discourse. This line of work connects representation learning, computational social science, and human-centered AI.</p>
+<h3 id="art-culture-and-creativity">Art, Culture, and Creativity<a class="header-anchor" href="#art-culture-and-creativity" title="Link to this section" rel="nofollow">#</a></h3>
+<p>I use information theory, multimodal learning, and cultural data to study long-term patterns in art history, stylistic change, and visual creativity. This includes work on landscape painting, user-generated art, and multimodal AI for cultural analysis.</p>
+<h3 id="networks-media-and-social-dynamics">Networks, Media, and Social Dynamics<a class="header-anchor" href="#networks-media-and-social-dynamics" title="Link to this section" rel="nofollow">#</a></h3>
+<p>I examine online polarization, media ecosystems, and networked social behavior. My work in this area includes research on news press structure, discourse around epidemics, and hidden dependencies in weighted networks.</p>
+<h2 id="selected-projects">Selected Projects<a class="header-anchor" href="#selected-projects" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li>Theme 1</li>
-<li>Theme 2</li>
-<li>Theme 3</li>
-</ul>
-<h2 id="ongoing-projects">Ongoing Projects<a class="header-anchor" href="#ongoing-projects" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>Project title, collaborators, and short summary</li>
-<li>Project title, collaborators, and short summary</li>
+<li>Belief embedding spaces based on large language models</li>
+<li>Political inference from non-political online conversations</li>
+<li>Network analysis of news media and user polarization</li>
+<li>Information-theoretic analysis of painting and cultural evolution</li>
+<li>Multimodal AI for tracing hidden pathways in art history</li>
 </ul>
 </section>
 
@@ -142,6 +148,44 @@
                 throwOnError: false,
                 ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
                 ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+                if (!href.endsWith(".md")) return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
             });
         });
     </script>

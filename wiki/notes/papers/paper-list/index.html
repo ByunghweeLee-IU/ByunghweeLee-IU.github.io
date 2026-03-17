@@ -3,29 +3,35 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My page - Byunghwee Lee</title>
+    <title>Paper List - Byunghwee Lee</title>
 
     <!-- Description for search engines -->
+    
+    <meta name="description" content="Selected paper notes from published and ongoing research.">
     
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="My page">
+    <meta property="og:title" content="Paper List">
     
-    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/visibility/">
+    <meta property="og:description" content="Selected paper notes from published and ongoing research.">
+    
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/">
     
     <meta property="og:site_name" content="Byunghwee Lee">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="My page">
+    <meta name="twitter:title" content="Paper List">
+    
+    <meta name="twitter:description" content="Selected paper notes from published and ongoing research.">
     
     
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260316b">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Atom Feed autodiscovery -->
@@ -33,7 +39,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body>
+<body data-page-path="notes/papers/paper-list">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee</a>
@@ -87,8 +93,9 @@
 
     <article>
         
+
 <header>
-    <h1>My page</h1>
+    <h1>Paper List</h1>
     
     <p class="page-dates">
         
@@ -99,8 +106,16 @@
     
 </header>
 
+
 <section class="content">
-    
+    <p>This page provides a small collection of paper notes drawn from my recent research.</p>
+<h2 id="papers">Papers<a class="header-anchor" href="#papers" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="belief-embeddings-llms.md" rel="nofollow">Belief embeddings with large language models</a></li>
+<li><a href="landscape-art-history.md" rel="nofollow">Dissecting landscape art history with information theory</a></li>
+<li><a href="news-press-polarization.md" rel="nofollow">News press landscape and asymmetric polarization</a></li>
+<li><a href="preprints-and-in-progress.md" rel="nofollow">Preprints and work in progress</a></li>
+</ul>
 </section>
 
 
@@ -132,6 +147,44 @@
                 throwOnError: false,
                 ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
                 ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+                if (!href.endsWith(".md")) return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
             });
         });
     </script>

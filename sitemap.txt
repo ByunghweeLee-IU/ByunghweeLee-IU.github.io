@@ -1,4 +1,5 @@
 /wiki/visibility/
+/wiki/Home/
 /wiki/notes/
 /wiki/cv/
 /wiki/research/

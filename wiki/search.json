@@ -8,6 +8,14 @@
     "tags": []
   },
   {
+    "title": "Home",
+    "path": "Home",
+    "url": "/wiki/Home/",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Notes](/wiki/notes/)\n- [Research Notes](/wiki/notes/research/)\n- [Reading Notes](/wiki/notes/reading/)\n- [Ideas](/wiki/notes/ideas/)\n- [Miscellaneous](/wiki/notes/misc/)\n\n## About This Wiki\n\nThis wiki is where I collect public notes, reading summaries, project fragments, and working ideas.",
+    "published": "2026-03-17T00:12:50.577075+00:00",
+    "tags": []
+  },
+  {
     "title": "Notes",
     "path": "notes",
     "url": "/wiki/notes/",

@@ -364,6 +364,16 @@ footer {
   text-underline-offset: 0.12em;
 }
 
+.profile-image {
+  float: right;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin: 0.2rem 0 1rem 1.2rem;
+  border: 1px solid var(--border-light);
+}
+
 @media (max-width: 720px) {
   body {
     font-size: 1rem;
@@ -394,5 +404,13 @@ footer {
     width: auto;
     margin-left: 0;
     text-align: left;
+  }
+
+  .profile-image {
+    float: none;
+    display: block;
+    margin: 0 0 1rem 0;
+    width: 92px;
+    height: 92px;
   }
 }

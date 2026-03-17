@@ -3,8 +3,8 @@
     "title": "Hwiki: Home",
     "path": "Home",
     "url": "/wiki/Home/",
-    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Travel notes](notes/travel/travel-list)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.\n\n## Example Sections\n\n- [Travel notes](notes/travel/travel-list)\n- Example note: [Washington, DC](notes/travel/Washington_DC)",
-    "published": "2026-03-17T16:54:56.883607+00:00",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n* [All News](notes/News-list)\n- [Paper notes](notes/papers/paper-list)\n- [Travel notes](notes/travel/travel-list)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.\n\n## Example Sections\n\n- [Travel notes](notes/travel/travel-list)\n- Example note: [Washington, DC](notes/travel/Washington_DC)",
+    "published": "2026-03-17T19:17:19.535149+00:00",
     "tags": []
   },
   {
@@ -36,7 +36,7 @@
     "path": "index",
     "url": "/wiki/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks</strong> for understanding human behavior, beliefs, and creativity.</p>\n    <p>He is currently a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Yong-Yeol Ahn. His research integrates <strong>machine l",
-    "published": "2026-03-17T18:15:18.352705+00:00",
+    "published": "2026-03-17T19:22:50.262242+00:00",
     "tags": []
   },
   {
@@ -51,8 +51,8 @@
     "title": "All news",
     "path": "notes/News-list",
     "url": "/wiki/notes/News-list/",
-    "content": "- [2026-03-16]: Updated the arXiv version of *LLMs Can Infer Political Alignment from Online Conversations* on [*arXiv*](https://arxiv.org/abs/2603.11253)\n- [2025-11-18]: 2025: Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science [News](https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025)\n- [2025-07-31]: Published *Network analysis reveals news press landscape and asymmetric user polarization* in ",
-    "published": "2026-03-17T17:23:07.060642+00:00",
+    "content": "- `2026-03-16`: Updated the arXiv version of *LLMs Can Infer Political Alignment from Online Conversations* on [*arXiv*](https://arxiv.org/abs/2603.11253)\n- `2025-11-18`: 2025: Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science [News](https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025)\n- `2025-07-31`: Published *Network analysis reveals news press landscape and asymmetric user polarization* in ",
+    "published": "2026-03-17T19:21:34.521621+00:00",
     "tags": []
   },
   {

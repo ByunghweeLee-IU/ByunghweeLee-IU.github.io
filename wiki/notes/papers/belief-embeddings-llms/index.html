@@ -28,10 +28,20 @@
     
     
 
+    <script>
+        (function() {
+            const storageKey = "theme-preference";
+            const storedTheme = localStorage.getItem(storageKey);
+            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = storedTheme || (systemPrefersDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260317a">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260317b">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Google tag (gtag.js) -->
@@ -52,7 +62,8 @@
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/index/">Byunghwee Lee</a>
-            <div class="nav-links">
+            <div class="nav-controls">
+                <div class="nav-links">
                 
                 <a href="/index/">
                     
@@ -90,6 +101,10 @@
                     
                 </a>
                 
+                </div>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
+                    <span class="theme-toggle-label">Dark</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -164,6 +179,42 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
+            const storageKey = "theme-preference";
+            const themeToggle = document.querySelector(".theme-toggle");
+            const themeToggleLabel = document.querySelector(".theme-toggle-label");
+            const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+            const applyTheme = (theme) => {
+                document.documentElement.setAttribute("data-theme", theme);
+                if (themeToggle) {
+                    const isDark = theme === "dark";
+                    themeToggle.setAttribute("aria-pressed", String(isDark));
+                    themeToggleLabel.textContent = isDark ? "Light" : "Dark";
+                }
+            };
+
+            applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+
+            if (themeToggle) {
+                themeToggle.addEventListener("click", function() {
+                    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+                    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+                    localStorage.setItem(storageKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+
+            const syncWithSystemTheme = (event) => {
+                if (localStorage.getItem(storageKey)) return;
+                applyTheme(event.matches ? "dark" : "light");
+            };
+
+            if (typeof systemThemeQuery.addEventListener === "function") {
+                systemThemeQuery.addEventListener("change", syncWithSystemTheme);
+            } else if (typeof systemThemeQuery.addListener === "function") {
+                systemThemeQuery.addListener(syncWithSystemTheme);
+            }
+
             const homepagePaths = new Set(["index", "research", "publications", "talks", "cv"]);
             const pagePath = document.body.dataset.pagePath || "";
             const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";

@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --color-primary: #223b59;
   --color-primary-dark: #16283d;
   --color-secondary: #8b4f32;
@@ -17,9 +18,27 @@
   --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-primary: #d6e5ff;
+  --color-primary-dark: #edf4ff;
+  --color-secondary: #f0b08b;
+  --color-accent: #ffc6a8;
+  --text-primary: #e8edf3;
+  --text-secondary: #bdc7d3;
+  --text-muted: #8b98a7;
+  --background-primary: #11161d;
+  --background-panel: #11161d;
+  --background-soft: #1b2430;
+  --background-code: #161f29;
+  --border-light: #2a3442;
+  --border-medium: #3a495c;
+}
+
 html {
   font-size: 16px;
   overflow-x: hidden;
+  background-color: var(--background-primary);
 }
 
 *,
@@ -263,6 +282,14 @@ nav.top-nav {
   gap: 0.9rem;
 }
 
+.nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  flex: 1 1 auto;
+}
+
 nav.top-nav a {
   color: var(--color-primary);
   text-decoration: none;
@@ -279,6 +306,31 @@ nav.top-nav a:hover {
   width: auto;
   vertical-align: middle;
   margin: 0 0.2rem 3px 0;
+}
+
+.theme-toggle {
+  border: 1px solid var(--border-medium);
+  background: var(--background-soft);
+  color: var(--text-primary);
+  border-radius: 999px;
+  padding: 0.38rem 0.85rem;
+  font: inherit;
+  font-size: 0.92rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--background-code);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  transform: translateY(-1px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
 }
 
 .page-dates {
@@ -434,6 +486,13 @@ footer {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  .nav-controls {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
 
   .nav-links {

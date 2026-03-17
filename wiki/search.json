@@ -11,8 +11,8 @@
     "title": "CV",
     "path": "cv",
     "url": "/wiki/cv/",
-    "content": "My current CV is available here: [Download CV](/assets/byunghwee-cv.pdf)\n\n## Current Position\n\n- Postdoctoral Research Associate, School of Data Science, University of Virginia\n- Charlottesville, Virginia\n- Advisor: Yong-Yeol Ahn\n\n## Education\n\n- PhD in Physics, KAIST, 2021\n- BS in Physics, KAIST, 2013\n\n## Previous Positions\n\n- Postdoctoral Researcher, Indiana University, 2023-2025\n- Senior Researcher, Sungkyunkwan University / Institute of Basic Science, 2022-2023\n- Researcher / Curator, Nation",
-    "published": "2026-03-17T03:23:43.606818+00:00",
+    "content": "My current CV is available here: [Download CV](/assets/byunghwee-cv.pdf)\n\n## Current Position\n\n- Postdoctoral Research Associate, School of Data Science, University of Virginia\n- Charlottesville, Virginia (2025 - )\n- Advisor: Yong-Yeol Ahn\n\n## Education\n\n- PhD in Physics, KAIST, 2021\n- BS in Physics, KAIST, 2013\n\n## Previous Positions\n\n- Postdoctoral Researcher, Indiana University, 2023-2025\n- Senior Researcher, Sungkyunkwan University / Institute of Basic Science, 2022-2023\n- Researcher / Curat",
+    "published": "2026-03-17T15:58:03.571527+00:00",
     "tags": []
   },
   {
@@ -28,7 +28,7 @@
     "path": "publications",
     "url": "/wiki/publications/",
     "content": "This page follows the structure of my [CV](cv). I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.\n\n## Selected Papers\n\n### Belief and AI\n\n**A semantic embedding space based on large language models for modelling human beliefs**.  \n<span class=\"author-self\">Byunghwee Lee</span>, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  \n*Nature Human Behaviour*, 2025.  \n[DOI]",
-    "published": "2026-03-17T14:43:47.071908+00:00",
+    "published": "2026-03-17T15:48:59.194934+00:00",
     "tags": []
   },
   {
@@ -36,7 +36,7 @@
     "path": "index",
     "url": "/wiki/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks</strong> for understanding human behavior, beliefs, and creativity.</p>\n    <p>He is currently a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Yong-Yeol Ahn. His research integrates <strong>machine l",
-    "published": "2026-03-17T15:17:56.841294+00:00",
+    "published": "2026-03-17T15:53:54.720442+00:00",
     "tags": []
   },
   {

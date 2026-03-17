@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T14:29:25Z</updated>
+  <updated>2026-03-17T14:35:05Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,24 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.6.0">foliate</generator>
 
+  
+  <entry>
+    <title>Hwiki: Home</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
+    <published>2026-03-17T14:35:05Z</published>
+    <updated>2026-03-17T14:35:05Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
+<h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="notes/papers/paper-list" rel="nofollow">Paper notes</a></li>
+<li><a href="notes/papers/research-updates" rel="nofollow">Research updates and recognition</a></li>
+</ul>
+<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.</p>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Research Updates and Recognition</title>
@@ -128,24 +146,6 @@
 <li><a href="news-press-polarization" rel="nofollow">News press landscape and asymmetric polarization</a></li>
 <li><a href="preprints-and-in-progress" rel="nofollow">Preprints and work in progress</a></li>
 </ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Home</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/Wiki Home/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/Wiki Home/</id>
-    <published>2026-03-17T14:29:25Z</published>
-    <updated>2026-03-17T14:29:25Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
-<h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/papers/paper-list" rel="nofollow">Paper notes</a></li>
-<li><a href="notes/papers/research-updates" rel="nofollow">Research updates and recognition</a></li>
-</ul>
-<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.</p>]]></content>
     
   </entry>
   

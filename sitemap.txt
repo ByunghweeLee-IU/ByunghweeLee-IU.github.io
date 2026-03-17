@@ -1,10 +1,9 @@
-/wiki/Wiki Home/
+/wiki/Home/
 /wiki/cv/
 /wiki/research/
 /wiki/publications/
 /wiki/index/
 /wiki/talks/
-/wiki/about/
 /wiki/notes/papers/belief-embeddings-llms/
 /wiki/notes/papers/news-press-polarization/
 /wiki/notes/papers/paper-list/

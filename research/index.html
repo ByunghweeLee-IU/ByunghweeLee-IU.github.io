@@ -51,12 +51,6 @@
                     
                 </a>
                 
-                <a href="/about/">
-                    
-                        About
-                    
-                </a>
-                
                 <a href="/research/">
                     
                         Research
@@ -101,14 +95,26 @@
 
 
 <section class="content">
-    <p>My research lies at the intersection of AI, data science, and society. I develop computational methods to study culture, belief, and collective behavior using large-scale observational data.</p>
+    <p>My research develops quantitative and interpretable frameworks for understanding human beliefs, behavior, and creativity. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and analyze their relational and geometric properties using large-scale empirical data.</p>
+<p>I am trained as a physicist and work as a data scientist and computational social scientist. I draw on online conversations, social interaction data, digitized artworks, and cultural artifacts as traces of human cognition and expression. By combining statistical physics, information theory, network science, and modern artificial intelligence, especially large language models and multimodal AI, I pursue a unified agenda for studying the human mind and behavior at scale.</p>
+<h2 id="research-vision">Research Vision<a class="header-anchor" href="#research-vision" title="Link to this section" rel="nofollow">#</a></h2>
+<p>My long-term goal is to build computational frameworks for asking foundational questions about human nature, including how we believe, persuade, and create, in ways that are both scientifically rigorous and socially meaningful. Across this agenda, I treat beliefs and creative expressions as complementary manifestations of human cognition: one capturing how meaning is internally structured and negotiated, and the other capturing how it is expressed through language, images, and other cultural forms. More broadly, I pursue a human-centered approach to data science that uses AI not merely as a predictive tool, but as a lens for understanding how human beliefs and creativity are formed and evolve.</p>
+<h2 id="research-identity">Research Identity<a class="header-anchor" href="#research-identity" title="Link to this section" rel="nofollow">#</a></h2>
+<p>My research program is organized around two complementary pillars. The first focuses on the computational understanding of human creativity and artistic expression, from long-term patterns in art history to contemporary digital creativity and multimodal generative AI. The second focuses on modeling human beliefs, persuasion, and collective social behavior using language models, embeddings, and network analysis. Together, these two pillars define my broader approach to computational social science and cultural data analytics.</p>
+<h2 id="core-questions">Core Questions<a class="header-anchor" href="#core-questions" title="Link to this section" rel="nofollow">#</a></h2>
+<h3 id="1-how-can-beliefs-be-represented-and-modeled">1. How can beliefs be represented and modeled?<a class="header-anchor" href="#1-how-can-beliefs-be-represented-and-modeled" title="Link to this section" rel="nofollow">#</a></h3>
+<p>How can human beliefs and cognition be meaningfully represented in high-dimensional latent spaces, and how do beliefs evolve, interact, and change within such spaces? This question motivates my work on belief embeddings, persuasion dynamics, political inference, and the geometry of collective behavior.</p>
+<h3 id="2-how-can-creativity-and-cultural-expression-be-quantified">2. How can creativity and cultural expression be quantified?<a class="header-anchor" href="#2-how-can-creativity-and-cultural-expression-be-quantified" title="Link to this section" rel="nofollow">#</a></h3>
+<p>How can human creativity and artistic expression be characterized quantitatively, and how do creative forms evolve across different historical, social, and technological contexts? This question motivates my work on art history, user-generated visual culture, and multimodal AI for cultural analysis.</p>
 <h2 id="research-themes">Research Themes<a class="header-anchor" href="#research-themes" title="Link to this section" rel="nofollow">#</a></h2>
 <h3 id="ai-human-beliefs-and-political-judgment">AI, Human Beliefs, and Political Judgment<a class="header-anchor" href="#ai-human-beliefs-and-political-judgment" title="Link to this section" rel="nofollow">#</a></h3>
-<p>I study how large language models can represent human belief systems, political judgment, and semantic variation in public discourse. This line of work connects representation learning, computational social science, and human-centered AI.</p>
+<p>I study how large language models can represent human belief systems, political judgment, and semantic variation in public discourse. This line of work connects representation learning, computational social science, and human-centered AI, while asking how latent geometry can reveal the structure, interdependence, and dynamics of beliefs at scale.</p>
 <h3 id="art-culture-and-creativity">Art, Culture, and Creativity<a class="header-anchor" href="#art-culture-and-creativity" title="Link to this section" rel="nofollow">#</a></h3>
-<p>I use information theory, multimodal learning, and cultural data to study long-term patterns in art history, stylistic change, and visual creativity. This includes work on landscape painting, user-generated art, and multimodal AI for cultural analysis.</p>
+<p>I use information theory, multimodal learning, and cultural data to study long-term patterns in art history, stylistic change, and visual creativity. This includes work on landscape painting, user-generated art, and multimodal AI for cultural analysis, with an emphasis on how artistic forms become organized, transmitted, and transformed over time.</p>
 <h3 id="networks-media-and-social-dynamics">Networks, Media, and Social Dynamics<a class="header-anchor" href="#networks-media-and-social-dynamics" title="Link to this section" rel="nofollow">#</a></h3>
-<p>I examine online polarization, media ecosystems, and networked social behavior. My work in this area includes research on news press structure, discourse around epidemics, and hidden dependencies in weighted networks.</p>
+<p>I examine online polarization, media ecosystems, and networked social behavior. My work in this area includes research on news press structure, discourse around epidemics, and hidden dependencies in weighted networks, with a focus on how collective patterns emerge from interaction, attention, and affective engagement.</p>
+<h2 id="looking-ahead">Looking Ahead<a class="header-anchor" href="#looking-ahead" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Moving forward, I want to deepen two connected directions: multimodal AI for studying creativity and cultural meaning, and a more general theory of belief dynamics and persuasion that integrates language, trajectories, networks, and external social events. I am especially interested in how these directions can support interpretable human-AI communication, illuminate the societal implications of large-scale social inference, and create principled tools for studying culture and behavior in real-world institutional contexts.</p>
 <h2 id="selected-projects">Selected Projects<a class="header-anchor" href="#selected-projects" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
 <li>Belief embedding spaces based on large language models</li>
@@ -130,7 +136,7 @@
     <footer>
         <p class="footer-text">
             
-            &copy; 2026 <a href="/about/">Byunghwee Lee</a>
+            &copy; 2026 <a href="/">Byunghwee Lee</a>
             
         </p>
     </footer>
@@ -152,7 +158,7 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const homepagePaths = new Set(["index", "research", "publications", "talks", "cv"]);
             const pagePath = document.body.dataset.pagePath || "";
             const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
 

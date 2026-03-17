@@ -51,12 +51,6 @@
                     
                 </a>
                 
-                <a href="/about/">
-                    
-                        About
-                    
-                </a>
-                
                 <a href="/research/">
                     
                         Research
@@ -136,7 +130,7 @@
     <footer>
         <p class="footer-text">
             
-            &copy; 2026 <a href="/about/">Byunghwee Lee</a>
+            &copy; 2026 <a href="/">Byunghwee Lee</a>
             
         </p>
     </footer>
@@ -158,7 +152,7 @@
         });
 
         document.addEventListener("DOMContentLoaded", function() {
-            const homepagePaths = new Set(["index", "about", "research", "publications", "talks", "cv"]);
+            const homepagePaths = new Set(["index", "research", "publications", "talks", "cv"]);
             const pagePath = document.body.dataset.pagePath || "";
             const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
 

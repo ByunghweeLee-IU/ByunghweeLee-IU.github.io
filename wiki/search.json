@@ -1,10 +1,10 @@
 [
   {
-    "title": "Home",
-    "path": "Wiki Home",
-    "url": "/wiki/Wiki Home/",
+    "title": "Hwiki: Home",
+    "path": "Home",
+    "url": "/wiki/Home/",
     "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Research updates and recognition](notes/papers/research-updates)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.",
-    "published": "2026-03-17T14:29:25.336631+00:00",
+    "published": "2026-03-17T14:35:05.430795+00:00",
     "tags": []
   },
   {
@@ -19,8 +19,8 @@
     "title": "Research",
     "path": "research",
     "url": "/wiki/research/",
-    "content": "My research lies at the intersection of AI, data science, and society. I develop computational methods to study culture, belief, and collective behavior using large-scale observational data.\n\n## Research Themes\n\n### AI, Human Beliefs, and Political Judgment\n\nI study how large language models can represent human belief systems, political judgment, and semantic variation in public discourse. This line of work connects representation learning, computational social science, and human-centered AI.\n\n#",
-    "published": "2026-03-17T02:43:23.225066+00:00",
+    "content": "My research develops quantitative and interpretable frameworks for understanding human beliefs, behavior, and creativity. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and analyze their relational and geometric properties using large-scale empirical data.\n\nI am trained as a physicist and work as a data scientist and computational social scientist. I draw on online conversations, social interaction data, digitized artworks, and cult",
+    "published": "2026-03-17T14:48:28.860584+00:00",
     "tags": []
   },
   {
@@ -28,15 +28,15 @@
     "path": "publications",
     "url": "/wiki/publications/",
     "content": "This page follows the structure of my [CV](cv). I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.\n\n## Selected Papers\n\n### Belief and AI\n\n**A semantic embedding space based on large language models for modelling human beliefs**.  \n<span class=\"author-self\">Byunghwee Lee</span>, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  \n*Nature Human Behaviour*, 2025.  \n[DOI]",
-    "published": "2026-03-17T14:30:52.154586+00:00",
+    "published": "2026-03-17T14:43:47.071908+00:00",
     "tags": []
   },
   {
     "title": "Byunghwee Lee",
     "path": "index",
     "url": "/wiki/index/",
-    "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a Postdoctoral Research Associate at the School of Data Science, University of Virginia. His research lies at the intersection of <strong>AI, data science, and society,</strong> with a focus on <strong>art and culture, human beliefs, and social dynamics</strong> at scale.</p>\n  </div>\n  <img src=\"/assets/profile.jpg\" alt=\"Profile photo of Byunghwee Lee\" class=\"profile-image\">\n</div>\n\n## Explore\n",
-    "published": "2026-03-17T14:31:57.263006+00:00",
+    "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks</strong> for understanding human behavior, beliefs, and creativity.</p>\n    <p>He is currently a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Yong-Yeol Ahn. His research integrates <strong>machine l",
+    "published": "2026-03-17T14:53:23.850801+00:00",
     "tags": []
   },
   {
@@ -45,14 +45,6 @@
     "url": "/wiki/talks/",
     "content": "This page follows the structure of my [CV](cv) and collects invited talks, seminars, and conference presentations in reverse chronological order.\n\n## Invited Talks and Seminars\n\n### 2025\n\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. MPI-SP DSLAB Seminar, August 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. KDI School, June 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling ",
     "published": "2026-03-17T14:30:52.154440+00:00",
-    "tags": []
-  },
-  {
-    "title": "About",
-    "path": "about",
-    "url": "/wiki/about/",
-    "content": "I am a Postdoctoral Research Associate at the School of Data Science, University of Virginia, where I work with Yong-Yeol Ahn. My research focuses on computational methods for studying human beliefs, social dynamics, art and culture, and large-scale digital traces.\n\nPreviously, I was a Postdoctoral Researcher at Indiana University, working with Jisun An, Haewoon Kwak, and Yong-Yeol Ahn, and I also worked as a postdoctoral-level senior researcher at Sungkyunkwan University with Beom Jun Kim. I re",
-    "published": "2026-03-17T04:22:44.251556+00:00",
     "tags": []
   },
   {

@@ -69,7 +69,7 @@
             <div class="nav-controls">
                 <div class="nav-links">
                 
-                <a href="/">
+                <a href="/index/">
                     
                         Home
                     
@@ -106,8 +106,9 @@
                 </a>
                 
                 </div>
-                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false">
-                    <span class="theme-toggle-label">Dark</span>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+                    <span class="visually-hidden theme-toggle-label">Dark mode</span>
                 </button>
             </div>
         </div>
@@ -215,6 +216,7 @@
             const storageKey = "theme-preference";
             const themeToggle = document.querySelector(".theme-toggle");
             const themeToggleLabel = document.querySelector(".theme-toggle-label");
+            const themeToggleIcon = document.querySelector(".theme-toggle-icon");
             const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
             const applyTheme = (theme) => {
@@ -222,7 +224,14 @@
                 if (themeToggle) {
                     const isDark = theme === "dark";
                     themeToggle.setAttribute("aria-pressed", String(isDark));
-                    themeToggleLabel.textContent = isDark ? "Light" : "Dark";
+                    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    if (themeToggleLabel) {
+                        themeToggleLabel.textContent = isDark ? "Light mode" : "Dark mode";
+                    }
+                    if (themeToggleIcon) {
+                        themeToggleIcon.textContent = isDark ? "☀" : "☾";
+                    }
                 }
             };
 

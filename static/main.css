@@ -367,13 +367,13 @@ footer {
 .content img.profile-image,
 .profile-image {
   float: right;
-  width: 96px !important;
-  height: 96px !important;
+  width: 130px !important;
+  height: 130px !important;
   object-fit: cover;
   border-radius: 14px;
   margin: 0.2rem 0 1rem 1.2rem;
   border: 1px solid var(--border-light);
-  max-width: 96px !important;
+  max-width: 130px !important;
 }
 
 @media (max-width: 720px) {
@@ -413,8 +413,8 @@ footer {
     float: none;
     display: block;
     margin: 0 0 1rem 0;
-    width: 84px !important;
-    height: 84px !important;
-    max-width: 84px !important;
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px !important;
   }
 }

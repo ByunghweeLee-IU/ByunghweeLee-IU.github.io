@@ -35,8 +35,8 @@
     "title": "Byunghwee Lee",
     "path": "index",
     "url": "/wiki/index/",
-    "content": "<img src=\"/assets/profile.jpg\" alt=\"Profile photo of Byunghwee Lee\" class=\"profile-image\" style=\"width:250px;height:250px;object-fit:cover;\">\n\n**Byunghwee Lee (\uc774\ubcd1\ud718)** is a Postdoctoral Research Associate at the School of Data Science, University of Virginia. His research lies at the intersection of **AI, data science, and society,** with a focus on art and **culture, human beliefs, and social dynamics** at scale.\n\n## Explore\n\n- Learn more [about me](about.md)\n- Browse current [research](research",
-    "published": "2026-03-17T04:10:39.101838+00:00",
+    "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a Postdoctoral Research Associate at the School of Data Science, University of Virginia. His research lies at the intersection of <strong>AI, data science, and society,</strong> with a focus on art and <strong>culture, human beliefs, and social dynamics</strong> at scale.</p>\n\n  </div>\n  <img src=\"/assets/profile.jpg\" alt=\"Profile photo of Byunghwee Lee\" class=\"profile-image\">\n</div>\n\n## Explore",
+    "published": "2026-03-17T04:16:43.068741+00:00",
     "tags": []
   },
   {

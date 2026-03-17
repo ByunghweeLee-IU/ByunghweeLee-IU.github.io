@@ -381,6 +381,33 @@ footer {
   margin-top: 0;
 }
 
+.core-questions {
+  max-width: 72ch;
+  margin: 0.9rem 0 1.4rem;
+  padding: 1rem 1.15rem 1rem 1.2rem;
+  background: var(--background-soft);
+  border-left: 4px solid var(--color-secondary);
+  border-radius: 0 10px 10px 0;
+}
+
+.core-questions ol {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.core-questions li {
+  margin: 0;
+  padding-left: 0.15rem;
+}
+
+.core-questions li + li {
+  margin-top: 0.95rem;
+}
+
+.core-questions strong {
+  color: var(--color-primary);
+}
+
 .content img.profile-image,
 .profile-image {
   flex: 0 0 auto;

@@ -19,8 +19,8 @@
     "title": "Research",
     "path": "research",
     "url": "/wiki/research/",
-    "content": "My research develops quantitative and interpretable frameworks for understanding human beliefs, behavior, and creativity. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and analyze their relational and geometric properties using large-scale empirical data.\n\nI am trained as a physicist and work as a data scientist and computational social scientist. I draw on online conversations, social interaction data, digitized artworks, and cult",
-    "published": "2026-03-17T14:48:28.860584+00:00",
+    "content": "My research develops quantitative and interpretable frameworks for **understanding human beliefs, behavior, and creativity**. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and study their relational and geometric properties using large-scale empirical data. By combining **statistical physics, information theory, network science, and modern artificial intelligence, especially large language models and multimodal AI**, and by drawing",
+    "published": "2026-03-17T15:47:32.618282+00:00",
     "tags": []
   },
   {
@@ -36,7 +36,7 @@
     "path": "index",
     "url": "/wiki/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks</strong> for understanding human behavior, beliefs, and creativity.</p>\n    <p>He is currently a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Yong-Yeol Ahn. His research integrates <strong>machine l",
-    "published": "2026-03-17T14:53:23.850801+00:00",
+    "published": "2026-03-17T15:17:56.841294+00:00",
     "tags": []
   },
   {

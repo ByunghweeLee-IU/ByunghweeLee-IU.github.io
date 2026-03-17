@@ -10,3 +10,5 @@
 /wiki/notes/papers/landscape-art-history/
 /wiki/notes/papers/preprints-and-in-progress/
 /wiki/notes/papers/research-updates/
+/wiki/notes/travel/Washington_DC/
+/wiki/notes/travel/travel-list/

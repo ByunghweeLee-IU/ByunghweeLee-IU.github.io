@@ -3,8 +3,8 @@
     "title": "Hwiki: Home",
     "path": "Home",
     "url": "/wiki/Home/",
-    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Research updates and recognition](notes/papers/research-updates)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.",
-    "published": "2026-03-17T14:35:05.430795+00:00",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Research updates and recognition](notes/papers/research-updates)\n- [Travel notes](notes/travel/travel-list)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.\n\n## Example Sections\n\n- [Travel notes](notes/travel/travel-list)\n- Example note: [Washington, DC](notes/travel/Washington_DC)",
+    "published": "2026-03-17T16:01:42.810207+00:00",
     "tags": []
   },
   {
@@ -93,6 +93,22 @@
     "url": "/wiki/notes/papers/research-updates/",
     "content": "## Awards\n\n- Datapalooza 2025 Best in Show Award, School of Data Science, University of Virginia\n- Best Poster Presentation, Korean Physical Society Meeting, 2020\n- Best Oral Presentation, Korean Physical Society Meeting, 2019\n\n## Media and Research Coverage\n\n- Belief embeddings paper highlighted by [Phys.org](https://phys.org/news/2025-06-llms-delve-online-debates-human.html)\n- Landscape art history paper covered by [Forbes](https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-co",
     "published": "2026-03-17T14:29:25.337267+00:00",
+    "tags": []
+  },
+  {
+    "title": "Washington, DC",
+    "path": "notes/travel/Washington_DC",
+    "url": "/wiki/notes/travel/Washington_DC/",
+    "content": "This is a sample public note for a folder-based wiki section.\n\n## Why This Note Exists\n\nI use this page as an example of how to create a new public note inside a new folder in `notes/`.\n\n## Example Structure\n\n- Folder: `notes/travel/`\n- Section entry page: [Travel Notes](travel-list)\n- This note: [Washington, DC](Washington_DC)\n\n## Example Links\n\n- Back to [Travel Notes](travel-list)\n- Back to [Hwiki Home](../../Home)",
+    "published": "2026-03-17T16:01:42.810062+00:00",
+    "tags": []
+  },
+  {
+    "title": "Travel Notes",
+    "path": "notes/travel/travel-list",
+    "url": "/wiki/notes/travel/travel-list/",
+    "content": "This section collects short public notes on travel, cities, and places.\n\n## Notes\n\n- [Washington, DC](Washington_DC)",
+    "published": "2026-03-17T16:01:42.809952+00:00",
     "tags": []
   }
 ]

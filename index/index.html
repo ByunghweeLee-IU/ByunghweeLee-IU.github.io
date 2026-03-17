@@ -109,10 +109,10 @@
 
 <h2 id="explore">Explore<a class="header-anchor" href="#explore" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li>Learn more <a href="about.md" rel="nofollow">about me</a></li>
-<li>Browse current <a href="research.md" rel="nofollow">research</a></li>
-<li>See <a href="publications.md" rel="nofollow">publications</a> and <a href="talks.md" rel="nofollow">talks</a></li>
-<li>Explore my <a href="../Home.md" rel="nofollow">Hwiki</a></li>
+<li>Learn more <a href="about" rel="nofollow">about me</a></li>
+<li>Browse current <a href="research" rel="nofollow">research</a></li>
+<li>See <a href="publications" rel="nofollow">publications</a> and <a href="talks" rel="nofollow">talks</a></li>
+<li>Explore my <a href="Wiki%20Home.md" rel="nofollow">Hwiki</a></li>
 <li>Download my <a href="/assets/byunghwee-cv.pdf" rel="nofollow">CV</a></li>
 </ul>
 <h2 id="current-focus">Current Focus<a class="header-anchor" href="#current-focus" title="Link to this section" rel="nofollow">#</a></h2>
@@ -181,7 +181,7 @@
             };
 
             const toSiteUrl = (sourcePath) => {
-                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
                 if (homepagePaths.has(withoutExt)) {
                     return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
                 }
@@ -193,7 +193,9 @@
                 if (!href) return;
                 if (href.startsWith("http://") || href.startsWith("https://")) return;
                 if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
-                if (!href.endsWith(".md")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
 
                 const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
                 link.setAttribute("href", toSiteUrl(resolved));

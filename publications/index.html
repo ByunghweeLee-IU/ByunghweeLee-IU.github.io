@@ -101,7 +101,7 @@
 
 
 <section class="content">
-    <p>This page follows the structure of my <a href="cv.md" rel="nofollow">CV</a>. I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.</p>
+    <p>This page follows the structure of my <a href="cv" rel="nofollow">CV</a>. I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.</p>
 <h2 id="selected-papers">Selected Papers<a class="header-anchor" href="#selected-papers" title="Link to this section" rel="nofollow">#</a></h2>
 <h3 id="belief-and-ai">Belief and AI<a class="header-anchor" href="#belief-and-ai" title="Link to this section" rel="nofollow">#</a></h3>
 <p><strong>A semantic embedding space based on large language models for modelling human beliefs</strong>.<br>
@@ -226,7 +226,7 @@
             };
 
             const toSiteUrl = (sourcePath) => {
-                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
                 if (homepagePaths.has(withoutExt)) {
                     return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
                 }
@@ -238,7 +238,9 @@
                 if (!href) return;
                 if (href.startsWith("http://") || href.startsWith("https://")) return;
                 if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
-                if (!href.endsWith(".md")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
 
                 const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
                 link.setAttribute("href", toSiteUrl(resolved));

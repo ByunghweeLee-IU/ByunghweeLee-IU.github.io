@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T02:43:23Z</updated>
+  <updated>2026-03-17T14:29:25Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -18,8 +18,8 @@
     <title>Research Updates and Recognition</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/research-updates/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/research-updates/</id>
-    <published>2026-03-17T02:43:23Z</published>
-    <updated>2026-03-17T02:43:23Z</updated>
+    <published>2026-03-17T14:29:25Z</published>
+    <updated>2026-03-17T14:29:25Z</updated>
     
     <content type="html"><![CDATA[<h2 id="awards">Awards<a class="header-anchor" href="#awards" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
@@ -35,8 +35,117 @@
 </ul>
 <h2 id="related-notes">Related Notes<a class="header-anchor" href="#related-notes" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li><a href="paper-list.md" rel="nofollow">Paper list</a></li>
+<li><a href="paper-list" rel="nofollow">Paper list</a></li>
 </ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>News Press Landscape and Asymmetric Polarization</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/</id>
+    <published>2026-03-17T14:29:25Z</published>
+    <updated>2026-03-17T14:29:25Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Lee, Byunghwee, Hyo-sun Ryu, Jae Kook Lee, Hawoong Jeong, and Beom Jun Kim. 2025. <em>Network analysis reveals news press landscape and asymmetric user polarization</em>. <em>Physica A</em>.</p>
+<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This paper studies the structure of the news press landscape and user polarization using network analysis. It reflects my broader interest in media systems, public discourse, and online collective behavior.</p>
+<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>It connects network structure to political and media dynamics</li>
+<li>It offers a data-driven view of asymmetry in polarization</li>
+<li>It contributes to my ongoing work on online discourse and social systems</li>
+</ul>
+<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="research-updates" rel="nofollow">Research updates and recognition</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Dissecting Landscape Art History with Information Theory</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/landscape-art-history/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/landscape-art-history/</id>
+    <published>2026-03-17T14:29:25Z</published>
+    <updated>2026-03-17T14:29:25Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Lee, Byunghwee, Min Kyung Seo, Daniel Kim, In-seob Shin, Maximilian Schich, Hawoong Jeong, and Seung Kee Han. 2020. <em>Dissecting landscape art history with information theory</em>. <em>Proceedings of the National Academy of Sciences</em> 117(43): 26580-26590.</p>
+<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This paper uses information-theoretic methods to study long-term changes in the composition of landscape paintings. It is one of the central examples of my work at the intersection of data science, art history, and cultural analytics.</p>
+<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>It shows how quantitative methods can reveal broad patterns in visual culture</li>
+<li>It bridges physics-inspired methods with art historical questions</li>
+<li>It helped establish a line of work on computational art history in my research</li>
+</ul>
+<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="research-updates" rel="nofollow">Research updates and recognition</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Belief Embeddings with Large Language Models</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/</id>
+    <published>2026-03-17T14:29:25Z</published>
+    <updated>2026-03-17T14:29:25Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Lee, Byunghwee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. 2025. <em>A semantic embedding space based on large language models for modelling human beliefs</em>. <em>Nature Human Behaviour</em>.</p>
+<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This paper develops a semantic embedding space based on large language models to model human beliefs and positions in public debate. The project connects representation learning with computational social science and provides a framework for studying relative belief structure at scale.</p>
+<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>It creates a computational representation of beliefs rather than reducing opinion to simple labels</li>
+<li>It links language model representations to social and political judgment</li>
+<li>It opens a path toward measuring belief change and persuasion in a structured way</li>
+</ul>
+<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="preprints-and-in-progress" rel="nofollow">Preprints and work in progress</a></li>
+<li><a href="research-updates" rel="nofollow">Research updates and recognition</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Paper List</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/</id>
+    <published>2026-03-17T14:29:25Z</published>
+    <updated>2026-03-17T14:29:25Z</updated>
+    
+    <content type="html"><![CDATA[<p>This page provides a small collection of paper notes drawn from my recent research.</p>
+<h2 id="papers">Papers<a class="header-anchor" href="#papers" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="belief-embeddings-llms" rel="nofollow">Belief embeddings with large language models</a></li>
+<li><a href="landscape-art-history" rel="nofollow">Dissecting landscape art history with information theory</a></li>
+<li><a href="news-press-polarization" rel="nofollow">News press landscape and asymmetric polarization</a></li>
+<li><a href="preprints-and-in-progress" rel="nofollow">Preprints and work in progress</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Home</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/Wiki Home/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/Wiki Home/</id>
+    <published>2026-03-17T14:29:25Z</published>
+    <updated>2026-03-17T14:29:25Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
+<h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="notes/papers/paper-list" rel="nofollow">Paper notes</a></li>
+<li><a href="notes/papers/research-updates" rel="nofollow">Research updates and recognition</a></li>
+</ul>
+<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
+<p>This wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.</p>]]></content>
     
   </entry>
   
@@ -60,115 +169,6 @@
 </ul>
 <h2 id="notes">Notes<a class="header-anchor" href="#notes" title="Link to this section" rel="nofollow">#</a></h2>
 <p>These projects continue my work on belief representation, multimodal AI, art and culture, and political discourse.</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>News Press Landscape and Asymmetric Polarization</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/</id>
-    <published>2026-03-17T02:43:23Z</published>
-    <updated>2026-03-17T02:43:23Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Lee, Byunghwee, Hyo-sun Ryu, Jae Kook Lee, Hawoong Jeong, and Beom Jun Kim. 2025. <em>Network analysis reveals news press landscape and asymmetric user polarization</em>. <em>Physica A</em>.</p>
-<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This paper studies the structure of the news press landscape and user polarization using network analysis. It reflects my broader interest in media systems, public discourse, and online collective behavior.</p>
-<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>It connects network structure to political and media dynamics</li>
-<li>It offers a data-driven view of asymmetry in polarization</li>
-<li>It contributes to my ongoing work on online discourse and social systems</li>
-</ul>
-<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Dissecting Landscape Art History with Information Theory</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/landscape-art-history/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/landscape-art-history/</id>
-    <published>2026-03-17T02:43:23Z</published>
-    <updated>2026-03-17T02:43:23Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Lee, Byunghwee, Min Kyung Seo, Daniel Kim, In-seob Shin, Maximilian Schich, Hawoong Jeong, and Seung Kee Han. 2020. <em>Dissecting landscape art history with information theory</em>. <em>Proceedings of the National Academy of Sciences</em> 117(43): 26580-26590.</p>
-<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This paper uses information-theoretic methods to study long-term changes in the composition of landscape paintings. It is one of the central examples of my work at the intersection of data science, art history, and cultural analytics.</p>
-<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>It shows how quantitative methods can reveal broad patterns in visual culture</li>
-<li>It bridges physics-inspired methods with art historical questions</li>
-<li>It helped establish a line of work on computational art history in my research</li>
-</ul>
-<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Belief Embeddings with Large Language Models</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/</id>
-    <published>2026-03-17T02:43:23Z</published>
-    <updated>2026-03-17T02:43:23Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Lee, Byunghwee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. 2025. <em>A semantic embedding space based on large language models for modelling human beliefs</em>. <em>Nature Human Behaviour</em>.</p>
-<h2 id="overview">Overview<a class="header-anchor" href="#overview" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This paper develops a semantic embedding space based on large language models to model human beliefs and positions in public debate. The project connects representation learning with computational social science and provides a framework for studying relative belief structure at scale.</p>
-<h2 id="why-i-think-it-matters">Why I Think It Matters<a class="header-anchor" href="#why-i-think-it-matters" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>It creates a computational representation of beliefs rather than reducing opinion to simple labels</li>
-<li>It links language model representations to social and political judgment</li>
-<li>It opens a path toward measuring belief change and persuasion in a structured way</li>
-</ul>
-<h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="preprints-and-in-progress.md" rel="nofollow">Preprints and work in progress</a></li>
-<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Paper List</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/paper-list/</id>
-    <published>2026-03-17T02:43:23Z</published>
-    <updated>2026-03-17T02:43:23Z</updated>
-    
-    <content type="html"><![CDATA[<p>This page provides a small collection of paper notes drawn from my recent research.</p>
-<h2 id="papers">Papers<a class="header-anchor" href="#papers" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="belief-embeddings-llms.md" rel="nofollow">Belief embeddings with large language models</a></li>
-<li><a href="landscape-art-history.md" rel="nofollow">Dissecting landscape art history with information theory</a></li>
-<li><a href="news-press-polarization.md" rel="nofollow">News press landscape and asymmetric polarization</a></li>
-<li><a href="preprints-and-in-progress.md" rel="nofollow">Preprints and work in progress</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Home</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-03-17T02:43:23Z</published>
-    <updated>2026-03-17T02:43:23Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
-<h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/papers/paper-list.md" rel="nofollow">Paper notes</a></li>
-<li><a href="notes/papers/research-updates.md" rel="nofollow">Research updates and recognition</a></li>
-</ul>
-<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.</p>]]></content>
     
   </entry>
   

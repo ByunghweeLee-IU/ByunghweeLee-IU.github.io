@@ -101,7 +101,7 @@
 
 
 <section class="content">
-    <p>This page follows the structure of my <a href="cv.md" rel="nofollow">CV</a> and collects invited talks, seminars, and conference presentations in reverse chronological order.</p>
+    <p>This page follows the structure of my <a href="cv" rel="nofollow">CV</a> and collects invited talks, seminars, and conference presentations in reverse chronological order.</p>
 <h2 id="invited-talks-and-seminars">Invited Talks and Seminars<a class="header-anchor" href="#invited-talks-and-seminars" title="Link to this section" rel="nofollow">#</a></h2>
 <h3 id="2025">2025<a class="header-anchor" href="#2025" title="Link to this section" rel="nofollow">#</a></h3>
 <ul>
@@ -234,7 +234,7 @@
             };
 
             const toSiteUrl = (sourcePath) => {
-                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
                 if (homepagePaths.has(withoutExt)) {
                     return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
                 }
@@ -246,7 +246,9 @@
                 if (!href) return;
                 if (href.startsWith("http://") || href.startsWith("https://")) return;
                 if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
-                if (!href.endsWith(".md")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
 
                 const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
                 link.setAttribute("href", toSiteUrl(resolved));

@@ -1,4 +1,4 @@
-/wiki/Home/
+/wiki/Wiki Home/
 /wiki/cv/
 /wiki/research/
 /wiki/publications/

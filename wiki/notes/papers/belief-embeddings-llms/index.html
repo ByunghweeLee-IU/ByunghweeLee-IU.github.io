@@ -100,7 +100,7 @@
     <p class="page-dates">
         
         
-            2026-03-16
+            2026-03-17
         
     </p>
     
@@ -120,8 +120,8 @@
 </ul>
 <h2 id="related">Related<a class="header-anchor" href="#related" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
-<li><a href="preprints-and-in-progress.md" rel="nofollow">Preprints and work in progress</a></li>
-<li><a href="research-updates.md" rel="nofollow">Research updates and recognition</a></li>
+<li><a href="preprints-and-in-progress" rel="nofollow">Preprints and work in progress</a></li>
+<li><a href="research-updates" rel="nofollow">Research updates and recognition</a></li>
 </ul>
 </section>
 
@@ -176,7 +176,7 @@
             };
 
             const toSiteUrl = (sourcePath) => {
-                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
                 if (homepagePaths.has(withoutExt)) {
                     return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
                 }
@@ -188,7 +188,9 @@
                 if (!href) return;
                 if (href.startsWith("http://") || href.startsWith("https://")) return;
                 if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
-                if (!href.endsWith(".md")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
 
                 const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
                 link.setAttribute("href", toSiteUrl(resolved));

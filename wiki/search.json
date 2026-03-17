@@ -1,10 +1,10 @@
 [
   {
     "title": "Home",
-    "path": "Home",
-    "url": "/wiki/Home/",
-    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list.md)\n- [Research updates and recognition](notes/papers/research-updates.md)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.",
-    "published": "2026-03-17T02:43:23.225637+00:00",
+    "path": "Wiki Home",
+    "url": "/wiki/Wiki Home/",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Research updates and recognition](notes/papers/research-updates)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.",
+    "published": "2026-03-17T14:29:25.336631+00:00",
     "tags": []
   },
   {
@@ -27,8 +27,8 @@
     "title": "Publications",
     "path": "publications",
     "url": "/wiki/publications/",
-    "content": "This page follows the structure of my [CV](cv.md). I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.\n\n## Selected Papers\n\n### Belief and AI\n\n**A semantic embedding space based on large language models for modelling human beliefs**.  \n<span class=\"author-self\">Byunghwee Lee</span>, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  \n*Nature Human Behaviour*, 2025.  \n[D",
-    "published": "2026-03-17T03:23:43.606674+00:00",
+    "content": "This page follows the structure of my [CV](cv). I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.\n\n## Selected Papers\n\n### Belief and AI\n\n**A semantic embedding space based on large language models for modelling human beliefs**.  \n<span class=\"author-self\">Byunghwee Lee</span>, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  \n*Nature Human Behaviour*, 2025.  \n[DOI]",
+    "published": "2026-03-17T14:30:52.154586+00:00",
     "tags": []
   },
   {
@@ -36,15 +36,15 @@
     "path": "index",
     "url": "/wiki/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a Postdoctoral Research Associate at the School of Data Science, University of Virginia. His research lies at the intersection of <strong>AI, data science, and society,</strong> with a focus on <strong>art and culture, human beliefs, and social dynamics</strong> at scale.</p>\n  </div>\n  <img src=\"/assets/profile.jpg\" alt=\"Profile photo of Byunghwee Lee\" class=\"profile-image\">\n</div>\n\n## Explore\n",
-    "published": "2026-03-17T04:25:28.258223+00:00",
+    "published": "2026-03-17T14:31:57.263006+00:00",
     "tags": []
   },
   {
     "title": "Talks",
     "path": "talks",
     "url": "/wiki/talks/",
-    "content": "This page follows the structure of my [CV](cv.md) and collects invited talks, seminars, and conference presentations in reverse chronological order.\n\n## Invited Talks and Seminars\n\n### 2025\n\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. MPI-SP DSLAB Seminar, August 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. KDI School, June 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeli",
-    "published": "2026-03-17T03:11:39.333733+00:00",
+    "content": "This page follows the structure of my [CV](cv) and collects invited talks, seminars, and conference presentations in reverse chronological order.\n\n## Invited Talks and Seminars\n\n### 2025\n\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. MPI-SP DSLAB Seminar, August 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. KDI School, June 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling ",
+    "published": "2026-03-17T14:30:52.154440+00:00",
     "tags": []
   },
   {
@@ -60,7 +60,7 @@
     "path": "notes/papers/belief-embeddings-llms",
     "url": "/wiki/notes/papers/belief-embeddings-llms/",
     "content": "## Citation\n\nLee, Byunghwee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. 2025. *A semantic embedding space based on large language models for modelling human beliefs*. *Nature Human Behaviour*.\n\n## Overview\n\nThis paper develops a semantic embedding space based on large language models to model human beliefs and positions in public debate. The project connects representation learning with computational social science and provides a framework for studying relative belief structure ",
-    "published": "2026-03-17T02:43:23.226150+00:00",
+    "published": "2026-03-17T14:29:25.336964+00:00",
     "tags": []
   },
   {
@@ -68,15 +68,15 @@
     "path": "notes/papers/news-press-polarization",
     "url": "/wiki/notes/papers/news-press-polarization/",
     "content": "## Citation\n\nLee, Byunghwee, Hyo-sun Ryu, Jae Kook Lee, Hawoong Jeong, and Beom Jun Kim. 2025. *Network analysis reveals news press landscape and asymmetric user polarization*. *Physica A*.\n\n## Overview\n\nThis paper studies the structure of the news press landscape and user polarization using network analysis. It reflects my broader interest in media systems, public discourse, and online collective behavior.\n\n## Why I Think It Matters\n\n- It connects network structure to political and media dynami",
-    "published": "2026-03-17T02:43:23.226313+00:00",
+    "published": "2026-03-17T14:29:25.337191+00:00",
     "tags": []
   },
   {
     "title": "Paper List",
     "path": "notes/papers/paper-list",
     "url": "/wiki/notes/papers/paper-list/",
-    "content": "This page provides a small collection of paper notes drawn from my recent research.\n\n## Papers\n\n- [Belief embeddings with large language models](belief-embeddings-llms.md)\n- [Dissecting landscape art history with information theory](landscape-art-history.md)\n- [News press landscape and asymmetric polarization](news-press-polarization.md)\n- [Preprints and work in progress](preprints-and-in-progress.md)",
-    "published": "2026-03-17T02:43:23.225757+00:00",
+    "content": "This page provides a small collection of paper notes drawn from my recent research.\n\n## Papers\n\n- [Belief embeddings with large language models](belief-embeddings-llms)\n- [Dissecting landscape art history with information theory](landscape-art-history)\n- [News press landscape and asymmetric polarization](news-press-polarization)\n- [Preprints and work in progress](preprints-and-in-progress)",
+    "published": "2026-03-17T14:29:25.336796+00:00",
     "tags": []
   },
   {
@@ -84,7 +84,7 @@
     "path": "notes/papers/landscape-art-history",
     "url": "/wiki/notes/papers/landscape-art-history/",
     "content": "## Citation\n\nLee, Byunghwee, Min Kyung Seo, Daniel Kim, In-seob Shin, Maximilian Schich, Hawoong Jeong, and Seung Kee Han. 2020. *Dissecting landscape art history with information theory*. *Proceedings of the National Academy of Sciences* 117(43): 26580-26590.\n\n## Overview\n\nThis paper uses information-theoretic methods to study long-term changes in the composition of landscape paintings. It is one of the central examples of my work at the intersection of data science, art history, and cultural a",
-    "published": "2026-03-17T02:43:23.226236+00:00",
+    "published": "2026-03-17T14:29:25.337116+00:00",
     "tags": []
   },
   {
@@ -100,7 +100,7 @@
     "path": "notes/papers/research-updates",
     "url": "/wiki/notes/papers/research-updates/",
     "content": "## Awards\n\n- Datapalooza 2025 Best in Show Award, School of Data Science, University of Virginia\n- Best Poster Presentation, Korean Physical Society Meeting, 2020\n- Best Oral Presentation, Korean Physical Society Meeting, 2019\n\n## Media and Research Coverage\n\n- Belief embeddings paper highlighted by [Phys.org](https://phys.org/news/2025-06-llms-delve-online-debates-human.html)\n- Landscape art history paper covered by [Forbes](https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-co",
-    "published": "2026-03-17T02:43:23.226462+00:00",
+    "published": "2026-03-17T14:29:25.337267+00:00",
     "tags": []
   }
 ]

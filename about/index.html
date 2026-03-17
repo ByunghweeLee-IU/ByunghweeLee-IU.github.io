@@ -174,7 +174,7 @@
             };
 
             const toSiteUrl = (sourcePath) => {
-                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "");
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
                 if (homepagePaths.has(withoutExt)) {
                     return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
                 }
@@ -186,7 +186,9 @@
                 if (!href) return;
                 if (href.startsWith("http://") || href.startsWith("https://")) return;
                 if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
-                if (!href.endsWith(".md")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
 
                 const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
                 link.setAttribute("href", toSiteUrl(resolved));

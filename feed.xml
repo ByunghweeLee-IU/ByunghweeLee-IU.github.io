@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T00:12:50Z</updated>
+  <updated>2026-03-17T00:18:16Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,25 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.6.0">foliate</generator>
 
+  
+  <entry>
+    <title>Notes</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/</id>
+    <published>2026-03-17T00:18:16Z</published>
+    <updated>2026-03-17T00:18:16Z</updated>
+    
+    <content type="html"><![CDATA[<p>This section collects public notes maintained in Obsidian and published through Foliate.</p>
+<p>Explore my Obsidian notes. </p>
+<h2 id="browse-by-topic">Browse by Topic<a class="header-anchor" href="#browse-by-topic" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="/wiki/notes/research/" rel="nofollow">Research notes</a></li>
+<li><a href="/wiki/notes/reading/" rel="nofollow">Reading notes</a></li>
+<li><a href="/wiki/notes/ideas/" rel="nofollow">Ideas</a></li>
+<li><a href="/wiki/notes/misc/" rel="nofollow">Miscellaneous</a></li>
+</ul>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Home</title>
@@ -80,24 +99,6 @@
 <li>Project logs</li>
 <li>Method notes</li>
 <li>Data and workflow memos</li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Notes</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/</id>
-    <published>2026-03-16T23:55:27Z</published>
-    <updated>2026-03-16T23:55:27Z</updated>
-    
-    <content type="html"><![CDATA[<p>This section collects public notes maintained in Obsidian and published through Foliate.</p>
-<h2 id="browse-by-topic">Browse by Topic<a class="header-anchor" href="#browse-by-topic" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="/wiki/notes/research/" rel="nofollow">Research notes</a></li>
-<li><a href="/wiki/notes/reading/" rel="nofollow">Reading notes</a></li>
-<li><a href="/wiki/notes/ideas/" rel="nofollow">Ideas</a></li>
-<li><a href="/wiki/notes/misc/" rel="nofollow">Miscellaneous</a></li>
 </ul>]]></content>
     
   </entry>

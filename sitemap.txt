@@ -7,6 +7,7 @@
 /wiki/index/
 /wiki/talks/
 /wiki/about/
+/wiki/notes/Tips/
 /wiki/notes/ideas/
 /wiki/notes/research/
 /wiki/notes/misc/

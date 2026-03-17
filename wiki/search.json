@@ -3,8 +3,8 @@
     "title": "Hwiki: Home",
     "path": "Home",
     "url": "/wiki/Home/",
-    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Research updates and recognition](notes/papers/research-updates)\n- [Travel notes](notes/travel/travel-list)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.\n\n## Example Sections\n\n- [Travel notes](notes/travel/travel-list)\n- Example note: [Washington, DC](notes/travel/Washington_DC)",
-    "published": "2026-03-17T16:01:42.810207+00:00",
+    "content": "Welcome to the public wiki section of my site.\n\n## Start Here\n\n- [Paper notes](notes/papers/paper-list)\n- [Travel notes](notes/travel/travel-list)\n\n## About This Wiki\n\nThis wiki is where I collect paper notes, short summaries, and research updates connected to my academic work.\n\n## Example Sections\n\n- [Travel notes](notes/travel/travel-list)\n- Example note: [Washington, DC](notes/travel/Washington_DC)",
+    "published": "2026-03-17T16:54:56.883607+00:00",
     "tags": []
   },
   {
@@ -85,14 +85,6 @@
     "url": "/wiki/notes/papers/preprints-and-in-progress/",
     "content": "## Preprints\n\n- *LLMs Can Infer Political Alignment from Online Conversations* (2026)\n- *A Benchmark for Zero-Shot Belief Inference in Large Language Models* (2025)\n- *Context-aware Multimodal AI Reveals Hidden Pathways in Five Centuries of Art Evolution* (2025)\n- *Combined influence of artwork and artist features in predicting user generated art valuation* (2025)\n\n## In Preparation\n\n- *The geometry of persuasion: Quantifying belief change in a latent embedding space*\n\n## Notes\n\nThese projects c",
     "published": "2026-03-17T02:43:23.226392+00:00",
-    "tags": []
-  },
-  {
-    "title": "Research Updates and Recognition",
-    "path": "notes/papers/research-updates",
-    "url": "/wiki/notes/papers/research-updates/",
-    "content": "## Awards\n\n- Datapalooza 2025 Best in Show Award, School of Data Science, University of Virginia\n- Best Poster Presentation, Korean Physical Society Meeting, 2020\n- Best Oral Presentation, Korean Physical Society Meeting, 2019\n\n## Media and Research Coverage\n\n- Belief embeddings paper highlighted by [Phys.org](https://phys.org/news/2025-06-llms-delve-online-debates-human.html)\n- Landscape art history paper covered by [Forbes](https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-co",
-    "published": "2026-03-17T14:29:25.337267+00:00",
     "tags": []
   },
   {

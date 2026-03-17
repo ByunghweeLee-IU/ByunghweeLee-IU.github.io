@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T16:01:42Z</updated>
+  <updated>2026-03-17T16:54:56Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -18,14 +18,13 @@
     <title>Hwiki: Home</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-03-17T16:01:42Z</published>
-    <updated>2026-03-17T16:01:42Z</updated>
+    <published>2026-03-17T16:54:56Z</published>
+    <updated>2026-03-17T16:54:56Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
 <h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
 <li><a href="notes/papers/paper-list" rel="nofollow">Paper notes</a></li>
-<li><a href="notes/papers/research-updates" rel="nofollow">Research updates and recognition</a></li>
 <li><a href="notes/travel/travel-list" rel="nofollow">Travel notes</a></li>
 </ul>
 <h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
@@ -73,32 +72,6 @@
 <h2 id="notes">Notes<a class="header-anchor" href="#notes" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
 <li><a href="Washington_DC" rel="nofollow">Washington, DC</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Research Updates and Recognition</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/research-updates/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/research-updates/</id>
-    <published>2026-03-17T14:29:25Z</published>
-    <updated>2026-03-17T14:29:25Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="awards">Awards<a class="header-anchor" href="#awards" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>Datapalooza 2025 Best in Show Award, School of Data Science, University of Virginia</li>
-<li>Best Poster Presentation, Korean Physical Society Meeting, 2020</li>
-<li>Best Oral Presentation, Korean Physical Society Meeting, 2019</li>
-</ul>
-<h2 id="media-and-research-coverage">Media and Research Coverage<a class="header-anchor" href="#media-and-research-coverage" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>Belief embeddings paper highlighted by <a href="https://phys.org/news/2025-06-llms-delve-online-debates-human.html" rel="nofollow">Phys.org</a></li>
-<li>Landscape art history paper covered by <a href="https://www.forbes.com/sites/evaamsen/2020/10/23/math-shows-how-the-composition-of-landscape-paintings-changed-over-time/" rel="nofollow">Forbes</a>, <a href="https://www.inverse.com/science/math-uncovers-art-secrets" rel="nofollow">Inverse</a>, and <em>Science Daily</em></li>
-<li>News press polarization paper highlighted by <a href="https://www.skku.edu/skku/campus/skk_comm/news.do?mode=view&amp;articleNo=129197" rel="nofollow">SKKU Media</a></li>
-</ul>
-<h2 id="related-notes">Related Notes<a class="header-anchor" href="#related-notes" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="paper-list" rel="nofollow">Paper list</a></li>
 </ul>]]></content>
     
   </entry>

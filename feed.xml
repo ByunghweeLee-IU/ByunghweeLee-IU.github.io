@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-18T19:51:40Z</updated>
+  <updated>2026-03-18T19:53:35Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,35 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.6.0">foliate</generator>
 
+  
+  <entry>
+    <title>Hwiki: Home</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
+    <published>2026-03-18T19:53:35Z</published>
+    <updated>2026-03-18T19:53:35Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Welcome to the public wiki section of my site!👋 
+This wiki is where I collect my thoughts, essays, research ideas and useful information. </p>
+<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>🎨 <a href="notes/blogs/01_미술-황금비율의비밀.md" rel="nofollow">데이터로 본 예술 (1): 황금비율의 비밀 - 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
+<li>🎨 <a href="notes/blogs/02_미술-작품가격의비밀" rel="nofollow">데이터로 본 예술 (2): 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
+<li>🎨 <a href="notes/blogs/03_미술-성공의비밀" rel="nofollow">데이터로 본 예술 (3): 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
+<li>🎨 <a href="notes/blogs/04_미술-인상의비밀" rel="nofollow">데이터로 본 예술 (4): 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
+</ul>
+<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="notes/News-list" rel="nofollow">All News</a></li>
+</ul>
+<h2 id="example-sections">Example Sections<a class="header-anchor" href="#example-sections" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="notes/travel/travel-list" rel="nofollow">Travel notes</a></li>
+<li>Example note: <a href="notes/travel/Washington_DC" rel="nofollow">Washington, DC</a></li>
+</ul>]]></content>
+    
+  </entry>
   
   <entry>
     <title>데이터로 본 예술 (1): 황금비율의 비밀 - 정보이론으로 바라본 미술사 속 구도와 비례</title>
@@ -72,34 +101,6 @@
 <li>이병휘, &ldquo;물리학의 눈으로 본 미술사 - 교양이 전공이 된다면?&rdquo;,  Cross Street 2021년 4월 통권 187호.</li>
 <li>Isaacson, W. (2017). Leonardo da Vinci. First Simon &amp; Schuster hardcover edition. New York, NY, Simon &amp; Schuster</li>
 <li>Livio, M. (2008). <em>The golden ratio: The story of phi, the world&rsquo;s most astonishing number</em>. Crown.</li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Hwiki: Home</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-03-18T19:50:07Z</published>
-    <updated>2026-03-18T19:50:07Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Welcome to the public wiki section of my site! This wiki is where I collect my thoughts, essays, research ideas and useful informations. </p>
-<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>🎨 <a href="notes/blogs/01_미술-황금비율의비밀.md" rel="nofollow">데이터로 본 예술 (1): 황금비율의 비밀 - 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
-<li>🎨 <a href="notes/blogs/02_미술-작품가격의비밀" rel="nofollow">데이터로 본 예술 (2): 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
-<li>🎨 <a href="notes/blogs/03_미술-성공의비밀" rel="nofollow">데이터로 본 예술 (3): 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
-<li>🎨 <a href="notes/blogs/04_미술-인상의비밀" rel="nofollow">데이터로 본 예술 (4): 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
-</ul>
-<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/News-list" rel="nofollow">All News</a></li>
-</ul>
-<h2 id="example-sections">Example Sections<a class="header-anchor" href="#example-sections" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/travel/travel-list" rel="nofollow">Travel notes</a></li>
-<li>Example note: <a href="notes/travel/Washington_DC" rel="nofollow">Washington, DC</a></li>
 </ul>]]></content>
     
   </entry>

@@ -7,6 +7,7 @@
 /wiki/notes/News-list/
 /wiki/.trash/imgtest/
 /wiki/notes/blogs/03_미술-성공의비밀/
+/wiki/notes/blogs/04_미술-인상의비밀/
 /wiki/notes/blogs/01_미술-황금비율의비밀/
 /wiki/notes/blogs/02_미술-작품가격의비밀/
 /wiki/notes/papers/belief-embeddings-llms/

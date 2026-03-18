@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-17T19:21:34Z</updated>
+  <updated>2026-03-18T00:46:06Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -15,27 +15,11 @@
 
   
   <entry>
-    <title>All news</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/News-list/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/News-list/</id>
-    <published>2026-03-17T19:21:34Z</published>
-    <updated>2026-03-17T19:21:34Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li><code>2026-03-16</code>: Updated the arXiv version of <em>LLMs Can Infer Political Alignment from Online Conversations</em> on <a href="https://arxiv.org/abs/2603.11253" rel="nofollow"><em>arXiv</em></a></li>
-<li><code>2025-11-18</code>: 2025: Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science <a href="https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025" rel="nofollow">News</a></li>
-<li><code>2025-07-31</code>: Published <em>Network analysis reveals news press landscape and asymmetric user polarization</em> in <a href="https://www.sciencedirect.com/science/article/abs/pii/S0378437125004947" rel="nofollow"><em>Physica A</em></a></li>
-<li><code>2025-06-04</code>: Published <em>A semantic embedding space based on large language models for modelling human beliefs</em> in <a href="https://www.nature.com/articles/s41562-025-02228-z" rel="nofollow"><em>Nature Human Behaviour</em></a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
     <title>Hwiki: Home</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-03-17T19:17:19Z</published>
-    <updated>2026-03-17T19:17:19Z</updated>
+    <published>2026-03-18T00:46:06Z</published>
+    <updated>2026-03-18T00:46:06Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to the public wiki section of my site.</p>
 <h2 id="start-here">Start Here<a class="header-anchor" href="#start-here" title="Link to this section" rel="nofollow">#</a></h2>
@@ -50,6 +34,36 @@
 <ul>
 <li><a href="notes/travel/travel-list" rel="nofollow">Travel notes</a></li>
 <li>Example note: <a href="notes/travel/Washington_DC" rel="nofollow">Washington, DC</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>img testing</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/.trash/imgtest/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/.trash/imgtest/</id>
+    <published>2026-03-18T00:45:31Z</published>
+    <updated>2026-03-18T00:45:31Z</updated>
+    
+    <content type="html"><![CDATA[<p>Three images</p>
+<p><img alt="Image 3" src="/assets/files/Img3.png">
+<img alt="Image 3" src="/assets/files/Img3.png">
+<img alt="Image 3" src="/assets/files/Img3.png"></p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>All news</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/News-list/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/News-list/</id>
+    <published>2026-03-17T19:21:34Z</published>
+    <updated>2026-03-17T19:21:34Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><code>2026-03-16</code>: Updated the arXiv version of <em>LLMs Can Infer Political Alignment from Online Conversations</em> on <a href="https://arxiv.org/abs/2603.11253" rel="nofollow"><em>arXiv</em></a></li>
+<li><code>2025-11-18</code>: 2025: Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science <a href="https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025" rel="nofollow">News</a></li>
+<li><code>2025-07-31</code>: Published <em>Network analysis reveals news press landscape and asymmetric user polarization</em> in <a href="https://www.sciencedirect.com/science/article/abs/pii/S0378437125004947" rel="nofollow"><em>Physica A</em></a></li>
+<li><code>2025-06-04</code>: Published <em>A semantic embedding space based on large language models for modelling human beliefs</em> in <a href="https://www.nature.com/articles/s41562-025-02228-z" rel="nofollow"><em>Nature Human Behaviour</em></a></li>
 </ul>]]></content>
     
   </entry>

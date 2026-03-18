@@ -5,6 +5,7 @@
 /wiki/index/
 /wiki/talks/
 /wiki/notes/News-list/
+/wiki/.trash/imgtest/
 /wiki/notes/papers/belief-embeddings-llms/
 /wiki/notes/papers/news-press-polarization/
 /wiki/notes/papers/paper-list/

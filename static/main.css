@@ -498,6 +498,88 @@ footer {
   max-width: 180px !important;
 }
 
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 0.9rem 0 1.75rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid var(--social-border, var(--border-light));
+  border-radius: 999px;
+  background: var(--social-bg, transparent);
+  color: var(--social-color, var(--text-secondary)) !important;
+  text-decoration: none;
+  transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--social-hover-border, var(--color-secondary));
+  background: var(--social-hover-bg, var(--background-soft));
+  color: var(--social-hover-color, var(--color-secondary)) !important;
+  box-shadow: 0 8px 18px rgba(34, 59, 89, 0.08);
+}
+
+.social-link svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: currentColor;
+  flex: 0 0 auto;
+  opacity: 1;
+}
+
+.social-scholar {
+  --social-color: #1a73e8;
+  --social-border: rgba(26, 115, 232, 0.22);
+  --social-bg: rgba(26, 115, 232, 0.08);
+  --social-hover-border: #1a73e8;
+  --social-hover-bg: rgba(26, 115, 232, 0.14);
+  --social-hover-color: #1557b0;
+}
+
+.social-orcid {
+  --social-color: #a6ce39;
+  --social-border: rgba(166, 206, 57, 0.28);
+  --social-bg: rgba(166, 206, 57, 0.1);
+  --social-hover-border: #7fb216;
+  --social-hover-bg: rgba(166, 206, 57, 0.16);
+  --social-hover-color: #5f8c00;
+}
+
+.social-github {
+  --social-color: #24292f;
+  --social-border: rgba(36, 41, 47, 0.16);
+  --social-bg: rgba(36, 41, 47, 0.06);
+  --social-hover-border: #24292f;
+  --social-hover-bg: rgba(36, 41, 47, 0.1);
+  --social-hover-color: #111827;
+}
+
+.social-linkedin {
+  --social-color: #0a66c2;
+  --social-border: rgba(10, 102, 194, 0.22);
+  --social-bg: rgba(10, 102, 194, 0.08);
+  --social-hover-border: #0a66c2;
+  --social-hover-bg: rgba(10, 102, 194, 0.14);
+  --social-hover-color: #084b8f;
+}
+
+.social-facebook {
+  --social-color: #1877f2;
+  --social-border: rgba(24, 119, 242, 0.22);
+  --social-bg: rgba(24, 119, 242, 0.08);
+  --social-hover-border: #1877f2;
+  --social-hover-bg: rgba(24, 119, 242, 0.14);
+  --social-hover-color: #1257b8;
+}
+
 .image-triptych {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -573,5 +655,14 @@ footer {
 
   .image-triptych {
     grid-template-columns: 1fr;
+  }
+
+  .social-links {
+    gap: 0.6rem;
+  }
+
+  .social-link {
+    width: 2.55rem;
+    height: 2.55rem;
   }
 }

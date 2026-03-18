@@ -6,6 +6,7 @@
 /wiki/talks/
 /wiki/notes/News-list/
 /wiki/.trash/imgtest/
+/wiki/notes/blogs/미술-황금비율의비밀/
 /wiki/notes/papers/belief-embeddings-llms/
 /wiki/notes/papers/news-press-polarization/
 /wiki/notes/papers/paper-list/

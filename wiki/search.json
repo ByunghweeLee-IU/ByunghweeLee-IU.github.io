@@ -27,24 +27,24 @@
     "title": "Publications",
     "path": "publications",
     "url": "/wiki/publications/",
-    "content": "This page follows the structure of my [CV](cv). I list a few representative papers first, then provide a fuller publication list covering preprints, peer-reviewed work, manuscripts in preparation, and related writing.\n\n## Selected Papers\n\n### **Belief and AI**\n\n**A semantic embedding space based on large language models for modelling human beliefs**.  <span class=\"author-self\">Byunghwee Lee</span>, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  *Nature Human Behaviour*, 2025.  [DOI",
-    "published": "2026-03-17T17:10:31.510303+00:00",
+    "content": "## Selected Papers\n\n### **Belief and AI**\n\n**A semantic embedding space based on large language models for modelling human beliefs**.  <span class=\"author-self\">Byunghwee Lee</span>, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An.  *Nature Human Behaviour*, 2025.  [DOI](https://doi.org/10.1038/s41562-025-02228-z)\n\n- Highlighted by [Phys.org](https://phys.org/news/2025-06-llms-delve-online-debates-human.html)\n\n### **Art and Data Science**\n\n**Dissecting landscape art history with infor",
+    "published": "2026-03-18T04:03:43.485830+00:00",
     "tags": []
   },
   {
     "title": "Byunghwee Lee",
     "path": "index",
     "url": "/wiki/index/",
-    "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks</strong> for understanding human behavior, beliefs, and creativity.</p>\n    <p>He is currently a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Yong-Yeol Ahn. His research integrates <strong>machine l",
-    "published": "2026-03-17T19:22:50.262242+00:00",
+    "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks for understanding human behavior, beliefs, and creativity.</strong></p>\n    <p>He is currently a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Yong-Yeol Ahn. His research integrates machine learning,",
+    "published": "2026-03-18T04:03:01.715881+00:00",
     "tags": []
   },
   {
     "title": "Talks",
     "path": "talks",
     "url": "/wiki/talks/",
-    "content": "This page follows the structure of my [CV](cv) and collects invited talks, seminars, and conference presentations in reverse chronological order.\n\n## Invited Talks and Seminars\n\n### 2025\n\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. MPI-SP DSLAB Seminar, August 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. KDI School, June 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling ",
-    "published": "2026-03-17T14:30:52.154440+00:00",
+    "content": "## Invited Talks and Seminars\n\n### 2025\n\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. MPI-SP DSLAB Seminar, August 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. KDI School, June 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. Soongsil University, June 2025.\n\n### 2024\n\n- *Network Analysis Reveals News Press Landscape and User Polarization*. Sungkyunkwan Un",
+    "published": "2026-03-18T04:04:00.234131+00:00",
     "tags": []
   },
   {

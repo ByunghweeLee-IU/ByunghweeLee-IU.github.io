@@ -6,10 +6,10 @@
 /wiki/talks/
 /wiki/notes/News-list/
 /wiki/.trash/imgtest/
-/wiki/notes/blogs/03_미술-성공의비밀/
-/wiki/notes/blogs/04_미술-인상의비밀/
-/wiki/notes/blogs/01_미술-황금비율의비밀/
-/wiki/notes/blogs/02_미술-작품가격의비밀/
+/wiki/notes/blogs/04_art-impression/
+/wiki/notes/blogs/03_art-network/
+/wiki/notes/blogs/02_art-price/
+/wiki/notes/blogs/01_art-goldenratio/
 /wiki/notes/papers/belief-embeddings-llms/
 /wiki/notes/papers/news-press-polarization/
 /wiki/notes/papers/paper-list/

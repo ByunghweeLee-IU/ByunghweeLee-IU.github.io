@@ -1,9 +1,10 @@
 /wiki/Home/
-/wiki/cv/
-/wiki/research/
-/wiki/publications/
-/wiki/index/
-/wiki/talks/
+/cv/
+/research/
+/publications/
+/index/
+/talks/
+/visualization/
 /wiki/notes/News-list/
 /wiki/.trash/imgtest/
 /wiki/notes/blogs/04_art-impression/

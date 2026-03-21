@@ -10,7 +10,7 @@
   {
     "title": "CV",
     "path": "cv",
-    "url": "/wiki/cv/",
+    "url": "/cv/",
     "content": "My current CV is available here: [Download CV](/assets/byunghwee-cv.pdf)\n\n## Current Position\n\n- Postdoctoral Research Associate, School of Data Science, University of Virginia\n- Charlottesville, Virginia (2025 - )\n- Advisor: Yong-Yeol Ahn\n\n## Education\n\n- PhD in Physics, KAIST, 2021\n- BS in Physics, KAIST, 2013\n\n## Previous Positions\n\n- Postdoctoral Researcher, Indiana University, 2023-2025\n- Senior Researcher, Sungkyunkwan University / Institute of Basic Science, 2022-2023\n- Researcher / Curat",
     "published": "2026-03-18T20:34:17.817591+00:00",
     "tags": []
@@ -18,7 +18,7 @@
   {
     "title": "Research",
     "path": "research",
-    "url": "/wiki/research/",
+    "url": "/research/",
     "content": "My research develops quantitative and interpretable frameworks for **understanding human beliefs, behavior, and creativity**. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and study their relational and geometric properties using large-scale empirical data. By combining **statistical physics, information theory, network science, and modern artificial intelligence, especially large language models and multimodal AI**, and by drawing",
     "published": "2026-03-18T04:07:36.617816+00:00",
     "tags": []
@@ -26,7 +26,7 @@
   {
     "title": "Publications",
     "path": "publications",
-    "url": "/wiki/publications/",
+    "url": "/publications/",
     "content": "## Selected Papers\n\n### **Belief and AI**\n\n**A semantic embedding space based on large language models for modelling human beliefs.** Byunghwee Lee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. *Nature Human Behaviour*. 2025. [DOI](https://doi.org/10.1038/s41562-025-02228-z)\n\n- Highlighted by [Phys.org](https://phys.org/news/2025-06-llms-delve-online-debates-human.html)\n\n### **Art and Data Science**\n\n**Dissecting landscape art history with information theory.** Byunghwee Lee, Min ",
     "published": "2026-03-19T04:32:25.279137+00:00",
     "tags": []
@@ -34,17 +34,25 @@
   {
     "title": "Byunghwee Lee",
     "path": "index",
-    "url": "/wiki/index/",
+    "url": "/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>data scientist</strong> and <strong>computational social scientist</strong> who develops <strong>interpretable, quantitative frameworks for understanding human behavior, beliefs, and creativity.</strong></p>\n    <p>I am currently a Postdoctoral Research Associate at the <a href=\"https://datascience.virginia.edu/people/byunghwee-lee\">University of Virginia School of Data Science</a>, wo",
-    "published": "2026-03-18T20:37:25.591688+00:00",
+    "published": "2026-03-21T20:37:26.362165+00:00",
     "tags": []
   },
   {
     "title": "Talks",
     "path": "talks",
-    "url": "/wiki/talks/",
+    "url": "/talks/",
     "content": "## Invited Talks and Seminars\n\n### 2025\n\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. MPI-SP DSLAB Seminar, August 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. KDI School, June 2025.\n- *A Semantic Embedding Space Based on Large Language Models for Modeling Human Beliefs*. Soongsil University, June 2025.\n\n### 2024\n\n- *Network Analysis Reveals News Press Landscape and User Polarization*. Sungkyunkwan Un",
     "published": "2026-03-18T04:04:00.234131+00:00",
+    "tags": []
+  },
+  {
+    "title": "Data Visualization",
+    "path": "visualization",
+    "url": "/visualization/",
+    "content": "This page collects selected visualization work at the intersection of historical data, culture, and computational analysis.\n\n## The Annals of the Joseon Dynasty\n\n**Mapping five centuries of Korean history**\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/LTli5xX0zpM\"\n    title=\"The Annals of the Joseon Dynasty: Mapping five centuries of Korean history\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n    r",
+    "published": "2026-03-21T20:46:04.198601+00:00",
     "tags": []
   },
   {

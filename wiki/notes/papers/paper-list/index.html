@@ -77,6 +77,12 @@
                     
                 </a>
                 
+                <a href="/visualization/">
+                    
+                        Visualization
+                    
+                </a>
+                
                 <a href="/publications/">
                     
                         Publications
@@ -217,7 +223,7 @@
                 systemThemeQuery.addListener(syncWithSystemTheme);
             }
 
-            const homepagePaths = new Set(["index", "research", "publications", "talks", "cv"]);
+            const homepagePaths = new Set(["index", "research", "visualization", "publications", "talks", "cv"]);
             const pagePath = document.body.dataset.pagePath || "";
             const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
 

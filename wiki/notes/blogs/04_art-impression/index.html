@@ -67,7 +67,13 @@
         <div class="nav-inner">
             <a class="site-wordmark" href="/index/">Byunghwee Lee</a>
             <div class="nav-controls">
-                <div class="nav-links">
+                <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav-links">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="visually-hidden">Menu</span>
+                </button>
+                <div class="nav-links" id="site-nav-links">
                 
                 <a href="/index/">
                     
@@ -212,6 +218,9 @@ Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
             const themeToggleLabel = document.querySelector(".theme-toggle-label");
             const themeToggleIcon = document.querySelector(".theme-toggle-icon");
             const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            const mobileNavQuery = window.matchMedia("(max-width: 720px)");
 
             const applyTheme = (theme) => {
                 document.documentElement.setAttribute("data-theme", theme);
@@ -229,7 +238,26 @@ Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
                 }
             };
 
+            const setNavOpen = (isOpen) => {
+                if (!navToggle || !navLinks) return;
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navLinks.dataset.open = String(isOpen);
+            };
+
+            const syncNavWithViewport = () => {
+                if (!navToggle || !navLinks) return;
+                if (mobileNavQuery.matches) {
+                    if (!navLinks.dataset.open) {
+                        setNavOpen(false);
+                    }
+                } else {
+                    navLinks.dataset.open = "true";
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            };
+
             applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+            syncNavWithViewport();
 
             if (themeToggle) {
                 themeToggle.addEventListener("click", function() {
@@ -240,15 +268,40 @@ Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
                 });
             }
 
+            if (navToggle && navLinks) {
+                navToggle.addEventListener("click", function() {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setNavOpen(!isOpen);
+                });
+
+                navLinks.querySelectorAll("a").forEach((link) => {
+                    link.addEventListener("click", function() {
+                        if (mobileNavQuery.matches) {
+                            setNavOpen(false);
+                        }
+                    });
+                });
+            }
+
             const syncWithSystemTheme = (event) => {
                 if (localStorage.getItem(storageKey)) return;
                 applyTheme(event.matches ? "dark" : "light");
+            };
+
+            const syncNavMedia = () => {
+                syncNavWithViewport();
             };
 
             if (typeof systemThemeQuery.addEventListener === "function") {
                 systemThemeQuery.addEventListener("change", syncWithSystemTheme);
             } else if (typeof systemThemeQuery.addListener === "function") {
                 systemThemeQuery.addListener(syncWithSystemTheme);
+            }
+
+            if (typeof mobileNavQuery.addEventListener === "function") {
+                mobileNavQuery.addEventListener("change", syncNavMedia);
+            } else if (typeof mobileNavQuery.addListener === "function") {
+                mobileNavQuery.addListener(syncNavMedia);
             }
 
             const homepagePaths = new Set(["index", "research", "visualization", "publications", "talks", "cv"]);

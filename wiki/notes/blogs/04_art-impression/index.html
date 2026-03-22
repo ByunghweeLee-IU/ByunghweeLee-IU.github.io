@@ -415,6 +415,8 @@ Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
                 if (!slides.length) return;
 
                 let currentIndex = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
 
                 const updateControls = () => {
                     track.dataset.activeIndex = String(currentIndex);
@@ -455,6 +457,25 @@ Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
                 if (nextButton) {
                     nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
                 }
+
+                track.addEventListener("touchstart", (event) => {
+                    const touch = event.changedTouches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                }, { passive: true });
+
+                track.addEventListener("touchend", (event) => {
+                    const touch = event.changedTouches[0];
+                    const deltaX = touch.clientX - touchStartX;
+                    const deltaY = touch.clientY - touchStartY;
+                    if (Math.abs(deltaX) < 40) return;
+                    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+                    if (deltaX < 0) {
+                        scrollToSlide(currentIndex + 1);
+                    } else {
+                        scrollToSlide(currentIndex - 1);
+                    }
+                }, { passive: true });
 
                 updateControls();
             });

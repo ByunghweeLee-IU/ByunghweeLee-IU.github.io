@@ -395,6 +395,10 @@
                 let currentIndex = 0;
 
                 const updateControls = () => {
+                    track.dataset.activeIndex = String(currentIndex);
+                    slides.forEach((slide, index) => {
+                        slide.hidden = index !== currentIndex;
+                    });
                     if (prevButton) prevButton.disabled = currentIndex === 0;
                     if (nextButton) nextButton.disabled = currentIndex === slides.length - 1;
                     if (dotsContainer) {
@@ -407,10 +411,6 @@
                 const scrollToSlide = (index) => {
                     const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
                     currentIndex = boundedIndex;
-                    track.scrollTo({
-                        left: slides[boundedIndex].offsetLeft - track.offsetLeft,
-                        behavior: "smooth",
-                    });
                     updateControls();
                 };
 
@@ -433,24 +433,6 @@
                 if (nextButton) {
                     nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
                 }
-
-                let scrollTimer;
-                track.addEventListener("scroll", () => {
-                    window.clearTimeout(scrollTimer);
-                    scrollTimer = window.setTimeout(() => {
-                        let nearestIndex = 0;
-                        let nearestDistance = Infinity;
-                        slides.forEach((slide, index) => {
-                            const distance = Math.abs((slide.offsetLeft - track.offsetLeft) - track.scrollLeft);
-                            if (distance < nearestDistance) {
-                                nearestDistance = distance;
-                                nearestIndex = index;
-                            }
-                        });
-                        currentIndex = nearestIndex;
-                        updateControls();
-                    }, 80);
-                }, { passive: true });
 
                 updateControls();
             });

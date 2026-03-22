@@ -683,32 +683,23 @@ footer {
 }
 
 .scroll-gallery {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 0.9rem;
+  position: relative;
   margin: 0;
   padding: 0.2rem 0 0.75rem;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.scroll-gallery::-webkit-scrollbar {
-  display: none;
 }
 
 .gallery-card {
-  flex: 0 0 100%;
+  width: 100%;
   margin: 0;
   border: 1px solid var(--border-light);
   border-radius: 16px;
   overflow: hidden;
   background: linear-gradient(180deg, var(--background-panel) 0%, var(--background-soft) 100%);
   box-shadow: 0 12px 28px rgba(34, 59, 89, 0.08);
-  scroll-snap-align: start;
+}
+
+.gallery-card[hidden] {
+  display: none;
 }
 
 .gallery-card img {

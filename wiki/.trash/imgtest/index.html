@@ -155,6 +155,13 @@
 
     </article>
 
+    <div class="image-lightbox" aria-hidden="true" hidden>
+        <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Show previous image">←</button>
+        <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+        <img class="image-lightbox-media" alt="">
+        <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Show next image">→</button>
+    </div>
+
     <div class="footer-separator"></div>
 
     <footer>
@@ -193,6 +200,13 @@
             const navToggle = document.querySelector(".nav-toggle");
             const navLinks = document.querySelector(".nav-links");
             const mobileNavQuery = window.matchMedia("(max-width: 720px)");
+            const lightbox = document.querySelector(".image-lightbox");
+            const lightboxImage = document.querySelector(".image-lightbox-media");
+            const lightboxClose = document.querySelector(".image-lightbox-close");
+            const lightboxPrev = document.querySelector(".image-lightbox-prev");
+            const lightboxNext = document.querySelector(".image-lightbox-next");
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            let activeLightboxIndex = -1;
 
             const applyTheme = (theme) => {
                 document.documentElement.setAttribute("data-theme", theme);
@@ -275,6 +289,165 @@
             } else if (typeof mobileNavQuery.addListener === "function") {
                 mobileNavQuery.addListener(syncNavMedia);
             }
+
+            const renderLightboxImage = (index) => {
+                if (!lightbox || !lightboxImage) return;
+                const boundedIndex = Math.max(0, Math.min(index, zoomableImages.length - 1));
+                const image = zoomableImages[boundedIndex];
+                if (!image) return;
+                activeLightboxIndex = boundedIndex;
+                lightboxImage.src = image.currentSrc || image.src;
+                lightboxImage.alt = image.alt || "";
+                if (lightboxPrev) lightboxPrev.disabled = boundedIndex === 0;
+                if (lightboxNext) lightboxNext.disabled = boundedIndex === zoomableImages.length - 1;
+            };
+
+            const openLightbox = (image) => {
+                if (!lightbox || !lightboxImage) return;
+                const index = zoomableImages.indexOf(image);
+                renderLightboxImage(index >= 0 ? index : 0);
+                lightbox.hidden = false;
+                lightbox.setAttribute("aria-hidden", "false");
+                document.body.classList.add("lightbox-open");
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox || !lightboxImage) return;
+                lightbox.hidden = true;
+                lightbox.setAttribute("aria-hidden", "true");
+                lightboxImage.src = "";
+                lightboxImage.alt = "";
+                activeLightboxIndex = -1;
+                document.body.classList.remove("lightbox-open");
+            };
+
+            const stepLightbox = (delta) => {
+                if (activeLightboxIndex < 0) return;
+                renderLightboxImage(activeLightboxIndex + delta);
+            };
+
+            zoomableImages.forEach((image) => {
+                image.classList.add("zoomable-image");
+                image.setAttribute("tabindex", "0");
+                image.setAttribute("role", "button");
+                image.setAttribute("aria-label", (image.alt || "Image") + ". Open larger view");
+
+                image.addEventListener("click", () => openLightbox(image));
+                image.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openLightbox(image);
+                    }
+                });
+            });
+
+            if (lightbox && lightboxClose) {
+                lightboxClose.addEventListener("click", closeLightbox);
+                if (lightboxPrev) {
+                    lightboxPrev.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(-1);
+                    });
+                }
+                if (lightboxNext) {
+                    lightboxNext.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(1);
+                    });
+                }
+                lightbox.addEventListener("click", (event) => {
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+                    closeLightbox();
+                }
+                if (event.key === "ArrowLeft" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(-1);
+                }
+                if (event.key === "ArrowRight" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(1);
+                }
+            });
+
+            document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+                const track = carousel.querySelector("[data-carousel-track]");
+                const prevButton = carousel.querySelector("[data-carousel-prev]");
+                const nextButton = carousel.querySelector("[data-carousel-next]");
+                const dotsContainer = carousel.querySelector("[data-carousel-dots]");
+                if (!track) return;
+
+                const slides = Array.from(track.querySelectorAll(".gallery-card"));
+                if (!slides.length) return;
+
+                let currentIndex = 0;
+
+                const updateControls = () => {
+                    if (prevButton) prevButton.disabled = currentIndex === 0;
+                    if (nextButton) nextButton.disabled = currentIndex === slides.length - 1;
+                    if (dotsContainer) {
+                        dotsContainer.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+                            dot.setAttribute("aria-pressed", String(index === currentIndex));
+                        });
+                    }
+                };
+
+                const scrollToSlide = (index) => {
+                    const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
+                    currentIndex = boundedIndex;
+                    track.scrollTo({
+                        left: slides[boundedIndex].offsetLeft - track.offsetLeft,
+                        behavior: "smooth",
+                    });
+                    updateControls();
+                };
+
+                if (dotsContainer) {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.className = "gallery-dot";
+                        dot.setAttribute("aria-label", `Go to figure ${index + 1}`);
+                        dot.setAttribute("aria-pressed", String(index === 0));
+                        dot.addEventListener("click", () => scrollToSlide(index));
+                        dotsContainer.appendChild(dot);
+                    });
+                }
+
+                if (prevButton) {
+                    prevButton.addEventListener("click", () => scrollToSlide(currentIndex - 1));
+                }
+
+                if (nextButton) {
+                    nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
+                }
+
+                let scrollTimer;
+                track.addEventListener("scroll", () => {
+                    window.clearTimeout(scrollTimer);
+                    scrollTimer = window.setTimeout(() => {
+                        let nearestIndex = 0;
+                        let nearestDistance = Infinity;
+                        slides.forEach((slide, index) => {
+                            const distance = Math.abs((slide.offsetLeft - track.offsetLeft) - track.scrollLeft);
+                            if (distance < nearestDistance) {
+                                nearestDistance = distance;
+                                nearestIndex = index;
+                            }
+                        });
+                        currentIndex = nearestIndex;
+                        updateControls();
+                    }, 80);
+                }, { passive: true });
+
+                updateControls();
+            });
 
             const homepagePaths = new Set(["index", "research", "visualization", "publications", "talks", "cv"]);
             const pagePath = document.body.dataset.pagePath || "";

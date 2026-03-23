@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-03-19T15:46:45Z</updated>
+  <updated>2026-03-23T18:12:19Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,23 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.7.2">foliate</generator>
 
+  
+  <entry>
+    <title>All news</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/News-list/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/News-list/</id>
+    <published>2026-03-23T18:12:19Z</published>
+    <updated>2026-03-23T18:12:19Z</updated>
+    
+    <content type="html"><![CDATA[<ul>
+<li><code>2026-03-21</code>: Added a <a href="visualization" rel="nofollow">Visualization</a> page to my website—more to come soon!</li>
+<li><code>2026-03-16</code> : New preprint released: <em>LLMs Can Infer Political Alignment from Online Conversations</em> on <a href="https://arxiv.org/abs/2603.11253" rel="nofollow"><em>arXiv</em></a></li>
+<li><code>2025-11-18</code> : Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science <a href="https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025" rel="nofollow">News</a></li>
+<li><code>2025-07-31</code> : Published <em>Network analysis reveals news press landscape and asymmetric user polarization</em> in <a href="https://www.sciencedirect.com/science/article/abs/pii/S0378437125004947" rel="nofollow"><em>Physica A</em></a></li>
+<li><code>2025-06-04</code> : Published <em>A semantic embedding space based on large language models for modelling human beliefs</em> in <a href="https://www.nature.com/articles/s41562-025-02228-z" rel="nofollow"><em>Nature Human Behaviour</em></a></li>
+</ul>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Hwiki: Home</title>
@@ -226,22 +243,6 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
 <p>[4] J. Baker, J. E. Thornes, Solar position within Monet’s Houses of Parliament. Proc. R. Soc. A: Math.<br>
 Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
 <p>[5] C. Zerefos et al., Further evidence of important environmental information content in red-to-green ratios as depicted in paintings by great masters. Atmos. Chem. Phys. 14, 2987–3015 (2014).</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>All news</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/News-list/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/News-list/</id>
-    <published>2026-03-18T15:00:59Z</published>
-    <updated>2026-03-18T15:00:59Z</updated>
-    
-    <content type="html"><![CDATA[<ul>
-<li><code>2026-03-16</code>: Updated the arXiv version of <em>LLMs Can Infer Political Alignment from Online Conversations</em> on <a href="https://arxiv.org/abs/2603.11253" rel="nofollow"><em>arXiv</em></a></li>
-<li><code>2025-11-18</code>: 2025: Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science <a href="https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025" rel="nofollow">News</a></li>
-<li><code>2025-07-31</code>: Published <em>Network analysis reveals news press landscape and asymmetric user polarization</em> in <a href="https://www.sciencedirect.com/science/article/abs/pii/S0378437125004947" rel="nofollow"><em>Physica A</em></a></li>
-<li><code>2025-06-04</code>: Published <em>A semantic embedding space based on large language models for modelling human beliefs</em> in <a href="https://www.nature.com/articles/s41562-025-02228-z" rel="nofollow"><em>Nature Human Behaviour</em></a></li>
-</ul>]]></content>
     
   </entry>
   

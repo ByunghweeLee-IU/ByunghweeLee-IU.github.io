@@ -28,7 +28,7 @@
     "path": "index",
     "url": "/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>computational social scientist</strong> and <strong>data scientist</strong> who develops <strong>interpretable, quantitative frameworks to uncover how human beliefs, behavior, and creativity are structured and how they evolve.</strong></p>\n    <p>I am currently a Postdoctoral Research Associate at the <a href=\"https://datascience.virginia.edu/people/byunghwee-lee\">University of Virgini",
-    "published": "2026-04-07T14:33:40.243522+00:00",
+    "published": "2026-04-07T16:40:11.991285+00:00",
     "tags": []
   },
   {
@@ -67,8 +67,8 @@
     "title": "All news",
     "path": "notes/News-list",
     "url": "/wiki/notes/News-list/",
-    "content": "* `2026-03-31`: New paper released: *When the Classroom Disappeared:\u00a0The Paradox of Assortativity in Co-Enrollment Networks* on [Social Constellations: A World Perspective](https://www.sc-world.org/journal/view.php?number=6)\n- `2026-03-21`: Added a [Visualization](visualization) page to my website\u2014more to come soon!\n- `2026-03-16` : New preprint released: *LLMs Can Infer Political Alignment from Online Conversations* on [*arXiv*](https://arxiv.org/abs/2603.11253)\n- `2025-11-18` : Received the Da",
-    "published": "2026-04-07T14:33:12.139137+00:00",
+    "content": "* `2026-04-07`: New paper released: *When the Classroom Disappeared:\u00a0The Paradox of Assortativity in Co-Enrollment Networks* on [Social Constellations: A World Perspective](https://www.sc-world.org/journal/view.php?number=6)\n- `2026-03-21`: Added a [Visualization](visualization) page to my website\u2014more to come soon!\n- `2026-03-16` : New preprint released: *LLMs Can Infer Political Alignment from Online Conversations* on [*arXiv*](https://arxiv.org/abs/2603.11253)\n- `2025-11-18` : Received the Da",
+    "published": "2026-04-07T16:39:54.849243+00:00",
     "tags": []
   },
   {

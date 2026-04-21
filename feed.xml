@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-04-21T18:34:43Z</updated>
+  <updated>2026-04-21T18:58:48Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,161 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.7.6">foliate</generator>
 
+  
+  <entry>
+    <title>Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/</id>
+    <published>2026-04-21T18:58:48Z</published>
+    <updated>2026-04-21T18:58:48Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="emergence-of-stereotypes-and-affective-polarization-from-belief-network-dynamics">Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics<a class="header-anchor" href="#emergence-of-stereotypes-and-affective-polarization-from-belief-network-dynamics" title="Link to this section" rel="nofollow">#</a></h1>
+<blockquote>
+<p><strong>One-sentence summary.</strong> An agent-based belief-network model shows that two minimal ingredients — social influence and a drive for internal coherence — are sufficient to spontaneously generate stereotypes and strong affective polarization, even without ideological disagreement or network homophily.</p>
+</blockquote>
+<h2 id="metadata-at-a-glance">Metadata at a Glance<a class="header-anchor" href="#metadata-at-a-glance" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Authors &amp; Affiliations:</strong> Seckin, Aiyappa, Menczer, Flammini (Indiana U.); Vlasceanu (Stanford); Ahn (U. Virginia). Corresponding: oseckin@iu.edu, yyahn@virginia.edu.</li>
+<li><strong>Field / Subfield:</strong> Computational Social Science / Opinion Dynamics / Social Cognition</li>
+<li><strong>Type of work:</strong> Theoretical — agent-based modeling</li>
+<li><strong>Status:</strong> Preprint (arXiv, 11 Apr 2026)</li>
+</ul>
+<hr>
+<h2 id="1-core-questions">1. Core Questions<a class="header-anchor" href="#1-core-questions" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Q1.</strong> How do seemingly unrelated beliefs become associated — i.e., how do stereotypes emerge — without any underlying causal link?</li>
+<li><strong>Q2.</strong> How do such emergent associations drive affective polarization (ingroup favoritism, outgroup animosity) in the absence of ideological conflict?</li>
+</ul>
+<h2 id="2-motivation-gap">2. Motivation &amp; Gap<a class="header-anchor" href="#2-motivation-gap" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Mainstream accounts attribute polarization to ideological disagreement, motivated reasoning, homophily, or echo chambers — yet affective polarization empirically <em>exceeds</em> substantive disagreement, and minimal-group experiments show arbitrary categorization alone can spark bias.</li>
+<li>Classical opinion-dynamics models treat opinions as isolated scalars, missing the fact that beliefs form mutually constraining networks.</li>
+<li>Earlier belief-network models (Rodriguez+2016; Aiyappa+2024) updated only directly communicated beliefs, with no mechanism for coherence-driven updates on <em>related</em> beliefs after an interaction.</li>
+</ul>
+<h2 id="3-key-contributions">3. Key Contributions<a class="header-anchor" href="#3-key-contributions" title="Link to this section" rel="nofollow">#</a></h2>
+<ol>
+<li>An extended belief-network ABM combining <strong>direct social influence</strong> with <strong>endogenous coherence updates on related beliefs</strong>, selected via two-step weighted random walks over the belief graph.</li>
+<li>Stereotypes emerge spontaneously around a neutral concept — group identity + coherence pressure suffice; no underlying reality needed.</li>
+<li>Affective polarization (ingroup +1 / outgroup −1) arises as a downstream effect, without agents initially knowing neighbors&rsquo; group affiliations.</li>
+<li>Polarization emerges in a <strong>well-mixed network</strong> — homophily and echo chambers are not required.</li>
+<li>Parameter sweep identifies the regime: α &gt; 0.5 (social influence) and β &gt; 0 (coherence); very large β <em>reduces</em> polarization because beliefs crystallize before they can align with group identity.</li>
+</ol>
+<h2 id="4-background-prior-work">4. Background &amp; Prior Work<a class="header-anchor" href="#4-background-prior-work" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Social Balance Theory</strong> (Heider 1946): triad stability via sign product — basis of the coherence term.</li>
+<li><strong>Cognitive Dissonance</strong> (Festinger 1957): motivation for coherence-seeking.</li>
+<li><strong>Belief-network tradition:</strong> Converse 1964; Martin 2002; Friedkin+2016; Vlasceanu+2024 (bending); Rodriguez+2016; Aiyappa+2024 (direct precursor).</li>
+<li><strong>Associative diffusion</strong> (Goldberg &amp; Stein 2018); <strong>opinion cascades</strong> (Macy+2019).</li>
+<li><strong>Minimal group paradigm</strong> (Tajfel+1971); <strong>false consensus effect</strong> (Ross+1977).</li>
+</ul>
+<h2 id="5-method-model">5. Method / Model<a class="header-anchor" href="#5-method-model" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Approach:</strong> Two-layer ABM — a social graph of agents, each holding an internal belief graph.</li>
+<li><strong>Core setup:</strong> N=100 agents on M=200 random edges. Each agent&rsquo;s belief network contains self, a neutral concept (<em>latte</em>), Group A, Group B, and other agents. Self→own-group = +1, self→other-group = −1 (fixed); all other beliefs initialized near zero, N(0, 10⁻⁵).</li>
+<li><strong>Key equations:</strong></li>
+<li>Triad energy: E = −b(c_x,c_y)·b(c_x,c_z)·b(c_y,c_z) (Eq. 1).</li>
+<li>Dissonance d(B_i) = mean triad energy (Eq. 2).</li>
+<li>Per-step update: b ← b + f (social) + g (coherence).</li>
+<li>Social influence: f ~ N(α·(b_j − b_i), σ) (Eq. 5).</li>
+<li>Coherence update: g ~ N(−β·∂d/∂b, σ) — gradient descent on dissonance, applied to an <em>adjacent</em> edge chosen via two-step weighted random walk.</li>
+<li>Beliefs clipped to [−1, 1].</li>
+<li><strong>Parameters:</strong> α = β = 1, σ = 0.1 (defaults); swept over [0, 3].</li>
+<li><strong>Null conditions:</strong> α = 0 or β = 0. Also tested a reinforcement-style influence term — results qualitatively unchanged.</li>
+</ul>
+<h2 id="6-dataset-experimental-setup">6. Dataset / Experimental Setup<a class="header-anchor" href="#6-dataset-experimental-setup" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Source:</strong> Pure simulation (Julia for the model, Python for analysis). No empirical dataset.</li>
+<li><strong>Scale:</strong> N=100, M=200, 2.5×10⁶ time steps per run, 10 runs per parameter cell.</li>
+<li><strong>Code:</strong> <a href="https://github.com/rachithaiyappa/emerging_beliefs" rel="nofollow">https://github.com/rachithaiyappa/emerging_beliefs</a></li>
+<li><strong>Limitations of the setup:</strong> No empirical calibration; no ground truth (latte is neutral by construction).</li>
+</ul>
+<h2 id="7-key-results">7. Key Results<a class="header-anchor" href="#7-key-results" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Stereotype formation (Fig. 3):</strong> Group A converges to <em>+latte</em>, Group B to <em>−latte</em>. Opinion polarization P_O goes 0 → ~2 (max).</li>
+<li><strong>Affective polarization (Fig. 4):</strong> Ingroup valence → +1, outgroup → −1; P_A goes 0 → ~2.</li>
+<li><strong>Internal dissonance drops</strong> toward −1 (Fig. 3h): populations settle into coherent, stable belief systems — coherence locks in the polarized state.</li>
+<li><strong>Phase diagram (Fig. 5):</strong> Polarization requires α &gt; 0.5 and β &gt; 0; excessive β suppresses it (premature crystallization).</li>
+<li><strong>False-consensus minority:</strong> A small fraction misinfer a neighbor&rsquo;s group from positive interactions — consistent with Ross+1977.</li>
+</ul>
+<h2 id="8-figures-tables-worth-remembering">8. Figures / Tables Worth Remembering<a class="header-anchor" href="#8-figures-tables-worth-remembering" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Fig. 1:</strong> Two-layer architecture + balanced/unbalanced triads.</li>
+<li><strong>Fig. 2:</strong> One simulation step — pair selection, social influence, two-step random-walk coherence update.</li>
+<li><strong>Fig. 3:</strong> Latte stereotype emergence + P_O and ⟨d(B_i)⟩ over time.</li>
+<li><strong>Fig. 4:</strong> Ingroup/outgroup valence evolution; P_A time series.</li>
+<li><strong>Fig. 5:</strong> α–β heatmaps showing the non-monotonic effect of β.</li>
+</ul>
+<h2 id="9-interpretation-implications">9. Interpretation &amp; Implications<a class="header-anchor" href="#9-interpretation-implications" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Reframes polarization as <strong>an emergent property of how humans organize beliefs under uncertainty</strong>, not as disagreement over values.</li>
+<li>Offers a cognitively grounded alternative to homophily-based opinion dynamics.</li>
+<li>Provides a candidate mechanism for <em>COVID-19 vaccine polarization</em>: coherence-driven alignment around political identity through associative chains (e.g., lockdowns ↔ freedom ↔ mandates), independent of genuine efficacy disagreement.</li>
+<li>Domain-agnostic — same dynamics could underlie polarization in climate, science denial, culture.</li>
+</ul>
+<h2 id="10-limitations">10. Limitations<a class="header-anchor" href="#10-limitations" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Author-acknowledged:</strong> well-mixed network; only two fixed groups; a single tracked neutral concept; no reality-checking; random (non-selective) transmission; equal-influence agents; no distinction between beliefs and meta-beliefs (no theory of mind).</li>
+<li><strong>Additional observations:</strong></li>
+<li>No empirical calibration of α, β; the COVID illustration is narrative, not quantitative.</li>
+<li>Small population (N=100); scaling behavior is not systematically examined.</li>
+<li>The two-step-walk definition of &ldquo;adjacency&rdquo; is a modeling choice — alternative walk lengths could change spread dynamics.</li>
+</ul>
+<h2 id="11-open-questions-future-work">11. Open Questions &amp; Future Work<a class="header-anchor" href="#11-open-questions-future-work" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Empirically test whether exposure to a few ingroup members&rsquo; behavior seeds group-level stereotypes (experiments or observational studies).</li>
+<li>Add community structure / homophily — amplifier or accelerator?</li>
+<li>Overlapping, fluid identities; multiple interacting neutral concepts.</li>
+<li>Introduce theory of mind / second-order beliefs.</li>
+<li>Asymmetric influence, opinion leaders, selective exposure.</li>
+</ul>
+<h2 id="12-connections">12. Connections<a class="header-anchor" href="#12-connections" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Related papers:</strong></li>
+<li>Aiyappa, Flammini &amp; Ahn (2024) <em>Science Advances</em> — direct methodological precursor (ref [47]).</li>
+<li>Rodriguez, Bollen &amp; Ahn (2016) <em>PLoS ONE</em> — belief evolution under coherence + conformity (ref [48]).</li>
+<li>Goldberg &amp; Stein (2018) — associative diffusion (ref [27]).</li>
+<li>Macy et al. (2019, 2021) — opinion cascades, tipping points (refs [28, 43]).</li>
+<li>Vlasceanu et al. (2024) — bending model (ref [19]).</li>
+<li>DellaPosta, Shi &amp; Macy (2015) — &ldquo;Why do liberals drink lattes?&rdquo; — the empirical puzzle motivating the model (ref [17]).</li>
+<li><strong>Potential applications:</strong> modeling partisan animosity; cultural-marker formation; misinformation spread through associative chains.</li>
+<li><strong>Contrasts with:</strong> homophily-based / structural-separation accounts of polarization (refs [72–75]); motivated-reasoning and ideological-distance accounts.</li>
+</ul>
+<h2 id="13-key-takeaways">13. Key Takeaways<a class="header-anchor" href="#13-key-takeaways" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>The one idea to carry forward:</strong> polarization and stereotypes can be <em>emergent</em> from coherence-seeking in belief networks — no echo chambers, no substantive disagreement, not even knowledge of others&rsquo; identities required.</li>
+<li><strong>Methodological nugget:</strong> the two-step weighted random walk is a clean, reusable primitive for selecting &ldquo;related&rdquo; beliefs in any belief-network model.</li>
+</ul>
+<h2 id="14-quotes-snippets">14. Quotes / Snippets<a class="header-anchor" href="#14-quotes-snippets" title="Link to this section" rel="nofollow">#</a></h2>
+<blockquote>
+<p>&ldquo;Our model shows that polarization can emerge in the complete absence of any underlying truth&hellip; the associations that drive division need not be normatively meaningful, politically relevant, or even accurate.&rdquo; (p. 10)</p>
+<p>&ldquo;Even in a well-mixed network&hellip; polarization emerges purely from cognitive dynamics, without requiring echo chambers or social sorting.&rdquo; (p. 10)</p>
+<p>&ldquo;This reframes polarization not as an outcome of disagreement over values, but as an emergent property of how humans organize beliefs under uncertainty.&rdquo; (p. 10)</p>
+</blockquote>
+<h2 id="15-glossary">15. Glossary<a class="header-anchor" href="#15-glossary" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><strong>Belief network (B_i):</strong> An agent&rsquo;s signed, weighted graph of concept–concept associations; b_i(c_x, c_y) ∈ [−1, 1].</li>
+<li><strong>Social Balance Theory:</strong> A triad is <em>stable</em> iff the product of its three edge signs is positive.</li>
+<li><strong>Internal dissonance d(B_i):</strong> Mean triad energy; lower = more coherent.</li>
+<li><strong>Social influence (α):</strong> Strength with which a receiver&rsquo;s belief drifts toward the sender&rsquo;s.</li>
+<li><strong>Coherence pressure (β):</strong> Strength of the dissonance-reducing gradient step.</li>
+<li><strong>Endogenous update:</strong> Coherence-driven change to a <em>related</em> belief, triggered but not directly communicated by an interaction.</li>
+<li><strong>Opinion polarization P_O(c):</strong> |mean(A) − mean(B)| opinion gap on concept c; range [0, 2].</li>
+<li><strong>Affective polarization P_A:</strong> Mean (ingroup − outgroup) valence gap; range [0, 2].</li>
+<li><strong>False consensus effect:</strong> Overestimating how widely one&rsquo;s beliefs are shared; appears in the model as the minority of sign-flipping agents.</li>
+</ul>
+<hr>
+<h2 id="bibtex">BibTeX<a class="header-anchor" href="#bibtex" title="Link to this section" rel="nofollow">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nc">@article</span><span class="p">{</span><span class="nl">seckin2026emergence</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{Seckin, Ozgur Can and Aiyappa, Rachith and Vlasceanu, Madalina and Menczer, Filippo and Flammini, Alessandro and Ahn, Yong-Yeol}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{arXiv preprint arXiv:2604.10251}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{2026}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">url</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{https://arxiv.org/abs/2604.10251}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">note</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{cs.SI}</span>
+<span class="p">}</span>
+</code></pre></div>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Hwiki: Home</title>
@@ -50,8 +205,8 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
   
   <entry>
     <title>Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/</id>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/.trash/Seckin2026Emergence/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/.trash/Seckin2026Emergence/</id>
     <published>2026-04-21T18:29:04Z</published>
     <updated>2026-04-21T18:29:04Z</updated>
     

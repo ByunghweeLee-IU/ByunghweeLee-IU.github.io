@@ -1,5 +1,20 @@
 [
   {
+    "title": "Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics",
+    "path": ".trash/Seckin2026Emergence",
+    "url": "/wiki/.trash/Seckin2026Emergence/",
+    "content": "# Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics\n\n> **One-sentence summary.** An agent-based belief-network model shows that two minimal ingredients \u2014 social influence and a drive for internal coherence \u2014 are sufficient to spontaneously generate stereotypes and strong affective polarization, even in the absence of any underlying ideological disagreement or network homophily.\n\n## Metadata at a Glance\n- **Authors & Affiliations:**\n  - Ozgur Can Seckin, Rachith Aiy",
+    "published": "2026-04-21T18:29:04.725413+00:00",
+    "tags": [
+      "#done",
+      "#topic/opinion-dynamics",
+      "#topic/polarization",
+      "#topic/stereotypes",
+      "#method/agent-based-model",
+      "#method/social-balance-theory"
+    ]
+  },
+  {
     "title": "img testing",
     "path": ".trash/imgtest",
     "url": "/wiki/.trash/imgtest/",
@@ -107,8 +122,8 @@
     "title": "Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics",
     "path": "notes/papers/Seckin2026Emergence",
     "url": "/wiki/notes/papers/Seckin2026Emergence/",
-    "content": "# Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics\n\n> **One-sentence summary.** An agent-based belief-network model shows that two minimal ingredients \u2014 social influence and a drive for internal coherence \u2014 are sufficient to spontaneously generate stereotypes and strong affective polarization, even in the absence of any underlying ideological disagreement or network homophily.\n\n## Metadata at a Glance\n- **Authors & Affiliations:**\n  - Ozgur Can Seckin, Rachith Aiy",
-    "published": "2026-04-21T18:29:04.725413+00:00",
+    "content": "# Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics\n\n> **One-sentence summary.** An agent-based belief-network model shows that two minimal ingredients \u2014 social influence and a drive for internal coherence \u2014 are sufficient to spontaneously generate stereotypes and strong affective polarization, even without ideological disagreement or network homophily.\n\n## Metadata at a Glance\n- **Authors & Affiliations:** Seckin, Aiyappa, Menczer, Flammini (Indiana U.); Vlasceanu",
+    "published": "2026-04-21T18:58:48.321902+00:00",
     "tags": [
       "#done",
       "#topic/opinion-dynamics",

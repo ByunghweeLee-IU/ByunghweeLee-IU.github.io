@@ -11,6 +11,7 @@
 /wiki/notes/blogs/02_art-price/
 /wiki/notes/blogs/03_art-network/
 /wiki/notes/blogs/04_art-impression/
+/wiki/notes/papers/Seckin2026Emergence/
 /wiki/notes/papers/belief-embeddings-llms/
 /wiki/notes/papers/landscape-art-history/
 /wiki/notes/papers/news-press-polarization/

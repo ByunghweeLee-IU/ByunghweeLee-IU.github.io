@@ -1016,6 +1016,9 @@ footer {
   align-items: flex-start;
   gap: 1.15rem;
   margin: 0.9rem 0 1.6rem;
+  padding: 0.95rem 1.1rem;
+  background: var(--background-soft);
+  border-radius: 10px;
 }
 
 .paper-highlight-figure {
@@ -1055,6 +1058,7 @@ footer {
   .paper-highlight {
     flex-direction: column;
     gap: 0.8rem;
+    padding: 0.85rem 0.95rem;
   }
 
   .paper-highlight-figure {

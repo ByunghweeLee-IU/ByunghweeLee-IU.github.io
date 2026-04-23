@@ -50,8 +50,8 @@
     "title": "Publications",
     "path": "publications",
     "url": "/publications/",
-    "content": "## Selected Papers\n\n### **Belief and AI**\n\n**A semantic embedding space based on large language models for modelling human beliefs.** Byunghwee Lee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. *Nature Human Behaviour*. 2025. [DOI](https://doi.org/10.1038/s41562-025-02228-z)\n\n- Highlighted by [Phys.org](https://phys.org/news/2025-06-llms-delve-online-debates-human.html)\n\n### **Art and Data Science**\n\n**Dissecting landscape art history with information theory.** Byunghwee Lee, Min ",
-    "published": "2026-04-12T23:15:38.380995+00:00",
+    "content": "## Selected Papers\n\n### **Belief and AI**\n\n<div class=\"paper-highlight\">\n  <figure class=\"paper-highlight-figure\">\n    <img src=\"/assets/files/lee2026semantic.jpg\" alt=\"Figure from Lee et al. 2025, Nature Human Behaviour: a semantic embedding space for human beliefs\">\n  </figure>\n  <div class=\"paper-highlight-body\">\n    <p><strong>A semantic embedding space based on large language models for modelling human beliefs.</strong> Byunghwee Lee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun ",
+    "published": "2026-04-23T17:49:52.412433+00:00",
     "tags": []
   },
   {

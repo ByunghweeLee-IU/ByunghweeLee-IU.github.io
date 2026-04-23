@@ -1,28 +1,5 @@
 [
   {
-    "title": "Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics",
-    "path": ".trash/Seckin2026Emergence",
-    "url": "/wiki/.trash/Seckin2026Emergence/",
-    "content": "# Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics\n\n> **One-sentence summary.** An agent-based belief-network model shows that two minimal ingredients \u2014 social influence and a drive for internal coherence \u2014 are sufficient to spontaneously generate stereotypes and strong affective polarization, even in the absence of any underlying ideological disagreement or network homophily.\n\n## Metadata at a Glance\n- **Authors & Affiliations:**\n  - Ozgur Can Seckin, Rachith Aiy",
-    "published": "2026-04-21T18:29:04.725413+00:00",
-    "tags": [
-      "#done",
-      "#topic/opinion-dynamics",
-      "#topic/polarization",
-      "#topic/stereotypes",
-      "#method/agent-based-model",
-      "#method/social-balance-theory"
-    ]
-  },
-  {
-    "title": "img testing",
-    "path": ".trash/imgtest",
-    "url": "/wiki/.trash/imgtest/",
-    "content": "Three images\n\n![Image 3](assets/files/Img3.png)\n![Image 3](assets/files/Img3.png)\n![Image 3](assets/files/Img3.png)",
-    "published": "2026-03-18T00:45:31.592483+00:00",
-    "tags": []
-  },
-  {
     "title": "Hwiki: Home",
     "path": "Home",
     "url": "/wiki/Home/",
@@ -43,7 +20,7 @@
     "path": "index",
     "url": "/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>computational social scientist</strong> and <strong>data scientist</strong> who develops <strong>interpretable, quantitative frameworks to uncover how human beliefs, behavior, and creativity are structured and how they evolve.</strong></p>\n    <p>I am currently a Postdoctoral Research Associate at the <a href=\"https://datascience.virginia.edu/people/byunghwee-lee\">University of Virgini",
-    "published": "2026-04-23T18:45:31.533115+00:00",
+    "published": "2026-04-23T19:40:03.009437+00:00",
     "tags": []
   },
   {
@@ -59,7 +36,7 @@
     "path": "research",
     "url": "/research/",
     "content": "My research develops quantitative and interpretable frameworks for **understanding human beliefs, behavior, and creativity**. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and study their relational and geometric properties using large-scale empirical data. By combining **statistical physics, information theory, network science, and modern artificial intelligence, especially large language models and multimodal AI**, and by drawing",
-    "published": "2026-03-18T04:07:36.617816+00:00",
+    "published": "2026-04-23T19:36:13.799275+00:00",
     "tags": []
   },
   {

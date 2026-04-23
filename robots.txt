@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /wiki/.trash/
+
+Sitemap: https://ByunghweeLee-IU.github.io/sitemap.txt

@@ -1,18 +1,18 @@
 :root {
   color-scheme: light;
-  --color-primary: #223b59;
-  --color-primary-dark: #16283d;
+  --color-primary: #2c5530;
+  --color-primary-dark: #1e3d22;
   --color-secondary: #8b4f32;
-  --color-accent: #8b4f32;
+  --color-accent: #a86538;
   --text-primary: #202833;
   --text-secondary: #566270;
   --text-muted: #7c8793;
-  --background-primary: #fbfaf6;
-  --background-panel: #fbfaf6;
-  --background-soft: #f4f0e8;
-  --background-code: #f2eee6;
-  --border-light: #e6dfd1;
-  --border-medium: #d4c7b6;
+  --background-primary: #fffefa;
+  --background-panel: #fffefa;
+  --background-soft: #f5efe0;
+  --background-code: #f2ecdc;
+  --border-light: #e6dfc9;
+  --border-medium: #d6cab0;
   --font-family-sans: "Source Sans 3", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-serif: "Fraunces", Georgia, serif;
   --font-family-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -20,8 +20,8 @@
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-primary: #d6e5ff;
-  --color-primary-dark: #edf4ff;
+  --color-primary: #bfdac5;
+  --color-primary-dark: #d9ebdd;
   --color-secondary: #f0b08b;
   --color-accent: #ffc6a8;
   --text-primary: #e8edf3;
@@ -137,7 +137,7 @@ h2 {
   margin: 2rem 0 0.65rem;
   padding-top: 0.4rem;
   font-size: 1.28rem;
-  color: var(--color-secondary);
+  color: var(--color-primary);
   font-weight: 500;
   border-top: 1px solid var(--border-light);
 }
@@ -227,22 +227,12 @@ code {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--color-secondary);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
 
 a:hover {
-  color: var(--color-secondary);
-}
-
-a[href^="http"]:not(.wikilink),
-a[href^="https"]:not(.wikilink) {
-  color: var(--color-secondary);
-}
-
-a[href^="http"]:not(.wikilink):hover,
-a[href^="https"]:not(.wikilink):hover {
   color: var(--color-accent);
 }
 
@@ -277,16 +267,20 @@ nav.top-nav {
   border-bottom: 1px solid var(--border-medium);
 }
 
-.site-wordmark {
-  font-family: var(--font-family-serif);
-  font-size: 1.05rem;
-  color: var(--color-secondary);
-  letter-spacing: -0.01em;
+nav.top-nav .site-wordmark {
+  font-family: var(--font-family-sans);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.005em;
   text-decoration: none;
+  border-bottom: none;
+  padding: 0;
 }
 
-.site-wordmark:hover {
-  color: var(--color-primary);
+nav.top-nav .site-wordmark:hover {
+  color: var(--color-secondary);
+  border-bottom: none;
 }
 
 .nav-links {
@@ -344,12 +338,17 @@ nav.top-nav {
 nav.top-nav a {
   color: var(--color-primary);
   text-decoration: none;
-  padding: 0;
-  font-weight: 500;
+  padding: 0.25rem 0.1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.005em;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
 
 nav.top-nav a:hover {
   color: var(--color-secondary);
+  border-bottom-color: var(--color-secondary);
 }
 
 .nav-logo {
@@ -1017,8 +1016,14 @@ footer {
   gap: 1.15rem;
   margin: 0.9rem 0 1.6rem;
   padding: 0.95rem 1.1rem;
-  background: var(--background-soft);
+  background: #ebe6d7;
+  border: 1px solid #d6ceb8;
   border-radius: 10px;
+}
+
+html[data-theme="dark"] .paper-highlight {
+  background: #23211c;
+  border-color: #32302a;
 }
 
 .paper-highlight-figure {

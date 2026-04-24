@@ -621,6 +621,15 @@ footer {
   --social-hover-color: #111827;
 }
 
+html[data-theme="dark"] .social-github {
+  --social-color: #b794f4;
+  --social-border: rgba(183, 148, 244, 0.3);
+  --social-bg: rgba(183, 148, 244, 0.1);
+  --social-hover-border: #b794f4;
+  --social-hover-bg: rgba(183, 148, 244, 0.18);
+  --social-hover-color: #d6bcfa;
+}
+
 .social-linkedin {
   --social-color: #0a66c2;
   --social-border: rgba(10, 102, 194, 0.22);

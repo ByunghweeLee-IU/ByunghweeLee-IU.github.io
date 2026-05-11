@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-05-01T17:22:39Z</updated>
+  <updated>2026-05-11T17:48:46Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -18,8 +18,8 @@
     <title>Hwiki: Home</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-05-01T17:22:39Z</published>
-    <updated>2026-05-01T17:22:39Z</updated>
+    <published>2026-05-11T17:48:46Z</published>
+    <updated>2026-05-11T17:48:46Z</updated>
     
     <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
 <p>Welcome to the public wiki section of my site!👋 
@@ -40,11 +40,6 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
 <h2 id="reading-note-with-claude">📓Reading note (with Claude)<a class="header-anchor" href="#reading-note-with-claude" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
 <li><a href="notes/papers/Seckin2026Emergence" rel="nofollow">Seckin2026Emergence (Belief Network)</a></li>
-</ul>
-<h2 id="example-sections">Example Sections<a class="header-anchor" href="#example-sections" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/travel/travel-list" rel="nofollow">Travel notes</a></li>
-<li>Example note: <a href="notes/travel/Washington_DC" rel="nofollow">Washington, DC</a></li>
 </ul>]]></content>
     
   </entry>

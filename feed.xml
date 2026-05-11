@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-05-11T17:48:46Z</updated>
+  <updated>2026-05-11T17:51:35Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,22 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.7.6">foliate</generator>
 
+  
+  <entry>
+    <title>Travel Notes</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/travel/travel-list/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/travel/travel-list/</id>
+    <published>2026-05-11T17:51:35Z</published>
+    <updated>2026-05-11T17:51:35Z</updated>
+    
+    <content type="html"><![CDATA[<p>This section collects short public notes on travel, cities, and places.</p>
+<h2 id="notes">Notes<a class="header-anchor" href="#notes" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="Washington_DC" rel="nofollow">Washington, DC</a></li>
+<li><a href="Santa_Fe" rel="nofollow">Santa Fe, NM</a></li>
+</ul>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Hwiki: Home</title>

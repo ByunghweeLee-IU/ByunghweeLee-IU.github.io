@@ -12,6 +12,7 @@ https://byunghweelee-iu.github.io/wiki/notes/blogs/01_art-goldenratio/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/02_art-price/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/03_art-network/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/04_art-impression/
+https://byunghweelee-iu.github.io/wiki/notes/papers/Candellon2026Disentangling/
 https://byunghweelee-iu.github.io/wiki/notes/papers/Seckin2026Emergence/
 https://byunghweelee-iu.github.io/wiki/notes/papers/belief-embeddings-llms/
 https://byunghweelee-iu.github.io/wiki/notes/papers/landscape-art-history/

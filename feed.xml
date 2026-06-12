@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-06-09T20:13:34Z</updated>
+  <updated>2026-06-12T02:59:44Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,521 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.7.6">foliate</generator>
 
+  
+  <entry>
+    <title>Barabási–Albert Model (Continuum Approximation)</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/</id>
+    <published>2026-06-12T02:59:44Z</published>
+    <updated>2026-06-12T02:59:44Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation">Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation<a class="header-anchor" href="#deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
+<h2 id="1-introduction">1. Introduction<a class="header-anchor" href="#1-introduction" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The Barabási–Albert (BA) model explains how scale-free networks emerge through growth and preferential attachment.</p>
+<blockquote>
+<p>Nodes that already have many connections are more likely to receive new connections.</p>
+</blockquote>
+<p>This note derives the degree distribution of the BA model using the continuum approximation.</p>
+<hr>
+<h2 id="2-growth-rules">2. Growth Rules<a class="header-anchor" href="#2-growth-rules" title="Link to this section" rel="nofollow">#</a></h2>
+<ol>
+<li>Start with a small seed network.</li>
+<li>At each time step, add one new node.</li>
+<li>The new node creates $m$ links.</li>
+<li>Existing node $i$ receives a new link with probability proportional to its degree $k_i$.</li>
+</ol>
+<p>Therefore,</p>
+<p>$$
+\Pi_i=\frac{k_i}{\sum_j k_j}.
+$$</p>
+<hr>
+<h2 id="3-total-degree-of-the-network">3. Total Degree of the Network<a class="header-anchor" href="#3-total-degree-of-the-network" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Each new node contributes $m$ new edges.</p>
+<p>After $t$ steps,</p>
+<p>$$
+E \approx mt.
+$$</p>
+<p>Since the sum of degrees equals twice the number of edges,</p>
+<p>$$
+\sum_j k_j \approx 2mt.
+$$</p>
+<p>Thus,</p>
+<p>$$
+\Pi_i=\frac{k_i}{2mt}.
+$$</p>
+<hr>
+<h2 id="4-growth-of-a-nodes-degree">4. Growth of a Node&rsquo;s Degree<a class="header-anchor" href="#4-growth-of-a-nodes-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Consider node $i$ that entered the network at time $t_i$.</p>
+<p>Initially,</p>
+<p>$$
+k_i(t_i)=m.
+$$</p>
+<p>The expected degree growth is</p>
+<p>$$
+\frac{dk_i}{dt}=m\Pi_i.
+$$</p>
+<p>Substituting the attachment probability,</p>
+<p>$$
+\frac{dk_i}{dt}
+=
+m\frac{k_i}{2mt}
+=
+\frac{k_i}{2t}.
+\tag{1}
+$$</p>
+<p>Equation (1) is the core of the continuum approximation.</p>
+<hr>
+<h2 id="5-solving-the-differential-equation">5. Solving the Differential Equation<a class="header-anchor" href="#5-solving-the-differential-equation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Starting from</p>
+<p>$$
+\frac{dk_i}{dt}
+=
+\frac{k_i}{2t},
+$$</p>
+<p>separate variables:</p>
+<p>$$
+\frac{dk_i}{k_i}
+=
+\frac{dt}{2t}.
+$$</p>
+<p>Integrating,</p>
+<p>$$
+\ln k_i
+=
+\frac{1}{2}\ln t + C.
+$$</p>
+<p>Exponentiating,</p>
+<p>$$
+k_i(t)=C&rsquo;t^{1/2}.
+$$</p>
+<p>Using the initial condition $k_i(t_i)=m$,</p>
+<p>$$
+C&rsquo;=mt_i^{-1/2}.
+$$</p>
+<p>Therefore,</p>
+<p>$$
+k_i(t)
+=
+m\left(\frac{t}{t_i}\right)^{1/2}.
+\tag{2}
+$$</p>
+<p>or</p>
+<p>$$
+k_i(t)
+=
+m\sqrt{\frac{t}{t_i}}.
+$$</p>
+<hr>
+<h2 id="6-interpretation">6. Interpretation<a class="header-anchor" href="#6-interpretation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Equation (2) implies:</p>
+<ul>
+<li>Earlier nodes accumulate more links.</li>
+<li>Later nodes have less time to grow.</li>
+<li>Degree grows as the square root of time.</li>
+</ul>
+<p>This is a form of cumulative advantage.</p>
+<hr>
+<h2 id="7-from-degree-growth-to-degree-distribution">7. From Degree Growth to Degree Distribution<a class="header-anchor" href="#7-from-degree-growth-to-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>We seek the degree distribution $P(k)$.</p>
+<p>Starting from</p>
+<p>$$
+k_i(t)
+=
+m\left(\frac{t}{t_i}\right)^{1/2},
+$$</p>
+<p>consider</p>
+<p>$$
+k_i(t)&gt;k.
+$$</p>
+<p>Then</p>
+<p>$$
+m\left(\frac{t}{t_i}\right)^{1/2}&gt;k.
+$$</p>
+<p>Rearranging,</p>
+<p>$$
+t_i&lt;\frac{m^2t}{k^2}.
+\tag{3}
+$$</p>
+<p>Thus nodes with degree greater than $k$ are nodes that entered sufficiently early.</p>
+<hr>
+<h2 id="8-distribution-of-arrival-times">8. Distribution of Arrival Times<a class="header-anchor" href="#8-distribution-of-arrival-times" title="Link to this section" rel="nofollow">#</a></h2>
+<p>One node enters per time step.</p>
+<p>Therefore arrival times are uniformly distributed on</p>
+<p>$$
+[0,t].
+$$</p>
+<p>Using Equation (3),</p>
+<p>$$
+P(K&gt;k)
+=
+P\left(t_i&lt;\frac{m^2t}{k^2}\right).
+$$</p>
+<p>Since arrival times are uniform,</p>
+<p>$$
+P(K&gt;k)
+=
+\frac{m^2t/k^2}{t}
+=
+\frac{m^2}{k^2}.
+$$</p>
+<p>Hence,</p>
+<p>$$
+P(K&gt;k)\sim k^{-2}.
+\tag{4}
+$$</p>
+<hr>
+<h2 id="9-obtaining-the-degree-distribution">9. Obtaining the Degree Distribution<a class="header-anchor" href="#9-obtaining-the-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Differentiate Equation (4):</p>
+<p>$$
+P(k)
+=
+-\frac{d}{dk}P(K&gt;k).
+$$</p>
+<p>Therefore,</p>
+<p>$$
+P(k)
+\sim
+-\frac{d}{dk}k^{-2}
+\sim
+k^{-3}.
+$$</p>
+<hr>
+<h2 id="10-why-does-the-exponent-equal-3">10. Why Does the Exponent Equal 3?<a class="header-anchor" href="#10-why-does-the-exponent-equal-3" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The exponent emerges from two ingredients:</p>
+<ol>
+<li>Degree growth:</li>
+</ol>
+<p>$$
+k(t)\sim t^{1/2}.
+$$</p>
+<ol start="2">
+<li>Uniform node arrival times.</li>
+</ol>
+<p>Together,</p>
+<p>$$
+P(K&gt;k)\sim k^{-2},
+$$</p>
+<p>which implies</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
+<hr>
+<h2 id="11-final-result">11. Final Result<a class="header-anchor" href="#11-final-result" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The BA model produces a power-law degree distribution</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
+<p>with exponent</p>
+<p>$$
+\gamma=3.
+$$</p>
+<p>This is the defining signature of a scale-free network.</p>
+<hr>
+<h2 id="one-sentence-summary">One-Sentence Summary<a class="header-anchor" href="#one-sentence-summary" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Early-arriving nodes accumulate links through preferential attachment, and this cumulative advantage generates the scale-free degree distribution</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>BA model&#39;s degree distribution (Continuum approximation)</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/</id>
+    <published>2026-06-12T02:47:01Z</published>
+    <updated>2026-06-12T02:47:01Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="barabasialbert-degree-distribution-continuum-approximation">Barabási–Albert 모델의 degree distribution 유도: Continuum approximation<a class="header-anchor" href="#barabasialbert-degree-distribution-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
+<h2 id="1">1. 문제 설정<a class="header-anchor" href="#1" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Barabási–Albert, 즉 BA 모델은 <strong>preferential attachment</strong>를 통해 scale-free network가 어떻게 생기는지를 설명하는 대표적인 네트워크 성장 모델이다.</p>
+<p>핵심 아이디어는 간단하다.</p>
+<blockquote>
+<p>이미 연결이 많은 노드는 새 노드로부터 더 많은 연결을 받을 가능성이 높다.</p>
+</blockquote>
+<p>즉, “부익부” 구조가 네트워크 성장 과정 안에 들어 있다.</p>
+<hr>
+<h2 id="2-ba">2. BA 모델의 성장 규칙<a class="header-anchor" href="#2-ba" title="Link to this section" rel="nofollow">#</a></h2>
+<p>BA 모델은 보통 다음과 같이 정의된다.</p>
+<ol>
+<li>초기에는 작은 네트워크가 있다.</li>
+<li>매 시간마다 새로운 노드 하나가 네트워크에 추가된다.</li>
+<li>새 노드는 기존 노드들 중 <code>m</code>개와 연결된다.</li>
+<li>기존 노드 <code>i</code>가 새 링크를 받을 확률은 그 노드의 degree <code>k_i</code>에 비례한다.</li>
+</ol>
+<p>즉,</p>
+<p>$$
+\Pi_i = \frac{k_i}{\sum_j k_j}
+$$</p>
+<p>여기서</p>
+<ul>
+<li>$\Pi_i$: 새 노드가 기존 노드 $i$에 연결될 확률</li>
+<li>$k_i$: 노드 $i$의 degree</li>
+<li>$\sum_j k_j$: 전체 네트워크의 degree 합</li>
+</ul>
+<hr>
+<h2 id="3-degree">3. 전체 degree 합<a class="header-anchor" href="#3-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>무방향 네트워크에서 전체 degree 합은 edge 수의 두 배이다.</p>
+<p>BA 모델에서는 매 시간마다 새 노드가 <code>m</code>개의 edge를 추가한다.</p>
+<p>따라서 시간 $t$가 충분히 크면 edge 수는 대략</p>
+<p>$$
+mt
+$$</p>
+<p>이고, 전체 degree 합은</p>
+<p>$$
+\sum_j k_j \approx 2mt
+$$</p>
+<p>이 된다.</p>
+<p>따라서 preferential attachment 확률은</p>
+<p>$$
+\Pi_i = \frac{k_i}{2mt}
+$$</p>
+<p>로 쓸 수 있다.</p>
+<hr>
+<h2 id="4-degree">4. 한 노드의 degree가 시간에 따라 어떻게 증가하는가?<a class="header-anchor" href="#4-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>이제 특정 노드 $i$를 보자.</p>
+<p>노드 $i$가 시간 $t_i$에 네트워크에 들어왔다고 하자.</p>
+<p>BA 모델에서는 새 노드가 들어올 때 처음부터 <code>m</code>개의 링크를 가지므로,</p>
+<p>$$
+k_i(t_i) = m
+$$</p>
+<p>이다.</p>
+<p>시간이 지나면서 이 노드는 새로 들어오는 노드들로부터 링크를 받을 수 있다.</p>
+<p>한 시간 step마다 새 노드는 <code>m</code>개의 링크를 만든다. 그중 하나가 노드 $i$에 연결될 확률은 $\Pi_i$이다.</p>
+<p>따라서 노드 $i$의 degree 증가율은</p>
+<p>$$
+\frac{dk_i}{dt} = m \Pi_i
+$$</p>
+<p>이다.</p>
+<p>앞에서 구한 $\Pi_i = k_i / 2mt$를 대입하면,</p>
+<p>$$
+\frac{dk_i}{dt}
+= m \frac{k_i}{2mt}
+$$</p>
+<p><code>m</code>이 약분되어</p>
+<p>$$
+\frac{dk_i}{dt}
+= \frac{k_i}{2t}
+$$</p>
+<p>이 된다.</p>
+<p>이 식이 continuum approximation의 핵심이다.</p>
+<hr>
+<h2 id="5">5. 미분방정식 풀기<a class="header-anchor" href="#5" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리는 다음 미분방정식을 풀면 된다.</p>
+<p>$$
+\frac{dk_i}{dt} = \frac{k_i}{2t}
+$$</p>
+<p>양변을 분리하면,</p>
+<p>$$
+\frac{dk_i}{k_i} = \frac{dt}{2t}
+$$</p>
+<p>양변을 적분하면,</p>
+<p>$$
+\ln k_i = \frac{1}{2}\ln t + C
+$$</p>
+<p>따라서</p>
+<p>$$
+k_i(t) = C&rsquo; t^{1/2}
+$$</p>
+<p>이다.</p>
+<p>이제 초기조건을 사용한다.</p>
+<p>노드 $i$는 시간 $t_i$에 들어왔고, 그때 degree는 $m$이다.</p>
+<p>$$
+k_i(t_i) = m
+$$</p>
+<p>그러므로</p>
+<p>$$
+m = C&rsquo; t_i^{1/2}
+$$</p>
+<p>따라서</p>
+<p>$$
+C&rsquo; = m t_i^{-1/2}
+$$</p>
+<p>이를 다시 대입하면,</p>
+<p>$$
+k_i(t) = m \left(\frac{t}{t_i}\right)^{1/2}
+$$</p>
+<p>즉, 노드 $i$의 degree는 시간이 지남에 따라 다음처럼 증가한다.</p>
+<p>$$
+k_i(t) = m \sqrt{\frac{t}{t_i}}
+$$</p>
+<hr>
+<h2 id="6">6. 이 식의 직관<a class="header-anchor" href="#6" title="Link to this section" rel="nofollow">#</a></h2>
+<p>$$
+k_i(t) = m \sqrt{\frac{t}{t_i}}
+$$</p>
+<p>이 식은 중요한 직관을 준다.</p>
+<ul>
+<li>$t_i$가 작을수록, 즉 일찍 들어온 노드일수록 degree가 크다.</li>
+<li>늦게 들어온 노드는 성장할 시간이 적기 때문에 degree가 작다.</li>
+<li>하지만 degree는 $t/t_i$에 비례해서 선형으로 증가하는 것이 아니라 제곱근으로 증가한다.</li>
+</ul>
+<p>즉, early mover advantage가 있지만 무한히 압도적인 방식은 아니다.</p>
+<hr>
+<h2 id="7-degree-distribution">7. Degree distribution으로 바꾸기<a class="header-anchor" href="#7-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리가 원하는 것은 개별 노드의 degree 성장식이 아니라 전체 네트워크의 degree distribution이다.</p>
+<p>즉,</p>
+<p>$$
+P(k)
+$$</p>
+<p>를 구하고 싶다.</p>
+<p>앞에서 얻은 식은</p>
+<p>$$
+k_i(t) = m \left(\frac{t}{t_i}\right)^{1/2}
+$$</p>
+<p>이다.</p>
+<p>이 식을 $t_i$에 대해 풀면,</p>
+<p>$$
+k_i(t) &gt; k
+$$</p>
+<p>라는 조건은 다음과 같다.</p>
+<p>$$
+m \left(\frac{t}{t_i}\right)^{1/2} &gt; k
+$$</p>
+<p>양변을 정리하면,</p>
+<p>$$
+\left(\frac{t}{t_i}\right)^{1/2} &gt; \frac{k}{m}
+$$</p>
+<p>양변을 제곱하면,</p>
+<p>$$
+\frac{t}{t_i} &gt; \frac{k^2}{m^2}
+$$</p>
+<p>따라서</p>
+<p>$$
+t_i &lt; \frac{m^2 t}{k^2}
+$$</p>
+<p>이 된다.</p>
+<p>즉, degree가 $k$보다 큰 노드들은 충분히 일찍 들어온 노드들이다.</p>
+<hr>
+<h2 id="8-t_i">8. $t_i$의 분포<a class="header-anchor" href="#8-t_i" title="Link to this section" rel="nofollow">#</a></h2>
+<p>BA 모델에서는 매 시간마다 노드가 하나씩 들어온다.</p>
+<p>따라서 노드의 등장 시간 $t_i$는 대략 $[0,t]$ 구간에 균등하게 분포한다고 볼 수 있다.</p>
+<p>그러므로</p>
+<p>$$
+P(k_i(t) &gt; k)
+= P\left(t_i &lt; \frac{m^2 t}{k^2}\right)
+$$</p>
+<p>이고, $t_i$가 균등분포이므로</p>
+<p>$$
+P\left(t_i &lt; \frac{m^2 t}{k^2}\right)
+= \frac{m^2 t / k^2}{t}
+$$</p>
+<p>따라서</p>
+<p>$$
+P(k_i(t) &gt; k) = \frac{m^2}{k^2}
+$$</p>
+<p>이것은 누적분포의 꼬리, 즉 complementary cumulative distribution이다.</p>
+<p>보통 다음처럼 쓴다.</p>
+<p>$$
+P(K &gt; k) \sim k^{-2}
+$$</p>
+<hr>
+<h2 id="9">9. 누적분포에서 확률밀도분포로<a class="header-anchor" href="#9" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리가 흔히 말하는 degree distribution은</p>
+<p>$$
+P(k)
+$$</p>
+<p>이다.</p>
+<p>앞에서 얻은 것은</p>
+<p>$$
+P(K &gt; k) \sim k^{-2}
+$$</p>
+<p>이다.</p>
+<p>연속 근사에서는 확률밀도는 누적분포를 미분해서 얻을 수 있다.</p>
+<p>$$
+P(k) = -\frac{d}{dk}P(K &gt; k)
+$$</p>
+<p>따라서</p>
+<p>$$
+P(k) \sim -\frac{d}{dk}k^{-2}
+$$</p>
+<p>이고,</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>즉 BA 모델의 degree distribution은</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>이 된다.</p>
+<hr>
+<h2 id="10">10. 결론<a class="header-anchor" href="#10" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Continuum approximation을 통해 BA 모델의 degree distribution을 유도하면 다음과 같은 결과를 얻는다.</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>즉, BA 모델은 power-law degree distribution을 만든다.</p>
+<p>이때 exponent는</p>
+<p>$$
+\gamma = 3
+$$</p>
+<p>이다.</p>
+<p>따라서 BA 모델은 scale-free network의 대표적인 생성 메커니즘으로 이해된다.</p>
+<hr>
+<h2 id="11">11. 핵심 흐름 요약<a class="header-anchor" href="#11" title="Link to this section" rel="nofollow">#</a></h2>
+<p>전체 유도 과정은 다음과 같이 요약할 수 있다.</p>
+<ol>
+<li>Preferential attachment를 가정한다.</li>
+</ol>
+<p>$$
+\Pi_i = \frac{k_i}{\sum_j k_j}
+$$</p>
+<ol start="2">
+<li>전체 degree 합은 대략 $2mt$이다.</li>
+</ol>
+<p>$$
+\sum_j k_j \approx 2mt
+$$</p>
+<ol start="3">
+<li>노드 $i$의 degree 증가율은 다음과 같다.</li>
+</ol>
+<p>$$
+\frac{dk_i}{dt} = m \frac{k_i}{2mt}
+= \frac{k_i}{2t}
+$$</p>
+<ol start="4">
+<li>미분방정식을 풀면,</li>
+</ol>
+<p>$$
+k_i(t) = m \left(\frac{t}{t_i}\right)^{1/2}
+$$</p>
+<ol start="5">
+<li>degree가 $k$보다 클 조건은</li>
+</ol>
+<p>$$
+t_i &lt; \frac{m^2 t}{k^2}
+$$</p>
+<ol start="6">
+<li>등장 시간 $t_i$가 균등분포라고 보면,</li>
+</ol>
+<p>$$
+P(K &gt; k) \sim k^{-2}
+$$</p>
+<ol start="7">
+<li>이를 미분하면,</li>
+</ol>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<hr>
+<h2 id="12-continuum-approximation">12. Continuum approximation의 의미<a class="header-anchor" href="#12-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>여기서 continuum approximation은 원래 이산적인 네트워크 성장 과정을 연속적인 미분방정식으로 근사하는 방법이다.</p>
+<p>실제로 degree는 정수이고 시간도 discrete step으로 증가한다.</p>
+<p>하지만 노드 수가 충분히 크고 degree 변화가 평균적으로 부드럽다고 보면,</p>
+<p>$$
+\frac{dk_i}{dt}
+$$</p>
+<p>와 같은 연속적인 증가율로 근사할 수 있다.</p>
+<p>이 방식은 정확한 해는 아니지만, BA 모델이 왜 power-law 분포를 만드는지 직관적으로 보여주는 가장 간단한 유도법이다.</p>
+<hr>
+<h2 id="13">13. 한 줄 요약<a class="header-anchor" href="#13" title="Link to this section" rel="nofollow">#</a></h2>
+<p>BA 모델에서는 먼저 들어온 노드가 preferential attachment 덕분에 더 많은 링크를 얻고, 이 성장 과정이 누적되면서 degree distribution이</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>인 scale-free network가 만들어진다.</p>]]></content>
+    
+  </entry>
   
   <entry>
     <title>Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates</title>
@@ -309,203 +824,6 @@ $$</p>
 <p>inside a manually constructed belief space.</p>
 <p>One useful way to frame the model is:</p>
 <p><strong>Individual Position + Neighborhood Position</strong></p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Hwiki: Home</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-05-12T02:45:41Z</published>
-    <updated>2026-05-12T02:45:41Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Welcome to the public wiki section of my site!👋 
-This wiki is where I collect my thoughts, essays, research ideas and useful information. 
-<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png"></p>
-<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
-<p><strong>The Hidden Secrets of Art Through Data (in Korean)</strong></p>
-<ul>
-<li>🎨 <a href="notes/blogs/01_art-goldenratio.md" rel="nofollow">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
-<li>🎨 <a href="notes/blogs/02_art-price.md" rel="nofollow">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
-<li>🎨 <a href="notes/blogs/03_art-network.md" rel="nofollow">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
-<li>🎨 <a href="notes/blogs/04_art-impression.md" rel="nofollow">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
-</ul>
-<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/News-list" rel="nofollow">All News</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/</id>
-    <published>2026-05-12T02:45:25Z</published>
-    <updated>2026-05-12T02:45:25Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="emergence-of-stereotypes-and-affective-polarization-from-belief-network-dynamics">Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics<a class="header-anchor" href="#emergence-of-stereotypes-and-affective-polarization-from-belief-network-dynamics" title="Link to this section" rel="nofollow">#</a></h1>
-<blockquote>
-<p><strong>One-sentence summary.</strong> An agent-based belief-network model shows that two minimal ingredients — social influence and a drive for internal coherence — are sufficient to spontaneously generate stereotypes and strong affective polarization, even without ideological disagreement or network homophily.</p>
-</blockquote>
-<h2 id="metadata-at-a-glance">Metadata at a Glance<a class="header-anchor" href="#metadata-at-a-glance" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Authors &amp; Affiliations:</strong> Seckin, Aiyappa, Menczer, Flammini (Indiana U.); Vlasceanu (Stanford); Ahn (U. Virginia). Corresponding: oseckin@iu.edu, yyahn@virginia.edu.</li>
-<li><strong>Field / Subfield:</strong> Computational Social Science / Opinion Dynamics / Social Cognition</li>
-<li><strong>Type of work:</strong> Theoretical — agent-based modeling</li>
-<li><strong>Status:</strong> Preprint (arXiv, 11 Apr 2026)</li>
-</ul>
-<hr>
-<h2 id="1-core-questions">1. Core Questions<a class="header-anchor" href="#1-core-questions" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Q1.</strong> How do seemingly unrelated beliefs become associated — i.e., how do stereotypes emerge — without any underlying causal link?</li>
-<li><strong>Q2.</strong> How do such emergent associations drive affective polarization (ingroup favoritism, outgroup animosity) in the absence of ideological conflict?</li>
-</ul>
-<h2 id="2-motivation-gap">2. Motivation &amp; Gap<a class="header-anchor" href="#2-motivation-gap" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>Mainstream accounts attribute polarization to ideological disagreement, motivated reasoning, homophily, or echo chambers — yet affective polarization empirically <em>exceeds</em> substantive disagreement, and minimal-group experiments show arbitrary categorization alone can spark bias.</li>
-<li>Classical opinion-dynamics models treat opinions as isolated scalars, missing the fact that beliefs form mutually constraining networks.</li>
-<li>Earlier belief-network models (Rodriguez+2016; Aiyappa+2024) updated only directly communicated beliefs, with no mechanism for coherence-driven updates on <em>related</em> beliefs after an interaction.</li>
-</ul>
-<h2 id="3-key-contributions">3. Key Contributions<a class="header-anchor" href="#3-key-contributions" title="Link to this section" rel="nofollow">#</a></h2>
-<ol>
-<li>An extended belief-network ABM combining <strong>direct social influence</strong> with <strong>endogenous coherence updates on related beliefs</strong>, selected via two-step weighted random walks over the belief graph.</li>
-<li>Stereotypes emerge spontaneously around a neutral concept — group identity + coherence pressure suffice; no underlying reality needed.</li>
-<li>Affective polarization (ingroup +1 / outgroup −1) arises as a downstream effect, without agents initially knowing neighbors&rsquo; group affiliations.</li>
-<li>Polarization emerges in a <strong>well-mixed network</strong> — homophily and echo chambers are not required.</li>
-<li>Parameter sweep identifies the regime: α &gt; 0.5 (social influence) and β &gt; 0 (coherence); very large β <em>reduces</em> polarization because beliefs crystallize before they can align with group identity.</li>
-</ol>
-<h2 id="4-background-prior-work">4. Background &amp; Prior Work<a class="header-anchor" href="#4-background-prior-work" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Social Balance Theory</strong> (Heider 1946): triad stability via sign product — basis of the coherence term.</li>
-<li><strong>Cognitive Dissonance</strong> (Festinger 1957): motivation for coherence-seeking.</li>
-<li><strong>Belief-network tradition:</strong> Converse 1964; Martin 2002; Friedkin+2016; Vlasceanu+2024 (bending); Rodriguez+2016; Aiyappa+2024 (direct precursor).</li>
-<li><strong>Associative diffusion</strong> (Goldberg &amp; Stein 2018); <strong>opinion cascades</strong> (Macy+2019).</li>
-<li><strong>Minimal group paradigm</strong> (Tajfel+1971); <strong>false consensus effect</strong> (Ross+1977).</li>
-</ul>
-<h2 id="5-method-model">5. Method / Model<a class="header-anchor" href="#5-method-model" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Approach:</strong> Two-layer ABM — a social graph of agents, each holding an internal belief graph.</li>
-<li><strong>Core setup:</strong> N=100 agents on M=200 random edges. Each agent&rsquo;s belief network contains self, a neutral concept (<em>latte</em>), Group A, Group B, and other agents. Self→own-group = +1, self→other-group = −1 (fixed); all other beliefs initialized near zero, N(0, 10⁻⁵).</li>
-<li><strong>Key equations:</strong></li>
-<li>Triad energy: E = −b(c_x,c_y)·b(c_x,c_z)·b(c_y,c_z) (Eq. 1).</li>
-<li>Dissonance d(B_i) = mean triad energy (Eq. 2).</li>
-<li>Per-step update: b ← b + f (social) + g (coherence).</li>
-<li>Social influence: f ~ N(α·(b_j − b_i), σ) (Eq. 5).</li>
-<li>Coherence update: g ~ N(−β·∂d/∂b, σ) — gradient descent on dissonance, applied to an <em>adjacent</em> edge chosen via two-step weighted random walk.</li>
-<li>Beliefs clipped to [−1, 1].</li>
-<li><strong>Parameters:</strong> α = β = 1, σ = 0.1 (defaults); swept over [0, 3].</li>
-<li><strong>Null conditions:</strong> α = 0 or β = 0. Also tested a reinforcement-style influence term — results qualitatively unchanged.</li>
-</ul>
-<h2 id="6-dataset-experimental-setup">6. Dataset / Experimental Setup<a class="header-anchor" href="#6-dataset-experimental-setup" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Source:</strong> Pure simulation (Julia for the model, Python for analysis). No empirical dataset.</li>
-<li><strong>Scale:</strong> N=100, M=200, 2.5×10⁶ time steps per run, 10 runs per parameter cell.</li>
-<li><strong>Code:</strong> <a href="https://github.com/rachithaiyappa/emerging_beliefs" rel="nofollow">https://github.com/rachithaiyappa/emerging_beliefs</a></li>
-<li><strong>Limitations of the setup:</strong> No empirical calibration; no ground truth (latte is neutral by construction).</li>
-</ul>
-<h2 id="7-key-results">7. Key Results<a class="header-anchor" href="#7-key-results" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Stereotype formation (Fig. 3):</strong> Group A converges to <em>+latte</em>, Group B to <em>−latte</em>. Opinion polarization P_O goes 0 → ~2 (max).</li>
-<li><strong>Affective polarization (Fig. 4):</strong> Ingroup valence → +1, outgroup → −1; P_A goes 0 → ~2.</li>
-<li><strong>Internal dissonance drops</strong> toward −1 (Fig. 3h): populations settle into coherent, stable belief systems — coherence locks in the polarized state.</li>
-<li><strong>Phase diagram (Fig. 5):</strong> Polarization requires α &gt; 0.5 and β &gt; 0; excessive β suppresses it (premature crystallization).</li>
-<li><strong>False-consensus minority:</strong> A small fraction misinfer a neighbor&rsquo;s group from positive interactions — consistent with Ross+1977.</li>
-</ul>
-<h2 id="8-figures-tables-worth-remembering">8. Figures / Tables Worth Remembering<a class="header-anchor" href="#8-figures-tables-worth-remembering" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Fig. 1:</strong> Two-layer architecture + balanced/unbalanced triads.</li>
-<li><strong>Fig. 2:</strong> One simulation step — pair selection, social influence, two-step random-walk coherence update.</li>
-<li><strong>Fig. 3:</strong> Latte stereotype emergence + P_O and ⟨d(B_i)⟩ over time.</li>
-<li><strong>Fig. 4:</strong> Ingroup/outgroup valence evolution; P_A time series.</li>
-<li><strong>Fig. 5:</strong> α–β heatmaps showing the non-monotonic effect of β.</li>
-</ul>
-<h2 id="9-interpretation-implications">9. Interpretation &amp; Implications<a class="header-anchor" href="#9-interpretation-implications" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>Reframes polarization as <strong>an emergent property of how humans organize beliefs under uncertainty</strong>, not as disagreement over values.</li>
-<li>Offers a cognitively grounded alternative to homophily-based opinion dynamics.</li>
-<li>Provides a candidate mechanism for <em>COVID-19 vaccine polarization</em>: coherence-driven alignment around political identity through associative chains (e.g., lockdowns ↔ freedom ↔ mandates), independent of genuine efficacy disagreement.</li>
-<li>Domain-agnostic — same dynamics could underlie polarization in climate, science denial, culture.</li>
-</ul>
-<h2 id="10-limitations">10. Limitations<a class="header-anchor" href="#10-limitations" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Author-acknowledged:</strong> well-mixed network; only two fixed groups; a single tracked neutral concept; no reality-checking; random (non-selective) transmission; equal-influence agents; no distinction between beliefs and meta-beliefs (no theory of mind).</li>
-<li><strong>Additional observations:</strong></li>
-<li>No empirical calibration of α, β; the COVID illustration is narrative, not quantitative.</li>
-<li>Small population (N=100); scaling behavior is not systematically examined.</li>
-<li>The two-step-walk definition of &ldquo;adjacency&rdquo; is a modeling choice — alternative walk lengths could change spread dynamics.</li>
-</ul>
-<h2 id="11-open-questions-future-work">11. Open Questions &amp; Future Work<a class="header-anchor" href="#11-open-questions-future-work" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li>Empirically test whether exposure to a few ingroup members&rsquo; behavior seeds group-level stereotypes (experiments or observational studies).</li>
-<li>Add community structure / homophily — amplifier or accelerator?</li>
-<li>Overlapping, fluid identities; multiple interacting neutral concepts.</li>
-<li>Introduce theory of mind / second-order beliefs.</li>
-<li>Asymmetric influence, opinion leaders, selective exposure.</li>
-</ul>
-<h2 id="12-connections">12. Connections<a class="header-anchor" href="#12-connections" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Related papers:</strong></li>
-<li>Aiyappa, Flammini &amp; Ahn (2024) <em>Science Advances</em> — direct methodological precursor (ref [47]).</li>
-<li>Rodriguez, Bollen &amp; Ahn (2016) <em>PLoS ONE</em> — belief evolution under coherence + conformity (ref [48]).</li>
-<li>Goldberg &amp; Stein (2018) — associative diffusion (ref [27]).</li>
-<li>Macy et al. (2019, 2021) — opinion cascades, tipping points (refs [28, 43]).</li>
-<li>Vlasceanu et al. (2024) — bending model (ref [19]).</li>
-<li>DellaPosta, Shi &amp; Macy (2015) — &ldquo;Why do liberals drink lattes?&rdquo; — the empirical puzzle motivating the model (ref [17]).</li>
-<li><strong>Potential applications:</strong> modeling partisan animosity; cultural-marker formation; misinformation spread through associative chains.</li>
-<li><strong>Contrasts with:</strong> homophily-based / structural-separation accounts of polarization (refs [72–75]); motivated-reasoning and ideological-distance accounts.</li>
-</ul>
-<h2 id="13-key-takeaways">13. Key Takeaways<a class="header-anchor" href="#13-key-takeaways" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>The one idea to carry forward:</strong> polarization and stereotypes can be <em>emergent</em> from coherence-seeking in belief networks — no echo chambers, no substantive disagreement, not even knowledge of others&rsquo; identities required.</li>
-<li><strong>Methodological nugget:</strong> the two-step weighted random walk is a clean, reusable primitive for selecting &ldquo;related&rdquo; beliefs in any belief-network model.</li>
-</ul>
-<h2 id="14-quotes-snippets">14. Quotes / Snippets<a class="header-anchor" href="#14-quotes-snippets" title="Link to this section" rel="nofollow">#</a></h2>
-<blockquote>
-<p>&ldquo;Our model shows that polarization can emerge in the complete absence of any underlying truth&hellip; the associations that drive division need not be normatively meaningful, politically relevant, or even accurate.&rdquo; (p. 10)</p>
-<p>&ldquo;Even in a well-mixed network&hellip; polarization emerges purely from cognitive dynamics, without requiring echo chambers or social sorting.&rdquo; (p. 10)</p>
-<p>&ldquo;This reframes polarization not as an outcome of disagreement over values, but as an emergent property of how humans organize beliefs under uncertainty.&rdquo; (p. 10)</p>
-</blockquote>
-<h2 id="15-glossary">15. Glossary<a class="header-anchor" href="#15-glossary" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><strong>Belief network (B_i):</strong> An agent&rsquo;s signed, weighted graph of concept–concept associations; b_i(c_x, c_y) ∈ [−1, 1].</li>
-<li><strong>Social Balance Theory:</strong> A triad is <em>stable</em> iff the product of its three edge signs is positive.</li>
-<li><strong>Internal dissonance d(B_i):</strong> Mean triad energy; lower = more coherent.</li>
-<li><strong>Social influence (α):</strong> Strength with which a receiver&rsquo;s belief drifts toward the sender&rsquo;s.</li>
-<li><strong>Coherence pressure (β):</strong> Strength of the dissonance-reducing gradient step.</li>
-<li><strong>Endogenous update:</strong> Coherence-driven change to a <em>related</em> belief, triggered but not directly communicated by an interaction.</li>
-<li><strong>Opinion polarization P_O(c):</strong> |mean(A) − mean(B)| opinion gap on concept c; range [0, 2].</li>
-<li><strong>Affective polarization P_A:</strong> Mean (ingroup − outgroup) valence gap; range [0, 2].</li>
-<li><strong>False consensus effect:</strong> Overestimating how widely one&rsquo;s beliefs are shared; appears in the model as the minority of sign-flipping agents.</li>
-</ul>
-<hr>
-<h2 id="bibtex">BibTeX<a class="header-anchor" href="#bibtex" title="Link to this section" rel="nofollow">#</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nc">@article</span><span class="p">{</span><span class="nl">seckin2026emergence</span><span class="p">,</span>
-<span class="w">  </span><span class="na">title</span><span class="w">   </span><span class="p">=</span><span class="w"> </span><span class="s">{Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">author</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="s">{Seckin, Ozgur Can and Aiyappa, Rachith and Vlasceanu, Madalina and Menczer, Filippo and Flammini, Alessandro and Ahn, Yong-Yeol}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{arXiv preprint arXiv:2604.10251}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">year</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{2026}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">url</span><span class="w">     </span><span class="p">=</span><span class="w"> </span><span class="s">{https://arxiv.org/abs/2604.10251}</span><span class="p">,</span>
-<span class="w">  </span><span class="na">note</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{cs.SI}</span>
-<span class="p">}</span>
-</code></pre></div>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>Travel Notes</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/travel/travel-list/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/travel/travel-list/</id>
-    <published>2026-05-11T17:51:35Z</published>
-    <updated>2026-05-11T17:51:35Z</updated>
-    
-    <content type="html"><![CDATA[<p>This section collects short public notes on travel, cities, and places.</p>
-<h2 id="notes">Notes<a class="header-anchor" href="#notes" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="Washington_DC" rel="nofollow">Washington, DC</a></li>
-<li><a href="Santa_Fe" rel="nofollow">Santa Fe, NM</a></li>
-</ul>]]></content>
     
   </entry>
   

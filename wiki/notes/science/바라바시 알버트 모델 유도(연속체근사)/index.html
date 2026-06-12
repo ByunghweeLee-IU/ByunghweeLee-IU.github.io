@@ -3,41 +3,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hwiki: Home - Byunghwee Lee</title>
+    <title>BA model's degree distribution (Continuum approximation) - Byunghwee Lee</title>
 
     <!-- Description for search engines -->
     
-    <meta name="description" content="Entry page for the public wiki.">
+    <meta name="description" content="Barabási–Albert 모델의 degree distribution 유도: Continuum approximation">
     
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Hwiki: Home">
+    <meta property="og:title" content="BA model's degree distribution (Continuum approximation)">
     
-    <meta property="og:description" content="Entry page for the public wiki.">
+    <meta property="og:description" content="Barabási–Albert 모델의 degree distribution 유도: Continuum approximation">
     
-    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/Home/">
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/">
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
     
-    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/Home/">
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/">
     
 
     <!-- JSON-LD structured data for author/site -->
     
     
-    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/files/hwiki_illust.png">
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
     <meta property="og:site_name" content="Byunghwee Lee">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hwiki: Home">
+    <meta name="twitter:title" content="BA model's degree distribution (Continuum approximation)">
     
-    <meta name="twitter:description" content="Entry page for the public wiki.">
+    <meta name="twitter:description" content="Barabási–Albert 모델의 degree distribution 유도: Continuum approximation">
     
     
-    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/hwiki_illust.png">
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
 
     <script>
@@ -75,7 +75,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body data-page-path="Home">
+<body data-page-path="notes/science/바라바시 알버트 모델 유도(연속체근사)">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
@@ -143,12 +143,12 @@
         
 
 <header>
-    <h1>Hwiki: Home</h1>
+    <h1>BA model's degree distribution (Continuum approximation)</h1>
     
     <p class="page-dates">
         
         
-            2026-05-12
+            2026-06-12
         
     </p>
     
@@ -156,132 +156,297 @@
 
 
 <section class="content">
-    <h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Welcome to the public wiki section of my site!👋 
-This wiki is where I collect my thoughts, essays, research ideas and useful information. 
-<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png"></p>
-<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
-<p><strong>The Hidden Secrets of Art Through Data (in Korean)</strong></p>
+    <h1 id="barabasialbert-degree-distribution-continuum-approximation">Barabási–Albert 모델의 degree distribution 유도: Continuum approximation<a class="header-anchor" href="#barabasialbert-degree-distribution-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
+<h2 id="1">1. 문제 설정<a class="header-anchor" href="#1" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Barabási–Albert, 즉 BA 모델은 <strong>preferential attachment</strong>를 통해 scale-free network가 어떻게 생기는지를 설명하는 대표적인 네트워크 성장 모델이다.</p>
+<p>핵심 아이디어는 간단하다.</p>
+<blockquote>
+<p>이미 연결이 많은 노드는 새 노드로부터 더 많은 연결을 받을 가능성이 높다.</p>
+</blockquote>
+<p>즉, “부익부” 구조가 네트워크 성장 과정 안에 들어 있다.</p>
+<hr>
+<h2 id="2-ba">2. BA 모델의 성장 규칙<a class="header-anchor" href="#2-ba" title="Link to this section" rel="nofollow">#</a></h2>
+<p>BA 모델은 보통 다음과 같이 정의된다.</p>
+<ol>
+<li>초기에는 작은 네트워크가 있다.</li>
+<li>매 시간마다 새로운 노드 하나가 네트워크에 추가된다.</li>
+<li>새 노드는 기존 노드들 중 <code>m</code>개와 연결된다.</li>
+<li>기존 노드 <code>i</code>가 새 링크를 받을 확률은 그 노드의 degree <code>k_i</code>에 비례한다.</li>
+</ol>
+<p>즉,</p>
+<p>$$
+\Pi_i = \frac{k_i}{\sum_j k_j}
+$$</p>
+<p>여기서</p>
 <ul>
-<li>🎨 <a href="notes/blogs/01_art-goldenratio.md" rel="nofollow">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
-<li>🎨 <a href="notes/blogs/02_art-price.md" rel="nofollow">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
-<li>🎨 <a href="notes/blogs/03_art-network.md" rel="nofollow">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
-<li>🎨 <a href="notes/blogs/04_art-impression.md" rel="nofollow">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
+<li>$\Pi_i$: 새 노드가 기존 노드 $i$에 연결될 확률</li>
+<li>$k_i$: 노드 $i$의 degree</li>
+<li>$\sum_j k_j$: 전체 네트워크의 degree 합</li>
 </ul>
-<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
+<hr>
+<h2 id="3-degree">3. 전체 degree 합<a class="header-anchor" href="#3-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>무방향 네트워크에서 전체 degree 합은 edge 수의 두 배이다.</p>
+<p>BA 모델에서는 매 시간마다 새 노드가 <code>m</code>개의 edge를 추가한다.</p>
+<p>따라서 시간 $t$가 충분히 크면 edge 수는 대략</p>
+<p>$$
+mt
+$$</p>
+<p>이고, 전체 degree 합은</p>
+<p>$$
+\sum_j k_j \approx 2mt
+$$</p>
+<p>이 된다.</p>
+<p>따라서 preferential attachment 확률은</p>
+<p>$$
+\Pi_i = \frac{k_i}{2mt}
+$$</p>
+<p>로 쓸 수 있다.</p>
+<hr>
+<h2 id="4-degree">4. 한 노드의 degree가 시간에 따라 어떻게 증가하는가?<a class="header-anchor" href="#4-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>이제 특정 노드 $i$를 보자.</p>
+<p>노드 $i$가 시간 $t_i$에 네트워크에 들어왔다고 하자.</p>
+<p>BA 모델에서는 새 노드가 들어올 때 처음부터 <code>m</code>개의 링크를 가지므로,</p>
+<p>$$
+k_i(t_i) = m
+$$</p>
+<p>이다.</p>
+<p>시간이 지나면서 이 노드는 새로 들어오는 노드들로부터 링크를 받을 수 있다.</p>
+<p>한 시간 step마다 새 노드는 <code>m</code>개의 링크를 만든다. 그중 하나가 노드 $i$에 연결될 확률은 $\Pi_i$이다.</p>
+<p>따라서 노드 $i$의 degree 증가율은</p>
+<p>$$
+\frac{dk_i}{dt} = m \Pi_i
+$$</p>
+<p>이다.</p>
+<p>앞에서 구한 $\Pi_i = k_i / 2mt$를 대입하면,</p>
+<p>$$
+\frac{dk_i}{dt}
+= m \frac{k_i}{2mt}
+$$</p>
+<p><code>m</code>이 약분되어</p>
+<p>$$
+\frac{dk_i}{dt}
+= \frac{k_i}{2t}
+$$</p>
+<p>이 된다.</p>
+<p>이 식이 continuum approximation의 핵심이다.</p>
+<hr>
+<h2 id="5">5. 미분방정식 풀기<a class="header-anchor" href="#5" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리는 다음 미분방정식을 풀면 된다.</p>
+<p>$$
+\frac{dk_i}{dt} = \frac{k_i}{2t}
+$$</p>
+<p>양변을 분리하면,</p>
+<p>$$
+\frac{dk_i}{k_i} = \frac{dt}{2t}
+$$</p>
+<p>양변을 적분하면,</p>
+<p>$$
+\ln k_i = \frac{1}{2}\ln t + C
+$$</p>
+<p>따라서</p>
+<p>$$
+k_i(t) = C&rsquo; t^{1/2}
+$$</p>
+<p>이다.</p>
+<p>이제 초기조건을 사용한다.</p>
+<p>노드 $i$는 시간 $t_i$에 들어왔고, 그때 degree는 $m$이다.</p>
+<p>$$
+k_i(t_i) = m
+$$</p>
+<p>그러므로</p>
+<p>$$
+m = C&rsquo; t_i^{1/2}
+$$</p>
+<p>따라서</p>
+<p>$$
+C&rsquo; = m t_i^{-1/2}
+$$</p>
+<p>이를 다시 대입하면,</p>
+<p>$$
+k_i(t) = m \left(\frac{t}{t_i}\right)^{1/2}
+$$</p>
+<p>즉, 노드 $i$의 degree는 시간이 지남에 따라 다음처럼 증가한다.</p>
+<p>$$
+k_i(t) = m \sqrt{\frac{t}{t_i}}
+$$</p>
+<hr>
+<h2 id="6">6. 이 식의 직관<a class="header-anchor" href="#6" title="Link to this section" rel="nofollow">#</a></h2>
+<p>$$
+k_i(t) = m \sqrt{\frac{t}{t_i}}
+$$</p>
+<p>이 식은 중요한 직관을 준다.</p>
 <ul>
-<li><a href="notes/News-list" rel="nofollow">All News</a></li>
+<li>$t_i$가 작을수록, 즉 일찍 들어온 노드일수록 degree가 크다.</li>
+<li>늦게 들어온 노드는 성장할 시간이 적기 때문에 degree가 작다.</li>
+<li>하지만 degree는 $t/t_i$에 비례해서 선형으로 증가하는 것이 아니라 제곱근으로 증가한다.</li>
 </ul>
+<p>즉, early mover advantage가 있지만 무한히 압도적인 방식은 아니다.</p>
+<hr>
+<h2 id="7-degree-distribution">7. Degree distribution으로 바꾸기<a class="header-anchor" href="#7-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리가 원하는 것은 개별 노드의 degree 성장식이 아니라 전체 네트워크의 degree distribution이다.</p>
+<p>즉,</p>
+<p>$$
+P(k)
+$$</p>
+<p>를 구하고 싶다.</p>
+<p>앞에서 얻은 식은</p>
+<p>$$
+k_i(t) = m \left(\frac{t}{t_i}\right)^{1/2}
+$$</p>
+<p>이다.</p>
+<p>이 식을 $t_i$에 대해 풀면,</p>
+<p>$$
+k_i(t) &gt; k
+$$</p>
+<p>라는 조건은 다음과 같다.</p>
+<p>$$
+m \left(\frac{t}{t_i}\right)^{1/2} &gt; k
+$$</p>
+<p>양변을 정리하면,</p>
+<p>$$
+\left(\frac{t}{t_i}\right)^{1/2} &gt; \frac{k}{m}
+$$</p>
+<p>양변을 제곱하면,</p>
+<p>$$
+\frac{t}{t_i} &gt; \frac{k^2}{m^2}
+$$</p>
+<p>따라서</p>
+<p>$$
+t_i &lt; \frac{m^2 t}{k^2}
+$$</p>
+<p>이 된다.</p>
+<p>즉, degree가 $k$보다 큰 노드들은 충분히 일찍 들어온 노드들이다.</p>
+<hr>
+<h2 id="8-t_i">8. $t_i$의 분포<a class="header-anchor" href="#8-t_i" title="Link to this section" rel="nofollow">#</a></h2>
+<p>BA 모델에서는 매 시간마다 노드가 하나씩 들어온다.</p>
+<p>따라서 노드의 등장 시간 $t_i$는 대략 $[0,t]$ 구간에 균등하게 분포한다고 볼 수 있다.</p>
+<p>그러므로</p>
+<p>$$
+P(k_i(t) &gt; k)
+= P\left(t_i &lt; \frac{m^2 t}{k^2}\right)
+$$</p>
+<p>이고, $t_i$가 균등분포이므로</p>
+<p>$$
+P\left(t_i &lt; \frac{m^2 t}{k^2}\right)
+= \frac{m^2 t / k^2}{t}
+$$</p>
+<p>따라서</p>
+<p>$$
+P(k_i(t) &gt; k) = \frac{m^2}{k^2}
+$$</p>
+<p>이것은 누적분포의 꼬리, 즉 complementary cumulative distribution이다.</p>
+<p>보통 다음처럼 쓴다.</p>
+<p>$$
+P(K &gt; k) \sim k^{-2}
+$$</p>
+<hr>
+<h2 id="9">9. 누적분포에서 확률밀도분포로<a class="header-anchor" href="#9" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리가 흔히 말하는 degree distribution은</p>
+<p>$$
+P(k)
+$$</p>
+<p>이다.</p>
+<p>앞에서 얻은 것은</p>
+<p>$$
+P(K &gt; k) \sim k^{-2}
+$$</p>
+<p>이다.</p>
+<p>연속 근사에서는 확률밀도는 누적분포를 미분해서 얻을 수 있다.</p>
+<p>$$
+P(k) = -\frac{d}{dk}P(K &gt; k)
+$$</p>
+<p>따라서</p>
+<p>$$
+P(k) \sim -\frac{d}{dk}k^{-2}
+$$</p>
+<p>이고,</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>즉 BA 모델의 degree distribution은</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>이 된다.</p>
+<hr>
+<h2 id="10">10. 결론<a class="header-anchor" href="#10" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Continuum approximation을 통해 BA 모델의 degree distribution을 유도하면 다음과 같은 결과를 얻는다.</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>즉, BA 모델은 power-law degree distribution을 만든다.</p>
+<p>이때 exponent는</p>
+<p>$$
+\gamma = 3
+$$</p>
+<p>이다.</p>
+<p>따라서 BA 모델은 scale-free network의 대표적인 생성 메커니즘으로 이해된다.</p>
+<hr>
+<h2 id="11">11. 핵심 흐름 요약<a class="header-anchor" href="#11" title="Link to this section" rel="nofollow">#</a></h2>
+<p>전체 유도 과정은 다음과 같이 요약할 수 있다.</p>
+<ol>
+<li>Preferential attachment를 가정한다.</li>
+</ol>
+<p>$$
+\Pi_i = \frac{k_i}{\sum_j k_j}
+$$</p>
+<ol start="2">
+<li>전체 degree 합은 대략 $2mt$이다.</li>
+</ol>
+<p>$$
+\sum_j k_j \approx 2mt
+$$</p>
+<ol start="3">
+<li>노드 $i$의 degree 증가율은 다음과 같다.</li>
+</ol>
+<p>$$
+\frac{dk_i}{dt} = m \frac{k_i}{2mt}
+= \frac{k_i}{2t}
+$$</p>
+<ol start="4">
+<li>미분방정식을 풀면,</li>
+</ol>
+<p>$$
+k_i(t) = m \left(\frac{t}{t_i}\right)^{1/2}
+$$</p>
+<ol start="5">
+<li>degree가 $k$보다 클 조건은</li>
+</ol>
+<p>$$
+t_i &lt; \frac{m^2 t}{k^2}
+$$</p>
+<ol start="6">
+<li>등장 시간 $t_i$가 균등분포라고 보면,</li>
+</ol>
+<p>$$
+P(K &gt; k) \sim k^{-2}
+$$</p>
+<ol start="7">
+<li>이를 미분하면,</li>
+</ol>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<hr>
+<h2 id="12-continuum-approximation">12. Continuum approximation의 의미<a class="header-anchor" href="#12-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>여기서 continuum approximation은 원래 이산적인 네트워크 성장 과정을 연속적인 미분방정식으로 근사하는 방법이다.</p>
+<p>실제로 degree는 정수이고 시간도 discrete step으로 증가한다.</p>
+<p>하지만 노드 수가 충분히 크고 degree 변화가 평균적으로 부드럽다고 보면,</p>
+<p>$$
+\frac{dk_i}{dt}
+$$</p>
+<p>와 같은 연속적인 증가율로 근사할 수 있다.</p>
+<p>이 방식은 정확한 해는 아니지만, BA 모델이 왜 power-law 분포를 만드는지 직관적으로 보여주는 가장 간단한 유도법이다.</p>
+<hr>
+<h2 id="13">13. 한 줄 요약<a class="header-anchor" href="#13" title="Link to this section" rel="nofollow">#</a></h2>
+<p>BA 모델에서는 먼저 들어온 노드가 preferential attachment 덕분에 더 많은 링크를 얻고, 이 성장 과정이 누적되면서 degree distribution이</p>
+<p>$$
+P(k) \sim k^{-3}
+$$</p>
+<p>인 scale-free network가 만들어진다.</p>
 </section>
 
 
-
-<section class="recent-pages">
-    <h2>Recent Pages</h2>
-    <ul class="page-list">
-        
-        <li>
-            <span class="page-date">2026-06-12</span>
-            <a href="/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/">Barabási–Albert Model (Continuum Approximation)</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-12</span>
-            <a href="/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/">BA model's degree distribution (Continuum approximation)</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-09</span>
-            <a href="/wiki/notes/papers/Candellon2026Disentangling/">Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-08</span>
-            <a href="/talks/">Talks</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-08</span>
-            <a href="/index/">Byunghwee Lee</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-30</span>
-            <a href="/publications/">Publications</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-12</span>
-            <a href="/wiki/notes/papers/Seckin2026Emergence/">Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-11</span>
-            <a href="/wiki/notes/travel/travel-list/">Travel Notes</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-03</span>
-            <a href="/cv/">CV</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-03</span>
-            <a href="/research/">Research</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-01</span>
-            <a href="/visualization/">Data Visualization</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-04-07</span>
-            <a href="/wiki/notes/News-list/">All news</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/01_art-goldenratio/">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/02_art-price/">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/03_art-network/">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/04_art-impression/">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/travel/Washington_DC/">Washington, DC</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/papers/news-press-polarization/">News Press Landscape and Asymmetric Polarization</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/papers/landscape-art-history/">Dissecting Landscape Art History with Information Theory</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/papers/belief-embeddings-llms/">Belief Embeddings with Large Language Models</a>
-        </li>
-        
-    </ul>
-</section>
 
 
 

@@ -3,41 +3,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hwiki: Home - Byunghwee Lee</title>
+    <title>Barabási–Albert Model (Continuum Approximation) - Byunghwee Lee</title>
 
     <!-- Description for search engines -->
     
-    <meta name="description" content="Entry page for the public wiki.">
+    <meta name="description" content="Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation">
     
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Hwiki: Home">
+    <meta property="og:title" content="Barabási–Albert Model (Continuum Approximation)">
     
-    <meta property="og:description" content="Entry page for the public wiki.">
+    <meta property="og:description" content="Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation">
     
-    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/Home/">
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/">
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
     
-    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/Home/">
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/">
     
 
     <!-- JSON-LD structured data for author/site -->
     
     
-    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/files/hwiki_illust.png">
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
     <meta property="og:site_name" content="Byunghwee Lee">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Hwiki: Home">
+    <meta name="twitter:title" content="Barabási–Albert Model (Continuum Approximation)">
     
-    <meta name="twitter:description" content="Entry page for the public wiki.">
+    <meta name="twitter:description" content="Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation">
     
     
-    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/hwiki_illust.png">
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
 
     <script>
@@ -75,7 +75,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body data-page-path="Home">
+<body data-page-path="notes/science/Barabási–Albert Model (Continuum Approximation)">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
@@ -143,12 +143,12 @@
         
 
 <header>
-    <h1>Hwiki: Home</h1>
+    <h1>Barabási–Albert Model (Continuum Approximation)</h1>
     
     <p class="page-dates">
         
         
-            2026-05-12
+            2026-06-12
         
     </p>
     
@@ -156,132 +156,216 @@
 
 
 <section class="content">
-    <h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Welcome to the public wiki section of my site!👋 
-This wiki is where I collect my thoughts, essays, research ideas and useful information. 
-<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png"></p>
-<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
-<p><strong>The Hidden Secrets of Art Through Data (in Korean)</strong></p>
+    <h1 id="deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation">Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation<a class="header-anchor" href="#deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
+<h2 id="1-introduction">1. Introduction<a class="header-anchor" href="#1-introduction" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The Barabási–Albert (BA) model explains how scale-free networks emerge through growth and preferential attachment.</p>
+<blockquote>
+<p>Nodes that already have many connections are more likely to receive new connections.</p>
+</blockquote>
+<p>This note derives the degree distribution of the BA model using the continuum approximation.</p>
+<hr>
+<h2 id="2-growth-rules">2. Growth Rules<a class="header-anchor" href="#2-growth-rules" title="Link to this section" rel="nofollow">#</a></h2>
+<ol>
+<li>Start with a small seed network.</li>
+<li>At each time step, add one new node.</li>
+<li>The new node creates $m$ links.</li>
+<li>Existing node $i$ receives a new link with probability proportional to its degree $k_i$.</li>
+</ol>
+<p>Therefore,</p>
+<p>$$
+\Pi_i=\frac{k_i}{\sum_j k_j}.
+$$</p>
+<hr>
+<h2 id="3-total-degree-of-the-network">3. Total Degree of the Network<a class="header-anchor" href="#3-total-degree-of-the-network" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Each new node contributes $m$ new edges.</p>
+<p>After $t$ steps,</p>
+<p>$$
+E \approx mt.
+$$</p>
+<p>Since the sum of degrees equals twice the number of edges,</p>
+<p>$$
+\sum_j k_j \approx 2mt.
+$$</p>
+<p>Thus,</p>
+<p>$$
+\Pi_i=\frac{k_i}{2mt}.
+$$</p>
+<hr>
+<h2 id="4-growth-of-a-nodes-degree">4. Growth of a Node&rsquo;s Degree<a class="header-anchor" href="#4-growth-of-a-nodes-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Consider node $i$ that entered the network at time $t_i$.</p>
+<p>Initially,</p>
+<p>$$
+k_i(t_i)=m.
+$$</p>
+<p>The expected degree growth is</p>
+<p>$$
+\frac{dk_i}{dt}=m\Pi_i.
+$$</p>
+<p>Substituting the attachment probability,</p>
+<p>$$
+\frac{dk_i}{dt}
+=
+m\frac{k_i}{2mt}
+=
+\frac{k_i}{2t}.
+\tag{1}
+$$</p>
+<p>Equation (1) is the core of the continuum approximation.</p>
+<hr>
+<h2 id="5-solving-the-differential-equation">5. Solving the Differential Equation<a class="header-anchor" href="#5-solving-the-differential-equation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Starting from</p>
+<p>$$
+\frac{dk_i}{dt}
+=
+\frac{k_i}{2t},
+$$</p>
+<p>separate variables:</p>
+<p>$$
+\frac{dk_i}{k_i}
+=
+\frac{dt}{2t}.
+$$</p>
+<p>Integrating,</p>
+<p>$$
+\ln k_i
+=
+\frac{1}{2}\ln t + C.
+$$</p>
+<p>Exponentiating,</p>
+<p>$$
+k_i(t)=C&rsquo;t^{1/2}.
+$$</p>
+<p>Using the initial condition $k_i(t_i)=m$,</p>
+<p>$$
+C&rsquo;=mt_i^{-1/2}.
+$$</p>
+<p>Therefore,</p>
+<p>$$
+k_i(t)
+=
+m\left(\frac{t}{t_i}\right)^{1/2}.
+\tag{2}
+$$</p>
+<p>or</p>
+<p>$$
+k_i(t)
+=
+m\sqrt{\frac{t}{t_i}}.
+$$</p>
+<hr>
+<h2 id="6-interpretation">6. Interpretation<a class="header-anchor" href="#6-interpretation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Equation (2) implies:</p>
 <ul>
-<li>🎨 <a href="notes/blogs/01_art-goldenratio.md" rel="nofollow">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
-<li>🎨 <a href="notes/blogs/02_art-price.md" rel="nofollow">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
-<li>🎨 <a href="notes/blogs/03_art-network.md" rel="nofollow">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
-<li>🎨 <a href="notes/blogs/04_art-impression.md" rel="nofollow">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
+<li>Earlier nodes accumulate more links.</li>
+<li>Later nodes have less time to grow.</li>
+<li>Degree grows as the square root of time.</li>
 </ul>
-<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/News-list" rel="nofollow">All News</a></li>
-</ul>
+<p>This is a form of cumulative advantage.</p>
+<hr>
+<h2 id="7-from-degree-growth-to-degree-distribution">7. From Degree Growth to Degree Distribution<a class="header-anchor" href="#7-from-degree-growth-to-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>We seek the degree distribution $P(k)$.</p>
+<p>Starting from</p>
+<p>$$
+k_i(t)
+=
+m\left(\frac{t}{t_i}\right)^{1/2},
+$$</p>
+<p>consider</p>
+<p>$$
+k_i(t)&gt;k.
+$$</p>
+<p>Then</p>
+<p>$$
+m\left(\frac{t}{t_i}\right)^{1/2}&gt;k.
+$$</p>
+<p>Rearranging,</p>
+<p>$$
+t_i&lt;\frac{m^2t}{k^2}.
+\tag{3}
+$$</p>
+<p>Thus nodes with degree greater than $k$ are nodes that entered sufficiently early.</p>
+<hr>
+<h2 id="8-distribution-of-arrival-times">8. Distribution of Arrival Times<a class="header-anchor" href="#8-distribution-of-arrival-times" title="Link to this section" rel="nofollow">#</a></h2>
+<p>One node enters per time step.</p>
+<p>Therefore arrival times are uniformly distributed on</p>
+<p>$$
+[0,t].
+$$</p>
+<p>Using Equation (3),</p>
+<p>$$
+P(K&gt;k)
+=
+P\left(t_i&lt;\frac{m^2t}{k^2}\right).
+$$</p>
+<p>Since arrival times are uniform,</p>
+<p>$$
+P(K&gt;k)
+=
+\frac{m^2t/k^2}{t}
+=
+\frac{m^2}{k^2}.
+$$</p>
+<p>Hence,</p>
+<p>$$
+P(K&gt;k)\sim k^{-2}.
+\tag{4}
+$$</p>
+<hr>
+<h2 id="9-obtaining-the-degree-distribution">9. Obtaining the Degree Distribution<a class="header-anchor" href="#9-obtaining-the-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Differentiate Equation (4):</p>
+<p>$$
+P(k)
+=
+-\frac{d}{dk}P(K&gt;k).
+$$</p>
+<p>Therefore,</p>
+<p>$$
+P(k)
+\sim
+-\frac{d}{dk}k^{-2}
+\sim
+k^{-3}.
+$$</p>
+<hr>
+<h2 id="10-why-does-the-exponent-equal-3">10. Why Does the Exponent Equal 3?<a class="header-anchor" href="#10-why-does-the-exponent-equal-3" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The exponent emerges from two ingredients:</p>
+<ol>
+<li>Degree growth:</li>
+</ol>
+<p>$$
+k(t)\sim t^{1/2}.
+$$</p>
+<ol start="2">
+<li>Uniform node arrival times.</li>
+</ol>
+<p>Together,</p>
+<p>$$
+P(K&gt;k)\sim k^{-2},
+$$</p>
+<p>which implies</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
+<hr>
+<h2 id="11-final-result">11. Final Result<a class="header-anchor" href="#11-final-result" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The BA model produces a power-law degree distribution</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
+<p>with exponent</p>
+<p>$$
+\gamma=3.
+$$</p>
+<p>This is the defining signature of a scale-free network.</p>
+<hr>
+<h2 id="one-sentence-summary">One-Sentence Summary<a class="header-anchor" href="#one-sentence-summary" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Early-arriving nodes accumulate links through preferential attachment, and this cumulative advantage generates the scale-free degree distribution</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
 </section>
 
 
-
-<section class="recent-pages">
-    <h2>Recent Pages</h2>
-    <ul class="page-list">
-        
-        <li>
-            <span class="page-date">2026-06-12</span>
-            <a href="/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/">Barabási–Albert Model (Continuum Approximation)</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-12</span>
-            <a href="/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/">BA model's degree distribution (Continuum approximation)</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-09</span>
-            <a href="/wiki/notes/papers/Candellon2026Disentangling/">Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-08</span>
-            <a href="/talks/">Talks</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-06-08</span>
-            <a href="/index/">Byunghwee Lee</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-30</span>
-            <a href="/publications/">Publications</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-12</span>
-            <a href="/wiki/notes/papers/Seckin2026Emergence/">Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-11</span>
-            <a href="/wiki/notes/travel/travel-list/">Travel Notes</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-03</span>
-            <a href="/cv/">CV</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-03</span>
-            <a href="/research/">Research</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-05-01</span>
-            <a href="/visualization/">Data Visualization</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-04-07</span>
-            <a href="/wiki/notes/News-list/">All news</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/01_art-goldenratio/">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/02_art-price/">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/03_art-network/">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-19</span>
-            <a href="/wiki/notes/blogs/04_art-impression/">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/travel/Washington_DC/">Washington, DC</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/papers/news-press-polarization/">News Press Landscape and Asymmetric Polarization</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/papers/landscape-art-history/">Dissecting Landscape Art History with Information Theory</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-03-17</span>
-            <a href="/wiki/notes/papers/belief-embeddings-llms/">Belief Embeddings with Large Language Models</a>
-        </li>
-        
-    </ul>
-</section>
 
 
 

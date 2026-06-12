@@ -19,7 +19,7 @@ https://byunghweelee-iu.github.io/wiki/notes/papers/landscape-art-history/
 https://byunghweelee-iu.github.io/wiki/notes/papers/news-press-polarization/
 https://byunghweelee-iu.github.io/wiki/notes/papers/paper-list/
 https://byunghweelee-iu.github.io/wiki/notes/papers/preprints-and-in-progress/
-https://byunghweelee-iu.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/
-https://byunghweelee-iu.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/
+https://byunghweelee-iu.github.io/wiki/notes/science/BA_model_Continuum_Approximation/
+https://byunghweelee-iu.github.io/wiki/notes/science/BA_model_Continuum_Approximation_Korean/
 https://byunghweelee-iu.github.io/wiki/notes/travel/Washington_DC/
 https://byunghweelee-iu.github.io/wiki/notes/travel/travel-list/

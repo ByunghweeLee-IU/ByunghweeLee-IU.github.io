@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-06-12T03:02:37Z</updated>
+  <updated>2026-06-12T03:05:07Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -18,8 +18,8 @@
     <title>바라바시 알버트 모델 (연속체 근사)</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/바라바시 알버트 모델 유도(연속체근사)/</id>
-    <published>2026-06-12T03:02:37Z</published>
-    <updated>2026-06-12T03:02:37Z</updated>
+    <published>2026-06-12T03:05:07Z</published>
+    <updated>2026-06-12T03:05:07Z</updated>
     
     <content type="html"><![CDATA[<h1 id="barabasialbert-degree-distribution-continuum-approximation">Barabási–Albert 모델의 degree distribution 유도: Continuum approximation<a class="header-anchor" href="#barabasialbert-degree-distribution-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
 <h2 id="1">1. 문제 설정<a class="header-anchor" href="#1" title="Link to this section" rel="nofollow">#</a></h2>
@@ -313,11 +313,11 @@ $$</p>
   </entry>
   
   <entry>
-    <title>BA model&#39;s degree distribution (Continuum approximation)</title>
+    <title>BA model degree distribution (Continuum approximation)</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/Barabási–Albert Model (Continuum Approximation)/</id>
-    <published>2026-06-12T03:02:24Z</published>
-    <updated>2026-06-12T03:02:24Z</updated>
+    <published>2026-06-12T03:04:40Z</published>
+    <updated>2026-06-12T03:04:40Z</updated>
     
     <content type="html"><![CDATA[<h1 id="deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation">Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation<a class="header-anchor" href="#deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
 <h2 id="1-introduction">1. Introduction<a class="header-anchor" href="#1-introduction" title="Link to this section" rel="nofollow">#</a></h2>

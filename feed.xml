@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-06-13T04:30:23Z</updated>
+  <updated>2026-06-13T04:32:22Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -15,38 +15,11 @@
 
   
   <entry>
-    <title>Hwiki: Home</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-06-13T04:30:23Z</published>
-    <updated>2026-06-13T04:30:23Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Welcome to the public wiki section of my site!👋 
-This wiki is where I collect my thoughts, essays, research ideas and useful information. 
-<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png"></p>
-<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
-<p><strong>The Hidden Secrets of Art Through Data (in Korean)</strong></p>
-<ul>
-<li>🎨 <a href="notes/blogs/01_art-goldenratio.md" rel="nofollow">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
-<li>🎨 <a href="notes/blogs/02_art-price.md" rel="nofollow">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
-<li>🎨 <a href="notes/blogs/03_art-network.md" rel="nofollow">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
-<li>🎨 <a href="notes/blogs/04_art-impression.md" rel="nofollow">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
-<li>🎨 <a href="notes/blogs/05_art-fractal.md" rel="nofollow">데이터로 본 예술 (5) - 본질의 비밀: 다빈치와 몬드리안 그리고 프랙탈</a></li>
-</ul>
-<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><a href="notes/News-list" rel="nofollow">All News</a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
     <title>데이터로 본 예술 (5) - 본질의 비밀: 다빈치와 몬드리안 그리고 프랙탈</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal/</id>
-    <published>2026-06-13T04:30:10Z</published>
-    <updated>2026-06-13T04:30:10Z</updated>
+    <published>2026-06-13T04:32:22Z</published>
+    <updated>2026-06-13T04:32:22Z</updated>
     
     <content type="html"><![CDATA[<h1 id="5">데이터로 본 예술 (5)<a class="header-anchor" href="#5" title="Link to this section" rel="nofollow">#</a></h1>
 <h1 id="_1">나무의 본질은 무엇일까? 다빈치와 몬드리안이 남긴 힌트<a class="header-anchor" href="#_1" title="Link to this section" rel="nofollow">#</a></h1>
@@ -56,9 +29,7 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
 <p>다빈치는 예술가이면서 자연을 집요하게 관찰한 사람이었다. 다빈치는 나무를 그리기 위해 가지의 구조를 관찰하다가 한 가지 독특한 규칙을 발견했다. 큰 가지가 여러 작은 갈래로 갈라질 때, 갈라진 가지들의 굵기를 모두 합치면 원래 가지의 굵기와 비슷하다는 것이다.</p>
 <p>그는 500여 년 전 자신의 노트에 이에 관한 자신의 생각을 남겼다. </p>
 <blockquote>
-<p>[!quote] 
-나무의 가지들이 한 해 동안 성장을 마치면, 그 가지들을 모두 합쳤을 때의 두께는 원래 줄기의 두께(thickness)와 같다.
-</p>
+<p>나무의 가지들이 한 해 동안 성장을 마치면, 그 가지들을 모두 합쳤을 때의 두께는 원래 줄기의 두께(thickness)와 같다.</p>
 </blockquote>
 <p><img alt="tree" src="/assets/files/tree-fig1.png"></p>
 <p>오늘날 <strong>다빈치의 법칙</strong>은 보통 가지의 반지름을 이용해 다음의 간단한 식으로 표현된다. 
@@ -110,6 +81,33 @@ $$</p>
 <h2 id="_6">참고문헌<a class="header-anchor" href="#_6" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>
 <li>Gao, Jingyi, and Mitchell G. Newberry. &ldquo;Scaling in branch thickness and the fractal aesthetic of trees.&rdquo; <em>PNAS nexus</em> 4.2 (2025): pgaf003.</li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>Hwiki: Home</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
+    <published>2026-06-13T04:30:23Z</published>
+    <updated>2026-06-13T04:30:23Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Welcome to the public wiki section of my site!👋 
+This wiki is where I collect my thoughts, essays, research ideas and useful information. 
+<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png"></p>
+<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
+<p><strong>The Hidden Secrets of Art Through Data (in Korean)</strong></p>
+<ul>
+<li>🎨 <a href="notes/blogs/01_art-goldenratio.md" rel="nofollow">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
+<li>🎨 <a href="notes/blogs/02_art-price.md" rel="nofollow">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
+<li>🎨 <a href="notes/blogs/03_art-network.md" rel="nofollow">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
+<li>🎨 <a href="notes/blogs/04_art-impression.md" rel="nofollow">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
+<li>🎨 <a href="notes/blogs/05_art-fractal.md" rel="nofollow">데이터로 본 예술 (5) - 본질의 비밀: 다빈치와 몬드리안 그리고 프랙탈</a></li>
+</ul>
+<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="notes/News-list" rel="nofollow">All News</a></li>
 </ul>]]></content>
     
   </entry>

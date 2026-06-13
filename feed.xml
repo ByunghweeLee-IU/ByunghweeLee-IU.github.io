@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-06-13T04:44:23Z</updated>
+  <updated>2026-06-13T04:48:02Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -18,8 +18,8 @@
     <title>데이터로 본 예술 (5) - 본질의 비밀: 다빈치와 몬드리안 그리고 프랙탈</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal/</id>
-    <published>2026-06-13T04:44:23Z</published>
-    <updated>2026-06-13T04:44:23Z</updated>
+    <published>2026-06-13T04:48:02Z</published>
+    <updated>2026-06-13T04:48:02Z</updated>
     
     <content type="html"><![CDATA[<h2 id="_1">나무를 나무답게 그리려면?<a class="header-anchor" href="#_1" title="Link to this section" rel="nofollow">#</a></h2>
 <p>나무를 나무답게 그리려면 어떻게 그려야 할까? 생각보다 어려운 질문이다. 우리는 소나무와 벚나무를 구분할 수 있고, 여름철 울창한 나무와 잎이 모두 떨어진 겨울나무도 나무라고 알아본다. 그렇다면 나무를 나무로 인식하게 만드는 가장 본질적인 특징은 무엇일까?</p>
@@ -65,10 +65,8 @@ $$  r_a^\alpha + r_b^\alpha = r_c^\alpha  $$
 <p>이제부터 관람자는 더 이상 나무를 보기 어렵다. 누군가는 춤추는 사람을 보고, 누군가는 꽃을 보고, 누군가는 물고기나 추상적 패턴이라 여길지도 모르겠다.</p>
 <p>결국 몬드리안은 의도했든 아니든 아주 흥미로운 통계물리학 실험을 한 셈이다. 나무에서 색을 빼고, 잎을 빼고, 현실적인 연결 구조를 빼도 어느 정도까지는 나무가 남는다. 하지만 가지 두께의 자연스러운 스케일링마저 사라지는 순간, 나무도 함께 사라진 것. </p>
 <h2 id="_5">나무의 본질은 형태가 아니라 통계일지도 모른다<a class="header-anchor" href="#_5" title="Link to this section" rel="nofollow">#</a></h2>
-<p>우리는 흔히 대상의 본질을 눈에 보이는 형태에서 찾는다. 하지만 이 연구는 조금 다른 가능성을 제시한다. 나무마다 모양은 다르다. 잎도 다르고, 색도 다르고, 성장 환경도 다르다. 그럼에도 불구하고 자연의 제약 속에서 형성된 공통적인 자기 유사성 패턴이 존재한다.</p>
-<p>그리고 어쩌면 우리가 &ldquo;나무답다&rdquo;고 느끼는 감각 역시 그 패턴에서 비롯되는 것인지도 모른다.</p>
-<p>흥미롭게도 이것은 오늘날 생성형 AI에도 연결되는 질문이다.</p>
-<p>AI는 단순히 수많은 이미지를 암기하는 것일까? 아니면 인간이 직관적으로 느끼는 이러한 숨은 구조와 본질을 학습하고 있는 것일까?</p>
+<p>우리는 흔히 대상의 본질을 눈에 보이는 형태에서 찾는다. 하지만 이 연구는 조금 다른 가능성을 제시한다. 나무마다 모양은 다르다. 잎도 다르고, 색도 다르고, 성장 환경도 다르다. 그럼에도 불구하고 자연의 제약 속에서 형성된 공통적인 자기 유사성 패턴이 존재한다. 그리고 어쩌면 우리가 &ldquo;나무답다&rdquo;고 느끼는 감각 역시 그 패턴에서 비롯되는 것인지도 모른다.</p>
+<p>흥미롭게도 이것은 오늘날 생성형 AI에도 연결되는 질문이다. AI는 단순히 수많은 이미지를 암기하는 것일까? 아니면 인간이 직관적으로 느끼는 이러한 숨은 구조와 본질을 학습하고 있는 것일까?</p>
 <p>다빈치가 남긴 작은 관찰에서 시작된 질문은, 500년이 지난 오늘날에도 여전히 이어지고 있다.</p>
 <h2 id="_6">참고문헌<a class="header-anchor" href="#_6" title="Link to this section" rel="nofollow">#</a></h2>
 <ul>

@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-06-12T03:05:07Z</updated>
+  <updated>2026-06-13T04:30:23Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -13,6 +13,106 @@
   
   <generator uri="https://github.com/yyahn/foliate" version="0.7.6">foliate</generator>
 
+  
+  <entry>
+    <title>Hwiki: Home</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
+    <published>2026-06-13T04:30:23Z</published>
+    <updated>2026-06-13T04:30:23Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Welcome to the public wiki section of my site!👋 
+This wiki is where I collect my thoughts, essays, research ideas and useful information. 
+<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png"></p>
+<h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section" rel="nofollow">#</a></h2>
+<p><strong>The Hidden Secrets of Art Through Data (in Korean)</strong></p>
+<ul>
+<li>🎨 <a href="notes/blogs/01_art-goldenratio.md" rel="nofollow">데이터로 본 예술 (1) - 황금비율의 비밀: 정보이론으로 바라본 미술사 속 구도와 비례</a></li>
+<li>🎨 <a href="notes/blogs/02_art-price.md" rel="nofollow">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a></li>
+<li>🎨 <a href="notes/blogs/03_art-network.md" rel="nofollow">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a></li>
+<li>🎨 <a href="notes/blogs/04_art-impression.md" rel="nofollow">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a></li>
+<li>🎨 <a href="notes/blogs/05_art-fractal.md" rel="nofollow">데이터로 본 예술 (5) - 본질의 비밀: 다빈치와 몬드리안 그리고 프랙탈</a></li>
+</ul>
+<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li><a href="notes/News-list" rel="nofollow">All News</a></li>
+</ul>]]></content>
+    
+  </entry>
+  
+  <entry>
+    <title>데이터로 본 예술 (5) - 본질의 비밀: 다빈치와 몬드리안 그리고 프랙탈</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal/</id>
+    <published>2026-06-13T04:30:10Z</published>
+    <updated>2026-06-13T04:30:10Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="5">데이터로 본 예술 (5)<a class="header-anchor" href="#5" title="Link to this section" rel="nofollow">#</a></h1>
+<h1 id="_1">나무의 본질은 무엇일까? 다빈치와 몬드리안이 남긴 힌트<a class="header-anchor" href="#_1" title="Link to this section" rel="nofollow">#</a></h1>
+<p>나무를 나무답게 그리려면 어떻게 그려야 할까?</p>
+<p>생각보다 어려운 질문이다. 우리는 소나무와 벚나무를 구분할 수 있고, 잎이 모두 떨어진 겨울나무도 나무라고 알아본다. 그렇다면 나무를 나무로 인식하게 만드는 가장 본질적인 특징은 무엇일까?</p>
+<p>흥미롭게도 이 질문은 르네상스 시대의 레오나르도 다빈치에서 시작된다.</p>
+<p>다빈치는 예술가이면서 자연을 집요하게 관찰한 사람이었다. 다빈치는 나무를 그리기 위해 가지의 구조를 관찰하다가 한 가지 독특한 규칙을 발견했다. 큰 가지가 여러 작은 갈래로 갈라질 때, 갈라진 가지들의 굵기를 모두 합치면 원래 가지의 굵기와 비슷하다는 것이다.</p>
+<p>그는 500여 년 전 자신의 노트에 이에 관한 자신의 생각을 남겼다. </p>
+<blockquote>
+<p>[!quote] 
+나무의 가지들이 한 해 동안 성장을 마치면, 그 가지들을 모두 합쳤을 때의 두께는 원래 줄기의 두께(thickness)와 같다.
+</p>
+</blockquote>
+<p><img alt="tree" src="/assets/files/tree-fig1.png"></p>
+<p>오늘날 <strong>다빈치의 법칙</strong>은 보통 가지의 반지름을 이용해 다음의 간단한 식으로 표현된다. 
+$$<br>
+r_a^2 + r_b^2 = r_c^2<br>
+$$
+여기서 $r_c$는 갈라지기 전 굵은 가지의 반지름이고, $r_a$, $r_b$는 갈라진 뒤의 두 가지의 반지름이다. 즉, 두 갈래로 나뉜 가지들의 단면적을 합하면 원래 가지의 단면적과 비슷하다는 뜻이다.</p>
+<p>오늘날 생물학자들은 이것을 단순한 미술 이론이 아니라 나무의 수분 수송과 성장 원리를 반영한 스케일링 법칙으로 해석한다. 실제 모든 나무가 언제나 이 식을 정확히 따르는 것은 아님을 발견했고, 그래서 현대 생물학에서는 이 관계를 조금 더 일반화해서 쓴다.
+$$<br>
+r_a^\alpha + r_b^\alpha = r_c^\alpha<br>
+$$
+여기서 핵심은 지수 $\alpha$다. 어떤 나무는 물을 많이 운반해야 하고, 어떤 나무는 바람을 견뎌야 하고, 햇빛을 더 많이 받아야 한다. 서로 다른 환경의 특징들이 지수의 차이를 만들어 낸다. </p>
+<p>$\alpha=2$이면 다빈치가 생각한 단면적 보존에 가깝고, $\alpha=3$이면 유체 수송의 효율성과 관련된 무레이의 법칙(Murray’s law)에 가까워지는데, 실제 나무에서는 상황에 따라 대략 2에서 3 사이의 값을 갖는 것으로 알려져있다. </p>
+<p>이 식은 결국 나무의 가지는 다시 가지를 만들고, 그 가지가 또 다른 가지를 만드는 반복 구조를 보이는데, 그러한 반복되는 구조의 어떤 규칙성이 존재한다는 것을 의미한다. 멀리서 본 나무와 가까이서 본 나뭇가지가 어딘가 닮아 보이는 이유다. 수학에서는 이런 구조를 <strong>자기 유사성(self-similarity)</strong> 혹은 <strong>프랙탈(fractal)</strong> 이라고 부른다.</p>
+<hr>
+<h2 id="_2">가지의 두께를 세어보면 보이는 것<a class="header-anchor" href="#_2" title="Link to this section" rel="nofollow">#</a></h2>
+<p>다빈치의 법칙은 단순히 &lsquo;가지 하나가 어떻게 갈라지는가?&rsquo;만을 설명하지 않는다. 이 식은 나무들의 가지 분화가 어떤 규칙으로 발생하는지 알려주기 때문에,  나무 전체에서 특정 굵기의 가지가 몇 개가 있는지 또한 알려준다.</p>
+<p>예를 들어 반지름이 $r$인 가지가 $n$개 있고, 밑동의 반지름이 $r_0$라고 해보자. 다빈치의 법칙을 따르면 대략 다음과 같은 관계가 나온다.</p>
+<p>$$<br>
+n \approx \left( \frac{r_0}{r} \right)^\alpha<br>
+$$</p>
+<p>풀어서 말하면, 작은 가지로 갈수록 해당 반지름을 가지는 가지의 수가 멱함수(power law)적으로 많아진다는 뜻이다. 두꺼운 가지는 적고, 가느다란 가지는 많다. 당연한 말 같지만, 중요한 점은 그 증가 방식이 아무렇게나 정해지는 것이 아니라 특정한 지수 $\alpha$로 설명될 수 있다는 것이다.</p>
+<p>그래서 연구자들은 그림 속 나무를 분석할 때도 비슷한 방법을 사용하였다. 작품 속 가지들의 두께를 하나씩 측정한 뒤, 특정 두께를 가진 가지가 몇 개나 있는지 세어본다. 그리고 이 분포가 위와 같은 멱함수 관계를 따르는지 확인하면 실제로 그림 속 가지가 자연 속 나무와 유사한 분포를 갖는지 알 수 있는 것이다. </p>
+<h2 id="_3">그림 속 나무도 실제 나무처럼 자랄까?<a class="header-anchor" href="#_3" title="Link to this section" rel="nofollow">#</a></h2>
+<p>2025년 Jingyi Gao 연구팀은 이 질문을 실제 예술 작품에 적용했다 (Gao et al. 2025, <em>PNAS Nexus</em>).</p>
+<p>연구자들은 다양한 시대와 문화권의 작품 속 나무를 분석했다. 먼저 인도의 시디 사이예드 모스크 창문 장식, 일본 화가 마츠무라 고슌의 벚꽃 그림, 그리고 구스타프 클림트의 생명의 나무까지 다양한 표현 방식으로 그려진 나무 작품들을 수집했다. 어떤 나무는 장식적이고, 어떤 나무는 회화적이고, 어떤 나무는 거의 추상적이다. </p>
+<p>!<img class="wikilink-image" src="/wiki/Screenshot 2026-05-30 at 4.55.13 PM.png"></p>
+<p>그 후 저자들은 그림 속 가지들의 굵기를 하나하나 측정한 뒤, 특정 굵기를 가진 가지가 몇 개나 존재하는지 세어서 가지들의 굵기 분포를 그려보았다. 결과는 놀라웠는데, 작품마다 나무의 모양과 스타일은 달랐지만, 가지 두께의 분포를 측정해보면, 여러 작품에서 실제 나무와 유사한 멱함수 패턴이 나타났다. 지수 $\alpha$ 역시 다빈치가 제안했던 2에 가까운 영역, 즉 실제 자연에서 관찰되는 나무의 특징과 크게 동떨어지지 않는 값으로 나타났다. 즉, 예술가들이 이러한 다빈치의 법칙을 알고 그림을 그리지는 않았겠지만, &lsquo;나무다운&rsquo; 나무를 그리는 과정에서 자연스럽게 가지 두께의 통계적 구조를 포착하여 표현한 것이다. 표현 방식도 다르고 문화도 다르지만, 화가들이 그린 나무들 속에는 공통된 자기 유사성의 흔적이 숨어 있었던 것이다.</p>
+<p>이것이 예술에 대한 흥미로운 지점인데, 우리는 그림을 볼 때 이것이 &ldquo;아, 나무네!&rdquo;라고 즉각적으로 판단한다. 그런데 형태와 색과 스타일이 모두 다른 나무를 우리는 나무로 알아보는데, 이 과정에는 잎과 가지의 형태 외에도 굵은 선과 가는 선이 어떻게 분포하는지에 대한 감각이 자연스럽게 녹아 있을지도 모른다. </p>
+<hr>
+<h2 id="_4">몬드리안의 나무 없는 나무<a class="header-anchor" href="#_4" title="Link to this section" rel="nofollow">#</a></h2>
+<p>연구가 가장 흥미로워지는 지점은 피트 몬드리안에서 등장한다. 오늘날 우리는 몬드리안을 빨강, 노랑, 파랑의 사각형 그림으로 기억하지만, 젊은 시절 몬드리안은 다빈치와는 또 다른 방식으로 나무를 깊이 탐구했다. 몬드리안은 단순히 아름다운 나무 그림을 그린 것이 아니라, 나무를 점점 단순화하면서 나무의 본질을 탐구했다. 그는 마치 이런 질문을 던진 것 같다. </p>
+<p>&ldquo;나무에서 무엇을 빼도 여전히 나무일까?&rdquo;</p>
+<p>몬드리안은 나무를 점점 단순화하며 이 질문을 탐구했다.</p>
+<p>!<img class="wikilink-image" src="/wiki/Screenshot 2026-05-30 at 5.05.47 PM.png"></p>
+<p>1911년 작품 Gray Tree를 보면 이미 상당히 추상화가 진행되어 있다. 실제 나무처럼 보이지 않는 곡선들이 화면을 채우고 있으며, 가지의 연결 구조도 현실적이지 않다. 그런데도 우리는 여전히 이것을 나무라고 인식한다.</p>
+<p>왜 그럴까?</p>
+<p>연구자들은 작품 속 선들의 굵기를 측정했다. 놀랍게도 <em>Gray Tree</em>의 선 두께 분포는 실제 나무와 꽤 비슷한 지수, 대략 $\alpha = 2.7 \sim 3$ 정도의 멱함수 패턴을 보였다. 전체 형태와 연결 구조는 비현실적이지만, 굵은 선과 가는 선이 분포하는 방식은 여전히 나무에 가까웠던 것이다.</p>
+<p>반면 몬드리안의 다음 단계 작품인 <em>Blooming Apple Tree</em>에서는 상황이 달라지는데, 전과 달리 제목이 힌트를 주지 않는다면, 이 작품이 나무라고 선뜻 외치기엔 애매한 것 같다. 이 작품에서도 곡선들은 남아 있지만, 선들의 굵기 차이는 훨씬 줄어든다. 대부분의 선들이 비슷비슷한 두께를 가지며, 실제 나무와 같은 자연스러운 멱함수 관계가 약해진다. 연구자들이 추정한 지수도 약 $\alpha=6$ 정도로, 현실의 나무와는 많이 멀어지는 것으로 확인되었다.</p>
+<p>이제부터 관람자는 더 이상 나무를 보기 어렵다. 누군가는 춤추는 사람을 보고, 누군가는 꽃을 보고, 누군가는 물고기나 추상적 패턴이라 여길지도 모르겠다.</p>
+<p>결국 몬드리안은 의도했든 아니든 아주 흥미로운 통계물리학 실험을 한 셈이다. 나무에서 색을 빼고, 잎을 빼고, 현실적인 연결 구조를 빼도 어느 정도까지는 나무가 남는다. 하지만 가지 두께의 자연스러운 스케일링마저 사라지는 순간, 나무도 함께 사라진 것. </p>
+<hr>
+<h2 id="_5">나무의 본질은 형태가 아니라 통계일지도 모른다<a class="header-anchor" href="#_5" title="Link to this section" rel="nofollow">#</a></h2>
+<p>우리는 흔히 대상의 본질을 눈에 보이는 형태에서 찾는다. 하지만 이 연구는 조금 다른 가능성을 제시한다. 나무마다 모양은 다르다. 잎도 다르고, 색도 다르고, 성장 환경도 다르다. 그럼에도 불구하고 자연의 제약 속에서 형성된 공통적인 자기 유사성 패턴이 존재한다.</p>
+<p>그리고 어쩌면 우리가 &ldquo;나무답다&rdquo;고 느끼는 감각 역시 그 패턴에서 비롯되는 것인지도 모른다.</p>
+<p>흥미롭게도 이것은 오늘날 생성형 AI에도 연결되는 질문이다.</p>
+<p>AI는 단순히 수많은 이미지를 암기하는 것일까? 아니면 인간이 직관적으로 느끼는 이러한 숨은 구조와 본질을 학습하고 있는 것일까?</p>
+<p>다빈치가 남긴 작은 관찰에서 시작된 질문은, 500년이 지난 오늘날에도 여전히 이어지고 있다.</p>
+<h2 id="_6">참고문헌<a class="header-anchor" href="#_6" title="Link to this section" rel="nofollow">#</a></h2>
+<ul>
+<li>Gao, Jingyi, and Mitchell G. Newberry. &ldquo;Scaling in branch thickness and the fractal aesthetic of trees.&rdquo; <em>PNAS nexus</em> 4.2 (2025): pgaf003.</li>
+</ul>]]></content>
+    
+  </entry>
   
   <entry>
     <title>바라바시 알버트 모델 (연속체 근사)</title>

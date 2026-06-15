@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-06-15T15:32:20Z</updated>
+  <updated>2026-06-15T15:46:54Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -101,11 +101,228 @@ $$  r_a^\alpha + r_b^\alpha = r_c^\alpha  $$
   </entry>
   
   <entry>
+    <title>BA model degree distribution (Continuum approximation)</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/BA_model_Continuum_Approximation/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/BA_model_Continuum_Approximation/</id>
+    <published>2026-06-11T00:00:00Z</published>
+    <updated>2026-06-15T15:38:47Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation">Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation<a class="header-anchor" href="#deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
+<h2 id="1-introduction">1. Introduction<a class="header-anchor" href="#1-introduction" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The Barabási–Albert (BA) model explains how scale-free networks emerge through growth and preferential attachment.</p>
+<blockquote>
+<p>Nodes that already have many connections are more likely to receive new connections.</p>
+</blockquote>
+<p>This note derives the degree distribution of the BA model using the continuum approximation.</p>
+<hr>
+<h2 id="2-growth-rules">2. Growth Rules<a class="header-anchor" href="#2-growth-rules" title="Link to this section" rel="nofollow">#</a></h2>
+<ol>
+<li>Start with a small seed network.</li>
+<li>At each time step, add one new node.</li>
+<li>The new node creates $m$ links.</li>
+<li>Existing node $i$ receives a new link with probability proportional to its degree $k_i$.</li>
+</ol>
+<p>Therefore,</p>
+<p>$$
+\Pi_i=\frac{k_i}{\sum_j k_j}.
+$$</p>
+<hr>
+<h2 id="3-total-degree-of-the-network">3. Total Degree of the Network<a class="header-anchor" href="#3-total-degree-of-the-network" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Each new node contributes $m$ new edges.</p>
+<p>After $t$ steps,</p>
+<p>$$
+E \approx mt.
+$$</p>
+<p>Since the sum of degrees equals twice the number of edges,</p>
+<p>$$
+\sum_j k_j \approx 2mt.
+$$</p>
+<p>Thus,</p>
+<p>$$
+\Pi_i=\frac{k_i}{2mt}.
+$$</p>
+<hr>
+<h2 id="4-growth-of-a-nodes-degree">4. Growth of a Node&rsquo;s Degree<a class="header-anchor" href="#4-growth-of-a-nodes-degree" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Consider node $i$ that entered the network at time $t_i$.</p>
+<p>Initially,</p>
+<p>$$
+k_i(t_i)=m.
+$$</p>
+<p>The expected degree growth is</p>
+<p>$$
+\frac{dk_i}{dt}=m\Pi_i.
+$$</p>
+<p>Substituting the attachment probability,</p>
+<p>$$
+\frac{dk_i}{dt}
+=
+m\frac{k_i}{2mt}
+=
+\frac{k_i}{2t}.
+\tag{1}
+$$</p>
+<p>Equation (1) is the core of the continuum approximation.</p>
+<hr>
+<h2 id="5-solving-the-differential-equation">5. Solving the Differential Equation<a class="header-anchor" href="#5-solving-the-differential-equation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Starting from</p>
+<p>$$
+\frac{dk_i}{dt}
+=
+\frac{k_i}{2t},
+$$</p>
+<p>separate variables:</p>
+<p>$$
+\frac{dk_i}{k_i}
+=
+\frac{dt}{2t}.
+$$</p>
+<p>Integrating,</p>
+<p>$$
+\ln k_i
+=
+\frac{1}{2}\ln t + C.
+$$</p>
+<p>Exponentiating,</p>
+<p>$$
+k_i(t)=C&rsquo;t^{1/2}.
+$$</p>
+<p>Using the initial condition $k_i(t_i)=m$,</p>
+<p>$$
+C&rsquo;=mt_i^{-1/2}.
+$$</p>
+<p>Therefore,</p>
+<p>$$
+k_i(t)
+=
+m\left(\frac{t}{t_i}\right)^{1/2}.
+\tag{2}
+$$</p>
+<p>or</p>
+<p>$$
+k_i(t)
+=
+m\sqrt{\frac{t}{t_i}}.
+$$</p>
+<hr>
+<h2 id="6-interpretation">6. Interpretation<a class="header-anchor" href="#6-interpretation" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Equation (2) implies:</p>
+<ul>
+<li>Earlier nodes accumulate more links.</li>
+<li>Later nodes have less time to grow.</li>
+<li>Degree grows as the square root of time.</li>
+</ul>
+<p>This is a form of cumulative advantage.</p>
+<hr>
+<h2 id="7-from-degree-growth-to-degree-distribution">7. From Degree Growth to Degree Distribution<a class="header-anchor" href="#7-from-degree-growth-to-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>We seek the degree distribution $P(k)$.</p>
+<p>Starting from</p>
+<p>$$
+k_i(t)
+=
+m\left(\frac{t}{t_i}\right)^{1/2},
+$$</p>
+<p>consider</p>
+<p>$$
+k_i(t)&gt;k.
+$$</p>
+<p>Then</p>
+<p>$$
+m\left(\frac{t}{t_i}\right)^{1/2}&gt;k.
+$$</p>
+<p>Rearranging,</p>
+<p>$$
+t_i&lt;\frac{m^2t}{k^2}.
+\tag{3}
+$$</p>
+<p>Thus nodes with degree greater than $k$ are nodes that entered sufficiently early.</p>
+<hr>
+<h2 id="8-distribution-of-arrival-times">8. Distribution of Arrival Times<a class="header-anchor" href="#8-distribution-of-arrival-times" title="Link to this section" rel="nofollow">#</a></h2>
+<p>One node enters per time step.</p>
+<p>Therefore arrival times are uniformly distributed on</p>
+<p>$$
+[0,t].
+$$</p>
+<p>Using Equation (3),</p>
+<p>$$
+P(K&gt;k)
+=
+P\left(t_i&lt;\frac{m^2t}{k^2}\right).
+$$</p>
+<p>Since arrival times are uniform,</p>
+<p>$$
+P(K&gt;k)
+=
+\frac{m^2t/k^2}{t}
+=
+\frac{m^2}{k^2}.
+$$</p>
+<p>Hence,</p>
+<p>$$
+P(K&gt;k)\sim k^{-2}.
+\tag{4}
+$$</p>
+<hr>
+<h2 id="9-obtaining-the-degree-distribution">9. Obtaining the Degree Distribution<a class="header-anchor" href="#9-obtaining-the-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Differentiate Equation (4):</p>
+<p>$$
+P(k)
+=
+-\frac{d}{dk}P(K&gt;k).
+$$</p>
+<p>Therefore,</p>
+<p>$$
+P(k)
+\sim
+-\frac{d}{dk}k^{-2}
+\sim
+k^{-3}.
+$$</p>
+<hr>
+<h2 id="10-why-does-the-exponent-equal-3">10. Why Does the Exponent Equal 3?<a class="header-anchor" href="#10-why-does-the-exponent-equal-3" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The exponent emerges from two ingredients:</p>
+<ol>
+<li>Degree growth:</li>
+</ol>
+<p>$$
+k(t)\sim t^{1/2}.
+$$</p>
+<ol start="2">
+<li>Uniform node arrival times.</li>
+</ol>
+<p>Together,</p>
+<p>$$
+P(K&gt;k)\sim k^{-2},
+$$</p>
+<p>which implies</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
+<hr>
+<h2 id="11-final-result">11. Final Result<a class="header-anchor" href="#11-final-result" title="Link to this section" rel="nofollow">#</a></h2>
+<p>The BA model produces a power-law degree distribution</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>
+<p>with exponent</p>
+<p>$$
+\gamma=3.
+$$</p>
+<p>This is the defining signature of a scale-free network.</p>
+<hr>
+<h2 id="one-sentence-summary">One-Sentence Summary<a class="header-anchor" href="#one-sentence-summary" title="Link to this section" rel="nofollow">#</a></h2>
+<p>Early-arriving nodes accumulate links through preferential attachment, and this cumulative advantage generates the scale-free degree distribution</p>
+<p>$$
+P(k)\sim k^{-3}.
+$$</p>]]></content>
+    
+  </entry>
+  
+  <entry>
     <title>바라바시 알버트 모델 (연속체 근사)</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/BA_model_Continuum_Approximation_Korean/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/BA_model_Continuum_Approximation_Korean/</id>
-    <published>2026-06-12T03:05:07Z</published>
-    <updated>2026-06-12T03:05:07Z</updated>
+    <published>2026-06-11T00:00:00Z</published>
+    <updated>2026-06-15T15:38:50Z</updated>
     
     <content type="html"><![CDATA[<h1 id="barabasialbert-degree-distribution-continuum-approximation">Barabási–Albert 모델의 degree distribution 유도: Continuum approximation<a class="header-anchor" href="#barabasialbert-degree-distribution-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
 <h2 id="1">1. 문제 설정<a class="header-anchor" href="#1" title="Link to this section" rel="nofollow">#</a></h2>
@@ -399,249 +616,11 @@ $$</p>
   </entry>
   
   <entry>
-    <title>BA model degree distribution (Continuum approximation)</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/science/BA_model_Continuum_Approximation/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/science/BA_model_Continuum_Approximation/</id>
-    <published>2026-06-12T03:04:40Z</published>
-    <updated>2026-06-12T03:04:40Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation">Deriving the Degree Distribution of the Barabási–Albert Model: Continuum Approximation<a class="header-anchor" href="#deriving-the-degree-distribution-of-the-barabasialbert-model-continuum-approximation" title="Link to this section" rel="nofollow">#</a></h1>
-<h2 id="1-introduction">1. Introduction<a class="header-anchor" href="#1-introduction" title="Link to this section" rel="nofollow">#</a></h2>
-<p>The Barabási–Albert (BA) model explains how scale-free networks emerge through growth and preferential attachment.</p>
-<blockquote>
-<p>Nodes that already have many connections are more likely to receive new connections.</p>
-</blockquote>
-<p>This note derives the degree distribution of the BA model using the continuum approximation.</p>
-<hr>
-<h2 id="2-growth-rules">2. Growth Rules<a class="header-anchor" href="#2-growth-rules" title="Link to this section" rel="nofollow">#</a></h2>
-<ol>
-<li>Start with a small seed network.</li>
-<li>At each time step, add one new node.</li>
-<li>The new node creates $m$ links.</li>
-<li>Existing node $i$ receives a new link with probability proportional to its degree $k_i$.</li>
-</ol>
-<p>Therefore,</p>
-<p>$$
-\Pi_i=\frac{k_i}{\sum_j k_j}.
-$$</p>
-<hr>
-<h2 id="3-total-degree-of-the-network">3. Total Degree of the Network<a class="header-anchor" href="#3-total-degree-of-the-network" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Each new node contributes $m$ new edges.</p>
-<p>After $t$ steps,</p>
-<p>$$
-E \approx mt.
-$$</p>
-<p>Since the sum of degrees equals twice the number of edges,</p>
-<p>$$
-\sum_j k_j \approx 2mt.
-$$</p>
-<p>Thus,</p>
-<p>$$
-\Pi_i=\frac{k_i}{2mt}.
-$$</p>
-<hr>
-<h2 id="4-growth-of-a-nodes-degree">4. Growth of a Node&rsquo;s Degree<a class="header-anchor" href="#4-growth-of-a-nodes-degree" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Consider node $i$ that entered the network at time $t_i$.</p>
-<p>Initially,</p>
-<p>$$
-k_i(t_i)=m.
-$$</p>
-<p>The expected degree growth is</p>
-<p>$$
-\frac{dk_i}{dt}=m\Pi_i.
-$$</p>
-<p>Substituting the attachment probability,</p>
-<p>$$
-\frac{dk_i}{dt}
-=
-m\frac{k_i}{2mt}
-=
-\frac{k_i}{2t}.
-\tag{1}
-$$</p>
-<p>Equation (1) is the core of the continuum approximation.</p>
-<hr>
-<h2 id="5-solving-the-differential-equation">5. Solving the Differential Equation<a class="header-anchor" href="#5-solving-the-differential-equation" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Starting from</p>
-<p>$$
-\frac{dk_i}{dt}
-=
-\frac{k_i}{2t},
-$$</p>
-<p>separate variables:</p>
-<p>$$
-\frac{dk_i}{k_i}
-=
-\frac{dt}{2t}.
-$$</p>
-<p>Integrating,</p>
-<p>$$
-\ln k_i
-=
-\frac{1}{2}\ln t + C.
-$$</p>
-<p>Exponentiating,</p>
-<p>$$
-k_i(t)=C&rsquo;t^{1/2}.
-$$</p>
-<p>Using the initial condition $k_i(t_i)=m$,</p>
-<p>$$
-C&rsquo;=mt_i^{-1/2}.
-$$</p>
-<p>Therefore,</p>
-<p>$$
-k_i(t)
-=
-m\left(\frac{t}{t_i}\right)^{1/2}.
-\tag{2}
-$$</p>
-<p>or</p>
-<p>$$
-k_i(t)
-=
-m\sqrt{\frac{t}{t_i}}.
-$$</p>
-<hr>
-<h2 id="6-interpretation">6. Interpretation<a class="header-anchor" href="#6-interpretation" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Equation (2) implies:</p>
-<ul>
-<li>Earlier nodes accumulate more links.</li>
-<li>Later nodes have less time to grow.</li>
-<li>Degree grows as the square root of time.</li>
-</ul>
-<p>This is a form of cumulative advantage.</p>
-<hr>
-<h2 id="7-from-degree-growth-to-degree-distribution">7. From Degree Growth to Degree Distribution<a class="header-anchor" href="#7-from-degree-growth-to-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
-<p>We seek the degree distribution $P(k)$.</p>
-<p>Starting from</p>
-<p>$$
-k_i(t)
-=
-m\left(\frac{t}{t_i}\right)^{1/2},
-$$</p>
-<p>consider</p>
-<p>$$
-k_i(t)&gt;k.
-$$</p>
-<p>Then</p>
-<p>$$
-m\left(\frac{t}{t_i}\right)^{1/2}&gt;k.
-$$</p>
-<p>Rearranging,</p>
-<p>$$
-t_i&lt;\frac{m^2t}{k^2}.
-\tag{3}
-$$</p>
-<p>Thus nodes with degree greater than $k$ are nodes that entered sufficiently early.</p>
-<hr>
-<h2 id="8-distribution-of-arrival-times">8. Distribution of Arrival Times<a class="header-anchor" href="#8-distribution-of-arrival-times" title="Link to this section" rel="nofollow">#</a></h2>
-<p>One node enters per time step.</p>
-<p>Therefore arrival times are uniformly distributed on</p>
-<p>$$
-[0,t].
-$$</p>
-<p>Using Equation (3),</p>
-<p>$$
-P(K&gt;k)
-=
-P\left(t_i&lt;\frac{m^2t}{k^2}\right).
-$$</p>
-<p>Since arrival times are uniform,</p>
-<p>$$
-P(K&gt;k)
-=
-\frac{m^2t/k^2}{t}
-=
-\frac{m^2}{k^2}.
-$$</p>
-<p>Hence,</p>
-<p>$$
-P(K&gt;k)\sim k^{-2}.
-\tag{4}
-$$</p>
-<hr>
-<h2 id="9-obtaining-the-degree-distribution">9. Obtaining the Degree Distribution<a class="header-anchor" href="#9-obtaining-the-degree-distribution" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Differentiate Equation (4):</p>
-<p>$$
-P(k)
-=
--\frac{d}{dk}P(K&gt;k).
-$$</p>
-<p>Therefore,</p>
-<p>$$
-P(k)
-\sim
--\frac{d}{dk}k^{-2}
-\sim
-k^{-3}.
-$$</p>
-<hr>
-<h2 id="10-why-does-the-exponent-equal-3">10. Why Does the Exponent Equal 3?<a class="header-anchor" href="#10-why-does-the-exponent-equal-3" title="Link to this section" rel="nofollow">#</a></h2>
-<p>The exponent emerges from two ingredients:</p>
-<ol>
-<li>Degree growth:</li>
-</ol>
-<p>$$
-k(t)\sim t^{1/2}.
-$$</p>
-<ol start="2">
-<li>Uniform node arrival times.</li>
-</ol>
-<p>Together,</p>
-<p>$$
-P(K&gt;k)\sim k^{-2},
-$$</p>
-<p>which implies</p>
-<p>$$
-P(k)\sim k^{-3}.
-$$</p>
-<hr>
-<h2 id="11-final-result">11. Final Result<a class="header-anchor" href="#11-final-result" title="Link to this section" rel="nofollow">#</a></h2>
-<p>The BA model produces a power-law degree distribution</p>
-<p>$$
-P(k)\sim k^{-3}.
-$$</p>
-<p>with exponent</p>
-<p>$$
-\gamma=3.
-$$</p>
-<p>This is the defining signature of a scale-free network.</p>
-<hr>
-<h2 id="one-sentence-summary">One-Sentence Summary<a class="header-anchor" href="#one-sentence-summary" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Early-arriving nodes accumulate links through preferential attachment, and this cumulative advantage generates the scale-free degree distribution</p>
-<p>$$
-P(k)\sim k^{-3}.
-$$</p>]]></content>
-    
-  </entry>
-  
-  <entry>
-    <title>All news</title>
-    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/News-list/" rel="alternate" type="text/html"/>
-    <id>https://ByunghweeLee-IU.github.io/wiki/notes/News-list/</id>
-    <published>2026-06-12T03:01:57Z</published>
-    <updated>2026-06-12T03:01:57Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section" rel="nofollow">#</a></h2>
-<ul>
-<li><code>2026-06-03</code>: I presented our poster <em>&ldquo;The geometry of persuasion: Social judgment theory in a belief embedding space&rdquo;</em> , at Netsci 2026, Boston, MA, June 1-5, 2026. </li>
-<li><code>2026-05-07</code>: I gave a talk at Santa Fe Institute, <a href="https://www.santafe.edu/events/seminar-byunghwee-lee-2026" rel="nofollow"><em>The geometry of persuasion: Quantifying belief change in a latent embedding space</em></a>.</li>
-<li><code>2026-04-07</code>: New paper released: <em>When the Classroom Disappeared: The Paradox of Assortativity in Co-Enrollment Networks</em> on <a href="https://www.sc-world.org/journal/view.php?number=6" rel="nofollow">Social Constellations: A World Perspective</a></li>
-<li><code>2026-03-21</code>: Added a <a href="visualization" rel="nofollow">Visualization</a> page to my website—more to come soon!</li>
-<li><code>2026-03-16</code> : New preprint released: <em>LLMs Can Infer Political Alignment from Online Conversations</em> on <a href="https://arxiv.org/abs/2603.11253" rel="nofollow"><em>arXiv</em></a></li>
-<li><code>2025-11-18</code> : Received the Datapalooza Best in Show Award at the University of Virginia School of Data Science <a href="https://datascience.virginia.edu/news/postdoctoral-researcher-byunghwee-lee-wins-best-show-datapalooza-2025" rel="nofollow">News</a></li>
-<li><code>2025-07-31</code> : Published <em>Network analysis reveals news press landscape and asymmetric user polarization</em> in <a href="https://www.sciencedirect.com/science/article/abs/pii/S0378437125004947" rel="nofollow"><em>Physica A</em></a></li>
-<li><code>2025-06-04</code> : Published <em>A semantic embedding space based on large language models for modelling human beliefs</em> in <a href="https://www.nature.com/articles/s41562-025-02228-z" rel="nofollow"><em>Nature Human Behaviour</em></a></li>
-</ul>]]></content>
-    
-  </entry>
-  
-  <entry>
     <title>Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/Candellon2026Disentangling/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/papers/Candellon2026Disentangling/</id>
-    <published>2026-06-09T20:13:34Z</published>
-    <updated>2026-06-09T20:13:34Z</updated>
+    <published>2026-06-09T00:00:00Z</published>
+    <updated>2026-06-15T15:46:54Z</updated>
     
     <content type="html"><![CDATA[<h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
 <p>Candellone, Elena. &ldquo;Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates.&rdquo; <a href="https://arxiv.org/abs/2606.03786" rel="nofollow"><em>arXiv preprint arXiv:2606.03786</em> (2026).</a></p>
@@ -940,10 +919,16 @@ $$</p>
     <title>Recently Updated Pages</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/feed/updates/2026-06-15</id>
-    <published>2026-06-15T15:32:17Z</published>
-    <updated>2026-06-15T15:32:17Z</updated>
+    <published>2026-06-15T15:45:58Z</published>
+    <updated>2026-06-15T15:45:58Z</updated>
     <content type="html"><![CDATA[<p>The following pages were recently updated:</p>
 <ul>
+  <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/travel/travel-list/">Travel Notes</a> - 2026-06-15</li>
+  <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/travel/Washington_DC/">Washington, DC</a> - 2026-06-15</li>
+  <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/news-press-polarization/">News Press Landscape and Asymmetric Polarization</a> - 2026-06-15</li>
+  <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/belief-embeddings-llms/">Belief Embeddings with Large Language Models</a> - 2026-06-15</li>
+  <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/papers/Seckin2026Emergence/">Emergence of Stereotypes and Affective Polarization from Belief Network Dynamics</a> - 2026-06-15</li>
+  <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/News-list/">All news</a> - 2026-06-15</li>
   <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/04_art-impression/">데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</a> - 2026-06-15</li>
   <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/03_art-network/">데이터로 본 예술 (3) - 성공의 비밀: 예술가들의 명성 뒤엔 네트워크가 있다</a> - 2026-06-15</li>
   <li><a href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/02_art-price/">데이터로 본 예술 (2) - 작품 가격의 비밀: 시각적 특징 vs. 사회적 신호</a> - 2026-06-15</li>

@@ -20,7 +20,7 @@
     "path": "index",
     "url": "/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a <strong>computational social scientist</strong> and <strong>data scientist</strong> who develops <strong>interpretable, quantitative frameworks to uncover how human beliefs, behavior, and creativity are structured and how they evolve.</strong></p>\n    <p>I am currently a Postdoctoral Research Associate at the <a href=\"https://datascience.virginia.edu/people/byunghwee-lee\">University of Virgini",
-    "published": "2026-06-08T19:16:13.222540+00:00",
+    "published": "2026-07-27T04:38:02.359059+00:00",
     "tags": []
   },
   {
@@ -28,7 +28,7 @@
     "path": "publications",
     "url": "/publications/",
     "content": "## Selected Papers\n\n### **Belief and AI**\n\n<div class=\"paper-highlight\">\n  <figure class=\"paper-highlight-figure\">\n    <img src=\"/assets/files/lee2026semantic.jpg\" alt=\"Figure from Lee et al. 2025, Nature Human Behaviour: a semantic embedding space for human beliefs\">\n  </figure>\n  <div class=\"paper-highlight-body\">\n    <p><strong>A semantic embedding space based on large language models for modelling human beliefs.</strong><br>Byunghwee Lee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jis",
-    "published": "2026-05-30T19:46:08.368553+00:00",
+    "published": "2026-07-27T04:35:06.443630+00:00",
     "tags": []
   },
   {

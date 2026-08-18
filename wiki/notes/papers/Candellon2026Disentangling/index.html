@@ -166,41 +166,41 @@
 
 
 <section class="content">
-    <h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section" rel="nofollow">#</a></h2>
-<p>Candellone, Elena. &ldquo;Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates.&rdquo; <a href="https://arxiv.org/abs/2606.03786" rel="nofollow"><em>arXiv preprint arXiv:2606.03786</em> (2026).</a></p>
-<h1 id="disentangling-conviction-and-conformity-candellone-2026">Disentangling Conviction and Conformity (Candellone, 2026)<a class="header-anchor" href="#disentangling-conviction-and-conformity-candellone-2026" title="Link to this section" rel="nofollow">#</a></h1>
+    <h2 id="citation">Citation<a class="header-anchor" href="#citation" title="Link to this section">#</a></h2>
+<p>Candellone, Elena. &ldquo;Disentangling conviction and conformity: a Bayesian ideal point model of voting behaviour in online debates.&rdquo; <a href="https://arxiv.org/abs/2606.03786"><em>arXiv preprint arXiv:2606.03786</em> (2026).</a></p>
+<h1 id="disentangling-conviction-and-conformity-candellone-2026">Disentangling Conviction and Conformity (Candellone, 2026)<a class="header-anchor" href="#disentangling-conviction-and-conformity-candellone-2026" title="Link to this section">#</a></h1>
 <p><em>This note was prepared with assistance from OpenAI Codex.</em></p>
-<h2 id="one-sentence-summary">One-Sentence Summary<a class="header-anchor" href="#one-sentence-summary" title="Link to this section" rel="nofollow">#</a></h2>
-<p>This paper analyzes voting behavior on <a href="http://Debate.org" rel="nofollow">Debate.org</a> and asks whether users vote primarily based on:</p>
+<h2 id="one-sentence-summary">One-Sentence Summary<a class="header-anchor" href="#one-sentence-summary" title="Link to this section">#</a></h2>
+<p>This paper analyzes voting behavior on Debate.org and asks whether users vote primarily based on:</p>
 <ol>
 <li>Their prior beliefs (<strong>Conviction</strong>), or</li>
 <li>The votes previously cast by people with similar beliefs (<strong>Conformity</strong>).</li>
 </ol>
 <p>The author proposes an interpretable Bayesian logistic model to quantify the relative contribution of both mechanisms.</p>
-<hr>
-<h1 id="research-question">Research Question<a class="header-anchor" href="#research-question" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="research-question">Research Question<a class="header-anchor" href="#research-question" title="Link to this section">#</a></h1>
 <p>When a user votes PRO or CON in an online debate:</p>
 <ul>
 <li>Are they expressing an existing belief?</li>
 <li>Or are they aligning with people who think like them?</li>
 </ul>
 <p>The paper attempts to disentangle these two mechanisms.</p>
-<hr>
-<h1 id="dataset">Dataset<a class="header-anchor" href="#dataset" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="dataset">Dataset<a class="header-anchor" href="#dataset" title="Link to this section">#</a></h1>
 <ul>
 <li>78,376 debates</li>
 <li>~340k votes</li>
 <li>46k+ voters</li>
 </ul>
 <p>Users can explicitly report their positions on 48 political and social issues.</p>
-<hr>
-<h1 id="core-idea">Core Idea<a class="header-anchor" href="#core-idea" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="core-idea">Core Idea<a class="header-anchor" href="#core-idea" title="Link to this section">#</a></h1>
 <p>Map both users and debates into a common 48-dimensional belief space.</p>
-<hr>
-<h1 id="user-vector">User Vector<a class="header-anchor" href="#user-vector" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="user-vector">User Vector<a class="header-anchor" href="#user-vector" title="Link to this section">#</a></h1>
 <p>Each user i is represented as</p>
 <p>$$
-u_i \in {-1,0,+1}^{48}
+u_i \in \{-1,0,+1\}^{48}
 $$</p>
 <p>where each dimension corresponds to one issue.</p>
 <p>Example:</p>
@@ -234,11 +234,11 @@ $$</p>
 <p>$$
 u_i=(+1,-1,+1,0,\cdots)
 $$</p>
-<h2 id="representation-choice">Representation Choice<a class="header-anchor" href="#representation-choice" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="representation-choice">Representation Choice<a class="header-anchor" href="#representation-choice" title="Link to this section">#</a></h2>
 <p>This is not a learned embedding, semantic representation, or latent ideological space.</p>
 <p>Instead, it uses a transparent 48-dimensional issue profile that stays closely tied to users&rsquo; self-reported positions.</p>
-<hr>
-<h1 id="debate-vector">Debate Vector<a class="header-anchor" href="#debate-vector" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="debate-vector">Debate Vector<a class="header-anchor" href="#debate-vector" title="Link to this section">#</a></h1>
 <p>GPT-4o-mini is used to infer:</p>
 <ol>
 <li>Which of the 48 topics the debate belongs to.</li>
@@ -251,19 +251,19 @@ $$</p>
 d_j=(0,0,\cdots,+1,\cdots,0)
 $$</p>
 <p>The debate vector is always one-hot.</p>
-<hr>
-<h1 id="debates-outside-the-48-topics">Debates Outside the 48 Topics<a class="header-anchor" href="#debates-outside-the-48-topics" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="debates-outside-the-48-topics">Debates Outside the 48 Topics<a class="header-anchor" href="#debates-outside-the-48-topics" title="Link to this section">#</a></h1>
 <p>If GPT cannot map a debate to one of the predefined topics, it is classified as <strong>Other</strong>.</p>
 <p>Approximately 50% of debates fall into this category.</p>
 <p>These debates are set aside from the topic-based analysis.</p>
-<hr>
-<h1 id="conviction-score-tau">Conviction Score (tau)<a class="header-anchor" href="#conviction-score-tau" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="conviction-score-tau">Conviction Score (tau)<a class="header-anchor" href="#conviction-score-tau" title="Link to this section">#</a></h1>
 <p>Definition:</p>
 <p>$$
 \tau_{ij}
 =
 \frac{u_{i,t_j}d_{j,t_j}}
-{|u_i|}
+{\|u_i\|}
 $$</p>
 <p>Interpretation:</p>
 <p>Measures how strongly a user&rsquo;s prior belief aligns with the debate position.</p>
@@ -271,8 +271,8 @@ $$</p>
 <blockquote>
 <p>What was this user&rsquo;s prior position on this specific issue?</p>
 </blockquote>
-<hr>
-<h1 id="conformity-score-phi">Conformity Score (phi)<a class="header-anchor" href="#conformity-score-phi" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="conformity-score-phi">Conformity Score (phi)<a class="header-anchor" href="#conformity-score-phi" title="Link to this section">#</a></h1>
 <p>Definition:</p>
 <p>$$
 \phi_{ij}
@@ -299,8 +299,8 @@ $$</p>
 <blockquote>
 <p>Which side was preferred by people with belief profiles similar to mine?</p>
 </blockquote>
-<hr>
-<h1 id="interpretive-note">Interpretive Note<a class="header-anchor" href="#interpretive-note" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="interpretive-note">Interpretive Note<a class="header-anchor" href="#interpretive-note" title="Link to this section">#</a></h1>
 <p>The paper interprets phi as conformity.</p>
 <p>At the same time, the model does not directly observe:</p>
 <ul>
@@ -316,8 +316,8 @@ $$</p>
 <li>social alignment</li>
 </ul>
 <p>In that sense, conformity is a plausible interpretation, though not the only one.</p>
-<hr>
-<h1 id="statistical-model">Statistical Model<a class="header-anchor" href="#statistical-model" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="statistical-model">Statistical Model<a class="header-anchor" href="#statistical-model" title="Link to this section">#</a></h1>
 <p>$$
 P(y_{ij}=PRO)
 =
@@ -331,8 +331,8 @@ P(y_{ij}=PRO)
 \beta_\phi\phi_{ij}
 )
 $$</p>
-<hr>
-<h1 id="user-effect-alpha">User Effect (alpha)<a class="header-anchor" href="#user-effect-alpha" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="user-effect-alpha">User Effect (alpha)<a class="header-anchor" href="#user-effect-alpha" title="Link to this section">#</a></h1>
 <p>$$
 \alpha_i
 $$</p>
@@ -342,8 +342,8 @@ $$</p>
 <li>habitually voting PRO</li>
 <li>habitually voting CON</li>
 </ul>
-<hr>
-<h1 id="debate-effect-delta">Debate Effect (delta)<a class="header-anchor" href="#debate-effect-delta" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="debate-effect-delta">Debate Effect (delta)<a class="header-anchor" href="#debate-effect-delta" title="Link to this section">#</a></h1>
 <p>$$
 \delta_j
 $$</p>
@@ -353,8 +353,8 @@ $$</p>
 <li>debates almost everyone supports</li>
 <li>debates almost everyone rejects</li>
 </ul>
-<hr>
-<h1 id="overall-interpretation">Overall Interpretation<a class="header-anchor" href="#overall-interpretation" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="overall-interpretation">Overall Interpretation<a class="header-anchor" href="#overall-interpretation" title="Link to this section">#</a></h1>
 <p>The model effectively decomposes voting behavior into:</p>
 <p>Vote</p>
 <p>= User tendency</p>
@@ -369,23 +369,23 @@ $$</p>
 <p>Belief-neighborhood behavior</p>
 </li>
 </ul>
-<hr>
-<h1 id="main-findings">Main Findings<a class="header-anchor" href="#main-findings" title="Link to this section" rel="nofollow">#</a></h1>
-<h2 id="conviction-only-topics">Conviction-Only Topics<a class="header-anchor" href="#conviction-only-topics" title="Link to this section" rel="nofollow">#</a></h2>
+<hr />
+<h1 id="main-findings">Main Findings<a class="header-anchor" href="#main-findings" title="Link to this section">#</a></h1>
+<h2 id="conviction-only-topics">Conviction-Only Topics<a class="header-anchor" href="#conviction-only-topics" title="Link to this section">#</a></h2>
 <ul>
 <li>Drug Legalization</li>
 <li>Legalized Prostitution</li>
 <li>Affirmative Action</li>
 </ul>
 <p>Voting is primarily explained by prior beliefs.</p>
-<h2 id="conformity-driven-topics">Conformity-Driven Topics<a class="header-anchor" href="#conformity-driven-topics" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="conformity-driven-topics">Conformity-Driven Topics<a class="header-anchor" href="#conformity-driven-topics" title="Link to this section">#</a></h2>
 <ul>
 <li>Abortion</li>
 <li>Gun Rights</li>
 <li>Capitalism</li>
 </ul>
 <p>Votes of similar prior voters are more predictive than individual prior beliefs.</p>
-<h2 id="conformity-only-topics">Conformity-Only Topics<a class="header-anchor" href="#conformity-only-topics" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="conformity-only-topics">Conformity-Only Topics<a class="header-anchor" href="#conformity-only-topics" title="Link to this section">#</a></h2>
 <ul>
 <li>Barack Obama</li>
 <li>Global Warming Exists</li>
@@ -393,7 +393,7 @@ $$</p>
 <li>Civil Unions</li>
 </ul>
 <p>Peer agreement dominates.</p>
-<h2 id="jointly-driven-topics">Jointly-Driven Topics<a class="header-anchor" href="#jointly-driven-topics" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="jointly-driven-topics">Jointly-Driven Topics<a class="header-anchor" href="#jointly-driven-topics" title="Link to this section">#</a></h2>
 <ul>
 <li>Gay Marriage</li>
 <li>Euthanasia</li>
@@ -402,19 +402,19 @@ $$</p>
 <li>Socialism</li>
 </ul>
 <p>Both prior beliefs and peer agreement are strong predictors.</p>
-<hr>
-<h1 id="strengths">Strengths<a class="header-anchor" href="#strengths" title="Link to this section" rel="nofollow">#</a></h1>
-<h2 id="1-incorporates-temporal-ordering">1. Incorporates Temporal Ordering<a class="header-anchor" href="#1-incorporates-temporal-ordering" title="Link to this section" rel="nofollow">#</a></h2>
+<hr />
+<h1 id="strengths">Strengths<a class="header-anchor" href="#strengths" title="Link to this section">#</a></h1>
+<h2 id="1-incorporates-temporal-ordering">1. Incorporates Temporal Ordering<a class="header-anchor" href="#1-incorporates-temporal-ordering" title="Link to this section">#</a></h2>
 <p>Only previous votes are used.</p>
 <p>No information leakage from future votes.</p>
-<h2 id="2-places-users-and-debates-in-the-same-space">2. Places Users and Debates in the Same Space<a class="header-anchor" href="#2-places-users-and-debates-in-the-same-space" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="2-places-users-and-debates-in-the-same-space">2. Places Users and Debates in the Same Space<a class="header-anchor" href="#2-places-users-and-debates-in-the-same-space" title="Link to this section">#</a></h2>
 <p>User beliefs and debate content become directly comparable.</p>
-<h2 id="3-defines-peers-through-belief-similarity">3. Defines Peers Through Belief Similarity<a class="header-anchor" href="#3-defines-peers-through-belief-similarity" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="3-defines-peers-through-belief-similarity">3. Defines Peers Through Belief Similarity<a class="header-anchor" href="#3-defines-peers-through-belief-similarity" title="Link to this section">#</a></h2>
 <p>The model uses belief similarity rather than friendship networks.</p>
 <p>This can be interpreted as a belief-space social exposure model.</p>
-<hr>
-<h1 id="interpretive-considerations">Interpretive Considerations<a class="header-anchor" href="#interpretive-considerations" title="Link to this section" rel="nofollow">#</a></h1>
-<h2 id="1-the-belief-dimensions-are-treated-separately">1. The belief dimensions are treated separately<a class="header-anchor" href="#1-the-belief-dimensions-are-treated-separately" title="Link to this section" rel="nofollow">#</a></h2>
+<hr />
+<h1 id="interpretive-considerations">Interpretive Considerations<a class="header-anchor" href="#interpretive-considerations" title="Link to this section">#</a></h1>
+<h2 id="1-the-belief-dimensions-are-treated-separately">1. The belief dimensions are treated separately<a class="header-anchor" href="#1-the-belief-dimensions-are-treated-separately" title="Link to this section">#</a></h2>
 <p>The 48 dimensions are treated as independent.</p>
 <p>Examples:</p>
 <ul>
@@ -422,14 +422,14 @@ $$</p>
 <li>Gun Rights ↔ Death Penalty</li>
 </ul>
 <p>This keeps the model simple and interpretable, though it does not explicitly model relationships between topics.</p>
-<h2 id="2-many-debates-fall-outside-the-predefined-topic-set">2. Many debates fall outside the predefined topic set<a class="header-anchor" href="#2-many-debates-fall-outside-the-predefined-topic-set" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="2-many-debates-fall-outside-the-predefined-topic-set">2. Many debates fall outside the predefined topic set<a class="header-anchor" href="#2-many-debates-fall-outside-the-predefined-topic-set" title="Link to this section">#</a></h2>
 <p>Approximately 50% of debates cannot be mapped to the predefined topic space.</p>
 <p>Those cases therefore remain outside the main analysis.</p>
-<h2 id="3-tau-and-phi-may-partially-overlap">3. tau and phi may partially overlap<a class="header-anchor" href="#3-tau-and-phi-may-partially-overlap" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="3-tau-and-phi-may-partially-overlap">3. tau and phi may partially overlap<a class="header-anchor" href="#3-tau-and-phi-may-partially-overlap" title="Link to this section">#</a></h2>
 <p>Both variables are derived from the same belief vectors.</p>
 <p>So some correlation between them is possible.</p>
 <p>The paper explicitly interprets results as conditional associations rather than causal effects.</p>
-<h2 id="4-conformity-is-inferred-rather-than-directly-observed">4. Conformity is inferred rather than directly observed<a class="header-anchor" href="#4-conformity-is-inferred-rather-than-directly-observed" title="Link to this section" rel="nofollow">#</a></h2>
+<h2 id="4-conformity-is-inferred-rather-than-directly-observed">4. Conformity is inferred rather than directly observed<a class="header-anchor" href="#4-conformity-is-inferred-rather-than-directly-observed" title="Link to this section">#</a></h2>
 <p>Phi measures:</p>
 <blockquote>
 <p>How did similar people vote?</p>
@@ -439,8 +439,8 @@ $$</p>
 <p>Did I observe and imitate those people?</p>
 </blockquote>
 <p>It may therefore be safest to read phi as a proxy for belief-neighborhood voting patterns.</p>
-<hr>
-<h1 id="perspective-from-belief-embeddings">Perspective from Belief Embeddings<a class="header-anchor" href="#perspective-from-belief-embeddings" title="Link to this section" rel="nofollow">#</a></h1>
+<hr />
+<h1 id="perspective-from-belief-embeddings">Perspective from Belief Embeddings<a class="header-anchor" href="#perspective-from-belief-embeddings" title="Link to this section">#</a></h1>
 <p>Compared with more recent belief embedding approaches, this paper uses a discrete 48-dimensional belief profile rather than a continuous semantic space.</p>
 <p>The model can therefore be interpreted as:</p>
 <p>$$

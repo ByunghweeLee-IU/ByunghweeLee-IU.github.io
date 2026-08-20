@@ -55,6 +55,7 @@ $$</p>
 <li>SGNS의 내적을 data-vs-noise log-odds로, 그 지수값을 gravity law의 attraction으로 읽을 수 있다.</li>
 <li>마지막의 작은 구현을 실행하고 손실, 점수 행렬, 임베딩 그림을 해석할 수 있다.</li>
 </ul>
+<p><a id="toc"></a></p>
 <h2 id="_2">목차<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
 <ol>
 <li><a href="#part-1">Ⅰ. 출발점 — 코퍼스에서 학습 신호까지</a> — 0–4</li>
@@ -90,6 +91,7 @@ $$</p>
 <hr />
 <p><a id="part-1"></a></p>
 <h2 id="i">Ⅰ. 출발점 — 코퍼스에서 학습 신호까지<a class="header-anchor" href="#i" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="0">0. 오늘 끝까지 따라갈 ‘코퍼스 마을’<a class="header-anchor" href="#0" title="Link to this section">#</a></h3>
 <p>이 노트에서는 예시를 자주 바꾸지 않는다. 다음 여덟 문장이 전부인 아주 작은 <strong>코퍼스 마을</strong>을 끝까지 따라가자.</p>
 <div class="highlight"><pre><span></span><code>the cat likes pet food
@@ -299,6 +301,7 @@ dog → likes, pet, food, enjoys, warm, home
 <hr />
 <p><a id="part-2"></a></p>
 <h2 id="ii-sgns">Ⅱ. SGNS의 학습 역학<a class="header-anchor" href="#ii-sgns" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="5-full-softmax-skip-gram">5. Full Softmax Skip-gram<a class="header-anchor" href="#5-full-softmax-skip-gram" title="Link to this section">#</a></h3>
 <p>원래 Skip-gram의 확률 모델은 다음과 같다.</p>
 <p>center word $w$가 주어졌을 때 context $c$의 확률:</p>
@@ -654,6 +657,7 @@ $$</p>
 <hr />
 <p><a id="part-3"></a></p>
 <h2 id="iii-pmi-gravity">Ⅲ. PMI에서 Gravity까지<a class="header-anchor" href="#iii-pmi-gravity" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="13-word2vec-factorize">13. 사실 Word2Vec은 거대한 관계 행렬을 factorize한다<a class="header-anchor" href="#13-word2vec-factorize" title="Link to this section">#</a></h3>
 <p>전체 word-context 관계를 matrix로 생각해보자.</p>
 <p>$$
@@ -1115,6 +1119,7 @@ mass × mass × latent attraction
 <hr />
 <p><a id="part-4"></a></p>
 <h2 id="iv">Ⅳ. 학습된 공간을 읽는 법<a class="header-anchor" href="#iv" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="21-dot-product-distance">21. Dot product가 distance는 아니다<a class="header-anchor" href="#21-dot-product-distance" title="Link to this section">#</a></h3>
 <p>여기서 중요한 주의점.</p>
 <p>Word2Vec의 score는</p>
@@ -1225,6 +1230,7 @@ k_j
 <hr />
 <p><a id="part-5"></a></p>
 <h2 id="v">Ⅴ. 직접 구현하고 데이터 만들기<a class="header-anchor" href="#v" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="25-numpy">25. 아주 작은 NumPy 구현<a class="header-anchor" href="#25-numpy" title="Link to this section">#</a></h3>
 <p>아래는 핵심만 남긴 SGNS 한 step이다.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1470,6 +1476,7 @@ $$</p>
 <hr />
 <p><a id="part-6"></a></p>
 <h2 id="vi-sgns">Ⅵ. SGNS를 더 깊게 해석하기<a class="header-anchor" href="#vi-sgns" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="31-negative-sampling-matrix-factorization">31. Negative Sampling과 matrix factorization을 더 정확히 보기<a class="header-anchor" href="#31-negative-sampling-matrix-factorization" title="Link to this section">#</a></h3>
 <p>positive pair count를</p>
 <p>$$
@@ -1812,6 +1819,7 @@ $$</p>
 <hr />
 <p><a id="part-7"></a></p>
 <h2 id="vii">Ⅶ. 구현 함정과 작은 실험<a class="header-anchor" href="#vii" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="41-1-cosine-loss">41. 구현 시 헷갈리는 점 1: cosine을 loss로 쓰지 않는다<a class="header-anchor" href="#41-1-cosine-loss" title="Link to this section">#</a></h3>
 <p>Word2Vec SGNS의 training objective는 cosine similarity가 아니다.</p>
 <p>학습 score는</p>
@@ -1990,6 +1998,7 @@ wrote=sgns_toy_diagnostics.svg
 <hr />
 <p><a id="part-8"></a></p>
 <h2 id="viii-meaning-axis">Ⅷ. 관계 방향과 Meaning Axis<a class="header-anchor" href="#viii-meaning-axis" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="48">48. 한 좌표가 아니라 ‘방향’과 ‘이동량’에 의미가 있다<a class="header-anchor" href="#48" title="Link to this section">#</a></h3>
 <p>임베딩 그림을 처음 보면 다음처럼 해석하고 싶어진다.</p>
 <div class="highlight"><pre><span></span><code>dimension 17 = animalness
@@ -2325,6 +2334,7 @@ $$
 <hr />
 <p><a id="part-9"></a></p>
 <h2 id="ix">Ⅸ. 다른 모델과의 연결<a class="header-anchor" href="#ix" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="50-word2vec-logistic-matrix-factorization">50. Word2Vec을 logistic matrix factorization으로 보기<a class="header-anchor" href="#50-word2vec-logistic-matrix-factorization" title="Link to this section">#</a></h3>
 <p>SGNS는 사실상 binary matrix factorization 문제다.</p>
 <p>observed pair:</p>
@@ -2430,6 +2440,7 @@ $$</p>
 <hr />
 <p><a id="part-10"></a></p>
 <h2 id="x-mental-model">Ⅹ. 공식, Mental Model, 연습문제<a class="header-anchor" href="#x-mental-model" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="54-5">54. 가장 중요한 식 5개<a class="header-anchor" href="#54-5" title="Link to this section">#</a></h3>
 <h4 id="1-score">1. score<a class="header-anchor" href="#1-score" title="Link to this section">#</a></h4>
 <p>$$
@@ -2831,6 +2842,7 @@ $$</p>
 <li>2025년 Nature의 연령×성별 왜곡 연구가 임베딩을 더 큰 검증 사슬 안에 어떻게 배치했는지 읽을 수 있다.</li>
 <li>결과를 “사회가 원래 그렇다”거나 “모델이 차별한다”로 과장하지 않고, 다음 검증으로 연결할 수 있다.</li>
 </ul>
+<p><a id="toc"></a></p>
 <h2 id="_2">목차<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
 <ol>
 <li><a href="#part-1">Ⅰ. 문제를 정의하고 측정 도구 고르기</a> — 0–3</li>
@@ -2859,6 +2871,7 @@ $$</p>
 <hr />
 <p><a id="part-1"></a></p>
 <h2 id="i">Ⅰ. 문제를 정의하고 측정 도구 고르기<a class="header-anchor" href="#i" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="0-bias">0. 먼저 “bias”라는 한 단어를 네 층으로 나누자<a class="header-anchor" href="#0-bias" title="Link to this section">#</a></h3>
 <p>임베딩 연구에서 가장 흔한 사고는 서로 다른 네 문장을 같은 것으로 취급하는 것이다.</p>
 <table>
@@ -3155,6 +3168,7 @@ debias 후 모든 직업의 성별 axis score가 0에 가까워졌다. “성별
 <hr />
 <p><a id="part-2"></a></p>
 <h2 id="ii">Ⅱ. 시간에 따른 의미 변화를 추적하기<a class="header-anchor" href="#ii" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="4-ngram-diachronic-embedding">4. 시간이 들어오면: Ngram 빈도와 diachronic embedding<a class="header-anchor" href="#4-ngram-diachronic-embedding" title="Link to this section">#</a></h3>
 <p>사용자가 “temporal 변화 연구는 Ngram을 썼나?”라고 물으면 대답은 <strong>“그렇다. 그러나 Ngram Viewer의 선 그래프만 쓴 것은 아니다”</strong>다.</p>
 <p><a href="https://aclanthology.org/P16-1141/">Hamilton, Leskovec, Jurafsky (ACL, 2016)</a>은 Google Books N-Gram과 COHA 등 여섯 역사 말뭉치, 네 언어, 약 두 세기에 걸쳐 PPMI·SVD·SGNS 임베딩을 시대별로 만들었다. Google N-Gram 자료는 거대한 <strong>단어와 문맥의 동시출현 통계</strong>를 제공했고, 그 통계로 각 시대의 의미공간을 재구성했다.</p>
@@ -3360,6 +3374,7 @@ $$</p>
 <hr />
 <p><a id="part-3"></a></p>
 <h2 id="iii-framing">Ⅲ. 다차원 의미, Framing, 교차성<a class="header-anchor" href="#iii-framing" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="6-semaxis">6. 한 축을 넘어 의미의 프리즘으로: SemAxis<a class="header-anchor" href="#6-semaxis" title="Link to this section">#</a></h3>
 <p>성별 축 하나만 보면 모든 변화가 성별처럼 보인다. 그러나 <code>leader</code>는 동시에</p>
 <ul>
@@ -3639,6 +3654,7 @@ $$</p>
 <hr />
 <p><a id="part-4"></a></p>
 <h2 id="iv">Ⅳ. 연구를 설계하고 구현하기<a class="header-anchor" href="#iv" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="9">9. 하나의 응용 연구를 처음부터 끝까지 설계해 보기<a class="header-anchor" href="#9" title="Link to this section">#</a></h3>
 <p>이제 기록보관소 팀의 프로젝트를 실제 연구계획서처럼 써보자.</p>
 <h4 id="91">9.1 연구 질문<a class="header-anchor" href="#91" title="Link to this section">#</a></h4>
@@ -3874,6 +3890,7 @@ $$</p>
 <hr />
 <p><a id="part-5"></a></p>
 <h2 id="v">Ⅴ. 연습, 점검, 종합<a class="header-anchor" href="#v" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="12_1">12. 연습문제 — 작은 연구실<a class="header-anchor" href="#12_1" title="Link to this section">#</a></h3>
 <h4 id="a">A. 개념과 주장<a class="header-anchor" href="#a" title="Link to this section">#</a></h4>
 <h5 id="1_1">1. 네 층 분류<a class="header-anchor" href="#1_1" title="Link to this section">#</a></h5>
@@ -4122,6 +4139,7 @@ $0.08$이다. 이것이 큰지 작은지는 같은 빈도대 단어의 null 분�
 <hr />
 <p><a id="part-6"></a></p>
 <h2 id="vi">Ⅵ. 더 읽을 자료<a class="header-anchor" href="#vi" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="_14">참고문헌과 바로 읽을 자료<a class="header-anchor" href="#_14" title="Link to this section">#</a></h3>
 <ol>
 <li>Bolukbasi, T. et al. (2016). <a href="https://proceedings.neurips.cc/paper_files/paper/2016/file/a486cd07e4ac3d270571622f4f316ec5-Paper.pdf">Man is to Computer Programmer as Woman is to Homemaker? Debiasing Word Embeddings</a>. <em>NeurIPS</em>.</li>

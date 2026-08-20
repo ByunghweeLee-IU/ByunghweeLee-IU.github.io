@@ -200,6 +200,7 @@ $$</p>
 <li>SGNS의 내적을 data-vs-noise log-odds로, 그 지수값을 gravity law의 attraction으로 읽을 수 있다.</li>
 <li>마지막의 작은 구현을 실행하고 손실, 점수 행렬, 임베딩 그림을 해석할 수 있다.</li>
 </ul>
+<p><a id="toc"></a></p>
 <h2 id="_2">목차<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
 <ol>
 <li><a href="#part-1">Ⅰ. 출발점 — 코퍼스에서 학습 신호까지</a> — 0–4</li>
@@ -235,6 +236,7 @@ $$</p>
 <hr />
 <p><a id="part-1"></a></p>
 <h2 id="i">Ⅰ. 출발점 — 코퍼스에서 학습 신호까지<a class="header-anchor" href="#i" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="0">0. 오늘 끝까지 따라갈 ‘코퍼스 마을’<a class="header-anchor" href="#0" title="Link to this section">#</a></h3>
 <p>이 노트에서는 예시를 자주 바꾸지 않는다. 다음 여덟 문장이 전부인 아주 작은 <strong>코퍼스 마을</strong>을 끝까지 따라가자.</p>
 <div class="highlight"><pre><span></span><code>the cat likes pet food
@@ -444,6 +446,7 @@ dog → likes, pet, food, enjoys, warm, home
 <hr />
 <p><a id="part-2"></a></p>
 <h2 id="ii-sgns">Ⅱ. SGNS의 학습 역학<a class="header-anchor" href="#ii-sgns" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="5-full-softmax-skip-gram">5. Full Softmax Skip-gram<a class="header-anchor" href="#5-full-softmax-skip-gram" title="Link to this section">#</a></h3>
 <p>원래 Skip-gram의 확률 모델은 다음과 같다.</p>
 <p>center word $w$가 주어졌을 때 context $c$의 확률:</p>
@@ -799,6 +802,7 @@ $$</p>
 <hr />
 <p><a id="part-3"></a></p>
 <h2 id="iii-pmi-gravity">Ⅲ. PMI에서 Gravity까지<a class="header-anchor" href="#iii-pmi-gravity" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="13-word2vec-factorize">13. 사실 Word2Vec은 거대한 관계 행렬을 factorize한다<a class="header-anchor" href="#13-word2vec-factorize" title="Link to this section">#</a></h3>
 <p>전체 word-context 관계를 matrix로 생각해보자.</p>
 <p>$$
@@ -1260,6 +1264,7 @@ mass × mass × latent attraction
 <hr />
 <p><a id="part-4"></a></p>
 <h2 id="iv">Ⅳ. 학습된 공간을 읽는 법<a class="header-anchor" href="#iv" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="21-dot-product-distance">21. Dot product가 distance는 아니다<a class="header-anchor" href="#21-dot-product-distance" title="Link to this section">#</a></h3>
 <p>여기서 중요한 주의점.</p>
 <p>Word2Vec의 score는</p>
@@ -1370,6 +1375,7 @@ k_j
 <hr />
 <p><a id="part-5"></a></p>
 <h2 id="v">Ⅴ. 직접 구현하고 데이터 만들기<a class="header-anchor" href="#v" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="25-numpy">25. 아주 작은 NumPy 구현<a class="header-anchor" href="#25-numpy" title="Link to this section">#</a></h3>
 <p>아래는 핵심만 남긴 SGNS 한 step이다.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -1615,6 +1621,7 @@ $$</p>
 <hr />
 <p><a id="part-6"></a></p>
 <h2 id="vi-sgns">Ⅵ. SGNS를 더 깊게 해석하기<a class="header-anchor" href="#vi-sgns" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="31-negative-sampling-matrix-factorization">31. Negative Sampling과 matrix factorization을 더 정확히 보기<a class="header-anchor" href="#31-negative-sampling-matrix-factorization" title="Link to this section">#</a></h3>
 <p>positive pair count를</p>
 <p>$$
@@ -1957,6 +1964,7 @@ $$</p>
 <hr />
 <p><a id="part-7"></a></p>
 <h2 id="vii">Ⅶ. 구현 함정과 작은 실험<a class="header-anchor" href="#vii" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="41-1-cosine-loss">41. 구현 시 헷갈리는 점 1: cosine을 loss로 쓰지 않는다<a class="header-anchor" href="#41-1-cosine-loss" title="Link to this section">#</a></h3>
 <p>Word2Vec SGNS의 training objective는 cosine similarity가 아니다.</p>
 <p>학습 score는</p>
@@ -2135,6 +2143,7 @@ wrote=sgns_toy_diagnostics.svg
 <hr />
 <p><a id="part-8"></a></p>
 <h2 id="viii-meaning-axis">Ⅷ. 관계 방향과 Meaning Axis<a class="header-anchor" href="#viii-meaning-axis" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="48">48. 한 좌표가 아니라 ‘방향’과 ‘이동량’에 의미가 있다<a class="header-anchor" href="#48" title="Link to this section">#</a></h3>
 <p>임베딩 그림을 처음 보면 다음처럼 해석하고 싶어진다.</p>
 <div class="highlight"><pre><span></span><code>dimension 17 = animalness
@@ -2470,6 +2479,7 @@ $$
 <hr />
 <p><a id="part-9"></a></p>
 <h2 id="ix">Ⅸ. 다른 모델과의 연결<a class="header-anchor" href="#ix" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="50-word2vec-logistic-matrix-factorization">50. Word2Vec을 logistic matrix factorization으로 보기<a class="header-anchor" href="#50-word2vec-logistic-matrix-factorization" title="Link to this section">#</a></h3>
 <p>SGNS는 사실상 binary matrix factorization 문제다.</p>
 <p>observed pair:</p>
@@ -2575,6 +2585,7 @@ $$</p>
 <hr />
 <p><a id="part-10"></a></p>
 <h2 id="x-mental-model">Ⅹ. 공식, Mental Model, 연습문제<a class="header-anchor" href="#x-mental-model" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ 목차로</a></small></p>
 <h3 id="54-5">54. 가장 중요한 식 5개<a class="header-anchor" href="#54-5" title="Link to this section">#</a></h3>
 <h4 id="1-score">1. score<a class="header-anchor" href="#1-score" title="Link to this section">#</a></h4>
 <p>$$

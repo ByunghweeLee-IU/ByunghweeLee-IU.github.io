@@ -1,0 +1,3258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[All-about-embedding 1] 임베딩 첫걸음 — Word2Vec, SGNS, 그리고 Gravity - Byunghwee Lee</title>
+
+    <!-- Description for search engines -->
+    
+    <meta name="description" content="Word2Vec의 중심어–문맥 학습부터 negative sampling, SGNS, 의미 축, exponential gravity law까지 구현 관점에서 연결해 설명하는 강의 노트">
+    
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[All-about-embedding 1] 임베딩 첫걸음 — Word2Vec, SGNS, 그리고 Gravity">
+    
+    <meta property="og:description" content="Word2Vec의 중심어–문맥 학습부터 negative sampling, SGNS, 의미 축, exponential gravity law까지 구현 관점에서 연결해 설명하는 강의 노트">
+    
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/01_word2vec/">
+    
+    <meta property="article:published_time" content="2026-08-19">
+    
+    
+    <meta property="article:modified_time" content="2026-08-19">
+    
+
+    <!-- Canonical URL (treat /index/ as duplicate of /) -->
+    
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/01_word2vec/">
+    
+
+    <!-- JSON-LD structured data for author/site -->
+    
+    
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/sgns_toy_diagnostics.svg">
+    
+    <meta property="og:site_name" content="Byunghwee Lee">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="[All-about-embedding 1] 임베딩 첫걸음 — Word2Vec, SGNS, 그리고 Gravity">
+    
+    <meta name="twitter:description" content="Word2Vec의 중심어–문맥 학습부터 negative sampling, SGNS, 의미 축, exponential gravity law까지 구현 관점에서 연결해 설명하는 강의 노트">
+    
+    
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/sgns_toy_diagnostics.svg">
+    
+
+    <script>
+        (function() {
+            const storageKey = "theme-preference";
+            const storedTheme = localStorage.getItem(storageKey);
+            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = storedTheme || (systemPrefersDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/assets/site-icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/site-icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/site-icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260318a">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WQNHVCTPN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3WQNHVCTPN');
+    </script>
+
+    <!-- Atom Feed autodiscovery -->
+    
+    <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
+    
+</head>
+<body data-page-path="notes/all-about-embedding/01_word2vec">
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
+            <div class="nav-controls">
+                <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav-links">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="visually-hidden">Menu</span>
+                </button>
+                <div class="nav-links" id="site-nav-links">
+                
+                <a href="/">
+                    
+                        Home
+                    
+                </a>
+                
+                <a href="/research/">
+                    
+                        Research
+                    
+                </a>
+                
+                <a href="/publications/">
+                    
+                        Publications
+                    
+                </a>
+                
+                <a href="/visualization/">
+                    
+                        Visualization
+                    
+                </a>
+                
+                <a href="/talks/">
+                    
+                        Talks
+                    
+                </a>
+                
+                <a href="/wiki/Home/">
+                    
+                        Hwiki
+                    
+                </a>
+                
+                <a href="/cv/">
+                    
+                        CV
+                    
+                </a>
+                
+                </div>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+                    <span class="visually-hidden theme-toggle-label">Dark mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article>
+        
+
+<header>
+    <h1>[All-about-embedding 1] 임베딩 첫걸음 — Word2Vec, SGNS, 그리고 Gravity</h1>
+    
+    
+    <p class="page-dates">
+        
+        
+        
+            
+                2026-08-19 → 2026-08-20
+            
+        
+    </p>
+    
+</header>
+
+
+<section class="content">
+    <h1 id="01-word2vec-sgns-gravity">01. 임베딩 첫걸음 — Word2Vec, SGNS, 그리고 Gravity<a class="header-anchor" href="#01-word2vec-sgns-gravity" title="Link to this section">#</a></h1>
+<blockquote>
+<p><a href="README.md"><strong>All About Embedding</strong></a> · <strong>1편: 원리와 구현</strong> · <a href="02_word2vec_applications.md">2편: 임베딩으로 문화 읽기 — Bias, 시간 변화, Semantic Axes</a></p>
+<p>하나의 작은 말뭉치에서 출발해 <strong>의미 구조 → query–key 학습 → negative sampling → noise distribution → SGNS → exponential gravity law</strong>까지 구현 수준으로 연결하는 강의노트</p>
+</blockquote>
+<p>Word2Vec을 처음 만나면 결과부터 보게 된다. <code>cat</code>과 <code>dog</code>가 가깝고, <code>car</code>와 <code>truck</code>이 가깝다. 신기하지만 그 그림만 보면 중요한 질문이 남는다.</p>
+<blockquote>
+<p>누가 두 단어를 “비슷하다”고 알려 주었을까?</p>
+</blockquote>
+<p>아무도 알려 주지 않았다. 모델이 받은 것은 문장과 “주변에 함께 등장했다”는 사건뿐이다. 이 노트의 이야기는 그 빈약한 사건이 어떻게 의미의 지도가 되는지 추적한다. 마지막에는 같은 학습을 다음 식으로 다시 읽게 될 것이다.</p>
+<p>$$
+\text{관측된 상호작용}
+\approx
+\text{출발점의 질량}
+\times
+\text{도착점의 질량}
+\times
+\exp(\text{잠재적 끌림})
+$$</p>
+<p>이 식이 바로 Word2Vec과 <strong>exponential gravity law</strong>가 만나는 지점이다.</p>
+<h2 id="_1">이 노트를 다 읽고 나면<a class="header-anchor" href="#_1" title="Link to this section">#</a></h2>
+<ul>
+<li>Word2Vec이 단어 자체가 아니라 <code>(center, context)</code> 사건을 학습한다는 것을 설명할 수 있다.</li>
+<li>한 단어에 왜 <code>query</code>와 <code>key</code> 두 벡터가 필요한지, 각각 어떤 gradient를 받는지 손으로 계산할 수 있다.</li>
+<li>negative sampling이 단순한 속도 향상 기법을 넘어 <strong>비교 기준선(noise baseline)</strong>을 정한다는 것을 이해한다.</li>
+<li>비슷한 문맥을 예측하는 단어들이 왜 가까운 벡터를 갖게 되는지 설명할 수 있다.</li>
+<li>반복되는 관계가 왜 semantic direction으로 나타나며, 벡터 덧셈·뺄셈으로 analogy를 찾는 방법을 설명할 수 있다.</li>
+<li>두 pole 집합에서 meaning axis를 만들고 단어를 그 축에 투영할 수 있다.</li>
+<li>SGNS의 내적을 data-vs-noise log-odds로, 그 지수값을 gravity law의 attraction으로 읽을 수 있다.</li>
+<li>마지막의 작은 구현을 실행하고 손실, 점수 행렬, 임베딩 그림을 해석할 수 있다.</li>
+</ul>
+<h2 id="_2">한 장짜리 예고편<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    A[문장] --&gt; B[window로&lt;br/&gt;positive pair 생성]
+    B --&gt; C[noise에서&lt;br/&gt;negative pair 생성]
+    C --&gt; D[query · key]
+    D --&gt; E[진짜/가짜&lt;br/&gt;이진분류]
+    E --&gt; F[공유 벡터에&lt;br/&gt;gradient 누적]
+    F --&gt; G[비슷한 문맥&lt;br/&gt;→ 비슷한 방향]
+    G --&gt; H[의미 구조]
+    H --&gt; L[반복 관계&lt;br/&gt;→ 의미 축·벡터 산술]
+    E --&gt; I[최적 점수&lt;br/&gt;= log data/noise]
+    I --&gt; J[지수화]
+    J --&gt; K[exponential&lt;br/&gt;gravity law]
+</code></pre></div>
+
+<p>이 흐름에서 각 화살표는 앞 단계가 만든 문제를 다음 단계가 해결한다. 특히 <code>negative sampling → noise distribution → gravity law</code>는 서로 떨어진 부록이 아니라 같은 질문의 연속이다.</p>
+<blockquote>
+<p>“이 만남이 강한가?”라고 말하려면 먼저 “무엇과 비교해서?”를 정해야 한다.</p>
+</blockquote>
+<hr />
+<h1 id="0">0. 오늘 끝까지 따라갈 ‘코퍼스 마을’<a class="header-anchor" href="#0" title="Link to this section">#</a></h1>
+<p>이 노트에서는 예시를 자주 바꾸지 않는다. 다음 여덟 문장이 전부인 아주 작은 <strong>코퍼스 마을</strong>을 끝까지 따라가자.</p>
+<div class="highlight"><pre><span></span><code>the cat likes pet food
+the dog likes pet food
+the cat enjoys warm home
+the dog enjoys warm home
+
+the car follows road traffic
+the truck follows road traffic
+the car carries heavy load
+the truck carries heavy load
+</code></pre></div>
+
+<p>벌써 사람 눈에는 두 동네가 보인다.</p>
+<table>
+<thead>
+<tr>
+<th>중심 단어</th>
+<th>자주 만나는 문맥</th>
+<th>사람이 예상하는 이웃</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cat</code></td>
+<td><code>likes</code>, <code>pet</code>, <code>food</code>, <code>enjoys</code>, <code>warm</code>, <code>home</code></td>
+<td><code>dog</code></td>
+</tr>
+<tr>
+<td><code>dog</code></td>
+<td><code>likes</code>, <code>pet</code>, <code>food</code>, <code>enjoys</code>, <code>warm</code>, <code>home</code></td>
+<td><code>cat</code></td>
+</tr>
+<tr>
+<td><code>car</code></td>
+<td><code>follows</code>, <code>road</code>, <code>traffic</code>, <code>carries</code>, <code>heavy</code>, <code>load</code></td>
+<td><code>truck</code></td>
+</tr>
+<tr>
+<td><code>truck</code></td>
+<td><code>follows</code>, <code>road</code>, <code>traffic</code>, <code>carries</code>, <code>heavy</code>, <code>load</code></td>
+<td><code>car</code></td>
+</tr>
+</tbody>
+</table>
+<p>그러나 모델은 <code>cat</code>이 동물이라는 사실도, <code>car</code>가 탈것이라는 사실도 모른다. 모델이 보게 될 것은 오직 다음과 같은 사건들이다.</p>
+<div class="highlight"><pre><span></span><code>(cat, pet)    실제로 관측됨
+(cat, home)   실제로 관측됨
+(car, road)   실제로 관측됨
+(cat, road)   관측되지 않았거나 noise로 만들어짐
+</code></pre></div>
+
+<p>이후의 주인공 positive pair는 <code>(cat, pet)</code>, 자주 비교할 negative pair는 <code>(cat, road)</code>다.</p>
+<h2 id="30">30초짜리 핵심<a class="header-anchor" href="#30" title="Link to this section">#</a></h2>
+<p>Skip-gram with Negative Sampling(SGNS)은 각 단어에 두 종류의 벡터를 둔다.</p>
+<ul>
+<li>중심 단어로 질문할 때 쓰는 <code>input embedding</code>: query vector $q_w$</li>
+<li>문맥 후보로 답할 때 쓰는 <code>output embedding</code>: key vector $k_c$</li>
+</ul>
+<p><code>cat</code>이 질문하고 <code>pet</code>이 후보 답이라고 생각하면 둘의 점수는</p>
+<p>$$
+s(\text{cat},\text{pet})
+=
+q_{\text{cat}}^\top k_{\text{pet}}
+$$</p>
+<p>이다. 학습은 이 점수를 다음 방향으로 민다.</p>
+<p>$$
+(\text{cat},\text{pet})\text{가 실제 pair}
+\quad\Rightarrow\quad
+q_{\text{cat}}^\top k_{\text{pet}}\uparrow
+$$</p>
+<p>$$
+(\text{cat},\text{road})\text{가 negative pair}
+\quad\Rightarrow\quad
+q_{\text{cat}}^\top k_{\text{road}}\downarrow
+$$</p>
+<p>여기까지만 보면 “끌어당기고 밀어낸다”는 이야기다. 하지만 정말 중요한 일은 <strong>같은 벡터를 수많은 pair가 공유한다</strong>는 데서 일어난다. <code>cat</code>과 <code>dog</code>가 모두 <code>pet</code>, <code>food</code>, <code>home</code>의 key에 높은 점수를 내야 하므로, 둘의 query는 비슷한 방향을 택하는 편이 경제적이다. 의미 유사성은 정답으로 주어진 것이 아니라 <strong>같은 예측 문제를 반복해서 푼 흔적</strong>으로 생긴다.</p>
+<blockquote>
+<p>이 문서에서 query–key는 현대적인 해석용 이름이다. 원래 Word2Vec 문헌과 구현에서는 보통 <code>input/output embedding</code>이라 부른다. Transformer의 query/key와 수학적 모양은 닮았지만, Word2Vec의 벡터는 문맥에 따라 매번 생성되는 것이 아니라 단어 id에 붙어 있는 정적 파라미터다.</p>
+</blockquote>
+<hr />
+<h1 id="1-skip-gram">1. Skip-gram은 문장이 아니라 ‘만남’을 학습한다<a class="header-anchor" href="#1-skip-gram" title="Link to this section">#</a></h1>
+<p><code>the cat likes pet food</code>에서 window size가 2라고 하자. 중심 단어가 <code>cat</code>이면 두 칸 안의 문맥은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><code>the, likes, pet
+</code></pre></div>
+
+<p>따라서 positive pair는</p>
+<div class="highlight"><pre><span></span><code>(cat, the)
+(cat, likes)
+(cat, pet)
+</code></pre></div>
+
+<p>가 된다. 같은 문장에서 중심을 한 칸씩 옮기고, 전체 corpus에 반복하면 거대한 <code>(center, context)</code> pair의 <strong>multiset</strong>이 생긴다. 같은 pair가 열 번 나타나면 한 줄이 아니라 열 개의 학습 사건이다. 반복 횟수 자체가 신호다.</p>
+<div class="highlight"><pre><span></span><code>raw sentences
+    ↓ sliding window
+(center, context, count)
+    ↓
+희소한 word-context 관계 행렬
+</code></pre></div>
+
+<p>여기서 첫 번째 인과관계가 완성된다.</p>
+<blockquote>
+<p>문장이 의미를 직접 제공하는 것이 아니다. window가 “관계”를 정의하고, 반복된 관계가 학습 신호가 된다.</p>
+</blockquote>
+<p>window가 작으면 바로 이웃한 문법적 관계를 더 많이 보고, 크면 같은 주제에 속하는 단어를 더 많이 본다. 따라서 임베딩은 corpus만의 산물이 아니라 <strong>corpus + window라는 관측 장치</strong>의 산물이다.</p>
+<h3 id="window">잠깐 연습: window가 바꾸는 관계<a class="header-anchor" href="#window" title="Link to this section">#</a></h3>
+<p><code>the dog enjoys warm home</code>에서 center가 <code>enjoys</code>일 때 window size 1과 2가 각각 만드는 context를 쓰라. 두 설정이 학습할 관계는 어떻게 달라질까?</p>
+<details>
+<summary>간단한 풀이</summary>
+
+window 1은 바로 옆의 `dog`, `warm`을 만든다. window 2는 여기에 `the`, `home`까지 더한다. 전자는 더 국소적인 결합을, 후자는 문장 주제까지 넓어진 관계를 positive로 정의한다. 즉 window는 단순한 계산 범위가 아니라 “같은 관계로 볼 거리”를 정한다.
+
+</details>
+
+<hr />
+<h1 id="2-word2vec">2. Word2Vec에는 왜 벡터가 두 개 있는가?<a class="header-anchor" href="#2-word2vec" title="Link to this section">#</a></h1>
+<p>Vocabulary size를 $V$, embedding dimension을 $d$라 하자.</p>
+<p>두 embedding matrix가 있다.</p>
+<p>$$
+Q \in \mathbb{R}^{V\times d}
+$$</p>
+<p>$$
+K \in \mathbb{R}^{V\times d}
+$$</p>
+<p><code>Q[w]</code>는 단어 $w$가 center로 등장할 때 사용하는 벡터이다.</p>
+<p>$$
+q_w = Q[w]
+$$</p>
+<p><code>K[c]</code>는 단어 $c$가 context로 등장할 때 사용하는 벡터이다.</p>
+<p>$$
+k_c = K[c]
+$$</p>
+<p>따라서 Word2Vec의 score는</p>
+<p>$$
+s(w,c)=q_w^\top k_c
+$$</p>
+<p>이다.</p>
+<p>이것은 Transformer attention에서</p>
+<p>$$
+q_i^\top k_j
+$$</p>
+<p>를 계산하는 것과 구조적으로 매우 비슷하다.</p>
+<p>차이는 Transformer에서는 query/key가 입력에 따라 동적으로 생성되는 반면, Word2Vec에서는 vocabulary의 각 token마다 <strong>학습되는 static query/key vector</strong>가 있다는 것이다.</p>
+<hr />
+<h1 id="3-querykey-word2vec">3. Query–Key 관점에서 보는 Word2Vec<a class="header-anchor" href="#3-querykey-word2vec" title="Link to this section">#</a></h1>
+<p>Word2Vec을 다음 질문으로 이해하면 매우 쉽다.</p>
+<blockquote>
+<p>&ldquo;center word $w$가 주어졌을 때 context candidate $c$가 얼마나 compatible한가?&rdquo;</p>
+</blockquote>
+<p>center word가 query 역할을 한다.</p>
+<p>$$
+q_w
+$$</p>
+<p>context candidate가 key 역할을 한다.</p>
+<p>$$
+k_c
+$$</p>
+<p>compatibility:</p>
+<p>$$
+q_w^\top k_c
+$$</p>
+<p>코퍼스 마을에서</p>
+<div class="highlight"><pre><span></span><code>center = cat
+</code></pre></div>
+
+<p>이 질문을 던졌을 때 후보 key가</p>
+<div class="highlight"><pre><span></span><code>pet
+home
+road
+traffic
+</code></pre></div>
+
+<p>라고 하자.</p>
+<p>학습이 잘 되었다면</p>
+<p>$$
+q_{\text{cat}}^\top k_{\text{pet}}
+$$</p>
+<p>$$
+q_{\text{cat}}^\top k_{\text{home}}
+$$</p>
+<p>등은 커지고,</p>
+<p>$$
+q_{\text{cat}}^\top k_{\text{road}}
+$$</p>
+<p>같은 값은 낮아진다. 즉 Word2Vec은 <code>cat</code>이라는 query로 어울리는 context key를 검색하는 <strong>learned retrieval system</strong>이다.</p>
+<hr />
+<h1 id="4">4. 처음 벡터는 아무 의미가 없다<a class="header-anchor" href="#4" title="Link to this section">#</a></h1>
+<p>처음에는 embedding이 random initialization된다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>q_cat = [ 0.01, -0.03,  0.02 ]
+k_dog = [-0.02,  0.04,  0.01]
+</code></pre></div>
+
+<p>초기에는 의미론적인 구조가 전혀 없다.</p>
+<p>훈련 과정에서 observed co-occurrence가 반복되면서 특정 방향이 생긴다.</p>
+<p>핵심은 다음이다.</p>
+<div class="highlight"><pre><span></span><code>cat → likes, pet, food, enjoys, warm, home
+dog → likes, pet, food, enjoys, warm, home
+</code></pre></div>
+
+<p>같은 관계들이 반복되면 <code>cat</code>과 <code>dog</code>는 <strong>비슷한 context key들과 높은 dot product를 가져야 한다.</strong></p>
+<p>그러므로 두 query vector가 자연스럽게 비슷한 방향으로 정렬된다.</p>
+<p>즉 유사성은 직접 강제되는 것이 아니라</p>
+<blockquote>
+<p><strong>비슷한 context를 예측해야 하기 때문에 간접적으로 만들어진다.</strong></p>
+</blockquote>
+<hr />
+<h1 id="5-full-softmax-skip-gram">5. Full Softmax Skip-gram<a class="header-anchor" href="#5-full-softmax-skip-gram" title="Link to this section">#</a></h1>
+<p>원래 Skip-gram의 확률 모델은 다음과 같다.</p>
+<p>center word $w$가 주어졌을 때 context $c$의 확률:</p>
+<p>$$
+P(c\mid w)
+=
+\frac{\exp(q_w^\top k_c)}
+{\sum_{c'=1}^{V}\exp(q_w^\top k_{c'})}
+$$</p>
+<p>즉 모든 vocabulary candidate와 score를 계산한다.</p>
+<p>log likelihood는</p>
+<p>$$
+\log P(c\mid w)
+=
+q_w^\top k_c
+-
+\log
+\sum_{c'}\exp(q_w^\top k_{c'})
+$$</p>
+<p>이다.</p>
+<p>문제는 vocabulary가 100,000이면 positive pair 하나마다 100,000개의 score를 계산해야 한다는 것이다.</p>
+<p>그래서 expensive하다.</p>
+<hr />
+<h1 id="6-negative-sampling">6. Negative Sampling의 아이디어<a class="header-anchor" href="#6-negative-sampling" title="Link to this section">#</a></h1>
+<p>Negative Sampling은 문제를 바꾼다.</p>
+<p>기존 문제:</p>
+<blockquote>
+<p>모든 단어 중 어떤 context가 정답인가?</p>
+</blockquote>
+<p>Negative Sampling:</p>
+<blockquote>
+<p>이 <code>(center, context)</code> pair가 진짜 데이터에서 나온 pair인가, noise에서 만든 가짜 pair인가?</p>
+</blockquote>
+<p>즉 <strong>multiclass classification을 binary classification으로 바꾼다.</strong></p>
+<p>positive example:</p>
+<div class="highlight"><pre><span></span><code>(cat, pet) -&gt; y = 1
+</code></pre></div>
+
+<p>negative example:</p>
+<div class="highlight"><pre><span></span><code>(cat, road) -&gt; y = 0
+(cat, traffic) -&gt; y = 0
+(cat, load) -&gt; y = 0
+</code></pre></div>
+
+<p>score:</p>
+<p>$$
+s=q_w^\top k_c
+$$</p>
+<p>probability:</p>
+<p>$$
+P(D=1\mid w,c)=\sigma(q_w^\top k_c)
+$$</p>
+<p>여기서</p>
+<p>$$
+\sigma(x)=\frac{1}{1+e^{-x}}
+$$</p>
+<p>이다.</p>
+<p>여기서 negative는 “세상에서 의미적으로 절대 관계없는 단어”라는 정답표가 아니다. 그저 정해 둔 noise distribution에서 뽑은 <strong>대조군</strong>이다. 드물게 실제 positive가 negative로 다시 뽑힐 수도 있다. 큰 corpus에서는 확률적인 학습 신호가 평균적으로 작동하며, 구현에 따라 positive와 같은 token을 거부하기도 한다.</p>
+<hr />
+<h1 id="7-sgns-objective">7. SGNS objective<a class="header-anchor" href="#7-sgns-objective" title="Link to this section">#</a></h1>
+<p>positive pair $(w,c)$ 하나와 negative samples</p>
+<p>$$
+n_1,\dots,n_K
+$$</p>
+<p>가 있다고 하자.</p>
+<p>maximize할 objective:</p>
+<p>$$
+\log\sigma(q_w^\top k_c)
++
+\sum_{i=1}^{K}
+\log\sigma(-q_w^\top k_{n_i})
+$$</p>
+<p>loss로 쓰면:</p>
+<p>$$
+L
+=
+-\log\sigma(q_w^\top k_c)
+-
+\sum_i
+\log\sigma(-q_w^\top k_{n_i})
+$$</p>
+<hr />
+<h1 id="8-positive-pair-gradient">8. Positive pair에서 gradient는 정확히 무엇을 하는가?<a class="header-anchor" href="#8-positive-pair-gradient" title="Link to this section">#</a></h1>
+<p>positive pair에 대한 score:</p>
+<p>$$
+s=q_w^\top k_c
+$$</p>
+<p>loss:</p>
+<p>$$
+L_+=-\log\sigma(s)
+$$</p>
+<p>미분하면</p>
+<p>$$
+\frac{\partial L_+}{\partial s}
+=
+\sigma(s)-1
+$$</p>
+<p>그리고</p>
+<p>$$
+\frac{\partial s}{\partial q_w}=k_c
+$$</p>
+<p>이므로</p>
+<p>$$
+\frac{\partial L_+}{\partial q_w}
+=
+(\sigma(s)-1)k_c
+$$</p>
+<p>gradient descent는</p>
+<p>$$
+q_w
+\leftarrow
+q_w
+-
+\eta(\sigma(s)-1)k_c
+$$</p>
+<p>즉</p>
+<p>$$
+q_w
+\leftarrow
+q_w
++
+\eta(1-\sigma(s))k_c
+$$</p>
+<p>이다.</p>
+<p>마찬가지로</p>
+<p>$$
+k_c
+\leftarrow
+k_c
++
+\eta(1-\sigma(s))q_w
+$$</p>
+<p>이다.</p>
+<p>따라서 <strong>positive pair의 두 벡터는 서로의 방향으로 이동한다.</strong></p>
+<hr />
+<h1 id="9-negative-pair-gradient">9. Negative pair에서 gradient는 무엇을 하는가?<a class="header-anchor" href="#9-negative-pair-gradient" title="Link to this section">#</a></h1>
+<p>negative sample $n$에 대해</p>
+<p>$$
+L_-=-\log\sigma(-q_w^\top k_n)
+$$</p>
+<p>이라 하자.</p>
+<p>$$
+s_n=q_w^\top k_n
+$$</p>
+<p>이면</p>
+<p>$$
+\frac{\partial L_-}{\partial s_n}
+=
+\sigma(s_n)
+$$</p>
+<p>따라서</p>
+<p>$$
+\frac{\partial L_-}{\partial q_w}
+=
+\sigma(s_n)k_n
+$$</p>
+<p>gradient descent:</p>
+<p>$$
+q_w
+\leftarrow
+q_w
+-
+\eta\sigma(s_n)k_n
+$$</p>
+<p>그리고</p>
+<p>$$
+k_n
+\leftarrow
+k_n
+-
+\eta\sigma(s_n)q_w
+$$</p>
+<p>즉 negative pair는 두 벡터의 dot product를 감소시키는 방향으로 이동한다.</p>
+<hr />
+<h1 id="10-gradient">10. 중요한 직관: gradient는 항상 같은 크기가 아니다<a class="header-anchor" href="#10-gradient" title="Link to this section">#</a></h1>
+<p>positive pair에서</p>
+<p>$$
+1-\sigma(s)
+$$</p>
+<p>가 gradient strength이다.</p>
+<p>이미 $s$가 매우 크다면</p>
+<p>$$
+\sigma(s)\approx1
+$$</p>
+<p>이므로 update가 거의 없다.</p>
+<p>즉 모델이 이미</p>
+<div class="highlight"><pre><span></span><code>cat → pet
+</code></pre></div>
+
+<p>을 충분히 잘 알고 있다면 더 이상 크게 수정하지 않는다.</p>
+<p>반대로 positive인데 $s\ll0$라면</p>
+<p>$$
+1-\sigma(s)\approx1
+$$</p>
+<p>이므로 강하게 끌어당긴다.</p>
+<p>negative의 경우도 마찬가지다.</p>
+<p>negative인데 dot product가 이미 매우 낮다면</p>
+<p>$$
+\sigma(s)\approx0
+$$</p>
+<p>이므로 거의 update하지 않는다.</p>
+<p>결국 SGNS는 <strong>잘못 평가되고 있는 pair를 중심으로 수정한다.</strong></p>
+<hr />
+<h1 id="11-training-step">11. 실제 한 training step<a class="header-anchor" href="#11-training-step" title="Link to this section">#</a></h1>
+<p>예를 들어</p>
+<div class="highlight"><pre><span></span><code>center = cat
+positive context = pet
+
+negative contexts:
+road
+traffic
+load
+</code></pre></div>
+
+<p>이라고 하자.</p>
+<p>forward:</p>
+<div class="highlight"><pre><span></span><code><span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="s2">"cat"</span><span class="p">]</span>
+
+<span class="n">k_pos</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="s2">"pet"</span><span class="p">]</span>
+
+<span class="n">k_neg</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">K</span><span class="p">[</span><span class="s2">"road"</span><span class="p">],</span>
+    <span class="n">K</span><span class="p">[</span><span class="s2">"traffic"</span><span class="p">],</span>
+    <span class="n">K</span><span class="p">[</span><span class="s2">"load"</span><span class="p">]</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>positive score:</p>
+<div class="highlight"><pre><span></span><code><span class="n">s_pos</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">k_pos</span><span class="p">)</span>
+</code></pre></div>
+
+<p>negative scores:</p>
+<div class="highlight"><pre><span></span><code><span class="n">s_neg</span> <span class="o">=</span> <span class="n">k_neg</span> <span class="o">@</span> <span class="n">q</span>
+</code></pre></div>
+
+<p>loss:</p>
+<div class="highlight"><pre><span></span><code><span class="n">loss_pos</span> <span class="o">=</span> <span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">s_pos</span><span class="p">))</span>
+<span class="n">loss_neg</span> <span class="o">=</span> <span class="o">-</span><span class="nb">sum</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="o">-</span><span class="n">s_neg</span><span class="p">)))</span>
+
+<span class="n">loss</span> <span class="o">=</span> <span class="n">loss_pos</span> <span class="o">+</span> <span class="n">loss_neg</span>
+</code></pre></div>
+
+<p>backprop 후</p>
+<div class="highlight"><pre><span></span><code>q_cat      → k_pet 방향으로
+k_pet      → q_cat 방향으로
+
+q_cat      → k_road 반대 방향으로
+q_cat      → k_traffic 반대 방향으로
+q_cat      → k_load 반대 방향으로
+</code></pre></div>
+
+<p>움직인다.</p>
+<p>숫자로 한 번만 보자. 설명을 위해 negative 하나만 쓰고 학습률을 $\eta=0.1$이라 하자.</p>
+<p>$$
+q_{cat}=[0.4,-0.2],\qquad
+k_{pet}=[0.1,0.5],\qquad
+k_{road}=[-0.3,0.2]
+$$</p>
+<p>업데이트 전 점수와 힘의 크기는 다음과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>pair</th>
+<th style="text-align: right;">label</th>
+<th style="text-align: right;">score $s$</th>
+<th style="text-align: right;">sigmoid</th>
+<th>$q_{cat}$에 작용하는 변화</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(cat, pet)</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">$-0.06$</td>
+<td style="text-align: right;">$0.485$</td>
+<td>$+0.1(1-0.485)k_{pet}$</td>
+</tr>
+<tr>
+<td><code>(cat, road)</code></td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">$-0.16$</td>
+<td style="text-align: right;">$0.460$</td>
+<td>$-0.1(0.460)k_{road}$</td>
+</tr>
+</tbody>
+</table>
+<p>같은 forward state의 벡터로 두 gradient를 합치면 대략</p>
+<p>$$
+q_{cat}^{new}
+\approx
+[0.4,-0.2]
++0.1(0.515)[0.1,0.5]
+-0.1(0.460)[-0.3,0.2]
+=[0.419,-0.183]
+$$</p>
+<p>이 된다. 숫자의 좌표 자체보다 방향을 보자. <code>pet</code>의 key 방향 성분은 더하고, <code>road</code>의 key 방향 성분은 뺀다. 동시에 $k_{pet}$과 $k_{road}$도 반대편 역할에 맞춰 수정된다. 이것을 수백만 번 반복하되, 매번 <strong>동일한 파라미터가 여러 관계의 요구를 함께 받는다.</strong></p>
+<blockquote>
+<p>“positive면 score가 반드시 양수여야 한다”는 뜻은 아니다. negative를 $K$개씩 보여 주면 최적 기준점도 $K$만큼 이동한다. 중요한 것은 관련 pair의 score가 무관한 pair보다 크고, data-to-noise 비율을 잘 반영하는가이다. 이 사실은 뒤의 $-\log K$에서 정확히 드러난다.</p>
+</blockquote>
+<h3 id="pair">잠깐 연습: 어느 pair가 세게 움직일까?<a class="header-anchor" href="#pair" title="Link to this section">#</a></h3>
+<p>모델이 positive pair를 $s_+=-3$으로, negative pair를 $s_-=3$으로 잘못 평가했다. 두 update의 scalar strength $1-\sigma(s_+)$와 $\sigma(s_-)$는 각각 얼마쯤인가? score의 부호가 반대라면 어떻게 되는가?</p>
+<details>
+<summary>간단한 풀이</summary>
+
+$\sigma(3)\approx0.953$, $\sigma(-3)\approx0.047$이다. 따라서 잘못 평가한 positive와 negative 모두 약 $0.953$의 강한 힘을 받는다. 반대로 positive가 $3$, negative가 $-3$이면 두 힘 모두 약 $0.047$로 작다. SGNS는 이미 잘 맞춘 쉬운 pair보다 틀린 pair를 더 크게 고친다.
+
+</details>
+
+<hr />
+<h1 id="12">12. 벡터가 어떻게 의미 구조를 만들까?<a class="header-anchor" href="#12" title="Link to this section">#</a></h1>
+<p>가장 중요한 부분이다.</p>
+<p>예를 들어 두 단어가 있다고 하자.</p>
+<div class="highlight"><pre><span></span><code>cat
+dog
+</code></pre></div>
+
+<p>둘은 corpus에서 다음과 같은 contexts를 공유한다.</p>
+<div class="highlight"><pre><span></span><code>pet
+food
+likes
+home
+warm
+enjoys
+</code></pre></div>
+
+<p>그러므로 학습 중</p>
+<p>$$
+q_{cat}^\top k_{pet}\uparrow
+$$</p>
+<p>$$
+q_{cat}^\top k_{home}\uparrow
+$$</p>
+<p>그리고</p>
+<p>$$
+q_{dog}^\top k_{pet}\uparrow
+$$</p>
+<p>$$
+q_{dog}^\top k_{home}\uparrow
+$$</p>
+<p>가 된다.</p>
+<p>그러므로 두 query vector $q_{cat}$, $q_{dog}$는 여러 key에 대해 비슷한 projection을 가져야 한다.</p>
+<p>즉</p>
+<p>$$
+QK^\top
+$$</p>
+<p>행렬의 두 row가 비슷해진다.</p>
+<p>이때 $QK^\top$의 두 row가 비슷하다는 것이 직접적인 결과다. $q_{cat}\approx q_{dog}$는 $K$가 그 관계 구조를 표현할 수 있고 저차원 최적화가 잘 되었을 때 나타나는 자연스러운 압축 결과이지, 모든 경우에 보장되는 등식은 아니다. 그 점을 기억한 채 직관적으로 쓰면</p>
+<p>$$
+q_{cat}\approx q_{dog}
+$$</p>
+<p>가 된다.</p>
+<p>반대로 <code>cat</code>과 <code>car</code>는 높은 점수를 요구하는 key 집합이 다르다. <code>cat</code>은 <code>pet/home</code> 쪽으로, <code>car</code>는 <code>road/load</code> 쪽으로 서로 다른 제약을 받는다. 이 <strong>공유 문맥은 모으고, 다른 문맥은 가르는 공동 압력</strong>이 코퍼스 마을의 두 동네를 만든다.</p>
+<hr />
+<h1 id="13-word2vec-factorize">13. 사실 Word2Vec은 거대한 관계 행렬을 factorize한다<a class="header-anchor" href="#13-word2vec-factorize" title="Link to this section">#</a></h1>
+<p>전체 word-context 관계를 matrix로 생각해보자.</p>
+<p>$$
+M_{wc}
+$$</p>
+<p>를 단어 $w$와 context $c$의 관계 강도라고 하자.</p>
+<p>Word2Vec은 이를 명시적으로 만들지 않고</p>
+<p>$$
+M_{wc}\approx q_w^\top k_c
+$$</p>
+<p>가 되도록 low-rank representation을 학습한다.</p>
+<p>matrix notation:</p>
+<p>$$
+M \approx QK^\top
+$$</p>
+<p>여기서</p>
+<p>$$
+Q\in\mathbb{R}^{V\times d}
+$$</p>
+<p>$$
+K\in\mathbb{R}^{V\times d}
+$$</p>
+<p>이고 보통</p>
+<p>$$
+d \ll V
+$$</p>
+<p>이다.</p>
+<p>즉 Word2Vec은 매우 큰 word-context interaction matrix를 저차원으로 factorize하는 셈이다.</p>
+<hr />
+<h1 id="14-sgns-pmi">14. SGNS와 PMI의 연결: 먼저 특수한 경우<a class="header-anchor" href="#14-sgns-pmi" title="Link to this section">#</a></h1>
+<p>Levy &amp; Goldberg의 중요한 해석은 SGNS가 implicit하게 <strong>shifted PMI matrix factorization</strong>을 수행한다는 것이다. 다만 아래의 깔끔한 식은 noise distribution이 실제 context unigram과 같을 때</p>
+<p>$$
+P_n(c)=P(c)
+$$</p>
+<p>나온다. 실전의 $3/4$ noise에서는 뒤에서 보게 될 보정항이 더 붙는다.</p>
+<p>PMI:</p>
+<p>$$
+PMI(w,c)
+=
+\log
+\frac{P(w,c)}
+{P(w)P(c)}
+$$</p>
+<p>각 $(w,c)$ 점수를 자유롭게 정할 수 있는 이상화된 SGNS optimum에서는</p>
+<p>$$
+s_{wc}^*
+=
+PMI(w,c)-\log K
+$$</p>
+<p>이다. 실제 Word2Vec에서는 $s_{wc}=q_w^\top k_c$가 저차원이라는 제약을 받으므로 모든 pair의 최적값을 따로 맞추지 못한다. 따라서 $q_w^\top k_c\approx s_{wc}^*$가 되도록 $Q$와 $K$가 전체 행렬을 <strong>공동으로 근사</strong>한다.</p>
+<p>여기서 $K$는 negative samples의 개수이다.</p>
+<p>즉 dot product는 단순한 similarity가 아니라</p>
+<blockquote>
+<p>&ldquo;이 두 단어가 독립적으로 등장하는 것보다 실제로 얼마나 더 자주 같이 등장하는가?&rdquo;</p>
+</blockquote>
+<p>를 log scale에서 나타낸다고 볼 수 있다.</p>
+<hr />
+<h1 id="15-pmi-count">15. PMI를 count로 써보기<a class="header-anchor" href="#15-pmi-count" title="Link to this section">#</a></h1>
+<p>corpus에서</p>
+<p>$$
+N(w,c)
+$$</p>
+<p>를 word-context pair count라 하자.</p>
+<p>$$
+N(w)=\sum_c N(w,c)
+$$</p>
+<p>$$
+N(c)=\sum_w N(w,c)
+$$</p>
+<p>전체 pair count를 $N$이라 하면</p>
+<p>$$
+P(w,c)=\frac{N(w,c)}{N}
+$$</p>
+<p>$$
+P(w)=\frac{N(w)}{N}
+$$</p>
+<p>$$
+P(c)=\frac{N(c)}{N}
+$$</p>
+<p>따라서</p>
+<p>$$
+PMI(w,c)
+=
+\log
+\frac{N(w,c)N}
+{N(w)N(c)}
+$$</p>
+<p>이다.</p>
+<p>따라서 SGNS가 배우는 dot product는 대략</p>
+<p>$$
+q_w^\top k_c
+\approx
+\log
+\frac{N(w,c)N}
+{N(w)N(c)}
+-
+\log K
+$$</p>
+<p>이다.</p>
+<hr />
+<h1 id="16-noise-distribution">16. Noise distribution: “무엇과 비교해서 놀라운가?”<a class="header-anchor" href="#16-noise-distribution" title="Link to this section">#</a></h1>
+<p>negative context를 어떻게 뽑든 계산만 빨라지는 것처럼 보이지만, 사실 noise distribution $P_n(c)$는 모델이 세상을 보는 <strong>기준선</strong>이다.</p>
+<ul>
+<li>uniform noise: 모든 단어가 똑같이 나올 것이라고 가정한다.</li>
+<li>unigram noise: 실제로 흔한 단어는 noise에서도 그만큼 자주 나올 것이라고 가정한다.</li>
+<li>$3/4$-smoothed unigram: 흔한 단어를 자주 보여 주되, raw frequency만큼 압도하게 두지는 않는다.</li>
+</ul>
+<p>원래 Word2Vec에서 널리 쓰인 선택은</p>
+<p>$$
+P_n(c)
+=
+\frac{f(c)^{3/4}}
+{\sum_u f(u)^{3/4}}
+$$</p>
+<p>이다. $3/4$ 제곱이 분포의 머리를 얼마나 누그러뜨리는지 가상의 빈도로 보자.</p>
+<table>
+<thead>
+<tr>
+<th>context</th>
+<th style="text-align: right;">raw frequency $f(c)$</th>
+<th style="text-align: right;">unigram의 상대 weight</th>
+<th style="text-align: right;">$f(c)^{3/4}$의 상대 weight</th>
+<th style="text-align: right;">uniform의 상대 weight</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>the</code></td>
+<td style="text-align: right;">10,000</td>
+<td style="text-align: right;">10,000</td>
+<td style="text-align: right;">1,000.0</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><code>pet</code></td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">31.6</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr>
+<td><code>comet</code></td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1.0</td>
+<td style="text-align: right;">1</td>
+</tr>
+</tbody>
+</table>
+<p>raw unigram에서 <code>the:pet</code>의 비는 100:1이지만 $3/4$ smoothing 후에는 약 31.6:1이다. 즉 <code>the</code> 같은 초고빈도 단어가 negative batch를 독점하는 현상을 줄이면서도, uniform처럼 희귀어를 과도하게 뽑지 않는다.</p>
+<blockquote>
+<p>$3/4$는 수학이 유일하게 강제한 값이 아니라 계산 효율과 품질 사이에서 잘 작동한 경험적 선택이다. corpus와 목적에 따라 다른 noise가 더 적절할 수 있다.</p>
+</blockquote>
+<p>이제 핵심 질문을 코퍼스 마을에 던져 보자.</p>
+<ul>
+<li><code>the</code>는 <code>cat</code> 주변에서 많이 보인다. 하지만 어디서나 흔하므로 놀랍지 않다.</li>
+<li><code>pet</code>은 전체적으로 <code>the</code>보다 드물지만 <code>cat</code> 옆에서는 유난히 자주 보인다.</li>
+<li><code>road</code>도 그 자체로는 정상적인 단어지만 <code>cat</code>의 문맥으로는 드물다.</li>
+</ul>
+<p>따라서 우리가 원하는 점수는 raw count가 아니라</p>
+<p>$$
+\frac{P_{\text{data}}(c\mid w)}{P_n(c)}
+$$</p>
+<p>처럼 <strong>관측 빈도 / 기준선 빈도</strong>를 비교해야 한다. 이것이 negative sampling에서 gravity law로 넘어가는 문이다.</p>
+<hr />
+<h1 id="17-sgns-data-vs-noise-log-odds">17. SGNS의 내적은 data-vs-noise log-odds다<a class="header-anchor" href="#17-sgns-data-vs-noise-log-odds" title="Link to this section">#</a></h1>
+<p>positive pair는 실제 pair distribution에서 온다.</p>
+<p>$$
+(w,c)\sim P_{\text{data}}(w,c)
+$$</p>
+<p>positive 하나마다 negative를 $K$개 만든다면 noise pair는 다음 방식으로 온다.</p>
+<p>$$
+w\sim P_{\text{data}}(w),
+\qquad
+c\sim P_n(c)
+$$</p>
+<p>따라서 같은 $(w,c)$가 두 세계에서 생성될 상대적 양은</p>
+<table>
+<thead>
+<tr>
+<th>세계</th>
+<th>pair $(w,c)$의 상대적 생성량</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>실제 데이터 $D=1$</td>
+<td>$P_{\text{data}}(w,c)$</td>
+</tr>
+<tr>
+<td>noise $D=0$</td>
+<td>$K P_{\text{data}}(w)P_n(c)$</td>
+</tr>
+</tbody>
+</table>
+<p>이다. Bayes 최적 분류기의 log-odds는</p>
+<p>$$
+\begin{aligned}
+\log\frac{P(D=1\mid w,c)}{P(D=0\mid w,c)}
+&amp;=
+\log\frac{P_{\text{data}}(w,c)}
+{K P_{\text{data}}(w)P_n(c)}\\
+&amp;=
+\log\frac{P_{\text{data}}(c\mid w)}
+{K P_n(c)}.
+\end{aligned}
+$$</p>
+<p>SGNS는 이 log-odds를 하나의 내적으로 표현하려 한다.</p>
+<p>$$
+\boxed{
+q_w^\top k_c
+\approx
+\log\frac{P_{\text{data}}(c\mid w)}{K P_n(c)}
+}
+$$</p>
+<p>이 식을 말로 읽는 것이 중요하다.</p>
+<blockquote>
+<p><code>cat</code> 옆에서 <code>pet</code>이 나타날 확률이 noise 세계의 기대보다 높을수록 $q_{cat}^\top k_{pet}$이 커진다. <code>road</code>가 noise에서는 종종 뽑히지만 <code>cat</code> 옆에서는 거의 관측되지 않으면 $q_{cat}^\top k_{road}$는 작아진다.</p>
+</blockquote>
+<p>엄밀히 말하면 negative sampling은 정규화된 언어모델 확률을 직접 복원하는 표준 NCE와 목적이 완전히 같지는 않다. 다만 “data와 noise를 분류해 log density ratio를 학습한다”는 <strong>noise-contrastive 관점</strong>은 위 식을 이해하는 데 정확하고 유용하다.</p>
+<p>두 가지 단서도 기억하자.</p>
+<ol>
+<li>각 $s_{wc}$를 독립 파라미터로 둘 수 있다면 위 최적식을 pair마다 맞출 수 있다.</li>
+<li>실제로는 $s_{wc}=q_w^\top k_c$라는 rank-$d$ 제약이 있으므로 모든 pair가 한정된 벡터를 공유하며 전체 log-odds 행렬을 근사한다.</li>
+</ol>
+<p>바로 이 제약 때문에 단순 암기가 아니라 <strong>구조의 압축</strong>, 즉 embedding이 생긴다.</p>
+<hr />
+<h1 id="18-exponential-gravity-law">18. 로그를 풀면 exponential gravity law가 나온다<a class="header-anchor" href="#18-exponential-gravity-law" title="Link to this section">#</a></h1>
+<p>이제 새 모델을 억지로 가져올 필요가 없다. 방금 얻은 식을 그대로 지수화하면 된다.</p>
+<p>$$
+q_w^\top k_c
+\approx
+\log\frac{P_{\text{data}}(w,c)}
+{K P_{\text{data}}(w)P_n(c)}
+$$</p>
+<p>양변에 지수함수를 취하고 정리하면</p>
+<p>$$
+\boxed{
+P_{\text{data}}(w,c)
+\approx
+K\,
+P_{\text{data}}(w)
+P_n(c)
+\exp(q_w^\top k_c)
+}
+$$</p>
+<p>이다. 전역 상수와 정규화 차이를 $C$에 흡수하면 count나 flow에도 같은 모양을 쓸 수 있다.</p>
+<p>$$
+F_{wc}
+\approx
+C\,m_w m_c\exp(q_w^\top k_c),
+\qquad
+m_w=P_{\text{data}}(w),\quad m_c=P_n(c)
+$$</p>
+<p>이 식의 세 요소는 역할이 완전히 다르다.</p>
+<table>
+<thead>
+<tr>
+<th>항</th>
+<th>역할</th>
+<th>코퍼스 마을에서의 뜻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$m_w$</td>
+<td>center의 mass/activity</td>
+<td><code>cat</code>이 center로 얼마나 자주 등장하는가</td>
+</tr>
+<tr>
+<td>$m_c$</td>
+<td>noise가 정한 context mass</td>
+<td><code>pet</code>이 비교 대상에 얼마나 자주 나타나는가</td>
+</tr>
+<tr>
+<td>$\exp(q_w^\top k_c)$</td>
+<td>pair-specific attraction</td>
+<td>각각의 흔함을 제하고도 <code>cat–pet</code>이 얼마나 더 잘 만나는가</td>
+</tr>
+</tbody>
+</table>
+<p>즉 임베딩은 raw co-occurrence를 통째로 외우는 것이 아니라, 두 endpoint의 기본 활동량으로 설명되지 않는 <strong>잔여 끌림</strong>을 저차원으로 압축한다.</p>
+<h2 id="unigram-noise-gravity">Unigram noise는 가장 익숙한 gravity 식을 만든다<a class="header-anchor" href="#unigram-noise-gravity" title="Link to this section">#</a></h2>
+<p>만약 $P_n(c)=P_{\text{data}}(c)$이면</p>
+<p>$$
+P_{\text{data}}(w,c)
+\propto
+P(w)P(c)\exp(q_w^\top k_c)
+$$</p>
+<p>가 된다. 이때 내적은</p>
+<p>$$
+q_w^\top k_c
+\approx
+PMI(w,c)-\log K
+$$</p>
+<p>이고, 양쪽 단어의 unigram probability가 정확히 두 mass 역할을 한다.</p>
+<h2 id="34-noise-destination-mass">$3/4$ noise에서는 destination mass가 달라진다<a class="header-anchor" href="#34-noise-destination-mass" title="Link to this section">#</a></h2>
+<p>실전형 noise가 $P_n(c)=P(c)^{3/4}/Z_{3/4}$라면</p>
+<p>$$
+P_{\text{data}}(w,c)
+\propto
+P(w)P(c)^{3/4}\exp(q_w^\top k_c)
+$$</p>
+<p>가 된다. 같은 내용을 점수로 쓰면</p>
+<p>$$
+q_w^\top k_c
+\approx
+PMI(w,c)-\log K
++\frac14\log P(c)+\log Z_{3/4}.
+$$</p>
+<p>따라서 “SGNS는 언제나 정확히 $PMI-\log K$를 학습한다”는 말은 생략이 있다. <strong>unigram noise일 때</strong> 정확한 특수형이고, $3/4$ noise에서는 context-frequency 보정항이 남는다.</p>
+<h3 id="log-odds-flow">잠깐 연습: log-odds를 flow로 되돌리기<a class="header-anchor" href="#log-odds-flow" title="Link to this section">#</a></h3>
+<p>$P(w)=0.1$, $P_n(c)=0.02$, $K=5$, $q_w^\top k_c=\log3$이라 하자. pairwise optimum의 gravity 식이 예측하는 $P(w,c)$는 얼마인가? 여기서 $3$은 무엇을 뜻하는가?</p>
+<details>
+<summary>간단한 풀이</summary>
+
+$$
+P(w,c)
+\approx
+5\times0.1\times0.02\times e^{\log3}
+=0.03.
+$$
+
+$e^{q_w^\top k_c}=3$은 endpoint baseline $K P(w)P_n(c)$에 곱해지는 latent attraction이다. 즉 이 pair는 해당 baseline의 3배에 해당하는 결합을 가진다.
+
+</details>
+
+<hr />
+<h1 id="19-gravity">19. 왜 이것을 ‘gravity’라고 부를 수 있을까?<a class="header-anchor" href="#19-gravity" title="Link to this section">#</a></h1>
+<p>고전적인 공간 상호작용의 gravity model은</p>
+<p>$$
+F_{ij}
+=
+G\frac{m_i m_j}{r_{ij}^{\gamma}}
+$$</p>
+<p>처럼 쓴다. 도시가 클수록 이동량은 늘고, 거리가 멀수록 줄어든다. 로그를 취하면</p>
+<p>$$
+\log F_{ij}
+=
+\log G+\log m_i+\log m_j-\gamma\log r_{ij}
+$$</p>
+<p>이다. Word2Vec에서 얻은 식도 같은 덧셈 구조다.</p>
+<p>$$
+\log F_{wc}
+\approx
+\log C+\log m_w+\log m_c+q_w^\top k_c
+$$</p>
+<table>
+<thead>
+<tr>
+<th>gravity model</th>
+<th>SGNS embedding</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>origin $i$</td>
+<td>center word $w$</td>
+</tr>
+<tr>
+<td>destination $j$</td>
+<td>context word $c$</td>
+</tr>
+<tr>
+<td>flow $F_{ij}$</td>
+<td>co-occurrence count/probability $F_{wc}$</td>
+</tr>
+<tr>
+<td>origin mass $m_i$</td>
+<td>center frequency/activity $P(w)$</td>
+</tr>
+<tr>
+<td>destination mass $m_j$</td>
+<td>noise baseline $P_n(c)$</td>
+</tr>
+<tr>
+<td>distance-decay/affinity kernel</td>
+<td>$\exp(q_w^\top k_c)$</td>
+</tr>
+</tbody>
+</table>
+<p>특히 일반적인 <strong>exponential gravity model</strong></p>
+<p>$$
+F_{ij}\propto m_i m_j e^{-\beta d_{ij}}
+$$</p>
+<p>과 비교하면, SGNS는 $-\beta d_{ij}$ 자리에 학습된 affinity $q_i^\top k_j$를 넣은 꼴이다.</p>
+<p>$$
+-\beta d_{ij}
+\quad\longleftrightarrow\quad
+q_i^\top k_j
+$$</p>
+<p>다만 여기서 dot product 자체를 물리적 거리라고 부르면 안 된다. Word2Vec은 거리를 입력받지 않는다. 어떤 latent attraction이 flow를 가장 잘 설명하는지 데이터에서 학습한다. 그래서 더 정확한 표현은 다음과 같다.</p>
+<blockquote>
+<p>전통 gravity model은 관측된 거리가 상호작용을 설명한다고 가정한다. SGNS는 상호작용을 설명하는 latent affinity를 query–key geometry에서 발견한다.</p>
+</blockquote>
+<hr />
+<h1 id="20">20. 코퍼스 마을의 결말: 빈도에서 의미로<a class="header-anchor" href="#20" title="Link to this section">#</a></h1>
+<p>이제 <code>cat</code>을 둘러싼 세 context를 다시 보자.</p>
+<table>
+<thead>
+<tr>
+<th>pair</th>
+<th>raw 관측</th>
+<th>noise에서도 흔한가?</th>
+<th>모델이 배울 핵심</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>(cat, the)</code></td>
+<td>많음</td>
+<td>매우 흔함</td>
+<td>raw count만큼 특별하지 않음</td>
+</tr>
+<tr>
+<td><code>(cat, pet)</code></td>
+<td>반복 관측</td>
+<td><code>the</code>보다는 드묾</td>
+<td>baseline보다 강한 attraction</td>
+</tr>
+<tr>
+<td><code>(cat, road)</code></td>
+<td>거의 없음</td>
+<td>일정 확률로 negative에 등장</td>
+<td>낮은 attraction</td>
+</tr>
+</tbody>
+</table>
+<p>두 context의 score 차이를 지수화하면 $K$가 사라져 더욱 직관적이다.</p>
+<p>$$
+\exp\left(
+q_{cat}^\top k_{pet}
+-q_{cat}^\top k_{road}
+\right)
+\approx
+\frac{P(pet\mid cat)/P_n(pet)}
+{P(road\mid cat)/P_n(road)}.
+$$</p>
+<p>왼쪽은 임베딩 공간에서 본 상대적 끌림이고, 오른쪽은 corpus에서 본 상대적 surprise다. 학습은 이 두 세계가 맞아떨어지도록 $Q$와 $K$를 움직인다.</p>
+<p>그리고 <code>dog</code>도 거의 같은 context에 대해 거의 같은 상대적 surprise profile을 가진다.</p>
+<p>$$
+q_{cat}^\top K^\top
+\approx
+q_{dog}^\top K^\top
+$$</p>
+<p>그러므로 저차원 압축 속에서 $q_{cat}$과 $q_{dog}$는 비슷한 방향을 찾는다. 반면 <code>car</code>와 <code>truck</code>은 <code>road/traffic/load</code> 쪽에서 서로 닮은 profile을 만든다. 마침내 사람이 보았던 두 동네가 벡터 공간에도 나타난다.</p>
+<div class="highlight"><pre><span></span><code>같이 등장한 횟수
+    ↓ endpoint frequency로 설명되는 부분을 noise baseline으로 제거
+data / noise 비율
+    ↓ log
+query · key
+    ↓ 저차원 공동 근사
+의미 구조
+    ↓ exp
+mass × mass × latent attraction
+</code></pre></div>
+
+<p>이것이 이 노트의 한 줄짜리 스토리다.</p>
+<hr />
+<h1 id="21-dot-product-distance">21. Dot product가 distance는 아니다<a class="header-anchor" href="#21-dot-product-distance" title="Link to this section">#</a></h1>
+<p>여기서 중요한 주의점.</p>
+<p>Word2Vec의 score는</p>
+<p>$$
+q_i^\top k_j
+$$</p>
+<p>이지</p>
+<p>$$
+-\|q_i-k_j\|
+$$</p>
+<p>가 아니다.</p>
+<p>하지만</p>
+<p>$$
+\|q-k\|^2
+=
+\|q\|^2+\|k\|^2-2q^\top k
+$$</p>
+<p>이므로 norm이 어느 정도 비슷하다면 dot product가 클수록 Euclidean distance도 작아진다.</p>
+<p>또 cosine similarity는</p>
+<p>$$
+\cos(q,k)
+=
+\frac{q^\top k}
+{\|q\|\|k\|}
+$$</p>
+<p>이다.</p>
+<p>따라서 학습은 dot product를 직접 조절하지만, 결과적으로 cosine geometry도 의미를 갖게 된다.</p>
+<hr />
+<h1 id="22-inference-input-embedding">22. 왜 inference 때는 보통 input embedding만 쓰는가?<a class="header-anchor" href="#22-inference-input-embedding" title="Link to this section">#</a></h1>
+<p>학습 시에는</p>
+<div class="highlight"><pre><span></span><code>Q = input embeddings
+K = output embeddings
+</code></pre></div>
+
+<p>두 matrix가 있다.</p>
+<p>하지만 downstream similarity에서는 보통</p>
+<div class="highlight"><pre><span></span><code><span class="n">Q</span><span class="p">[</span><span class="n">word</span><span class="p">]</span>
+</code></pre></div>
+
+<p>를 사용한다.</p>
+<p>혹은</p>
+<div class="highlight"><pre><span></span><code><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">+</span> <span class="n">K</span><span class="p">[</span><span class="n">word</span><span class="p">])</span> <span class="o">/</span> <span class="mi">2</span>
+</code></pre></div>
+
+<p>처럼 합치기도 한다.</p>
+<p>왜냐하면 <code>Q</code>는 word가 center로 등장했을 때의 representation이고, 보통 우리가 원하는 semantic embedding과 잘 맞기 때문이다.</p>
+<p>하지만 이론적으로 <code>Q</code>와 <code>K</code>는 역할이 다르다.</p>
+<hr />
+<h1 id="23-query-vector-key-vector">23. Query vector와 Key vector의 비대칭성<a class="header-anchor" href="#23-query-vector-key-vector" title="Link to this section">#</a></h1>
+<p>Word2Vec에서 $q_w$와 $k_w$는 같은 parameter가 아니다.</p>
+<p>예를 들어 단어 <code>bank</code>가 center로 쓰일 때와 context로 쓰일 때 받는 gradient가 다를 수 있다.</p>
+<p>따라서 일반적으로</p>
+<p>$$
+q_w \neq k_w
+$$</p>
+<p>이다.</p>
+<p>이 점은 directed graph embedding과도 연결된다.</p>
+<p>예를 들어</p>
+<p>$$
+i\rightarrow j
+$$</p>
+<p>같은 directed relation에서는 source embedding과 target embedding을 따로 두는 것이 자연스럽다.</p>
+<p>Word2Vec 역시 본질적으로</p>
+<div class="highlight"><pre><span></span><code>center → context
+</code></pre></div>
+
+<p>라는 directed prediction 문제다.</p>
+<hr />
+<h1 id="24-transformer-attention">24. Transformer attention과 비교<a class="header-anchor" href="#24-transformer-attention" title="Link to this section">#</a></h1>
+<p>Word2Vec:</p>
+<p>$$
+q_w^\top k_c
+$$</p>
+<p>Transformer:</p>
+<p>$$
+q_i^\top k_j
+$$</p>
+<p>둘 다 compatibility score다.</p>
+<p>하지만 차이가 있다.</p>
+<h2 id="word2vec">Word2Vec<a class="header-anchor" href="#word2vec" title="Link to this section">#</a></h2>
+<div class="highlight"><pre><span></span><code>word id
+↓
+embedding lookup
+↓
+q_w / k_c
+↓
+dot product
+</code></pre></div>
+
+<p>vector가 static하다.</p>
+<h2 id="transformer">Transformer<a class="header-anchor" href="#transformer" title="Link to this section">#</a></h2>
+<div class="highlight"><pre><span></span><code>token representation h_i
+↓
+W_Q h_i
+↓
+q_i
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>token representation h_j
+↓
+W_K h_j
+↓
+k_j
+</code></pre></div>
+
+<p>vector가 context-dependent하다.</p>
+<p>즉 Transformer는 Word2Vec의 query-key matching 아이디어를 훨씬 dynamic하게 확장한 것으로 볼 수도 있다.</p>
+<hr />
+<h1 id="25-numpy">25. 아주 작은 NumPy 구현<a class="header-anchor" href="#25-numpy" title="Link to this section">#</a></h1>
+<p>아래는 핵심만 남긴 SGNS 한 step이다.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sgns_step</span><span class="p">(</span>
+    <span class="n">Q</span><span class="p">,</span>
+    <span class="n">K</span><span class="p">,</span>
+    <span class="n">center_id</span><span class="p">,</span>
+    <span class="n">positive_id</span><span class="p">,</span>
+    <span class="n">negative_ids</span><span class="p">,</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span>
+<span class="p">):</span>
+    <span class="c1"># lookup</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">center_id</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">k_pos</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">positive_id</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">k_negs</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">negative_ids</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># forward</span>
+    <span class="c1"># -------------------------</span>
+
+    <span class="n">s_pos</span> <span class="o">=</span> <span class="n">q</span> <span class="o">@</span> <span class="n">k_pos</span>
+
+    <span class="n">s_neg</span> <span class="o">=</span> <span class="n">k_negs</span> <span class="o">@</span> <span class="n">q</span>
+
+    <span class="n">loss_pos</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">s_pos</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+
+    <span class="n">loss_neg</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="o">-</span><span class="n">s_neg</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_pos</span> <span class="o">+</span> <span class="n">loss_neg</span>
+
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># backward</span>
+    <span class="c1"># -------------------------</span>
+
+    <span class="c1"># positive</span>
+    <span class="n">g_pos</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">s_pos</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+
+    <span class="n">grad_q</span> <span class="o">=</span> <span class="n">g_pos</span> <span class="o">*</span> <span class="n">k_pos</span>
+    <span class="n">grad_k_pos</span> <span class="o">=</span> <span class="n">g_pos</span> <span class="o">*</span> <span class="n">q</span>
+
+    <span class="c1"># negatives</span>
+    <span class="n">g_neg</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">s_neg</span><span class="p">)</span>
+
+    <span class="n">grad_q</span> <span class="o">+=</span> <span class="p">(</span><span class="n">g_neg</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">k_negs</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">grad_k_negs</span> <span class="o">=</span> <span class="n">g_neg</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">q</span>
+
+    <span class="c1"># -------------------------</span>
+    <span class="c1"># update</span>
+    <span class="c1"># -------------------------</span>
+
+    <span class="n">Q</span><span class="p">[</span><span class="n">center_id</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_q</span>
+
+    <span class="n">K</span><span class="p">[</span><span class="n">positive_id</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_k_pos</span>
+
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">grad</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">negative_ids</span><span class="p">,</span> <span class="n">grad_k_negs</span><span class="p">):</span>
+        <span class="n">K</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad</span>
+
+    <span class="k">return</span> <span class="n">loss</span>
+</code></pre></div>
+
+<p>이 코드가 SGNS의 거의 전부다.</p>
+<hr />
+<h1 id="26-pytorch">26. PyTorch 구현<a class="header-anchor" href="#26-pytorch" title="Link to this section">#</a></h1>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SGNS</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
+            <span class="n">vocab_size</span><span class="p">,</span>
+            <span class="n">dim</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
+            <span class="n">vocab_size</span><span class="p">,</span>
+            <span class="n">dim</span>
+        <span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">center</span><span class="p">,</span>
+        <span class="n">positive</span><span class="p">,</span>
+        <span class="n">negatives</span>
+    <span class="p">):</span>
+
+        <span class="c1"># center:</span>
+        <span class="c1"># [batch]</span>
+
+        <span class="c1"># positive:</span>
+        <span class="c1"># [batch]</span>
+
+        <span class="c1"># negatives:</span>
+        <span class="c1"># [batch, K]</span>
+
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_embedding</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+
+        <span class="n">k_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_embedding</span><span class="p">(</span><span class="n">positive</span><span class="p">)</span>
+
+        <span class="n">k_neg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_embedding</span><span class="p">(</span><span class="n">negatives</span><span class="p">)</span>
+
+
+        <span class="c1"># positive score</span>
+        <span class="n">pos_score</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">q</span> <span class="o">*</span> <span class="n">k_pos</span><span class="p">,</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="c1"># negative scores</span>
+        <span class="n">neg_score</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span>
+            <span class="n">k_neg</span><span class="p">,</span>
+            <span class="n">q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+
+        <span class="n">pos_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">logsigmoid</span><span class="p">(</span>
+            <span class="n">pos_score</span>
+        <span class="p">)</span>
+
+        <span class="n">neg_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">logsigmoid</span><span class="p">(</span><span class="o">-</span><span class="n">neg_score</span><span class="p">),</span>
+            <span class="n">dim</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="n">loss</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pos_loss</span> <span class="o">+</span> <span class="n">neg_loss</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">loss</span>
+</code></pre></div>
+
+<p>훈련:</p>
+<div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">SGNS</span><span class="p">(</span>
+    <span class="n">vocab_size</span><span class="o">=</span><span class="mi">50000</span><span class="p">,</span>
+    <span class="n">dim</span><span class="o">=</span><span class="mi">300</span>
+<span class="p">)</span>
+
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span>
+    <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span>
+<span class="p">)</span>
+
+
+<span class="k">for</span> <span class="n">center</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">negatives</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span>
+        <span class="n">center</span><span class="p">,</span>
+        <span class="n">positive</span><span class="p">,</span>
+        <span class="n">negatives</span>
+    <span class="p">)</span>
+
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div>
+
+<hr />
+<h1 id="27-pipeline">27. 전체 데이터 pipeline<a class="header-anchor" href="#27-pipeline" title="Link to this section">#</a></h1>
+<p>Word2Vec 구현을 실제 pipeline으로 쓰면:</p>
+<div class="highlight"><pre><span></span><code>raw corpus
+    ↓
+tokenization
+    ↓
+vocabulary construction
+    ↓
+frequency counting
+    ↓
+sliding context window
+    ↓
+positive (center, context) pairs
+    ↓
+negative sampling
+    ↓
+embedding lookup
+    ↓
+dot product
+    ↓
+sigmoid binary classification
+    ↓
+backprop
+    ↓
+Q, K update
+</code></pre></div>
+
+<hr />
+<h1 id="28-context-window">28. Context window는 실제로 어떤 역할을 하는가?<a class="header-anchor" href="#28-context-window" title="Link to this section">#</a></h1>
+<p>window size는 &ldquo;relation&rdquo;의 정의를 결정한다.</p>
+<p>window=1이면 매우 local syntactic relation을 많이 배운다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>eat food
+eat lunch
+eat dinner
+</code></pre></div>
+
+<p>window가 커지면 broader topical similarity가 강해진다.</p>
+<p>예:</p>
+<div class="highlight"><pre><span></span><code>economy
+inflation
+interest
+market
+federal
+</code></pre></div>
+
+<p>즉 embedding geometry는 corpus뿐 아니라 <strong>어떤 pair를 positive라고 정의하느냐</strong>에 의해 결정된다.</p>
+<p>이것은 network embedding에서도 동일하다.</p>
+<hr />
+<h1 id="29-dynamic-window">29. Dynamic window<a class="header-anchor" href="#29-dynamic-window" title="Link to this section">#</a></h1>
+<p>원래 Word2Vec 구현에서는 fixed window 안 모든 위치를 동일하게 쓰는 것이 아니라 random window를 사용하기도 한다.</p>
+<p>예를 들어 max window=5라면 매 center마다 실제 window를 1~5 사이에서 sampling한다.</p>
+<p>이렇게 하면 가까운 context가 상대적으로 더 많이 학습된다.</p>
+<p>결과적으로 가까운 단어에 더 높은 weight를 주는 효과가 생긴다.</p>
+<hr />
+<h1 id="30-frequent-word-subsampling">30. Frequent word subsampling<a class="header-anchor" href="#30-frequent-word-subsampling" title="Link to this section">#</a></h1>
+<p>Word2Vec에는 또 중요한 trick이 있다.</p>
+<p><code>the</code>, <code>of</code>, <code>and</code> 같은 초고빈도 단어를 일정 확률로 버린다.</p>
+<p>대략</p>
+<p>$$
+P(\text{discard } w)
+$$</p>
+<p>가 frequency에 따라 증가한다.</p>
+<p>이유는 두 가지다.</p>
+<ol>
+<li>계산량 감소</li>
+<li>거의 모든 단어와 같이 등장하는 stopword가 embedding geometry를 지배하는 것을 방지</li>
+</ol>
+<p>즉 Word2Vec은 raw co-occurrence를 그대로 학습하는 것이 아니라 상당한 reweighting을 한다.</p>
+<hr />
+<h1 id="31-negative-sampling-matrix-factorization">31. Negative Sampling과 matrix factorization을 더 정확히 보기<a class="header-anchor" href="#31-negative-sampling-matrix-factorization" title="Link to this section">#</a></h1>
+<p>positive pair count를</p>
+<p>$$
+x_{wc}
+$$</p>
+<p>라고 하자.</p>
+<p>word $w$가 center로 등장한 총 횟수:</p>
+<p>$$
+x_w=\sum_c x_{wc}
+$$</p>
+<p>negative sample count가 $K$이고 noise distribution이 $P_n(c)$이면 pair $(w,c)$가 negative로 등장하는 기대 횟수는</p>
+<p>$$
+K x_w P_n(c)
+$$</p>
+<p>이다.</p>
+<p>SGNS objective에서 특정 pair $(w,c)$에 해당하는 부분은</p>
+<p>$$
+x_{wc}\log\sigma(s_{wc})
++
+Kx_wP_n(c)\log\sigma(-s_{wc})
+$$</p>
+<p>이다.</p>
+<p>여기서</p>
+<p>$$
+s_{wc}=q_w^\top k_c
+$$</p>
+<p>이다.</p>
+<p>이를 $s_{wc}$에 대해 최적화한다.</p>
+<p>미분하면</p>
+<p>$$
+x_{wc}\sigma(-s)
+-
+Kx_wP_n(c)\sigma(s)
+=
+0
+$$</p>
+<p>정리하면</p>
+<p>$$
+e^s
+=
+\frac{x_{wc}}
+{Kx_wP_n(c)}
+$$</p>
+<p>따라서</p>
+<p>$$
+s
+=
+\log x_{wc}
+-
+\log x_w
+-
+\log P_n(c)
+-
+\log K
+$$</p>
+<p>즉 각 pair의 score를 자유롭게 둘 수 있을 때의 최적값은</p>
+<p>$$
+\boxed{
+s_{wc}^*
+=
+\log
+\frac{P_{\text{data}}(c\mid w)}
+{K P_n(c)}
+}
+$$</p>
+<p>이다. 실제 저차원 모델에서는 $q_w^\top k_c\approx s_{wc}^*$가 되도록 전체 score 행렬을 공동 근사한다. $x_{wc}=0$인 pair의 비정규화 독립 최적값은 $-\infty$이며, 공유 벡터와 유한 학습이 이를 제한한다.</p>
+<p>이 식은 SGNS를 이해하는 가장 강력한 식 중 하나다.</p>
+<hr />
+<h1 id="32-noise-unigram-pmi">32. Noise가 unigram이면 PMI가 나온다<a class="header-anchor" href="#32-noise-unigram-pmi" title="Link to this section">#</a></h1>
+<p>만약</p>
+<p>$$
+P_n(c)=P(c)
+$$</p>
+<p>이면</p>
+<p>$$
+q_w^\top k_c
+=
+\log
+\frac{P(c\mid w)}
+{P(c)}
+-
+\log K
+$$</p>
+<p>그런데</p>
+<p>$$
+\frac{P(c\mid w)}{P(c)}
+=
+\frac{P(w,c)}
+{P(w)P(c)}
+$$</p>
+<p>이므로</p>
+<p>$$
+q_w^\top k_c
+=
+PMI(w,c)-\log K
+$$</p>
+<p>이다.</p>
+<p>즉 shifted PMI 결과가 바로 나온다.</p>
+<hr />
+<h1 id="33-negative-sample-k">33. Negative sample 수 K의 의미<a class="header-anchor" href="#33-negative-sample-k" title="Link to this section">#</a></h1>
+<p>unigram noise인 shifted-PMI 경우에는</p>
+<p>$$
+q_w^\top k_c
+\approx PMI(w,c)-\log K
+$$</p>
+<p>이므로 $K$가 커지면 전체 score baseline이 내려간다.</p>
+<p>예:</p>
+<p>$$
+K=5
+\Rightarrow \log K\approx1.61
+$$</p>
+<p>$$
+K=20
+\Rightarrow \log K\approx3.0
+$$</p>
+<p>즉 negative sample이 많아질수록 positive pair가 높은 probability를 얻기 위해 더 강한 evidence가 필요하다.</p>
+<hr />
+<h1 id="34-word2vec-norm">34. Word2Vec에서 norm은 무엇을 의미할까?<a class="header-anchor" href="#34-word2vec-norm" title="Link to this section">#</a></h1>
+<p>cosine similarity를 많이 쓰기 때문에 방향만 중요해 보이지만 학습 objective는 실제로 norm도 사용한다.</p>
+<p>$$
+q^\top k
+=
+\|q\|\|k\|\cos\theta
+$$</p>
+<p>따라서 score는</p>
+<ul>
+<li>방향</li>
+<li>query norm</li>
+<li>key norm</li>
+</ul>
+<p>모두의 영향을 받는다.</p>
+<p>빈도가 높은 단어나 많은 관계를 가져야 하는 단어는 특정 상황에서 norm에 frequency-related signal을 담을 수 있다.</p>
+<p>그래서 semantic similarity에서는 보통 cosine을 사용해 magnitude 영향을 제거한다.</p>
+<hr />
+<h1 id="35-relation-profile">35. Relation profile 관점<a class="header-anchor" href="#35-relation-profile" title="Link to this section">#</a></h1>
+<p>각 query $q_w$를 직접 이해하기보다</p>
+<p>$$
+q_w^\top K^\top
+$$</p>
+<p>를 생각해보자.</p>
+<p>이는 모든 context에 대한 score vector다.</p>
+<p>즉</p>
+<p>$$
+r_w=
+[
+q_w^\top k_1,
+q_w^\top k_2,
+\dots,
+q_w^\top k_V
+]
+$$</p>
+<p>이다.</p>
+<p>두 단어가 semantic하게 비슷하다는 것은 사실상</p>
+<p>$$
+r_{w_1}\approx r_{w_2}
+$$</p>
+<p>라는 뜻이다.</p>
+<p>그런데 $r_w$는 $V$-dimensional이라 너무 크다.</p>
+<p>Word2Vec은 이를 $d$-dimensional vector $q_w$로 압축한다.</p>
+<p>따라서 embedding vector는</p>
+<blockquote>
+<p><strong>전체 vocabulary에 대한 relation profile의 저차원 압축 표현</strong></p>
+</blockquote>
+<p>이라고 볼 수 있다.</p>
+<hr />
+<h1 id="36-network-embedding">36. Network embedding과의 연결<a class="header-anchor" href="#36-network-embedding" title="Link to this section">#</a></h1>
+<p>graph에서 edge</p>
+<p>$$
+i\rightarrow j
+$$</p>
+<p>가 있다고 하자.</p>
+<p>이를 Word2Vec pair처럼</p>
+<div class="highlight"><pre><span></span><code>(center=i, context=j)
+</code></pre></div>
+
+<p>라고 볼 수 있다.</p>
+<p>random walk로 node sequence를 만들고 Skip-gram을 적용하는 것이 DeepWalk / node2vec의 핵심이다.</p>
+<p>즉</p>
+<div class="highlight"><pre><span></span><code>Word2Vec
+word sequence
+↓
+word-context co-occurrence
+</code></pre></div>
+
+<p>와</p>
+<div class="highlight"><pre><span></span><code>node2vec
+random walk
+↓
+node-context co-occurrence
+</code></pre></div>
+
+<p>는 거의 동일한 학습 구조를 가진다.</p>
+<p>따라서 node embedding에서도</p>
+<p>$$
+q_i^\top k_j
+$$</p>
+<p>는 graph proximity의 log-odds를 표현한다.</p>
+<hr />
+<h1 id="37-gravity-model-network-embedding">37. Gravity model과 network embedding을 함께 보기<a class="header-anchor" href="#37-gravity-model-network-embedding" title="Link to this section">#</a></h1>
+<p>graph flow를</p>
+<p>$$
+F_{ij}
+$$</p>
+<p>라고 하자.</p>
+<p>baseline expected interaction:</p>
+<p>$$
+m_i m_j
+$$</p>
+<p>여기서 $m_i,m_j$는 물리적으로 주어진 질량일 수도 있고, SGNS 해석에서는 pair 생성 과정과 noise distribution이 정한 endpoint baseline일 수도 있다.</p>
+<p>latent affinity:</p>
+<p>$$
+\exp(q_i^\top k_j)
+$$</p>
+<p>그러면</p>
+<p>$$
+F_{ij}
+\approx
+C
+m_i
+m_j
+\exp(q_i^\top k_j)
+$$</p>
+<p>이다.</p>
+<p>log scale에서는</p>
+<p>$$
+\log F_{ij}
+=
+\log C
++
+\log m_i
++
+\log m_j
++
+q_i^\top k_j
+$$</p>
+<p>이다.</p>
+<p>즉 embedding dot product는 gravity equation에서 <strong>distance kernel 또는 affinity term</strong> 역할을 한다.</p>
+<p>전통 gravity model에서는 interaction을 observed geographic distance로 설명한다.</p>
+<p>$$
+-\gamma\log r_{ij}
+$$</p>
+<p>embedding gravity model에서는 이를 latent geometry로 설명한다.</p>
+<p>$$
+q_i^\top k_j
+$$</p>
+<p>즉:</p>
+<blockquote>
+<p>전통 gravity model은 interaction space를 미리 알고 있다.<br />
+embedding model은 interaction space 자체를 데이터에서 학습한다.</p>
+</blockquote>
+<hr />
+<h1 id="38-euclidean-latent-space-gravity">38. Euclidean latent-space gravity로 바꾸기<a class="header-anchor" href="#38-euclidean-latent-space-gravity" title="Link to this section">#</a></h1>
+<p>dot-product model 대신</p>
+<p>$$
+F_{ij}
+\propto
+m_i m_j
+e^{-\beta d_{ij}}
+$$</p>
+<p>라고 해보자.</p>
+<p>만약</p>
+<p>$$
+d_{ij}=\|z_i-z_j\|^2
+$$</p>
+<p>이면</p>
+<p>$$
+-\|z_i-z_j\|^2
+=
+-\|z_i\|^2
+-\|z_j\|^2
++
+2z_i^\top z_j
+$$</p>
+<p>이다.</p>
+<p>node-specific bias를 따로 허용하면 결국 interaction part는 dot product 형태로 바뀐다.</p>
+<p>즉 latent-distance model과 dot-product embedding은 상당히 깊게 연결되어 있다.</p>
+<hr />
+<h1 id="39-bias-gravity-model">39. Bias를 추가하면 gravity model 형태가 더 명확하다<a class="header-anchor" href="#39-bias-gravity-model" title="Link to this section">#</a></h1>
+<p>score를</p>
+<p>$$
+s_{ij}
+=
+b_i+b_j+q_i^\top k_j
+$$</p>
+<p>라고 하자.</p>
+<p>그러면 exponential interaction model은</p>
+<p>$$
+F_{ij}
+\propto
+\exp(s_{ij})
+$$</p>
+<p>즉</p>
+<p>$$
+F_{ij}
+\propto
+e^{b_i}
+e^{b_j}
+e^{q_i^\top k_j}
+$$</p>
+<p>이다.</p>
+<p>여기서</p>
+<p>$$
+m_i=e^{b_i}
+$$</p>
+<p>라고 하면</p>
+<p>$$
+F_{ij}
+\propto
+m_i m_j e^{q_i^\top k_j}
+$$</p>
+<p>가 된다.</p>
+<p>완전히 gravity-like form이다.</p>
+<hr />
+<h1 id="40-negative-sampling">40. Negative Sampling의 진짜 역할<a class="header-anchor" href="#40-negative-sampling" title="Link to this section">#</a></h1>
+<p>Negative Sampling을 단순히 &ldquo;계산량을 줄이는 trick&rdquo;으로만 보면 절반만 이해한 것이다.</p>
+<p>Negative Sampling은 다음을 결정한다.</p>
+<blockquote>
+<p>&ldquo;어떤 baseline과 비교해 observed relation이 surprising한가?&rdquo;</p>
+</blockquote>
+<p>예를 들어 <code>the</code>는 모든 단어와 많이 같이 나타난다.</p>
+<p>단순 co-occurrence count만 보면</p>
+<div class="highlight"><pre><span></span><code>cat-the
+dog-the
+car-the
+</code></pre></div>
+
+<p>가 모두 강한 relation처럼 보인다.</p>
+<p>하지만 noise distribution에서 <code>the</code> 역시 매우 자주 등장한다.</p>
+<p>따라서 <code>cat-the</code>가 positive로 등장하는 것은 별로 surprising하지 않다.</p>
+<p>반대로 <code>cat-pet</code>은 baseline보다 훨씬 자주 등장할 수 있다.</p>
+<p>따라서 dot product가 커진다.</p>
+<p>즉 SGNS가 배우는 것은 raw frequency가 아니라</p>
+<p>$$
+\text{observed interaction}
+/
+\text{expected baseline interaction}
+$$</p>
+<p>이다.</p>
+<p>이것이 PMI와 gravity model을 동시에 연결하는 핵심이다.</p>
+<hr />
+<h1 id="41-1-cosine-loss">41. 구현 시 헷갈리는 점 1: cosine을 loss로 쓰지 않는다<a class="header-anchor" href="#41-1-cosine-loss" title="Link to this section">#</a></h1>
+<p>Word2Vec SGNS의 training objective는 cosine similarity가 아니다.</p>
+<p>학습 score는</p>
+<p>$$
+q^\top k
+$$</p>
+<p>이다.</p>
+<p>cosine은 보통 학습 후 similarity evaluation에서 쓴다.</p>
+<p>즉</p>
+<div class="highlight"><pre><span></span><code>training: dot product
+evaluation: cosine similarity
+</code></pre></div>
+
+<p>가 일반적이다.</p>
+<hr />
+<h1 id="42-2-negative-sample-center">42. 구현 시 헷갈리는 점 2: negative sample은 center마다 새로 뽑는다<a class="header-anchor" href="#42-2-negative-sample-center" title="Link to this section">#</a></h1>
+<p>각 positive pair마다 negative context들을 sampling한다.</p>
+<div class="highlight"><pre><span></span><code>(center, positive)
++
+K negatives
+</code></pre></div>
+
+<p>예를 들어</p>
+<div class="highlight"><pre><span></span><code>(cat, animal)
+</code></pre></div>
+
+<p>에서 negative가</p>
+<div class="highlight"><pre><span></span><code>car
+physics
+chair
+</code></pre></div>
+
+<p>였다가 다음 batch에서는 전혀 다른 단어가 뽑힐 수 있다.</p>
+<p>이 random noise exposure가 전체 geometry를 만든다.</p>
+<hr />
+<h1 id="43-3-negative">43. 구현 시 헷갈리는 점 3: 같은 negative가 여러 번 나올 수 있다<a class="header-anchor" href="#43-3-negative" title="Link to this section">#</a></h1>
+<p>sampling with replacement라면 같은 word가 여러 번 나올 수 있다.</p>
+<p>PyTorch에서 vectorized 구현할 때 같은 token id가 여러 번 등장하면 gradient accumulation이 제대로 이루어져야 한다.</p>
+<p><code>nn.Embedding(..., sparse=True)</code> 같은 옵션을 쓰면 optimizer 선택에도 제약이 생긴다.</p>
+<hr />
+<h1 id="44-4-in-place-update">44. 구현 시 헷갈리는 점 4: in-place update 순서<a class="header-anchor" href="#44-4-in-place-update" title="Link to this section">#</a></h1>
+<p>NumPy로 직접 구현할 때는 update 전에 원래 q vector를 저장해야 한다.</p>
+<p>잘못:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Q</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_q</span>
+
+<span class="n">K</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">gradient_using_updated_Q</span>
+</code></pre></div>
+
+<p>올바른 방식은</p>
+<div class="highlight"><pre><span></span><code><span class="n">q_old</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">w</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">k_old</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div>
+
+<p>를 사용해 동일한 forward state에서 gradient를 계산하는 것이다.</p>
+<p>Autograd framework는 이를 자동으로 처리한다.</p>
+<hr />
+<h1 id="45-5-negative-sampling-table">45. 구현 시 헷갈리는 점 5: negative sampling table<a class="header-anchor" href="#45-5-negative-sampling-table" title="Link to this section">#</a></h1>
+<p>대형 corpus에서는 매번</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
+    <span class="n">vocab</span><span class="p">,</span>
+    <span class="n">p</span><span class="o">=</span><span class="n">noise_distribution</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>를 하면 느릴 수 있다.</p>
+<p>실제 구현에서는</p>
+<ul>
+<li>unigram table</li>
+<li>alias sampling</li>
+<li>torch.multinomial</li>
+<li>precomputed sampling table</li>
+</ul>
+<p>등을 사용한다.</p>
+<hr />
+<h1 id="46-6-batching">46. 구현 시 헷갈리는 점 6: batching<a class="header-anchor" href="#46-6-batching" title="Link to this section">#</a></h1>
+<p>batch size가 $B$, negative sample 수가 $K$, dimension이 $d$라면</p>
+<div class="highlight"><pre><span></span><code>q       : [B, d]
+k_pos   : [B, d]
+k_neg   : [B, K, d]
+</code></pre></div>
+
+<p>positive:</p>
+<div class="highlight"><pre><span></span><code><span class="n">pos_score</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">k_pos</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>shape:</p>
+<div class="highlight"><pre><span></span><code>[B]
+</code></pre></div>
+
+<p>negative:</p>
+<div class="highlight"><pre><span></span><code><span class="n">neg_score</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span>
+    <span class="n">k_neg</span><span class="p">,</span>
+    <span class="n">q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<p>shape:</p>
+<div class="highlight"><pre><span></span><code>[B, K]
+</code></pre></div>
+
+<p>이다.</p>
+<hr />
+<h1 id="47">47. 코퍼스 마을을 실제로 학습해 보기<a class="header-anchor" href="#47" title="Link to this section">#</a></h1>
+<p>앞에서 따라온 여덟 문장을 정말 학습시키면 어떤 일이 생길까? 이 문서와 같은 폴더의 <a href="toy_sgns_story.py"><code>toy_sgns_story.py</code></a>는 외부 패키지 없이 실행되는 재현용 SGNS 구현이다.</p>
+<p>실험 설정은 일부러 작고 눈에 보이게 만들었다.</p>
+<table>
+<thead>
+<tr>
+<th>설정</th>
+<th style="text-align: right;">값</th>
+<th>이유</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>embedding dimension</td>
+<td style="text-align: right;">2</td>
+<td>결과를 평면에 바로 그리기 위해</td>
+</tr>
+<tr>
+<td>window size</td>
+<td style="text-align: right;">2</td>
+<td><code>(cat, pet)</code>, <code>(car, road)</code>를 positive로 만들기 위해</td>
+</tr>
+<tr>
+<td>negatives per positive $K$</td>
+<td style="text-align: right;">5</td>
+<td>대조 학습을 분명하게 보기 위해</td>
+</tr>
+<tr>
+<td>noise exponent</td>
+<td style="text-align: right;">$3/4$</td>
+<td>Word2Vec의 대표 설정을 재현하기 위해</td>
+</tr>
+<tr>
+<td>epochs</td>
+<td style="text-align: right;">450</td>
+<td>작은 corpus에서 수렴을 관찰하기 위해</td>
+</tr>
+<tr>
+<td>random seed</td>
+<td style="text-align: right;">7</td>
+<td>같은 결과를 재현하기 위해</td>
+</tr>
+</tbody>
+</table>
+<p>이 미세한 corpus에서는 <code>the</code>가 거의 모든 문장을 연결해 구조를 압도한다. 스크립트는 frequent-word subsampling을 과장해 보여 주는 교육적 장치로 <code>the</code>를 결정론적으로 제거한다. 실제 Word2Vec은 보통 고빈도 단어를 확률적으로 버린다.</p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>toy_sgns_story.py
+</code></pre></div>
+
+<p>실행 결과:</p>
+<div class="highlight"><pre><span></span><code>initial_loss=4.1598
+final_loss=1.9250
+cos(cat,dog)=1.0000
+cos(car,truck)=1.0000
+cos(cat,car)=0.0891
+score(cat,pet)=-0.6651
+score(cat,road)=-12.9805
+score(car,road)=-0.0905
+score(car,pet)=-15.7344
+wrote=sgns_toy_diagnostics.svg
+</code></pre></div>
+
+<p><img alt="코퍼스 마을 SGNS 학습의 손실, query-key 점수 행렬, 2차원 query 방향" src="sgns_toy_diagnostics.svg" /></p>
+<p>그림은 세 가지를 한 번에 보여 준다.</p>
+<ol>
+<li><strong>A — 손실:</strong> data와 noise를 구분하는 능력이 생기며 평균 SGNS loss가 감소한다.</li>
+<li><strong>B — 점수 행렬:</strong> 같은 동네의 <code>cat/dog → pet/home</code>, <code>car/truck → road/load</code>가 대체로 더 큰 점수를 얻고, 대표적인 교차 pair인 <code>cat → road</code>, <code>car → pet</code>은 매우 낮다.</li>
+<li><strong>C — query 방향:</strong> 같은 문맥 문제를 푼 <code>cat–dog</code>, <code>car–truck</code>은 각각 거의 같은 방향을 택하고, 두 동네 사이는 갈라진다.</li>
+</ol>
+<p>여기서 관련 pair인 <code>(cat, pet)</code>의 점수도 음수라는 점이 좋은 복습 문제다. $K=5$이면 모델은 positive 한 번과 noise 다섯 번을 비교하므로 점수에는 $-\log K$가 들어간다. 따라서 <strong>positive pair라고 score가 반드시 0보다 커야 하는 것은 아니다.</strong> <code>-0.6651</code>이 <code>-12.9805</code>보다 압도적으로 크다는 상대적 순서가 핵심이다.</p>
+<p>또한 <code>(cat, road)</code>처럼 한 번도 관측되지 않은 pair의 독립 최적 score는 정규화나 regularization이 없다면 $-\infty$로 향한다. 이 toy run의 매우 작은 음수는 그 방향으로 학습된 결과다. 실제 큰 corpus에서는 유한 차원, 제한된 학습, 공유 파라미터, subsampling 등이 극단을 완화한다.</p>
+<blockquote>
+<p>이 실험은 품질 benchmark가 아니라 메커니즘 현미경이다. corpus가 지나치게 대칭적이어서 <code>cat–dog</code>, <code>car–truck</code> cosine이 거의 1이 되는 것이 정상이며, 현실의 corpus에서는 각 단어가 공유하지 않는 수많은 문맥 때문에 이렇게 완벽하게 겹치지 않는다.</p>
+</blockquote>
+<hr />
+<h1 id="48">48. 한 좌표가 아니라 ‘방향’과 ‘이동량’에 의미가 있다<a class="header-anchor" href="#48" title="Link to this section">#</a></h1>
+<p>임베딩 그림을 처음 보면 다음처럼 해석하고 싶어진다.</p>
+<div class="highlight"><pre><span></span><code>dimension 17 = animalness
+dimension 42 = politics
+</code></pre></div>
+
+<p>일반적으로는 이렇게 읽으면 안 된다. 좌표계는 회전할 수 있기 때문이다. 직교행렬 $R$에 대해</p>
+<p>$$
+Q'=QR,\qquad K'=KR
+$$</p>
+<p>로 동시에 회전하면</p>
+<p>$$
+Q'K'^\top
+=
+QRR^\top K^\top
+=
+QK^\top
+$$</p>
+<p>이므로 모든 query–key score가 그대로다. 더 강하게는 임의의 가역행렬 $A$에 대해</p>
+<p>$$
+Q'=QA,\qquad K'=KA^{-\top}
+$$</p>
+<p>도 $Q'K'^\top=QK^\top$을 만족한다. 즉 SGNS objective가 직접 식별하는 것은 개별 좌표가 아니라 <strong>query와 key가 함께 만드는 관계 점수</strong>다.</p>
+<p>그렇다고 기하학적 해석이 무의미한 것은 아니다. 하나의 학습된 공간과 하나의 representation 선택을 고정하면, 다음 세 가지는 매우 유용한 경험적 구조가 된다.</p>
+<ul>
+<li>두 벡터가 이루는 각도: 비슷한 relation profile인가?</li>
+<li>두 점의 차이벡터: 한 개념에서 다른 개념으로 무엇이 바뀌는가?</li>
+<li>여러 대비쌍이 공유하는 방향: 반복되는 의미 관계가 있는가?</li>
+</ul>
+<p>여기서 <strong>semantic direction</strong> 또는 <strong>meaning axis</strong>가 등장한다. 축은 원래 있던 <code>dimension 17</code>을 찾아내는 것이 아니다. 여러 단어의 대비를 이용해 현재 공간 안에 새로 정의한 방향이다. 좌표계를 직교 회전하면 단어와 축이 함께 회전하므로 투영값과 관계는 그대로 남는다.</p>
+<p>실전에서는 먼저 어떤 word representation을 쓸지 고정해야 한다.</p>
+<p>$$
+v_w=Q[w]
+$$</p>
+<p>를 쓰거나</p>
+<p>$$
+v_w=\frac{Q[w]+K[w]}{2}
+$$</p>
+<p>처럼 두 역할을 결합할 수 있다. 어느 쪽이 항상 정답은 아니지만, <strong>한 분석 안에서는 같은 선택을 일관되게 사용해야 한다.</strong> $Q$에서 만든 축에 $K$의 단어를 투영하는 식으로 서로 다른 공간을 무심코 섞으면 해석이 깨진다.</p>
+<hr />
+<h1 id="49-analogy-meaning-axis">49. 관계가 방향이 될 때: analogy, 벡터 산술, meaning axis<a class="header-anchor" href="#49-analogy-meaning-axis" title="Link to this section">#</a></h1>
+<h2 id="491">49.1 벡터 뺄셈은 무엇을 남기는가?<a class="header-anchor" href="#491" title="Link to this section">#</a></h2>
+<p>두 단어의 차이벡터</p>
+<p>$$
+d_{a\rightarrow b}=v_b-v_a
+$$</p>
+<p>는 $a$에서 $b$로 이동할 때 relation profile이 어떻게 바뀌는지를 담는다. SGNS의 log-odds 해석을 쓰면 이 직관이 더 명확하다. 어떤 context key $k_c$에 투영했을 때</p>
+<p>$$
+\begin{aligned}
+(q_b-q_a)^\top k_c
+&amp;=q_b^\top k_c-q_a^\top k_c\\
+&amp;\approx
+\log\frac{P(c\mid b)}{K P_n(c)}
+-
+\log\frac{P(c\mid a)}{K P_n(c)}\\
+&amp;=
+\log\frac{P(c\mid b)}{P(c\mid a)}.
+\end{aligned}
+$$</p>
+<p>$K$와 $P_n(c)$가 사라졌다. 즉 $q_b-q_a$는 여러 context에 대해 <strong>$a$에서 $b$로 갈 때 log association이 얼마나 변하는가</strong>를 압축한 이동량이다.</p>
+<p>만약 두 단어쌍이 vocabulary 전반에서 비슷한 association 변화를 보인다면</p>
+<p>$$
+v_b-v_a
+\approx
+v_d-v_c
+$$</p>
+<p>라는 평행한 이동이 나타날 수 있다. 이것이 analogy가 가능한 가장 중요한 원리다.</p>
+<h2 id="492-king-man-woman-queen">49.2 <code>king - man + woman ≈ queen</code>의 평행사변형<a class="header-anchor" href="#492-king-man-woman-queen" title="Link to this section">#</a></h2>
+<p>유명한 예는 다음 관계를 이용한다.</p>
+<p>$$
+v_{king}-v_{man}
+\approx
+v_{queen}-v_{woman}.
+$$</p>
+<p>왼쪽과 오른쪽이 모두 비슷한 “royalty 방향”을 표현한다면 식을 정리해</p>
+<p>$$
+\boxed{
+v_{king}-v_{man}+v_{woman}
+\approx
+v_{queen}
+}
+$$</p>
+<p>를 얻는다.</p>
+<div class="highlight"><pre><span></span><code>                + royalty
+       man  ----------------&gt;  king
+        |                         |
+        | + gender relation       | + gender relation
+        v                         v
+      woman ----------------&gt;   queen
+                + royalty
+</code></pre></div>
+
+<p>벡터 산술을 말로 읽으면 다음과 같다.</p>
+<ol>
+<li><code>king - man</code>으로 <code>man → king</code>의 이동량을 구한다.</li>
+<li>그 이동량을 <code>woman</code>에서 출발해 그대로 적용한다.</li>
+<li>도착 예상점과 cosine이 가장 가까운 실제 단어를 찾는다.</li>
+</ol>
+<p>여기서 “king 벡터에서 남성 성분을 문자 그대로 삭제한다”는 식의 해석은 지나치게 강하다. 차이벡터는 하나의 순수 속성만 담는다고 보장되지 않는다. 정확한 주장은 <strong>두 관계의 context-profile 변화가 충분히 평행할 때 평행사변형이 성립한다</strong>는 것이다.</p>
+<h2 id="493-3cosadd">49.3 컴퓨터는 정답 단어를 어떻게 찾는가? — 3CosAdd<a class="header-anchor" href="#493-3cosadd" title="Link to this section">#</a></h2>
+<p>analogy 질문</p>
+<div class="highlight"><pre><span></span><code>man : king :: woman : ?
+</code></pre></div>
+
+<p>이 주어지면 먼저 목표점을 만든다.</p>
+<p>$$
+t=v_{king}-v_{man}+v_{woman}
+$$</p>
+<p>그다음 vocabulary의 모든 후보 $x$에 대해</p>
+<p>$$
+\cos(v_x,t)
+$$</p>
+<p>를 계산하고 가장 큰 후보를 반환한다.</p>
+<p>$$
+\hat{x}
+=
+\arg\max_{x\notin\{man,king,woman\}}
+\cos(v_x,t)
+$$</p>
+<p>입력 세 단어를 후보에서 제외하는 것이 중요하다. 이 표준적인 검색 방식을 흔히 <strong>3CosAdd</strong>라고 부른다.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># E[word_id]는 이번 분석에서 고정한 word representation이다.</span>
+<span class="n">E_unit</span> <span class="o">=</span> <span class="n">E</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="n">id_king</span><span class="p">]</span> <span class="o">-</span> <span class="n">E</span><span class="p">[</span><span class="n">id_man</span><span class="p">]</span> <span class="o">+</span> <span class="n">E</span><span class="p">[</span><span class="n">id_woman</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="n">target</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">E_unit</span> <span class="o">@</span> <span class="n">target</span>
+<span class="n">scores</span><span class="p">[[</span><span class="n">id_man</span><span class="p">,</span> <span class="n">id_king</span><span class="p">,</span> <span class="n">id_woman</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">answer_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<p>vocabulary가 매우 크면 이 검색을 approximate nearest-neighbor index로 가속할 수 있다. 정답 하나만 보지 말고 top-10 후보와 점수 차이도 함께 보는 편이 좋다. <code>queen</code>이 1등이어도 2등과 거의 차이가 없다면 관계가 강하게 식별되었다고 말하기 어렵기 때문이다.</p>
+<h2 id="494-analogy">49.4 알려진 analogy가 아니라 관계 자체를 발견하려면<a class="header-anchor" href="#494-analogy" title="Link to this section">#</a></h2>
+<p><code>king - man</code> 같은 관계를 이미 알고 검색하는 것은 쉽다. 반복되는 관계를 corpus에서 발견하려면 여러 pair의 차이벡터를 비교한다.</p>
+<p>$$
+d_i=v_{b_i}-v_{a_i}
+$$</p>
+<p>실용적인 방법은 다음과 같다.</p>
+<ol>
+<li>관심 있는 단어쌍 후보를 만든다. 품사나 개체 유형을 제한하면 잡음과 $O(V^2)$ 탐색을 크게 줄일 수 있다.</li>
+<li>모든 pair difference를 같은 방향으로 정렬한다. 예를 들어 항상 <code>female - male</code>로 뺀다.</li>
+<li>차이벡터끼리 cosine similarity를 계산하거나 clustering한다.</li>
+<li>비슷한 offset이 반복되는 cluster를 사람이 단어쌍과 함께 해석한다.</li>
+<li>cluster의 평균 방향을 새 관계 축으로 삼고 held-out pair에서도 같은 방향이 나타나는지 검증한다.</li>
+</ol>
+<p>예를 들어</p>
+<p>$$
+v_{woman}-v_{man},\quad
+v_{queen}-v_{king},\quad
+v_{actress}-v_{actor}
+$$</p>
+<p>가 서로 비슷하다면 그 평균을 gender-related direction의 추정치로 쓸 수 있다. 반대로 한 쌍만 맞고 다른 쌍들은 제각각이면 그것은 일반적인 의미 축보다 그 한 pair의 특수한 차이에 가깝다.</p>
+<blockquote>
+<p>pair difference 전체를 무차별적으로 만들면 후보가 $V^2$개다. 실제 발견 작업에서는 사전, 품사, 지식그래프 관계, 빈도 기준 등으로 후보를 좁히거나 approximate search를 사용한다.</p>
+</blockquote>
+<h2 id="495-meaning-axis">49.5 Meaning axis란 무엇인가?<a class="header-anchor" href="#495-meaning-axis" title="Link to this section">#</a></h2>
+<p>meaning axis는 고차원 공간을 한 가지 질문으로 읽는 자다.</p>
+<div class="highlight"><pre><span></span><code>cold  &lt;------------------------------&gt;  warm
+informal &lt;---------------------------&gt;  formal
+concrete &lt;---------------------------&gt;  abstract
+negative &lt;---------------------------&gt;  positive
+</code></pre></div>
+
+<p>단어 $w$의 중심화된 벡터를 축 방향과 나머지 방향으로 분해하면</p>
+<p>$$
+v_w-m
+=
+\underbrace{\big((v_w-m)^\top a\big)a}_{\text{축으로 설명되는 부분}}
++
+\underbrace{r_w}_{r_w\perp a}
+$$</p>
+<p>이다. 여기서 $a$는 길이가 1인 축, $m$은 축의 기준점이다. scalar</p>
+<p>$$
+z_w=(v_w-m)^\top a
+$$</p>
+<p>는 단어의 전체 의미가 아니라 <strong>선택한 질문에 대한 한 좌표</strong>다. 고차원 의미를 버리는 대신, 비교·정렬·시각화 가능한 해석 가능한 수 하나를 얻는다.</p>
+<p>이것의 의미는 크다.</p>
+<ul>
+<li>한 corpus에서 단어들을 <code>formal ↔ informal</code> 순으로 정렬할 수 있다.</li>
+<li>서로 다른 시기나 공동체에서 같은 단어의 axis score가 어떻게 달라지는지 비교할 수 있다.</li>
+<li>문서에 등장한 단어들의 score 평균으로 그 문서가 어느 pole의 언어를 더 사용하는지 요약할 수 있다.</li>
+<li>analogy에서 보이던 관계 방향을 하나의 측정 도구로 재사용할 수 있다.</li>
+</ul>
+<h2 id="496-semaxis-pole">49.6 SemAxis 방식: 두 pole 집합으로 축 만들기<a class="header-anchor" href="#496-semaxis-pole" title="Link to this section">#</a></h2>
+<p>한 단어쌍만으로 만든 축은 우연한 의미 차이에도 민감하다. 더 안정적인 방법은 양쪽 끝을 여러 seed word로 정의하는 것이다.</p>
+<p>예를 들어 warmth axis를</p>
+<p>$$
+S^+=\{warm,hot,heated\},\qquad
+S^-=\{cold,cool,chilly\}
+$$</p>
+<p>로 정의하자. 먼저 각 pole의 평균 벡터를 구한다.</p>
+<p>$$
+\mu^+
+=
+\frac{1}{|S^+|}\sum_{w\in S^+}v_w,
+\qquad
+\mu^-
+=
+\frac{1}{|S^-|}\sum_{w\in S^-}v_w
+$$</p>
+<p>그리고 negative pole에서 positive pole로 향하는 축을 만든다.</p>
+<p>$$
+\boxed{
+a
+=
+\frac{\mu^+-\mu^-}
+{\|\mu^+-\mu^-\|}
+}
+$$</p>
+<p>SemAxis-style score는 단어가 이 축과 얼마나 같은 방향인지 cosine으로 측정한다.</p>
+<p>$$
+score_{axis}(w)=\cos(v_w,a)
+$$</p>
+<p>또는 두 pole의 중점</p>
+<p>$$
+m=\frac{\mu^++\mu^-}{2}
+$$</p>
+<p>을 기준으로 signed projection $z_w=(v_w-m)^\top a$를 사용할 수 있다. cosine은 방향 정렬을, signed projection은 선택한 기준점에서 축을 따라 얼마나 이동했는지를 강조한다.</p>
+<p>이 방식은 실제 <a href="https://aclanthology.org/P18-1228/">SemAxis 논문</a>의 핵심 절차인 <strong>embedding 구축 → 반대 pole 집합의 평균 → 평균의 차이로 축 생성 → 단어를 축에 cosine 투영</strong>과 같은 생각이다. 한 쌍보다 여러 pole word를 쓰면 특정 seed 선택에 대한 민감도를 줄일 수 있다.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 먼저 E를 한 가지 방식으로 전처리한다.</span>
+<span class="n">E_work</span> <span class="o">=</span> <span class="n">E</span> <span class="o">-</span> <span class="n">E</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># 중심화는 선택 사항</span>
+
+<span class="n">mu_pos</span> <span class="o">=</span> <span class="n">E_work</span><span class="p">[</span><span class="n">positive_ids</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mu_neg</span> <span class="o">=</span> <span class="n">E_work</span><span class="p">[</span><span class="n">negative_ids</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">axis</span> <span class="o">=</span> <span class="n">mu_pos</span> <span class="o">-</span> <span class="n">mu_neg</span>
+<span class="n">axis</span> <span class="o">=</span> <span class="n">axis</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">axis</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="n">E_unit</span> <span class="o">=</span> <span class="n">E_work</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+    <span class="n">E_work</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+<span class="n">axis_scores</span> <span class="o">=</span> <span class="n">E_unit</span> <span class="o">@</span> <span class="n">axis</span>
+<span class="n">ranked_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">axis_scores</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<p>중심화 여부, pole 평균 전에 각 word vector를 단위 정규화할지 여부는 반드시 따라야 하는 단 하나의 정답이라기보다 분석 설계 선택이다. 위 코드는 평균을 먼저 내는 SemAxis의 기본 형태에 가깝다. 중요한 것은 전처리를 명시하고, seed와 평가 단어에 똑같이 적용하며, 다른 설정에서도 순위가 안정적인지 확인하는 것이다.</p>
+<h2 id="497-meaning-axis">49.7 Meaning axis를 찾는 방법들의 차이<a class="header-anchor" href="#497-meaning-axis" title="Link to this section">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>방법</th>
+<th>축을 만드는 법</th>
+<th>장점</th>
+<th>주의점</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>single offset</td>
+<td>$v_b-v_a$</td>
+<td>가장 단순하고 직관적</td>
+<td>한 pair의 특수성에 매우 민감</td>
+</tr>
+<tr>
+<td>matched-pair 평균</td>
+<td>$\frac1n\sum_i(v_{b_i}-v_{a_i})$</td>
+<td>관계의 방향 대응을 보존</td>
+<td>모든 pair의 방향을 일관되게 맞춰야 함</td>
+</tr>
+<tr>
+<td>pole centroid / SemAxis</td>
+<td>$\mu^+-\mu^-$</td>
+<td>여러 seed를 평균해 안정적</td>
+<td>pole 선택이 축의 정의 자체를 결정</td>
+</tr>
+<tr>
+<td>PCA on offsets</td>
+<td>pair-difference 행렬의 첫 principal component</td>
+<td>반복되는 주된 변화를 data-driven하게 찾음</td>
+<td>부호에는 의미가 없고, 나온 축의 의미는 사후 해석해야 함</td>
+</tr>
+<tr>
+<td>linear probe</td>
+<td>두 집합을 가르는 분류 경계의 normal vector</td>
+<td>label과 잘 맞는 방향을 찾음</td>
+<td>supervision·regularization에 의존하며 인과적 개념축은 아님</td>
+</tr>
+</tbody>
+</table>
+<p>가설이 먼저라면 pole centroid가 가장 설명하기 쉽다. 관계쌍이 이미 있다면 matched-pair 평균이나 PCA가 자연스럽다. label을 예측하는 축이 필요하면 linear probe가 유용하다. “발견”과 “검증”에 같은 seed를 모두 사용하지 말고 일부 pair를 held-out으로 남겨 두는 것이 좋다.</p>
+<h2 id="498">49.8 좋은 축인지 어떻게 검증할까?<a class="header-anchor" href="#498" title="Link to this section">#</a></h2>
+<p>축을 만들었다고 곧바로 의미 축이 되는 것은 아니다. 최소한 다음을 확인하자.</p>
+<ol>
+<li><strong>held-out validity:</strong> 축 생성에 쓰지 않은 예상 단어쌍도 올바른 순서로 놓이는가?</li>
+<li><strong>seed stability:</strong> pole word 몇 개를 바꾸거나 bootstrap resampling해도 순위가 유지되는가?</li>
+<li><strong>neighbor coherence:</strong> 양 끝의 top words가 사람이 보기에 일관된 관계를 이루는가?</li>
+<li><strong>frequency robustness:</strong> 축 점수가 단순 word frequency나 vector norm과 거의 같은 것은 아닌가?</li>
+<li><strong>run stability:</strong> random seed를 바꿔 학습해도 같은 결론이 나오는가?</li>
+</ol>
+<p>서로 따로 학습한 두 embedding을 비교할 때는 좌표계가 다를 수 있다. 공통 anchor vocabulary로 orthogonal Procrustes alignment를 한 뒤 축이나 변화량을 비교해야 한다. 반대로 <strong>같은 공간 안에서 단어와 축을 함께 다루는 분석</strong>은 임의의 직교 회전에 영향을 받지 않는다.</p>
+<h2 id="499">49.9 해석할 때 꼭 붙여야 하는 단서<a class="header-anchor" href="#499" title="Link to this section">#</a></h2>
+<ul>
+<li>선형 analogy는 SGNS objective가 보장하는 법칙이 아니라 corpus에 반복 관계가 충분히 있을 때 나타나는 경험적 현상이다.</li>
+<li>하나의 word vector는 다의어의 여러 뜻을 섞는다. <code>bank</code>의 금융/강둑 의미를 한 축 점수로 분리하기 어렵다.</li>
+<li>meaning axis는 서로 직교할 필요가 없다. <code>wealth</code>와 <code>status</code> 축이 corpus에서 강하게 상관될 수 있다.</li>
+<li>높은 axis score는 본질적 속성이나 인과관계를 증명하지 않는다. corpus의 표현 관습과 편향도 함께 측정한다.</li>
+<li>결과는 tokenization, window, subsampling, noise distribution, $Q/K$ 선택에 의존한다.</li>
+</ul>
+<p>따라서 meaning axis는 “단어의 진짜 의미를 재는 온도계”가 아니라</p>
+<blockquote>
+<p><strong>특정 corpus가 만든 의미 공간을, 명시한 두 pole 사이에서 읽는 투영 도구</strong></p>
+</blockquote>
+<p>라고 이해하는 것이 가장 정확하다.</p>
+<h3 id="axis">잠깐 연습: 관계 방향과 axis<a class="header-anchor" href="#axis" title="Link to this section">#</a></h3>
+<p>다음 네 차이벡터를 얻었다고 하자.</p>
+<p>$$
+d_1=[1.0,0.1],\quad
+d_2=[0.9,-0.1],\quad
+d_3=[1.1,0.0],\quad
+d_4=[-0.2,1.0].
+$$</p>
+<ol>
+<li>어떤 세 벡터가 하나의 반복 관계를 공유한다고 볼 수 있는가?</li>
+<li>그 관계의 간단한 평균 축은 무엇인가?</li>
+<li>$d_4$까지 무조건 평균하면 어떤 문제가 생기는가?</li>
+</ol>
+<details>
+<summary>간단한 풀이</summary>
+
+$d_1,d_2,d_3$는 모두 첫 번째 좌표의 양의 방향을 가리키므로 같은 relation cluster로 볼 수 있다. 평균은
+
+$$
+\bar d=\frac{d_1+d_2+d_3}{3}=[1.0,0.0]
+$$
+
+이고 이미 단위벡터다. $d_4$는 거의 수직인 다른 관계다. 이를 섞으면 평균 방향이 $[0.7,0.25]$ 쪽으로 기울어 원래의 반복 관계를 흐린다. 그래서 axis를 만들기 전에 pair의 방향 일관성과 cluster를 확인해야 한다.
+
+</details>
+
+<p>analogy와 axis는 별개 기술처럼 보이지만 사실 같은 기하학을 쓴다. analogy는 <strong>관계 방향을 한 점에 더해 다음 점을 찾고</strong>, meaning axis는 <strong>그 방향에 모든 점을 투영해 순서를 읽는다.</strong></p>
+<hr />
+<h1 id="50-word2vec-logistic-matrix-factorization">50. Word2Vec을 logistic matrix factorization으로 보기<a class="header-anchor" href="#50-word2vec-logistic-matrix-factorization" title="Link to this section">#</a></h1>
+<p>SGNS는 사실상 binary matrix factorization 문제다.</p>
+<p>observed pair:</p>
+<p>$$
+y_{wc}=1
+$$</p>
+<p>noise pair:</p>
+<p>$$
+y_{wc}=0
+$$</p>
+<p>model:</p>
+<p>$$
+P(y=1\mid w,c)
+=
+\sigma(q_w^\top k_c)
+$$</p>
+<p>따라서 전체적으로 보면</p>
+<blockquote>
+<p><strong>sparse word-context interaction matrix에 대한 low-rank logistic factorization</strong></p>
+</blockquote>
+<p>이다.</p>
+<p>이 관점은 추천 시스템과 매우 유사하다.</p>
+<hr />
+<h1 id="51">51. 추천 시스템과 비교<a class="header-anchor" href="#51" title="Link to this section">#</a></h1>
+<p>추천 시스템에서</p>
+<div class="highlight"><pre><span></span><code>user → item
+</code></pre></div>
+
+<p>score:</p>
+<p>$$
+u_i^\top v_j
+$$</p>
+<p>Word2Vec:</p>
+<div class="highlight"><pre><span></span><code>word → context
+</code></pre></div>
+
+<p>score:</p>
+<p>$$
+q_w^\top k_c
+$$</p>
+<p>node2vec:</p>
+<div class="highlight"><pre><span></span><code>node → context node
+</code></pre></div>
+
+<p>score:</p>
+<p>$$
+q_i^\top k_j
+$$</p>
+<p>모두 같은 family다.</p>
+<p>Negative Sampling도 implicit feedback recommendation에서 자주 쓰이는 방식과 거의 같다.</p>
+<hr />
+<h1 id="52-energy-model">52. Energy model 관점<a class="header-anchor" href="#52-energy-model" title="Link to this section">#</a></h1>
+<p>score를 energy로 바꾸면</p>
+<p>$$
+E(w,c)=-q_w^\top k_c
+$$</p>
+<p>라고 할 수 있다.</p>
+<p>그러면</p>
+<p>$$
+P(c\mid w)
+\propto
+e^{-E(w,c)}
+$$</p>
+<p>이다.</p>
+<p>즉 높은 dot product</p>
+<p>$$
+q_w^\top k_c
+$$</p>
+<p>는 낮은 energy를 의미한다.</p>
+<p>Word2Vec은 observed pair의 energy는 낮추고 negative pair의 energy는 높인다.</p>
+<p>이 관점은 Boltzmann distribution과도 자연스럽게 연결된다.</p>
+<hr />
+<h1 id="53-boltzmann-softmax">53. Boltzmann / softmax 관점<a class="header-anchor" href="#53-boltzmann-softmax" title="Link to this section">#</a></h1>
+<p>full softmax에서는</p>
+<p>$$
+P(c\mid w)
+=
+\frac{
+e^{q_w^\top k_c}
+}{
+\sum_j e^{q_w^\top k_j}
+}
+$$</p>
+<p>energy:</p>
+<p>$$
+E(w,c)
+=
+-q_w^\top k_c
+$$</p>
+<p>라고 하면</p>
+<p>$$
+P(c\mid w)
+=
+\frac{
+e^{-E(w,c)}
+}{
+Z(w)
+}
+$$</p>
+<p>이다.</p>
+<p>즉 Skip-gram은 conditional Boltzmann distribution이다.</p>
+<p>Negative Sampling은 이 normalization constant를 매번 직접 계산하지 않고 contrastive하게 score structure를 학습한다고 볼 수 있다.</p>
+<hr />
+<h1 id="54-5">54. 가장 중요한 식 5개<a class="header-anchor" href="#54-5" title="Link to this section">#</a></h1>
+<h2 id="1-score">1. score<a class="header-anchor" href="#1-score" title="Link to this section">#</a></h2>
+<p>$$
+s(w,c)=q_w^\top k_c
+$$</p>
+<h2 id="2-sgns-objective">2. SGNS objective<a class="header-anchor" href="#2-sgns-objective" title="Link to this section">#</a></h2>
+<p>$$
+\log\sigma(q_w^\top k_c)
++
+\sum_{n=1}^{K}
+\log\sigma(-q_w^\top k_n)
+$$</p>
+<h2 id="3-optimal-score">3. optimal score<a class="header-anchor" href="#3-optimal-score" title="Link to this section">#</a></h2>
+<p>$$
+q_w^\top k_c
+\approx
+\log
+\frac{P(c\mid w)}
+{K P_n(c)}
+$$</p>
+<h2 id="4-unigram-noise">4. unigram noise일 때<a class="header-anchor" href="#4-unigram-noise" title="Link to this section">#</a></h2>
+<p>$$
+q_w^\top k_c
+\approx
+PMI(w,c)-\log K
+$$</p>
+<h2 id="5-gravity-form">5. gravity form<a class="header-anchor" href="#5-gravity-form" title="Link to this section">#</a></h2>
+<p>$$
+P_{\text{data}}(w,c)
+\propto
+P_{\text{data}}(w)P_n(c)
+\exp(q_w^\top k_c)
+$$</p>
+<p>이 다섯 식을 연결해서 이해하면 Word2Vec의 핵심을 거의 다 이해한 것이다.</p>
+<hr />
+<h1 id="55">55. 한 줄씩 해석하면<a class="header-anchor" href="#55" title="Link to this section">#</a></h1>
+<p>$$
+P_{\text{data}}(w)P_n(c)
+$$</p>
+<p>는 두 entity가 각각 얼마나 흔한가를 설명한다.</p>
+<p>$$
+\exp(q_w^\top k_c)
+$$</p>
+<p>는 그 baseline을 넘어서는 pair-specific attraction을 설명한다.</p>
+<p>따라서 일반형</p>
+<p>$$
+P_{\text{data}}(w,c)
+\propto
+P_{\text{data}}(w)P_n(c)\exp(q_w^\top k_c)
+$$</p>
+<p>는 다음과 같이 읽을 수 있다.</p>
+<blockquote>
+<p>word $w$와 context $c$가 같이 등장하는 정도는<br />
+center activity × noise가 정한 context baseline × latent semantic attraction으로 결정된다.</p>
+</blockquote>
+<p>unigram noise에서는 $P_n(c)=P(c)$이므로 익숙한 $P(w)P(c)\exp(q_w^\top k_c)$가 된다. 이것이 embedding을 gravity model처럼 보는 가장 직관적인 방법이다.</p>
+<hr />
+<h1 id="56">56. 구현 관점 최종 요약<a class="header-anchor" href="#56" title="Link to this section">#</a></h1>
+<p>Word2Vec SGNS를 직접 구현한다고 생각하면 다음만 있으면 된다.</p>
+<ol>
+<li>vocabulary를 만든다.</li>
+<li>corpus에서 <code>(center, context)</code> positive pair를 만든다.</li>
+<li>frequency 기반 noise distribution을 만든다.</li>
+<li>center마다 query embedding을 lookup한다.</li>
+<li>positive/negative context마다 key embedding을 lookup한다.</li>
+<li>dot product를 계산한다.</li>
+<li>positive에는 <code>log sigmoid(score)</code>.</li>
+<li>negative에는 <code>log sigmoid(-score)</code>.</li>
+<li>backprop한다.</li>
+<li>이 과정을 반복한다.</li>
+</ol>
+<p>그 결과:</p>
+<ul>
+<li>같이 등장하는 pair의 dot product는 커지고,</li>
+<li>baseline 대비 예상보다 자주 등장하는 relation이 강조되며,</li>
+<li>비슷한 context distribution을 가진 word들은 비슷한 vector를 갖게 되고,</li>
+<li>저차원 embedding geometry가 형성된다.</li>
+</ul>
+<hr />
+<h1 id="57-mental-model">57. 가장 압축된 mental model<a class="header-anchor" href="#57-mental-model" title="Link to this section">#</a></h1>
+<p>Word2Vec을 기억할 때는 아래 그림 하나면 된다.</p>
+<div class="highlight"><pre><span></span><code>                center word
+                    |
+                    v
+              query vector q
+                    |
+                    | dot product
+                    |
+        --------------------------
+        |            |           |
+        v            v           v
+      k_pos       k_neg1      k_neg2
+        |            |           |
+      high          low         low
+      score         score       score
+</code></pre></div>
+
+<p>학습은 반복적으로</p>
+<div class="highlight"><pre><span></span><code>positive key 쪽으로 query를 끌고
+negative key들로부터 query를 밀어낸다.
+</code></pre></div>
+
+<p>그러나 중요한 것은 단순한 &ldquo;끌고 밀기&rdquo;가 아니다.</p>
+<p>수많은 pair가 동시에 동일한 embedding을 공유하므로 각각의 vector는</p>
+<blockquote>
+<p><strong>전체 corpus 안에서 자신의 relation profile을 가장 잘 압축하는 위치</strong></p>
+</blockquote>
+<p>를 찾게 된다.</p>
+<p>학습 후의 geometry는 두 단계로 다시 읽을 수 있다.</p>
+<div class="highlight"><pre><span></span><code>비슷한 relation profile
+    → 가까운 단어
+
+비슷한 relation-profile 변화
+    → 평행한 차이벡터
+    → analogy와 meaning axis
+</code></pre></div>
+
+<p>즉 <strong>점의 가까움은 유사성</strong>, <strong>반복되는 이동 방향은 관계</strong>, <strong>그 방향으로의 투영은 해석 가능한 axis score</strong>가 된다.</p>
+<hr />
+<h1 id="58-gravity-model-mental-model">58. Gravity-model 관점의 최종 mental model<a class="header-anchor" href="#58-gravity-model-mental-model" title="Link to this section">#</a></h1>
+<div class="highlight"><pre><span></span><code>Observed interaction
+        |
+        v
+   F(i, j)
+        |
+        | remove baseline popularity
+        v
+F(i,j) / [m_i m_j]
+        |
+        | log
+        v
+ latent affinity
+        |
+        v
+    q_i · k_j
+</code></pre></div>
+
+<p>즉 Word2Vec은</p>
+<div class="highlight"><pre><span></span><code>raw co-occurrence
+→ popularity-adjusted association
+→ low-dimensional latent geometry
+</code></pre></div>
+
+<p>를 학습하는 모델이라고 볼 수 있다.</p>
+<hr />
+<h1 id="59">59. 다음에 연결해서 공부하면 좋은 주제<a class="header-anchor" href="#59" title="Link to this section">#</a></h1>
+<p>이 문서를 이해했다면 다음 순서가 자연스럽다.</p>
+<div class="highlight"><pre><span></span><code>Word2Vec SGNS
+    ↓
+PMI / shifted PMI
+    ↓
+matrix factorization
+    ↓
+analogy / relation offsets
+    ↓
+SemAxis / linear probes
+    ↓
+embedding alignment / Procrustes
+    ↓
+DeepWalk / node2vec
+    ↓
+negative sampling in graph embedding
+    ↓
+gravity model
+    ↓
+latent space model
+    ↓
+energy-based model
+    ↓
+softmax / Boltzmann distribution
+    ↓
+Transformer query-key attention
+</code></pre></div>
+
+<p>특히 다음 질문들을 직접 유도해 보면 이해가 매우 깊어진다.</p>
+<ul>
+<li>왜 SGNS optimum이 shifted PMI인가?</li>
+<li>noise distribution을 바꾸면 embedding이 정확히 어떻게 바뀌는가?</li>
+<li>dot product 대신 Euclidean distance를 쓰면 어떤 모델이 되는가?</li>
+<li>node2vec에서 random walk가 어떤 implicit matrix를 factorize하는가?</li>
+<li>gravity model에서 mass term과 embedding norm은 어떻게 구분되는가?</li>
+<li>semantic axis의 pole을 바꾸었을 때 결과가 얼마나 안정적인가?</li>
+<li>서로 따로 학습한 두 공간을 정렬하지 않고 axis score를 비교하면 왜 안 되는가?</li>
+<li>Transformer attention에서 Word2Vec의 static Q/K와 무엇이 본질적으로 달라지는가?</li>
+</ul>
+<hr />
+<h1 id="60">60. 연습문제: 코퍼스 마을 다시 걷기<a class="header-anchor" href="#60" title="Link to this section">#</a></h1>
+<p>문제는 앞의 스토리를 같은 순서로 한 번 더 걷도록 구성했다. 먼저 답을 가리고 풀고, 막힐 때만 각 묶음 아래의 힌트를 열어 보자.</p>
+<h2 id="a">A. 그림을 말로 설명하기<a class="header-anchor" href="#a" title="Link to this section">#</a></h2>
+<h3 id="1-window">1. Window가 만드는 데이터<a class="header-anchor" href="#1-window" title="Link to this section">#</a></h3>
+<p>문장 <code>the cat likes pet food</code>에서 window size가 2이고 center가 <code>cat</code>일 때 만들어지는 positive pair를 모두 쓰라. window size를 1로 줄이면 어떤 pair가 사라지는가?</p>
+<h3 id="2">2. 누가 업데이트되는가?<a class="header-anchor" href="#2" title="Link to this section">#</a></h3>
+<p>positive가 <code>(cat, pet)</code>, negatives가 <code>road</code>, <code>load</code>일 때 한 step에서 직접 업데이트되는 embedding row를 $Q$와 $K$로 나누어 쓰라. 왜 <code>Q[pet]</code>은 이 step에서 직접 업데이트되지 않는가?</p>
+<h3 id="3">3. 같은 문맥이 의미를 만드는 이유<a class="header-anchor" href="#3" title="Link to this section">#</a></h3>
+<p><code>cat</code>과 <code>dog</code>의 query가 가까워지는 과정을 “두 단어가 서로 positive pair이기 때문”이라는 표현 없이 설명하라.</p>
+<h3 id="4_1">4. 고빈도 단어의 함정<a class="header-anchor" href="#4_1" title="Link to this section">#</a></h3>
+<p><code>the</code>가 <code>cat</code>, <code>dog</code>, <code>car</code>, <code>truck</code> 주변에 모두 많이 등장한다고 하자. raw co-occurrence count만 쓰면 무슨 문제가 생기는가? unigram 또는 $3/4$ noise는 이를 어떻게 완화하는가?</p>
+<h3 id="5-positive">5. Positive인데 음수 점수?<a class="header-anchor" href="#5-positive" title="Link to this section">#</a></h3>
+<p>toy 실행에서 <code>score(cat,pet)=-0.6651</code>이다. 이 결과가 학습 실패를 뜻하지 않는 이유를 <code>K</code>와 비교 순서를 사용해 설명하라.</p>
+<details>
+<summary>A 정답·힌트</summary>
+
+1. `(cat,the)`, `(cat,likes)`, `(cat,pet)`이다. window 1이면 `(cat,pet)`이 사라진다.
+2. `Q[cat]`, `K[pet]`, `K[road]`, `K[load]`가 업데이트된다. `pet`은 이 사건에서 context 역할이므로 `K[pet]`만 선택된다. `Q[pet]`은 `pet`이 center인 다른 사건에서 바뀐다.
+3. 두 query가 `pet`, `food`, `home` 등 같은 key 집합에 대해 비슷한 높은 점수를 내야 한다. 한정된 저차원 공간에서 비슷한 relation profile을 압축하면서 두 query 방향이 비슷해진다.
+4. 어디서나 흔한 `the`가 모든 관계를 강하게 보이게 한다. noise에서도 `the`를 자주 제시하면 `(w,the)`의 관측은 덜 놀라운 사건이 되고, gradient와 최적 score가 baseline 대비 association을 반영한다.
+5. 최적 score에는 $-\log K$가 들어간다. 관련 pair의 절대 부호보다 `(cat,pet)`이 `(cat,road)`보다 훨씬 큰지가 중요하다.
+
+</details>
+
+<h2 id="b">B. 식을 손으로 움직이기<a class="header-anchor" href="#b" title="Link to this section">#</a></h2>
+<h3 id="6-gradient">6. Gradient의 세기<a class="header-anchor" href="#6-gradient" title="Link to this section">#</a></h3>
+<p>positive score가 $s_+=-2$이고 negative score가 $s_-=2$라고 하자. 각각의 scalar gradient strength $1-\sigma(s_+)$와 $\sigma(s_-)$를 구하고, 왜 둘 다 큰지 설명하라.</p>
+<h3 id="7-score">7. 최적 score 계산<a class="header-anchor" href="#7-score" title="Link to this section">#</a></h3>
+<p>어떤 center $w$에 대해</p>
+<p>$$
+P_{\text{data}}(c\mid w)=0.08,\qquad P_n(c)=0.01,\qquad K=5
+$$</p>
+<p>라면 이상화된 SGNS 최적 score를 계산하라.</p>
+<h3 id="8-negative">8. Negative 수를 늘리면<a class="header-anchor" href="#8-negative" title="Link to this section">#</a></h3>
+<p>나머지는 그대로 두고 $K$를 5에서 20으로 늘리면 최적 score가 얼마나 이동하는가? 이 변화가 cosine similarity도 반드시 같은 양만큼 바꾼다고 할 수 있는가?</p>
+<h3 id="9-noise-exponent">9. 일반 noise exponent<a class="header-anchor" href="#9-noise-exponent" title="Link to this section">#</a></h3>
+<p>$$
+P_n(c)=\frac{P(c)^\alpha}{Z_\alpha}
+$$</p>
+<p>일 때 다음 식을 직접 유도하라.</p>
+<p>$$
+q_w^\top k_c
+\approx
+PMI(w,c)+(1-\alpha)\log P(c)-\log K+\log Z_\alpha
+$$</p>
+<p>$\alpha=1$과 $\alpha=3/4$를 각각 대입해 해석하라.</p>
+<h3 id="10-gravity">10. Gravity 식으로 되돌리기<a class="header-anchor" href="#10-gravity" title="Link to this section">#</a></h3>
+<p>$$
+P(w)=0.02,\qquad P_n(c)=0.01,\qquad K=5,\qquad q_w^\top k_c=0.7
+$$</p>
+<p>이라 할 때 pairwise optimum 식이 예측하는 $P(w,c)$를 계산하라.</p>
+<h3 id="11">11. 상대적 끌림<a class="header-anchor" href="#11" title="Link to this section">#</a></h3>
+<p>동일한 center에 대해 $s(cat,pet)=-0.7$, $s(cat,road)=-3.0$이라 하자. noise-adjusted 상대 attraction</p>
+<p>$$
+\frac{P(pet\mid cat)/P_n(pet)}{P(road\mid cat)/P_n(road)}
+$$</p>
+<p>을 근사하라.</p>
+<details>
+<summary>B 정답·힌트</summary>
+
+6. 둘 다 약 $0.881$이다. positive를 너무 낮게, negative를 너무 높게 평가했으므로 두 오류 모두 강한 수정을 받는다.
+7. $\log(0.08/(5\times0.01))=\log 1.6\approx0.470$이다.
+8. $-\log(20/5)=-\log4\approx-1.386$만큼 내려간다. 이는 이상화된 pairwise dot-product baseline에 대한 설명이며, 제한된 차원의 재학습 후 각 벡터 방향과 cosine이 동일한 양으로 변한다는 뜻은 아니다.
+9. $\log P(c\mid w)-\log K-\log P_n(c)$에 $\log P_n(c)=\alpha\log P(c)-\log Z_\alpha$를 넣으면 된다. $\alpha=1$이면 shifted PMI, $\alpha=3/4$이면 $\frac14\log P(c)+\log Z_{3/4}$가 남는다.
+10. $5\times0.02\times0.01\times e^{0.7}\approx0.002014$이다.
+11. $e^{-0.7-(-3.0)}=e^{2.3}\approx9.97$이다. 즉 noise 기준으로 `pet` 쪽이 약 10배 더 강하다.
+
+</details>
+
+<h2 id="c">C. 구현을 바꿔 예측을 시험하기<a class="header-anchor" href="#c" title="Link to this section">#</a></h2>
+<h3 id="12-k">12. $K$ 실험<a class="header-anchor" href="#12-k" title="Link to this section">#</a></h3>
+<p><a href="toy_sgns_story.py"><code>toy_sgns_story.py</code></a>의 <code>NEGATIVES</code>를 1, 5, 20으로 바꾸어 실행하라. 실행 전에 다음 세 가지를 예측하고 표로 기록하라.</p>
+<ul>
+<li>final loss의 단순 수치</li>
+<li>관련/무관 pair의 score</li>
+<li><code>cat–dog</code>, <code>cat–car</code> cosine의 상대 순서</li>
+</ul>
+<p>loss에는 negative 항이 $K$개 더해진다는 점 때문에 서로 다른 $K$의 raw loss를 그대로 품질 비교에 쓰기 어렵다는 것도 확인하라.</p>
+<h3 id="13-noise-exponent">13. Noise exponent 실험<a class="header-anchor" href="#13-noise-exponent" title="Link to this section">#</a></h3>
+<p>스크립트의 <code>counts[word] ** 0.75</code>를 <code>** 1.0</code>과 <code>** 0.0</code>으로 바꾸어 보라. 자주 나오는 context의 sampling 횟수와 score가 어느 방향으로 바뀌는지 기록하라.</p>
+<h3 id="14-the">14. <code>the</code>를 다시 넣기<a class="header-anchor" href="#14-the" title="Link to this section">#</a></h3>
+<p><code>STOPWORDS = set()</code>으로 바꾸어 학습하라. 2차원 query 그림에서 두 동네의 분리가 약해지는지 확인하고, 그 이유를 “공유 positive context”와 “capacity”라는 단어를 사용해 설명하라.</p>
+<h3 id="15">15. 차원의 가격<a class="header-anchor" href="#15" title="Link to this section">#</a></h3>
+<p><code>DIM=1</code>, <code>DIM=2</code>, <code>DIM=8</code>을 비교하라. 차원이 늘면 모든 pairwise optimum을 더 잘 맞출 수 있지만, 이 작은 corpus의 시각적 해석과 일반화에는 어떤 trade-off가 생기는가?</p>
+<h3 id="16-corpus">16. 확장 문제: 방향성 있는 corpus<a class="header-anchor" href="#16-corpus" title="Link to this section">#</a></h3>
+<p><code>doctor treats patient</code>, <code>patient visits doctor</code> 같은 문장을 추가하고 $q_{doctor}^\top k_{patient}$와 $q_{patient}^\top k_{doctor}$를 비교하라. 대칭 window로 pair를 만들 때와 한쪽 방향 context만 쓸 때 결과가 어떻게 달라질지 먼저 예측하라.</p>
+<details>
+<summary>C 관찰 포인트</summary>
+
+- $K$가 커지면 이상화된 score baseline은 대체로 $-\log K$만큼 내려가지만, 제한된 차원과 SGD 때문에 모든 score가 정확히 평행 이동하지는 않는다.
+- $\alpha=1$은 고빈도 context를 negative로 더 자주 압박하고, $\alpha=0$은 희귀 context의 비중을 상대적으로 키운다.
+- `the`를 다시 넣으면 모든 중심 단어가 같은 key에 높은 점수를 내야 하므로 2차원 capacity의 일부가 공통 고빈도 패턴을 표현하는 데 쓰인다.
+- 대칭 window는 두 방향 pair를 모두 만들기 쉬워 비대칭성이 약해진다. 방향성 pair 생성은 별도의 $Q/K$가 source/target 역할을 나누는 장점을 더 분명히 드러낸다.
+
+</details>
+
+<h2 id="d-meaning-axis">D. 벡터 산술과 meaning axis<a class="header-anchor" href="#d-meaning-axis" title="Link to this section">#</a></h2>
+<h3 id="17-3cosadd">17. 3CosAdd를 손으로 계산하기<a class="header-anchor" href="#17-3cosadd" title="Link to this section">#</a></h3>
+<p>다음 벡터가 주어졌다고 하자.</p>
+<p>$$
+v_{man}=[1,0,0],\quad
+v_{king}=[1,1,0],\quad
+v_{woman}=[0,0,1]
+$$</p>
+<p>후보는</p>
+<p>$$
+v_{queen}=[0,1,0.9],\qquad
+v_{prince}=[1,0.9,0]
+$$</p>
+<p>이다. analogy target을 만들고 두 후보와의 cosine을 비교하라.</p>
+<h3 id="18-pole">18. 두 pole에서 축 만들기<a class="header-anchor" href="#18-pole" title="Link to this section">#</a></h3>
+<p>positive pole vectors가 $[2,1],[2,-1]$, negative pole vectors가 $[-2,1],[-2,-1]$이다. 단위 meaning axis $a$와 midpoint $m$을 구하라. $v_x=[0.5,2]$, $v_y=[-1,0]$의 signed projection도 구하라.</p>
+<h3 id="19-pair">19. Pair 방향을 맞춰야 하는 이유<a class="header-anchor" href="#19-pair" title="Link to this section">#</a></h3>
+<p><code>woman - man</code>과 <code>king - queen</code>을 그대로 평균하면 왜 gender-related direction이 상쇄될 수 있는가? 두 번째 차이벡터를 어떻게 고쳐야 하는가?</p>
+<h3 id="20-axis">20. Axis는 좌표축인가?<a class="header-anchor" href="#20-axis" title="Link to this section">#</a></h3>
+<p>embedding 전체와 meaning axis를 같은 직교행렬로 회전했다. 각 단어의 axis projection과 analogy cosine 순위는 변하는가? 이것이 “dimension 17에 고정된 의미는 없다”는 말과 어떻게 양립하는가?</p>
+<h3 id="21">21. 해석 비판하기<a class="header-anchor" href="#21" title="Link to this section">#</a></h3>
+<p>어떤 연구자가 <code>wealth ↔ poverty</code> pole로 축을 만든 뒤 특정 직업 단어의 높은 score를 보고 “그 직업은 본질적으로 부유하다”고 결론 내렸다. 최소 세 가지 문제를 지적하고 더 안전한 표현을 제안하라.</p>
+<details>
+<summary>D 정답·힌트</summary>
+
+17. target은 $[0,1,1]$이다. `queen`과의 cosine은 약 $0.999$, `prince`와는 약 $0.473$이므로 `queen`이 선택된다.
+
+18. $\mu^+=[2,0]$, $\mu^-=[-2,0]$이므로 $a=[1,0]$, $m=[0,0]$이다. 따라서 $z_x=0.5$, $z_y=-1$이다.
+
+19. `woman - man`은 male에서 female 방향이지만 `king - queen`은 female에서 male 방향이라 서로 반대다. 두 번째를 `queen - king`으로 바꾸어 방향을 맞춰야 한다.
+
+20. 직교회전은 내적, norm, cosine을 보존하므로 축과 단어를 함께 회전하면 투영과 analogy 순위가 변하지 않는다. 의미는 고정된 좌표 번호가 아니라 단어와 축 사이의 상대 geometry에 있다.
+
+21. axis는 corpus의 언어 사용을 반영할 뿐 본질이나 인과성을 증명하지 않는다. pole 선택, 빈도·norm, corpus 편향, 다의어, 축 간 상관, seed/run 안정성을 점검해야 한다. 더 안전한 표현은 “이 corpus의 해당 embedding과 pole 정의에서 그 직업 단어가 wealth 쪽 표현들과 더 정렬되어 나타났다”이다.
+
+</details>
+
+<hr />
+<h1 id="61">61. 핵심 결론<a class="header-anchor" href="#61" title="Link to this section">#</a></h1>
+<p>Word2Vec은 단순한 &ldquo;단어를 벡터로 바꾸는 알고리즘&rdquo;이 아니다.</p>
+<p>더 정확하게는:</p>
+<blockquote>
+<p><strong>관측된 word-context interaction을 noise baseline과 비교하고, 그 log-odds 구조를 저차원 query-key dot product로 factorize하는 모델이다.</strong></p>
+</blockquote>
+<p>그래서</p>
+<p>$$
+q_w^\top k_c
+$$</p>
+<p>는 단순한 similarity보다 훨씬 구체적인 의미를 가진다.</p>
+<p>$$
+q_w^\top k_c
+\approx
+\log
+\frac{
+\text{observed relation}
+}{
+\text{expected relation under noise}
+}
+$$</p>
+<p>그리고 이것은 gravity model의</p>
+<p>$$
+\text{observed flow}
+=
+\text{mass effect}
+\times
+\text{pairwise attraction}
+$$</p>
+<p>구조와 자연스럽게 연결된다.</p>
+<p>그리고 이 관계 행렬이 하나의 저차원 geometry로 압축되면 두 가지 부가 구조가 나타날 수 있다.</p>
+<p>$$
+\text{비슷한 단어}
+\Rightarrow
+\text{가까운 벡터},
+\qquad
+\text{반복되는 관계}
+\Rightarrow
+\text{비슷한 차이벡터}
+$$</p>
+<p>그래서 차이벡터를 다른 단어에 더해 analogy를 검색하고, 여러 대비쌍의 평균 방향을 meaning axis로 삼아 단어들을 투영할 수 있다. 이들은 별도의 마법이 아니라 <strong>log-odds relation profile의 변화가 저차원 공간에서 선형 이동으로 압축된 결과</strong>다.</p>
+<p>따라서 Word2Vec embedding을 한 문장으로 다시 표현하면:</p>
+<blockquote>
+<p><strong>각 entity의 popularity 효과를 넘어선 관계적 attraction을 저차원 latent geometry로 압축한 representation</strong>이다.</p>
+</blockquote>
+</section>
+
+
+<footer class="content-license">
+    <p>Text is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>. Cited images remain the property of their respective rights holders.</p>
+</footer>
+
+
+
+
+
+
+    </article>
+
+    <div class="image-lightbox" aria-hidden="true" hidden>
+        <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Show previous image">←</button>
+        <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+        <img class="image-lightbox-media" alt="">
+        <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Show next image">→</button>
+    </div>
+
+    <div class="footer-separator"></div>
+
+    <footer>
+        <p class="footer-text">
+            
+            &copy; 2026
+            
+            Byunghwee Lee
+            
+            
+        </p>
+    </footer>
+
+    <!-- KaTeX for math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false,
+                ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const storageKey = "theme-preference";
+            const themeToggle = document.querySelector(".theme-toggle");
+            const themeToggleLabel = document.querySelector(".theme-toggle-label");
+            const themeToggleIcon = document.querySelector(".theme-toggle-icon");
+            const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            const mobileNavQuery = window.matchMedia("(max-width: 720px)");
+            const lightbox = document.querySelector(".image-lightbox");
+            const lightboxImage = document.querySelector(".image-lightbox-media");
+            const lightboxClose = document.querySelector(".image-lightbox-close");
+            const lightboxPrev = document.querySelector(".image-lightbox-prev");
+            const lightboxNext = document.querySelector(".image-lightbox-next");
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            let activeLightboxIndex = -1;
+
+            const applyTheme = (theme) => {
+                document.documentElement.setAttribute("data-theme", theme);
+                if (themeToggle) {
+                    const isDark = theme === "dark";
+                    themeToggle.setAttribute("aria-pressed", String(isDark));
+                    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    if (themeToggleLabel) {
+                        themeToggleLabel.textContent = isDark ? "Light mode" : "Dark mode";
+                    }
+                    if (themeToggleIcon) {
+                        themeToggleIcon.textContent = isDark ? "☀" : "☾";
+                    }
+                }
+            };
+
+            const setNavOpen = (isOpen) => {
+                if (!navToggle || !navLinks) return;
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navLinks.dataset.open = String(isOpen);
+            };
+
+            const syncNavWithViewport = () => {
+                if (!navToggle || !navLinks) return;
+                if (mobileNavQuery.matches) {
+                    if (!navLinks.dataset.open) {
+                        setNavOpen(false);
+                    }
+                } else {
+                    navLinks.dataset.open = "true";
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            };
+
+            applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+            syncNavWithViewport();
+
+            if (themeToggle) {
+                themeToggle.addEventListener("click", function() {
+                    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+                    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+                    localStorage.setItem(storageKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener("click", function() {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setNavOpen(!isOpen);
+                });
+
+                navLinks.querySelectorAll("a").forEach((link) => {
+                    link.addEventListener("click", function() {
+                        if (mobileNavQuery.matches) {
+                            setNavOpen(false);
+                        }
+                    });
+                });
+            }
+
+            const syncWithSystemTheme = (event) => {
+                if (localStorage.getItem(storageKey)) return;
+                applyTheme(event.matches ? "dark" : "light");
+            };
+
+            const syncNavMedia = () => {
+                syncNavWithViewport();
+            };
+
+            if (typeof systemThemeQuery.addEventListener === "function") {
+                systemThemeQuery.addEventListener("change", syncWithSystemTheme);
+            } else if (typeof systemThemeQuery.addListener === "function") {
+                systemThemeQuery.addListener(syncWithSystemTheme);
+            }
+
+            if (typeof mobileNavQuery.addEventListener === "function") {
+                mobileNavQuery.addEventListener("change", syncNavMedia);
+            } else if (typeof mobileNavQuery.addListener === "function") {
+                mobileNavQuery.addListener(syncNavMedia);
+            }
+
+            const renderLightboxImage = (index) => {
+                if (!lightbox || !lightboxImage) return;
+                const boundedIndex = Math.max(0, Math.min(index, zoomableImages.length - 1));
+                const image = zoomableImages[boundedIndex];
+                if (!image) return;
+                activeLightboxIndex = boundedIndex;
+                lightboxImage.src = image.currentSrc || image.src;
+                lightboxImage.alt = image.alt || "";
+                if (lightboxPrev) lightboxPrev.disabled = boundedIndex === 0;
+                if (lightboxNext) lightboxNext.disabled = boundedIndex === zoomableImages.length - 1;
+            };
+
+            const openLightbox = (image) => {
+                if (!lightbox || !lightboxImage) return;
+                const index = zoomableImages.indexOf(image);
+                renderLightboxImage(index >= 0 ? index : 0);
+                lightbox.hidden = false;
+                lightbox.setAttribute("aria-hidden", "false");
+                document.body.classList.add("lightbox-open");
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox || !lightboxImage) return;
+                lightbox.hidden = true;
+                lightbox.setAttribute("aria-hidden", "true");
+                lightboxImage.src = "";
+                lightboxImage.alt = "";
+                activeLightboxIndex = -1;
+                document.body.classList.remove("lightbox-open");
+            };
+
+            const stepLightbox = (delta) => {
+                if (activeLightboxIndex < 0) return;
+                renderLightboxImage(activeLightboxIndex + delta);
+            };
+
+            zoomableImages.forEach((image) => {
+                image.classList.add("zoomable-image");
+                image.setAttribute("tabindex", "0");
+                image.setAttribute("role", "button");
+                image.setAttribute("aria-label", (image.alt || "Image") + ". Open larger view");
+
+                image.addEventListener("click", () => openLightbox(image));
+                image.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openLightbox(image);
+                    }
+                });
+            });
+
+            if (lightbox && lightboxClose) {
+                lightboxClose.addEventListener("click", closeLightbox);
+                if (lightboxPrev) {
+                    lightboxPrev.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(-1);
+                    });
+                }
+                if (lightboxNext) {
+                    lightboxNext.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(1);
+                    });
+                }
+                lightbox.addEventListener("click", (event) => {
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+                    closeLightbox();
+                }
+                if (event.key === "ArrowLeft" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(-1);
+                }
+                if (event.key === "ArrowRight" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(1);
+                }
+            });
+
+            document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+                const track = carousel.querySelector("[data-carousel-track]");
+                const prevButton = carousel.querySelector("[data-carousel-prev]");
+                const nextButton = carousel.querySelector("[data-carousel-next]");
+                const dotsContainer = carousel.querySelector("[data-carousel-dots]");
+                if (!track) return;
+
+                const slides = Array.from(track.querySelectorAll(".gallery-card"));
+                if (!slides.length) return;
+
+                let currentIndex = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                const updateControls = () => {
+                    track.dataset.activeIndex = String(currentIndex);
+                    slides.forEach((slide, index) => {
+                        slide.hidden = index !== currentIndex;
+                    });
+                    if (prevButton) prevButton.disabled = currentIndex === 0;
+                    if (nextButton) nextButton.disabled = currentIndex === slides.length - 1;
+                    if (dotsContainer) {
+                        dotsContainer.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+                            dot.setAttribute("aria-pressed", String(index === currentIndex));
+                        });
+                    }
+                };
+
+                const scrollToSlide = (index) => {
+                    const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
+                    currentIndex = boundedIndex;
+                    updateControls();
+                };
+
+                if (dotsContainer) {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.className = "gallery-dot";
+                        dot.setAttribute("aria-label", `Go to figure ${index + 1}`);
+                        dot.setAttribute("aria-pressed", String(index === 0));
+                        dot.addEventListener("click", () => scrollToSlide(index));
+                        dotsContainer.appendChild(dot);
+                    });
+                }
+
+                if (prevButton) {
+                    prevButton.addEventListener("click", () => scrollToSlide(currentIndex - 1));
+                }
+
+                if (nextButton) {
+                    nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
+                }
+
+                track.addEventListener("touchstart", (event) => {
+                    const touch = event.changedTouches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                }, { passive: true });
+
+                track.addEventListener("touchend", (event) => {
+                    const touch = event.changedTouches[0];
+                    const deltaX = touch.clientX - touchStartX;
+                    const deltaY = touch.clientY - touchStartY;
+                    if (Math.abs(deltaX) < 40) return;
+                    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+                    if (deltaX < 0) {
+                        scrollToSlide(currentIndex + 1);
+                    } else {
+                        scrollToSlide(currentIndex - 1);
+                    }
+                }, { passive: true });
+
+                updateControls();
+            });
+
+            const homepagePaths = new Set(["index", "research", "visualization", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
+            });
+        });
+    </script>
+</body>
+</html>

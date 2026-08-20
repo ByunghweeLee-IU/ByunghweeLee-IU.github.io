@@ -7,6 +7,8 @@
 /visualization/
 /wiki/inbox/Santa_Fe/
 /wiki/notes/News-list/
+/wiki/notes/all-about-embedding/01_word2vec/
+/wiki/notes/all-about-embedding/02_word2vec_applications/
 /wiki/notes/blogs/01_art-goldenratio/
 /wiki/notes/blogs/02_art-price/
 /wiki/notes/blogs/03_art-network/

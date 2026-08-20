@@ -21,7 +21,7 @@
     <meta property="article:published_time" content="2026-08-19">
     
     
-    <meta property="article:modified_time" content="2026-08-19">
+    <meta property="article:modified_time" content="2026-08-20">
     
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
@@ -197,7 +197,20 @@ $$</p>
 <li>SGNS의 내적을 data-vs-noise log-odds로, 그 지수값을 gravity law의 attraction으로 읽을 수 있다.</li>
 <li>마지막의 작은 구현을 실행하고 손실, 점수 행렬, 임베딩 그림을 해석할 수 있다.</li>
 </ul>
-<h2 id="_2">한 장짜리 예고편<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
+<h2 id="_2">목차<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
+<ol>
+<li><a href="#part-1">Ⅰ. 출발점 — 코퍼스에서 학습 신호까지</a> — 0–4</li>
+<li><a href="#part-2">Ⅱ. SGNS의 학습 역학</a> — 5–12</li>
+<li><a href="#part-3">Ⅲ. PMI에서 Gravity까지</a> — 13–20</li>
+<li><a href="#part-4">Ⅳ. 학습된 공간을 읽는 법</a> — 21–24</li>
+<li><a href="#part-5">Ⅴ. 직접 구현하고 데이터 만들기</a> — 25–30</li>
+<li><a href="#part-6">Ⅵ. SGNS를 더 깊게 해석하기</a> — 31–40</li>
+<li><a href="#part-7">Ⅶ. 구현 함정과 작은 실험</a> — 41–47</li>
+<li><a href="#part-8">Ⅷ. 관계 방향과 Meaning Axis</a> — 48–49</li>
+<li><a href="#part-9">Ⅸ. 다른 모델과의 연결</a> — 50–53</li>
+<li><a href="#part-10">Ⅹ. 공식, Mental Model, 연습문제</a> — 54–61</li>
+</ol>
+<h2 id="_3">한 장짜리 예고편<a class="header-anchor" href="#_3" title="Link to this section">#</a></h2>
 <div class="highlight"><pre><span></span><code>flowchart TD
     A[문장] --&gt; B[window로&lt;br/&gt;positive pair 생성]
     B --&gt; C[noise에서&lt;br/&gt;negative pair 생성]
@@ -217,7 +230,9 @@ $$</p>
 <p>“이 만남이 강한가?”라고 말하려면 먼저 “무엇과 비교해서?”를 정해야 한다.</p>
 </blockquote>
 <hr />
-<h1 id="0">0. 오늘 끝까지 따라갈 ‘코퍼스 마을’<a class="header-anchor" href="#0" title="Link to this section">#</a></h1>
+<p><a id="part-1"></a></p>
+<h2 id="i">Ⅰ. 출발점 — 코퍼스에서 학습 신호까지<a class="header-anchor" href="#i" title="Link to this section">#</a></h2>
+<h3 id="0">0. 오늘 끝까지 따라갈 ‘코퍼스 마을’<a class="header-anchor" href="#0" title="Link to this section">#</a></h3>
 <p>이 노트에서는 예시를 자주 바꾸지 않는다. 다음 여덟 문장이 전부인 아주 작은 <strong>코퍼스 마을</strong>을 끝까지 따라가자.</p>
 <div class="highlight"><pre><span></span><code>the cat likes pet food
 the dog likes pet food
@@ -270,7 +285,7 @@ the truck carries heavy load
 </code></pre></div>
 
 <p>이후의 주인공 positive pair는 <code>(cat, pet)</code>, 자주 비교할 negative pair는 <code>(cat, road)</code>다.</p>
-<h2 id="30">30초짜리 핵심<a class="header-anchor" href="#30" title="Link to this section">#</a></h2>
+<h4 id="30">30초짜리 핵심<a class="header-anchor" href="#30" title="Link to this section">#</a></h4>
 <p>Skip-gram with Negative Sampling(SGNS)은 각 단어에 두 종류의 벡터를 둔다.</p>
 <ul>
 <li>중심 단어로 질문할 때 쓰는 <code>input embedding</code>: query vector $q_w$</li>
@@ -298,7 +313,7 @@ $$</p>
 <p>이 문서에서 query–key는 현대적인 해석용 이름이다. 원래 Word2Vec 문헌과 구현에서는 보통 <code>input/output embedding</code>이라 부른다. Transformer의 query/key와 수학적 모양은 닮았지만, Word2Vec의 벡터는 문맥에 따라 매번 생성되는 것이 아니라 단어 id에 붙어 있는 정적 파라미터다.</p>
 </blockquote>
 <hr />
-<h1 id="1-skip-gram">1. Skip-gram은 문장이 아니라 ‘만남’을 학습한다<a class="header-anchor" href="#1-skip-gram" title="Link to this section">#</a></h1>
+<h3 id="1-skip-gram">1. Skip-gram은 문장이 아니라 ‘만남’을 학습한다<a class="header-anchor" href="#1-skip-gram" title="Link to this section">#</a></h3>
 <p><code>the cat likes pet food</code>에서 window size가 2라고 하자. 중심 단어가 <code>cat</code>이면 두 칸 안의 문맥은 다음과 같다.</p>
 <div class="highlight"><pre><span></span><code>the, likes, pet
 </code></pre></div>
@@ -322,7 +337,7 @@ $$</p>
 <p>문장이 의미를 직접 제공하는 것이 아니다. window가 “관계”를 정의하고, 반복된 관계가 학습 신호가 된다.</p>
 </blockquote>
 <p>window가 작으면 바로 이웃한 문법적 관계를 더 많이 보고, 크면 같은 주제에 속하는 단어를 더 많이 본다. 따라서 임베딩은 corpus만의 산물이 아니라 <strong>corpus + window라는 관측 장치</strong>의 산물이다.</p>
-<h3 id="window">잠깐 연습: window가 바꾸는 관계<a class="header-anchor" href="#window" title="Link to this section">#</a></h3>
+<h4 id="window">잠깐 연습: window가 바꾸는 관계<a class="header-anchor" href="#window" title="Link to this section">#</a></h4>
 <p><code>the dog enjoys warm home</code>에서 center가 <code>enjoys</code>일 때 window size 1과 2가 각각 만드는 context를 쓰라. 두 설정이 학습할 관계는 어떻게 달라질까?</p>
 <details>
 <summary>간단한 풀이</summary>
@@ -332,7 +347,7 @@ window 1은 바로 옆의 `dog`, `warm`을 만든다. window 2는 여기에 `the
 </details>
 
 <hr />
-<h1 id="2-word2vec">2. Word2Vec에는 왜 벡터가 두 개 있는가?<a class="header-anchor" href="#2-word2vec" title="Link to this section">#</a></h1>
+<h3 id="2-word2vec">2. Word2Vec에는 왜 벡터가 두 개 있는가?<a class="header-anchor" href="#2-word2vec" title="Link to this section">#</a></h3>
 <p>Vocabulary size를 $V$, embedding dimension을 $d$라 하자.</p>
 <p>두 embedding matrix가 있다.</p>
 <p>$$
@@ -361,7 +376,7 @@ $$</p>
 <p>를 계산하는 것과 구조적으로 매우 비슷하다.</p>
 <p>차이는 Transformer에서는 query/key가 입력에 따라 동적으로 생성되는 반면, Word2Vec에서는 vocabulary의 각 token마다 <strong>학습되는 static query/key vector</strong>가 있다는 것이다.</p>
 <hr />
-<h1 id="3-querykey-word2vec">3. Query–Key 관점에서 보는 Word2Vec<a class="header-anchor" href="#3-querykey-word2vec" title="Link to this section">#</a></h1>
+<h3 id="3-querykey-word2vec">3. Query–Key 관점에서 보는 Word2Vec<a class="header-anchor" href="#3-querykey-word2vec" title="Link to this section">#</a></h3>
 <p>Word2Vec을 다음 질문으로 이해하면 매우 쉽다.</p>
 <blockquote>
 <p>&ldquo;center word $w$가 주어졌을 때 context candidate $c$가 얼마나 compatible한가?&rdquo;</p>
@@ -403,7 +418,7 @@ q_{\text{cat}}^\top k_{\text{road}}
 $$</p>
 <p>같은 값은 낮아진다. 즉 Word2Vec은 <code>cat</code>이라는 query로 어울리는 context key를 검색하는 <strong>learned retrieval system</strong>이다.</p>
 <hr />
-<h1 id="4">4. 처음 벡터는 아무 의미가 없다<a class="header-anchor" href="#4" title="Link to this section">#</a></h1>
+<h3 id="4">4. 처음 벡터는 아무 의미가 없다<a class="header-anchor" href="#4" title="Link to this section">#</a></h3>
 <p>처음에는 embedding이 random initialization된다.</p>
 <p>예:</p>
 <div class="highlight"><pre><span></span><code>q_cat = [ 0.01, -0.03,  0.02 ]
@@ -424,7 +439,9 @@ dog → likes, pet, food, enjoys, warm, home
 <p><strong>비슷한 context를 예측해야 하기 때문에 간접적으로 만들어진다.</strong></p>
 </blockquote>
 <hr />
-<h1 id="5-full-softmax-skip-gram">5. Full Softmax Skip-gram<a class="header-anchor" href="#5-full-softmax-skip-gram" title="Link to this section">#</a></h1>
+<p><a id="part-2"></a></p>
+<h2 id="ii-sgns">Ⅱ. SGNS의 학습 역학<a class="header-anchor" href="#ii-sgns" title="Link to this section">#</a></h2>
+<h3 id="5-full-softmax-skip-gram">5. Full Softmax Skip-gram<a class="header-anchor" href="#5-full-softmax-skip-gram" title="Link to this section">#</a></h3>
 <p>원래 Skip-gram의 확률 모델은 다음과 같다.</p>
 <p>center word $w$가 주어졌을 때 context $c$의 확률:</p>
 <p>$$
@@ -447,7 +464,7 @@ $$</p>
 <p>문제는 vocabulary가 100,000이면 positive pair 하나마다 100,000개의 score를 계산해야 한다는 것이다.</p>
 <p>그래서 expensive하다.</p>
 <hr />
-<h1 id="6-negative-sampling">6. Negative Sampling의 아이디어<a class="header-anchor" href="#6-negative-sampling" title="Link to this section">#</a></h1>
+<h3 id="6-negative-sampling">6. Negative Sampling의 아이디어<a class="header-anchor" href="#6-negative-sampling" title="Link to this section">#</a></h3>
 <p>Negative Sampling은 문제를 바꾼다.</p>
 <p>기존 문제:</p>
 <blockquote>
@@ -483,7 +500,7 @@ $$</p>
 <p>이다.</p>
 <p>여기서 negative는 “세상에서 의미적으로 절대 관계없는 단어”라는 정답표가 아니다. 그저 정해 둔 noise distribution에서 뽑은 <strong>대조군</strong>이다. 드물게 실제 positive가 negative로 다시 뽑힐 수도 있다. 큰 corpus에서는 확률적인 학습 신호가 평균적으로 작동하며, 구현에 따라 positive와 같은 token을 거부하기도 한다.</p>
 <hr />
-<h1 id="7-sgns-objective">7. SGNS objective<a class="header-anchor" href="#7-sgns-objective" title="Link to this section">#</a></h1>
+<h3 id="7-sgns-objective">7. SGNS objective<a class="header-anchor" href="#7-sgns-objective" title="Link to this section">#</a></h3>
 <p>positive pair $(w,c)$ 하나와 negative samples</p>
 <p>$$
 n_1,\dots,n_K
@@ -506,7 +523,7 @@ L
 \log\sigma(-q_w^\top k_{n_i})
 $$</p>
 <hr />
-<h1 id="8-positive-pair-gradient">8. Positive pair에서 gradient는 정확히 무엇을 하는가?<a class="header-anchor" href="#8-positive-pair-gradient" title="Link to this section">#</a></h1>
+<h3 id="8-positive-pair-gradient">8. Positive pair에서 gradient는 정확히 무엇을 하는가?<a class="header-anchor" href="#8-positive-pair-gradient" title="Link to this section">#</a></h3>
 <p>positive pair에 대한 score:</p>
 <p>$$
 s=q_w^\top k_c
@@ -559,7 +576,7 @@ $$</p>
 <p>이다.</p>
 <p>따라서 <strong>positive pair의 두 벡터는 서로의 방향으로 이동한다.</strong></p>
 <hr />
-<h1 id="9-negative-pair-gradient">9. Negative pair에서 gradient는 무엇을 하는가?<a class="header-anchor" href="#9-negative-pair-gradient" title="Link to this section">#</a></h1>
+<h3 id="9-negative-pair-gradient">9. Negative pair에서 gradient는 무엇을 하는가?<a class="header-anchor" href="#9-negative-pair-gradient" title="Link to this section">#</a></h3>
 <p>negative sample $n$에 대해</p>
 <p>$$
 L_-=-\log\sigma(-q_w^\top k_n)
@@ -598,7 +615,7 @@ k_n
 $$</p>
 <p>즉 negative pair는 두 벡터의 dot product를 감소시키는 방향으로 이동한다.</p>
 <hr />
-<h1 id="10-gradient">10. 중요한 직관: gradient는 항상 같은 크기가 아니다<a class="header-anchor" href="#10-gradient" title="Link to this section">#</a></h1>
+<h3 id="10-gradient">10. 중요한 직관: gradient는 항상 같은 크기가 아니다<a class="header-anchor" href="#10-gradient" title="Link to this section">#</a></h3>
 <p>positive pair에서</p>
 <p>$$
 1-\sigma(s)
@@ -627,7 +644,7 @@ $$</p>
 <p>이므로 거의 update하지 않는다.</p>
 <p>결국 SGNS는 <strong>잘못 평가되고 있는 pair를 중심으로 수정한다.</strong></p>
 <hr />
-<h1 id="11-training-step">11. 실제 한 training step<a class="header-anchor" href="#11-training-step" title="Link to this section">#</a></h1>
+<h3 id="11-training-step">11. 실제 한 training step<a class="header-anchor" href="#11-training-step" title="Link to this section">#</a></h3>
 <p>예를 들어</p>
 <div class="highlight"><pre><span></span><code>center = cat
 positive context = pet
@@ -723,7 +740,7 @@ $$</p>
 <blockquote>
 <p>“positive면 score가 반드시 양수여야 한다”는 뜻은 아니다. negative를 $K$개씩 보여 주면 최적 기준점도 $K$만큼 이동한다. 중요한 것은 관련 pair의 score가 무관한 pair보다 크고, data-to-noise 비율을 잘 반영하는가이다. 이 사실은 뒤의 $-\log K$에서 정확히 드러난다.</p>
 </blockquote>
-<h3 id="pair">잠깐 연습: 어느 pair가 세게 움직일까?<a class="header-anchor" href="#pair" title="Link to this section">#</a></h3>
+<h4 id="pair">잠깐 연습: 어느 pair가 세게 움직일까?<a class="header-anchor" href="#pair" title="Link to this section">#</a></h4>
 <p>모델이 positive pair를 $s_+=-3$으로, negative pair를 $s_-=3$으로 잘못 평가했다. 두 update의 scalar strength $1-\sigma(s_+)$와 $\sigma(s_-)$는 각각 얼마쯤인가? score의 부호가 반대라면 어떻게 되는가?</p>
 <details>
 <summary>간단한 풀이</summary>
@@ -733,7 +750,7 @@ $\sigma(3)\approx0.953$, $\sigma(-3)\approx0.047$이다. 따라서 잘못 평가
 </details>
 
 <hr />
-<h1 id="12">12. 벡터가 어떻게 의미 구조를 만들까?<a class="header-anchor" href="#12" title="Link to this section">#</a></h1>
+<h3 id="12">12. 벡터가 어떻게 의미 구조를 만들까?<a class="header-anchor" href="#12" title="Link to this section">#</a></h3>
 <p>가장 중요한 부분이다.</p>
 <p>예를 들어 두 단어가 있다고 하자.</p>
 <div class="highlight"><pre><span></span><code>cat
@@ -777,7 +794,9 @@ $$</p>
 <p>가 된다.</p>
 <p>반대로 <code>cat</code>과 <code>car</code>는 높은 점수를 요구하는 key 집합이 다르다. <code>cat</code>은 <code>pet/home</code> 쪽으로, <code>car</code>는 <code>road/load</code> 쪽으로 서로 다른 제약을 받는다. 이 <strong>공유 문맥은 모으고, 다른 문맥은 가르는 공동 압력</strong>이 코퍼스 마을의 두 동네를 만든다.</p>
 <hr />
-<h1 id="13-word2vec-factorize">13. 사실 Word2Vec은 거대한 관계 행렬을 factorize한다<a class="header-anchor" href="#13-word2vec-factorize" title="Link to this section">#</a></h1>
+<p><a id="part-3"></a></p>
+<h2 id="iii-pmi-gravity">Ⅲ. PMI에서 Gravity까지<a class="header-anchor" href="#iii-pmi-gravity" title="Link to this section">#</a></h2>
+<h3 id="13-word2vec-factorize">13. 사실 Word2Vec은 거대한 관계 행렬을 factorize한다<a class="header-anchor" href="#13-word2vec-factorize" title="Link to this section">#</a></h3>
 <p>전체 word-context 관계를 matrix로 생각해보자.</p>
 <p>$$
 M_{wc}
@@ -806,7 +825,7 @@ $$</p>
 <p>이다.</p>
 <p>즉 Word2Vec은 매우 큰 word-context interaction matrix를 저차원으로 factorize하는 셈이다.</p>
 <hr />
-<h1 id="14-sgns-pmi">14. SGNS와 PMI의 연결: 먼저 특수한 경우<a class="header-anchor" href="#14-sgns-pmi" title="Link to this section">#</a></h1>
+<h3 id="14-sgns-pmi">14. SGNS와 PMI의 연결: 먼저 특수한 경우<a class="header-anchor" href="#14-sgns-pmi" title="Link to this section">#</a></h3>
 <p>Levy &amp; Goldberg의 중요한 해석은 SGNS가 implicit하게 <strong>shifted PMI matrix factorization</strong>을 수행한다는 것이다. 다만 아래의 깔끔한 식은 noise distribution이 실제 context unigram과 같을 때</p>
 <p>$$
 P_n(c)=P(c)
@@ -834,7 +853,7 @@ $$</p>
 </blockquote>
 <p>를 log scale에서 나타낸다고 볼 수 있다.</p>
 <hr />
-<h1 id="15-pmi-count">15. PMI를 count로 써보기<a class="header-anchor" href="#15-pmi-count" title="Link to this section">#</a></h1>
+<h3 id="15-pmi-count">15. PMI를 count로 써보기<a class="header-anchor" href="#15-pmi-count" title="Link to this section">#</a></h3>
 <p>corpus에서</p>
 <p>$$
 N(w,c)
@@ -877,7 +896,7 @@ q_w^\top k_c
 $$</p>
 <p>이다.</p>
 <hr />
-<h1 id="16-noise-distribution">16. Noise distribution: “무엇과 비교해서 놀라운가?”<a class="header-anchor" href="#16-noise-distribution" title="Link to this section">#</a></h1>
+<h3 id="16-noise-distribution">16. Noise distribution: “무엇과 비교해서 놀라운가?”<a class="header-anchor" href="#16-noise-distribution" title="Link to this section">#</a></h3>
 <p>negative context를 어떻게 뽑든 계산만 빨라지는 것처럼 보이지만, 사실 noise distribution $P_n(c)$는 모델이 세상을 보는 <strong>기준선</strong>이다.</p>
 <ul>
 <li>uniform noise: 모든 단어가 똑같이 나올 것이라고 가정한다.</li>
@@ -942,7 +961,7 @@ $$</p>
 $$</p>
 <p>처럼 <strong>관측 빈도 / 기준선 빈도</strong>를 비교해야 한다. 이것이 negative sampling에서 gravity law로 넘어가는 문이다.</p>
 <hr />
-<h1 id="17-sgns-data-vs-noise-log-odds">17. SGNS의 내적은 data-vs-noise log-odds다<a class="header-anchor" href="#17-sgns-data-vs-noise-log-odds" title="Link to this section">#</a></h1>
+<h3 id="17-sgns-data-vs-noise-log-odds">17. SGNS의 내적은 data-vs-noise log-odds다<a class="header-anchor" href="#17-sgns-data-vs-noise-log-odds" title="Link to this section">#</a></h3>
 <p>positive pair는 실제 pair distribution에서 온다.</p>
 <p>$$
 (w,c)\sim P_{\text{data}}(w,c)
@@ -1004,7 +1023,7 @@ $$</p>
 </ol>
 <p>바로 이 제약 때문에 단순 암기가 아니라 <strong>구조의 압축</strong>, 즉 embedding이 생긴다.</p>
 <hr />
-<h1 id="18-exponential-gravity-law">18. 로그를 풀면 exponential gravity law가 나온다<a class="header-anchor" href="#18-exponential-gravity-law" title="Link to this section">#</a></h1>
+<h3 id="18-exponential-gravity-law">18. 로그를 풀면 exponential gravity law가 나온다<a class="header-anchor" href="#18-exponential-gravity-law" title="Link to this section">#</a></h3>
 <p>이제 새 모델을 억지로 가져올 필요가 없다. 방금 얻은 식을 그대로 지수화하면 된다.</p>
 <p>$$
 q_w^\top k_c
@@ -1059,7 +1078,7 @@ $$</p>
 </tbody>
 </table>
 <p>즉 임베딩은 raw co-occurrence를 통째로 외우는 것이 아니라, 두 endpoint의 기본 활동량으로 설명되지 않는 <strong>잔여 끌림</strong>을 저차원으로 압축한다.</p>
-<h2 id="unigram-noise-gravity">Unigram noise는 가장 익숙한 gravity 식을 만든다<a class="header-anchor" href="#unigram-noise-gravity" title="Link to this section">#</a></h2>
+<h4 id="unigram-noise-gravity">Unigram noise는 가장 익숙한 gravity 식을 만든다<a class="header-anchor" href="#unigram-noise-gravity" title="Link to this section">#</a></h4>
 <p>만약 $P_n(c)=P_{\text{data}}(c)$이면</p>
 <p>$$
 P_{\text{data}}(w,c)
@@ -1073,7 +1092,7 @@ q_w^\top k_c
 PMI(w,c)-\log K
 $$</p>
 <p>이고, 양쪽 단어의 unigram probability가 정확히 두 mass 역할을 한다.</p>
-<h2 id="34-noise-destination-mass">$3/4$ noise에서는 destination mass가 달라진다<a class="header-anchor" href="#34-noise-destination-mass" title="Link to this section">#</a></h2>
+<h4 id="34-noise-destination-mass">$3/4$ noise에서는 destination mass가 달라진다<a class="header-anchor" href="#34-noise-destination-mass" title="Link to this section">#</a></h4>
 <p>실전형 noise가 $P_n(c)=P(c)^{3/4}/Z_{3/4}$라면</p>
 <p>$$
 P_{\text{data}}(w,c)
@@ -1088,7 +1107,7 @@ PMI(w,c)-\log K
 +\frac14\log P(c)+\log Z_{3/4}.
 $$</p>
 <p>따라서 “SGNS는 언제나 정확히 $PMI-\log K$를 학습한다”는 말은 생략이 있다. <strong>unigram noise일 때</strong> 정확한 특수형이고, $3/4$ noise에서는 context-frequency 보정항이 남는다.</p>
-<h3 id="log-odds-flow">잠깐 연습: log-odds를 flow로 되돌리기<a class="header-anchor" href="#log-odds-flow" title="Link to this section">#</a></h3>
+<h4 id="log-odds-flow">잠깐 연습: log-odds를 flow로 되돌리기<a class="header-anchor" href="#log-odds-flow" title="Link to this section">#</a></h4>
 <p>$P(w)=0.1$, $P_n(c)=0.02$, $K=5$, $q_w^\top k_c=\log3$이라 하자. pairwise optimum의 gravity 식이 예측하는 $P(w,c)$는 얼마인가? 여기서 $3$은 무엇을 뜻하는가?</p>
 <details>
 <summary>간단한 풀이</summary>
@@ -1105,7 +1124,7 @@ $e^{q_w^\top k_c}=3$은 endpoint baseline $K P(w)P_n(c)$에 곱해지는 latent 
 </details>
 
 <hr />
-<h1 id="19-gravity">19. 왜 이것을 ‘gravity’라고 부를 수 있을까?<a class="header-anchor" href="#19-gravity" title="Link to this section">#</a></h1>
+<h3 id="19-gravity">19. 왜 이것을 ‘gravity’라고 부를 수 있을까?<a class="header-anchor" href="#19-gravity" title="Link to this section">#</a></h3>
 <p>고전적인 공간 상호작용의 gravity model은</p>
 <p>$$
 F_{ij}
@@ -1173,7 +1192,7 @@ $$</p>
 <p>전통 gravity model은 관측된 거리가 상호작용을 설명한다고 가정한다. SGNS는 상호작용을 설명하는 latent affinity를 query–key geometry에서 발견한다.</p>
 </blockquote>
 <hr />
-<h1 id="20">20. 코퍼스 마을의 결말: 빈도에서 의미로<a class="header-anchor" href="#20" title="Link to this section">#</a></h1>
+<h3 id="20">20. 코퍼스 마을의 결말: 빈도에서 의미로<a class="header-anchor" href="#20" title="Link to this section">#</a></h3>
 <p>이제 <code>cat</code>을 둘러싼 세 context를 다시 보자.</p>
 <table>
 <thead>
@@ -1236,7 +1255,9 @@ mass × mass × latent attraction
 
 <p>이것이 이 노트의 한 줄짜리 스토리다.</p>
 <hr />
-<h1 id="21-dot-product-distance">21. Dot product가 distance는 아니다<a class="header-anchor" href="#21-dot-product-distance" title="Link to this section">#</a></h1>
+<p><a id="part-4"></a></p>
+<h2 id="iv">Ⅳ. 학습된 공간을 읽는 법<a class="header-anchor" href="#iv" title="Link to this section">#</a></h2>
+<h3 id="21-dot-product-distance">21. Dot product가 distance는 아니다<a class="header-anchor" href="#21-dot-product-distance" title="Link to this section">#</a></h3>
 <p>여기서 중요한 주의점.</p>
 <p>Word2Vec의 score는</p>
 <p>$$
@@ -1264,7 +1285,7 @@ $$</p>
 <p>이다.</p>
 <p>따라서 학습은 dot product를 직접 조절하지만, 결과적으로 cosine geometry도 의미를 갖게 된다.</p>
 <hr />
-<h1 id="22-inference-input-embedding">22. 왜 inference 때는 보통 input embedding만 쓰는가?<a class="header-anchor" href="#22-inference-input-embedding" title="Link to this section">#</a></h1>
+<h3 id="22-inference-input-embedding">22. 왜 inference 때는 보통 input embedding만 쓰는가?<a class="header-anchor" href="#22-inference-input-embedding" title="Link to this section">#</a></h3>
 <p>학습 시에는</p>
 <div class="highlight"><pre><span></span><code>Q = input embeddings
 K = output embeddings
@@ -1284,7 +1305,7 @@ K = output embeddings
 <p>왜냐하면 <code>Q</code>는 word가 center로 등장했을 때의 representation이고, 보통 우리가 원하는 semantic embedding과 잘 맞기 때문이다.</p>
 <p>하지만 이론적으로 <code>Q</code>와 <code>K</code>는 역할이 다르다.</p>
 <hr />
-<h1 id="23-query-vector-key-vector">23. Query vector와 Key vector의 비대칭성<a class="header-anchor" href="#23-query-vector-key-vector" title="Link to this section">#</a></h1>
+<h3 id="23-query-vector-key-vector">23. Query vector와 Key vector의 비대칭성<a class="header-anchor" href="#23-query-vector-key-vector" title="Link to this section">#</a></h3>
 <p>Word2Vec에서 $q_w$와 $k_w$는 같은 parameter가 아니다.</p>
 <p>예를 들어 단어 <code>bank</code>가 center로 쓰일 때와 context로 쓰일 때 받는 gradient가 다를 수 있다.</p>
 <p>따라서 일반적으로</p>
@@ -1304,7 +1325,7 @@ $$</p>
 
 <p>라는 directed prediction 문제다.</p>
 <hr />
-<h1 id="24-transformer-attention">24. Transformer attention과 비교<a class="header-anchor" href="#24-transformer-attention" title="Link to this section">#</a></h1>
+<h3 id="24-transformer-attention">24. Transformer attention과 비교<a class="header-anchor" href="#24-transformer-attention" title="Link to this section">#</a></h3>
 <p>Word2Vec:</p>
 <p>$$
 q_w^\top k_c
@@ -1315,7 +1336,7 @@ q_i^\top k_j
 $$</p>
 <p>둘 다 compatibility score다.</p>
 <p>하지만 차이가 있다.</p>
-<h2 id="word2vec">Word2Vec<a class="header-anchor" href="#word2vec" title="Link to this section">#</a></h2>
+<h4 id="word2vec">Word2Vec<a class="header-anchor" href="#word2vec" title="Link to this section">#</a></h4>
 <div class="highlight"><pre><span></span><code>word id
 ↓
 embedding lookup
@@ -1326,7 +1347,7 @@ dot product
 </code></pre></div>
 
 <p>vector가 static하다.</p>
-<h2 id="transformer">Transformer<a class="header-anchor" href="#transformer" title="Link to this section">#</a></h2>
+<h4 id="transformer">Transformer<a class="header-anchor" href="#transformer" title="Link to this section">#</a></h4>
 <div class="highlight"><pre><span></span><code>token representation h_i
 ↓
 W_Q h_i
@@ -1344,7 +1365,9 @@ k_j
 <p>vector가 context-dependent하다.</p>
 <p>즉 Transformer는 Word2Vec의 query-key matching 아이디어를 훨씬 dynamic하게 확장한 것으로 볼 수도 있다.</p>
 <hr />
-<h1 id="25-numpy">25. 아주 작은 NumPy 구현<a class="header-anchor" href="#25-numpy" title="Link to this section">#</a></h1>
+<p><a id="part-5"></a></p>
+<h2 id="v">Ⅴ. 직접 구현하고 데이터 만들기<a class="header-anchor" href="#v" title="Link to this section">#</a></h2>
+<h3 id="25-numpy">25. 아주 작은 NumPy 구현<a class="header-anchor" href="#25-numpy" title="Link to this section">#</a></h3>
 <p>아래는 핵심만 남긴 SGNS 한 step이다.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -1414,7 +1437,7 @@ k_j
 
 <p>이 코드가 SGNS의 거의 전부다.</p>
 <hr />
-<h1 id="26-pytorch">26. PyTorch 구현<a class="header-anchor" href="#26-pytorch" title="Link to this section">#</a></h1>
+<h3 id="26-pytorch">26. PyTorch 구현<a class="header-anchor" href="#26-pytorch" title="Link to this section">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
@@ -1517,7 +1540,7 @@ k_j
 </code></pre></div>
 
 <hr />
-<h1 id="27-pipeline">27. 전체 데이터 pipeline<a class="header-anchor" href="#27-pipeline" title="Link to this section">#</a></h1>
+<h3 id="27-pipeline">27. 전체 데이터 pipeline<a class="header-anchor" href="#27-pipeline" title="Link to this section">#</a></h3>
 <p>Word2Vec 구현을 실제 pipeline으로 쓰면:</p>
 <div class="highlight"><pre><span></span><code>raw corpus
     ↓
@@ -1545,7 +1568,7 @@ Q, K update
 </code></pre></div>
 
 <hr />
-<h1 id="28-context-window">28. Context window는 실제로 어떤 역할을 하는가?<a class="header-anchor" href="#28-context-window" title="Link to this section">#</a></h1>
+<h3 id="28-context-window">28. Context window는 실제로 어떤 역할을 하는가?<a class="header-anchor" href="#28-context-window" title="Link to this section">#</a></h3>
 <p>window size는 &ldquo;relation&rdquo;의 정의를 결정한다.</p>
 <p>window=1이면 매우 local syntactic relation을 많이 배운다.</p>
 <p>예:</p>
@@ -1566,13 +1589,13 @@ federal
 <p>즉 embedding geometry는 corpus뿐 아니라 <strong>어떤 pair를 positive라고 정의하느냐</strong>에 의해 결정된다.</p>
 <p>이것은 network embedding에서도 동일하다.</p>
 <hr />
-<h1 id="29-dynamic-window">29. Dynamic window<a class="header-anchor" href="#29-dynamic-window" title="Link to this section">#</a></h1>
+<h3 id="29-dynamic-window">29. Dynamic window<a class="header-anchor" href="#29-dynamic-window" title="Link to this section">#</a></h3>
 <p>원래 Word2Vec 구현에서는 fixed window 안 모든 위치를 동일하게 쓰는 것이 아니라 random window를 사용하기도 한다.</p>
 <p>예를 들어 max window=5라면 매 center마다 실제 window를 1~5 사이에서 sampling한다.</p>
 <p>이렇게 하면 가까운 context가 상대적으로 더 많이 학습된다.</p>
 <p>결과적으로 가까운 단어에 더 높은 weight를 주는 효과가 생긴다.</p>
 <hr />
-<h1 id="30-frequent-word-subsampling">30. Frequent word subsampling<a class="header-anchor" href="#30-frequent-word-subsampling" title="Link to this section">#</a></h1>
+<h3 id="30-frequent-word-subsampling">30. Frequent word subsampling<a class="header-anchor" href="#30-frequent-word-subsampling" title="Link to this section">#</a></h3>
 <p>Word2Vec에는 또 중요한 trick이 있다.</p>
 <p><code>the</code>, <code>of</code>, <code>and</code> 같은 초고빈도 단어를 일정 확률로 버린다.</p>
 <p>대략</p>
@@ -1587,7 +1610,9 @@ $$</p>
 </ol>
 <p>즉 Word2Vec은 raw co-occurrence를 그대로 학습하는 것이 아니라 상당한 reweighting을 한다.</p>
 <hr />
-<h1 id="31-negative-sampling-matrix-factorization">31. Negative Sampling과 matrix factorization을 더 정확히 보기<a class="header-anchor" href="#31-negative-sampling-matrix-factorization" title="Link to this section">#</a></h1>
+<p><a id="part-6"></a></p>
+<h2 id="vi-sgns">Ⅵ. SGNS를 더 깊게 해석하기<a class="header-anchor" href="#vi-sgns" title="Link to this section">#</a></h2>
+<h3 id="31-negative-sampling-matrix-factorization">31. Negative Sampling과 matrix factorization을 더 정확히 보기<a class="header-anchor" href="#31-negative-sampling-matrix-factorization" title="Link to this section">#</a></h3>
 <p>positive pair count를</p>
 <p>$$
 x_{wc}
@@ -1655,7 +1680,7 @@ $$</p>
 <p>이다. 실제 저차원 모델에서는 $q_w^\top k_c\approx s_{wc}^*$가 되도록 전체 score 행렬을 공동 근사한다. $x_{wc}=0$인 pair의 비정규화 독립 최적값은 $-\infty$이며, 공유 벡터와 유한 학습이 이를 제한한다.</p>
 <p>이 식은 SGNS를 이해하는 가장 강력한 식 중 하나다.</p>
 <hr />
-<h1 id="32-noise-unigram-pmi">32. Noise가 unigram이면 PMI가 나온다<a class="header-anchor" href="#32-noise-unigram-pmi" title="Link to this section">#</a></h1>
+<h3 id="32-noise-unigram-pmi">32. Noise가 unigram이면 PMI가 나온다<a class="header-anchor" href="#32-noise-unigram-pmi" title="Link to this section">#</a></h3>
 <p>만약</p>
 <p>$$
 P_n(c)=P(c)
@@ -1686,7 +1711,7 @@ $$</p>
 <p>이다.</p>
 <p>즉 shifted PMI 결과가 바로 나온다.</p>
 <hr />
-<h1 id="33-negative-sample-k">33. Negative sample 수 K의 의미<a class="header-anchor" href="#33-negative-sample-k" title="Link to this section">#</a></h1>
+<h3 id="33-negative-sample-k">33. Negative sample 수 K의 의미<a class="header-anchor" href="#33-negative-sample-k" title="Link to this section">#</a></h3>
 <p>unigram noise인 shifted-PMI 경우에는</p>
 <p>$$
 q_w^\top k_c
@@ -1704,7 +1729,7 @@ K=20
 $$</p>
 <p>즉 negative sample이 많아질수록 positive pair가 높은 probability를 얻기 위해 더 강한 evidence가 필요하다.</p>
 <hr />
-<h1 id="34-word2vec-norm">34. Word2Vec에서 norm은 무엇을 의미할까?<a class="header-anchor" href="#34-word2vec-norm" title="Link to this section">#</a></h1>
+<h3 id="34-word2vec-norm">34. Word2Vec에서 norm은 무엇을 의미할까?<a class="header-anchor" href="#34-word2vec-norm" title="Link to this section">#</a></h3>
 <p>cosine similarity를 많이 쓰기 때문에 방향만 중요해 보이지만 학습 objective는 실제로 norm도 사용한다.</p>
 <p>$$
 q^\top k
@@ -1721,7 +1746,7 @@ $$</p>
 <p>빈도가 높은 단어나 많은 관계를 가져야 하는 단어는 특정 상황에서 norm에 frequency-related signal을 담을 수 있다.</p>
 <p>그래서 semantic similarity에서는 보통 cosine을 사용해 magnitude 영향을 제거한다.</p>
 <hr />
-<h1 id="35-relation-profile">35. Relation profile 관점<a class="header-anchor" href="#35-relation-profile" title="Link to this section">#</a></h1>
+<h3 id="35-relation-profile">35. Relation profile 관점<a class="header-anchor" href="#35-relation-profile" title="Link to this section">#</a></h3>
 <p>각 query $q_w$를 직접 이해하기보다</p>
 <p>$$
 q_w^\top K^\top
@@ -1752,7 +1777,7 @@ $$</p>
 </blockquote>
 <p>이라고 볼 수 있다.</p>
 <hr />
-<h1 id="36-network-embedding">36. Network embedding과의 연결<a class="header-anchor" href="#36-network-embedding" title="Link to this section">#</a></h1>
+<h3 id="36-network-embedding">36. Network embedding과의 연결<a class="header-anchor" href="#36-network-embedding" title="Link to this section">#</a></h3>
 <p>graph에서 edge</p>
 <p>$$
 i\rightarrow j
@@ -1785,7 +1810,7 @@ q_i^\top k_j
 $$</p>
 <p>는 graph proximity의 log-odds를 표현한다.</p>
 <hr />
-<h1 id="37-gravity-model-network-embedding">37. Gravity model과 network embedding을 함께 보기<a class="header-anchor" href="#37-gravity-model-network-embedding" title="Link to this section">#</a></h1>
+<h3 id="37-gravity-model-network-embedding">37. Gravity model과 network embedding을 함께 보기<a class="header-anchor" href="#37-gravity-model-network-embedding" title="Link to this section">#</a></h3>
 <p>graph flow를</p>
 <p>$$
 F_{ij}
@@ -1838,7 +1863,7 @@ $$</p>
 embedding model은 interaction space 자체를 데이터에서 학습한다.</p>
 </blockquote>
 <hr />
-<h1 id="38-euclidean-latent-space-gravity">38. Euclidean latent-space gravity로 바꾸기<a class="header-anchor" href="#38-euclidean-latent-space-gravity" title="Link to this section">#</a></h1>
+<h3 id="38-euclidean-latent-space-gravity">38. Euclidean latent-space gravity로 바꾸기<a class="header-anchor" href="#38-euclidean-latent-space-gravity" title="Link to this section">#</a></h3>
 <p>dot-product model 대신</p>
 <p>$$
 F_{ij}
@@ -1864,7 +1889,7 @@ $$</p>
 <p>node-specific bias를 따로 허용하면 결국 interaction part는 dot product 형태로 바뀐다.</p>
 <p>즉 latent-distance model과 dot-product embedding은 상당히 깊게 연결되어 있다.</p>
 <hr />
-<h1 id="39-bias-gravity-model">39. Bias를 추가하면 gravity model 형태가 더 명확하다<a class="header-anchor" href="#39-bias-gravity-model" title="Link to this section">#</a></h1>
+<h3 id="39-bias-gravity-model">39. Bias를 추가하면 gravity model 형태가 더 명확하다<a class="header-anchor" href="#39-bias-gravity-model" title="Link to this section">#</a></h3>
 <p>score를</p>
 <p>$$
 s_{ij}
@@ -1900,7 +1925,7 @@ $$</p>
 <p>가 된다.</p>
 <p>완전히 gravity-like form이다.</p>
 <hr />
-<h1 id="40-negative-sampling">40. Negative Sampling의 진짜 역할<a class="header-anchor" href="#40-negative-sampling" title="Link to this section">#</a></h1>
+<h3 id="40-negative-sampling">40. Negative Sampling의 진짜 역할<a class="header-anchor" href="#40-negative-sampling" title="Link to this section">#</a></h3>
 <p>Negative Sampling을 단순히 &ldquo;계산량을 줄이는 trick&rdquo;으로만 보면 절반만 이해한 것이다.</p>
 <p>Negative Sampling은 다음을 결정한다.</p>
 <blockquote>
@@ -1927,7 +1952,9 @@ $$</p>
 <p>이다.</p>
 <p>이것이 PMI와 gravity model을 동시에 연결하는 핵심이다.</p>
 <hr />
-<h1 id="41-1-cosine-loss">41. 구현 시 헷갈리는 점 1: cosine을 loss로 쓰지 않는다<a class="header-anchor" href="#41-1-cosine-loss" title="Link to this section">#</a></h1>
+<p><a id="part-7"></a></p>
+<h2 id="vii">Ⅶ. 구현 함정과 작은 실험<a class="header-anchor" href="#vii" title="Link to this section">#</a></h2>
+<h3 id="41-1-cosine-loss">41. 구현 시 헷갈리는 점 1: cosine을 loss로 쓰지 않는다<a class="header-anchor" href="#41-1-cosine-loss" title="Link to this section">#</a></h3>
 <p>Word2Vec SGNS의 training objective는 cosine similarity가 아니다.</p>
 <p>학습 score는</p>
 <p>$$
@@ -1942,7 +1969,7 @@ evaluation: cosine similarity
 
 <p>가 일반적이다.</p>
 <hr />
-<h1 id="42-2-negative-sample-center">42. 구현 시 헷갈리는 점 2: negative sample은 center마다 새로 뽑는다<a class="header-anchor" href="#42-2-negative-sample-center" title="Link to this section">#</a></h1>
+<h3 id="42-2-negative-sample-center">42. 구현 시 헷갈리는 점 2: negative sample은 center마다 새로 뽑는다<a class="header-anchor" href="#42-2-negative-sample-center" title="Link to this section">#</a></h3>
 <p>각 positive pair마다 negative context들을 sampling한다.</p>
 <div class="highlight"><pre><span></span><code>(center, positive)
 +
@@ -1962,12 +1989,12 @@ chair
 <p>였다가 다음 batch에서는 전혀 다른 단어가 뽑힐 수 있다.</p>
 <p>이 random noise exposure가 전체 geometry를 만든다.</p>
 <hr />
-<h1 id="43-3-negative">43. 구현 시 헷갈리는 점 3: 같은 negative가 여러 번 나올 수 있다<a class="header-anchor" href="#43-3-negative" title="Link to this section">#</a></h1>
+<h3 id="43-3-negative">43. 구현 시 헷갈리는 점 3: 같은 negative가 여러 번 나올 수 있다<a class="header-anchor" href="#43-3-negative" title="Link to this section">#</a></h3>
 <p>sampling with replacement라면 같은 word가 여러 번 나올 수 있다.</p>
 <p>PyTorch에서 vectorized 구현할 때 같은 token id가 여러 번 등장하면 gradient accumulation이 제대로 이루어져야 한다.</p>
 <p><code>nn.Embedding(..., sparse=True)</code> 같은 옵션을 쓰면 optimizer 선택에도 제약이 생긴다.</p>
 <hr />
-<h1 id="44-4-in-place-update">44. 구현 시 헷갈리는 점 4: in-place update 순서<a class="header-anchor" href="#44-4-in-place-update" title="Link to this section">#</a></h1>
+<h3 id="44-4-in-place-update">44. 구현 시 헷갈리는 점 4: in-place update 순서<a class="header-anchor" href="#44-4-in-place-update" title="Link to this section">#</a></h3>
 <p>NumPy로 직접 구현할 때는 update 전에 원래 q vector를 저장해야 한다.</p>
 <p>잘못:</p>
 <div class="highlight"><pre><span></span><code><span class="n">Q</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_q</span>
@@ -1983,7 +2010,7 @@ chair
 <p>를 사용해 동일한 forward state에서 gradient를 계산하는 것이다.</p>
 <p>Autograd framework는 이를 자동으로 처리한다.</p>
 <hr />
-<h1 id="45-5-negative-sampling-table">45. 구현 시 헷갈리는 점 5: negative sampling table<a class="header-anchor" href="#45-5-negative-sampling-table" title="Link to this section">#</a></h1>
+<h3 id="45-5-negative-sampling-table">45. 구현 시 헷갈리는 점 5: negative sampling table<a class="header-anchor" href="#45-5-negative-sampling-table" title="Link to this section">#</a></h3>
 <p>대형 corpus에서는 매번</p>
 <div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
     <span class="n">vocab</span><span class="p">,</span>
@@ -2001,7 +2028,7 @@ chair
 </ul>
 <p>등을 사용한다.</p>
 <hr />
-<h1 id="46-6-batching">46. 구현 시 헷갈리는 점 6: batching<a class="header-anchor" href="#46-6-batching" title="Link to this section">#</a></h1>
+<h3 id="46-6-batching">46. 구현 시 헷갈리는 점 6: batching<a class="header-anchor" href="#46-6-batching" title="Link to this section">#</a></h3>
 <p>batch size가 $B$, negative sample 수가 $K$, dimension이 $d$라면</p>
 <div class="highlight"><pre><span></span><code>q       : [B, d]
 k_pos   : [B, d]
@@ -2029,7 +2056,7 @@ k_neg   : [B, K, d]
 
 <p>이다.</p>
 <hr />
-<h1 id="47">47. 코퍼스 마을을 실제로 학습해 보기<a class="header-anchor" href="#47" title="Link to this section">#</a></h1>
+<h3 id="47">47. 코퍼스 마을을 실제로 학습해 보기<a class="header-anchor" href="#47" title="Link to this section">#</a></h3>
 <p>앞에서 따라온 여덟 문장을 정말 학습시키면 어떤 일이 생길까? 이 문서와 같은 폴더의 <a href="toy_sgns_story.py"><code>toy_sgns_story.py</code></a>는 외부 패키지 없이 실행되는 재현용 SGNS 구현이다.</p>
 <p>실험 설정은 일부러 작고 눈에 보이게 만들었다.</p>
 <table>
@@ -2103,7 +2130,9 @@ wrote=sgns_toy_diagnostics.svg
 <p>이 실험은 품질 benchmark가 아니라 메커니즘 현미경이다. corpus가 지나치게 대칭적이어서 <code>cat–dog</code>, <code>car–truck</code> cosine이 거의 1이 되는 것이 정상이며, 현실의 corpus에서는 각 단어가 공유하지 않는 수많은 문맥 때문에 이렇게 완벽하게 겹치지 않는다.</p>
 </blockquote>
 <hr />
-<h1 id="48">48. 한 좌표가 아니라 ‘방향’과 ‘이동량’에 의미가 있다<a class="header-anchor" href="#48" title="Link to this section">#</a></h1>
+<p><a id="part-8"></a></p>
+<h2 id="viii-meaning-axis">Ⅷ. 관계 방향과 Meaning Axis<a class="header-anchor" href="#viii-meaning-axis" title="Link to this section">#</a></h2>
+<h3 id="48">48. 한 좌표가 아니라 ‘방향’과 ‘이동량’에 의미가 있다<a class="header-anchor" href="#48" title="Link to this section">#</a></h3>
 <p>임베딩 그림을 처음 보면 다음처럼 해석하고 싶어진다.</p>
 <div class="highlight"><pre><span></span><code>dimension 17 = animalness
 dimension 42 = politics
@@ -2143,8 +2172,8 @@ v_w=\frac{Q[w]+K[w]}{2}
 $$</p>
 <p>처럼 두 역할을 결합할 수 있다. 어느 쪽이 항상 정답은 아니지만, <strong>한 분석 안에서는 같은 선택을 일관되게 사용해야 한다.</strong> $Q$에서 만든 축에 $K$의 단어를 투영하는 식으로 서로 다른 공간을 무심코 섞으면 해석이 깨진다.</p>
 <hr />
-<h1 id="49-analogy-meaning-axis">49. 관계가 방향이 될 때: analogy, 벡터 산술, meaning axis<a class="header-anchor" href="#49-analogy-meaning-axis" title="Link to this section">#</a></h1>
-<h2 id="491">49.1 벡터 뺄셈은 무엇을 남기는가?<a class="header-anchor" href="#491" title="Link to this section">#</a></h2>
+<h3 id="49-analogy-meaning-axis">49. 관계가 방향이 될 때: analogy, 벡터 산술, meaning axis<a class="header-anchor" href="#49-analogy-meaning-axis" title="Link to this section">#</a></h3>
+<h4 id="491">49.1 벡터 뺄셈은 무엇을 남기는가?<a class="header-anchor" href="#491" title="Link to this section">#</a></h4>
 <p>두 단어의 차이벡터</p>
 <p>$$
 d_{a\rightarrow b}=v_b-v_a
@@ -2170,7 +2199,7 @@ v_b-v_a
 v_d-v_c
 $$</p>
 <p>라는 평행한 이동이 나타날 수 있다. 이것이 analogy가 가능한 가장 중요한 원리다.</p>
-<h2 id="492-king-man-woman-queen">49.2 <code>king - man + woman ≈ queen</code>의 평행사변형<a class="header-anchor" href="#492-king-man-woman-queen" title="Link to this section">#</a></h2>
+<h4 id="492-king-man-woman-queen">49.2 <code>king - man + woman ≈ queen</code>의 평행사변형<a class="header-anchor" href="#492-king-man-woman-queen" title="Link to this section">#</a></h4>
 <p>유명한 예는 다음 관계를 이용한다.</p>
 <p>$$
 v_{king}-v_{man}
@@ -2202,7 +2231,7 @@ $$</p>
 <li>도착 예상점과 cosine이 가장 가까운 실제 단어를 찾는다.</li>
 </ol>
 <p>여기서 “king 벡터에서 남성 성분을 문자 그대로 삭제한다”는 식의 해석은 지나치게 강하다. 차이벡터는 하나의 순수 속성만 담는다고 보장되지 않는다. 정확한 주장은 <strong>두 관계의 context-profile 변화가 충분히 평행할 때 평행사변형이 성립한다</strong>는 것이다.</p>
-<h2 id="493-3cosadd">49.3 컴퓨터는 정답 단어를 어떻게 찾는가? — 3CosAdd<a class="header-anchor" href="#493-3cosadd" title="Link to this section">#</a></h2>
+<h4 id="493-3cosadd">49.3 컴퓨터는 정답 단어를 어떻게 찾는가? — 3CosAdd<a class="header-anchor" href="#493-3cosadd" title="Link to this section">#</a></h4>
 <p>analogy 질문</p>
 <div class="highlight"><pre><span></span><code>man : king :: woman : ?
 </code></pre></div>
@@ -2237,7 +2266,7 @@ $$</p>
 </code></pre></div>
 
 <p>vocabulary가 매우 크면 이 검색을 approximate nearest-neighbor index로 가속할 수 있다. 정답 하나만 보지 말고 top-10 후보와 점수 차이도 함께 보는 편이 좋다. <code>queen</code>이 1등이어도 2등과 거의 차이가 없다면 관계가 강하게 식별되었다고 말하기 어렵기 때문이다.</p>
-<h2 id="494-analogy">49.4 알려진 analogy가 아니라 관계 자체를 발견하려면<a class="header-anchor" href="#494-analogy" title="Link to this section">#</a></h2>
+<h4 id="494-analogy">49.4 알려진 analogy가 아니라 관계 자체를 발견하려면<a class="header-anchor" href="#494-analogy" title="Link to this section">#</a></h4>
 <p><code>king - man</code> 같은 관계를 이미 알고 검색하는 것은 쉽다. 반복되는 관계를 corpus에서 발견하려면 여러 pair의 차이벡터를 비교한다.</p>
 <p>$$
 d_i=v_{b_i}-v_{a_i}
@@ -2260,7 +2289,7 @@ $$</p>
 <blockquote>
 <p>pair difference 전체를 무차별적으로 만들면 후보가 $V^2$개다. 실제 발견 작업에서는 사전, 품사, 지식그래프 관계, 빈도 기준 등으로 후보를 좁히거나 approximate search를 사용한다.</p>
 </blockquote>
-<h2 id="495-meaning-axis">49.5 Meaning axis란 무엇인가?<a class="header-anchor" href="#495-meaning-axis" title="Link to this section">#</a></h2>
+<h4 id="495-meaning-axis">49.5 Meaning axis란 무엇인가?<a class="header-anchor" href="#495-meaning-axis" title="Link to this section">#</a></h4>
 <p>meaning axis는 고차원 공간을 한 가지 질문으로 읽는 자다.</p>
 <div class="highlight"><pre><span></span><code>cold  &lt;------------------------------&gt;  warm
 informal &lt;---------------------------&gt;  formal
@@ -2288,7 +2317,7 @@ $$</p>
 <li>문서에 등장한 단어들의 score 평균으로 그 문서가 어느 pole의 언어를 더 사용하는지 요약할 수 있다.</li>
 <li>analogy에서 보이던 관계 방향을 하나의 측정 도구로 재사용할 수 있다.</li>
 </ul>
-<h2 id="496-semaxis-pole">49.6 SemAxis 방식: 두 pole 집합으로 축 만들기<a class="header-anchor" href="#496-semaxis-pole" title="Link to this section">#</a></h2>
+<h4 id="496-semaxis-pole">49.6 SemAxis 방식: 두 pole 집합으로 축 만들기<a class="header-anchor" href="#496-semaxis-pole" title="Link to this section">#</a></h4>
 <p>한 단어쌍만으로 만든 축은 우연한 의미 차이에도 민감하다. 더 안정적인 방법은 양쪽 끝을 여러 seed word로 정의하는 것이다.</p>
 <p>예를 들어 warmth axis를</p>
 <p>$$
@@ -2341,7 +2370,7 @@ $$</p>
 </code></pre></div>
 
 <p>중심화 여부, pole 평균 전에 각 word vector를 단위 정규화할지 여부는 반드시 따라야 하는 단 하나의 정답이라기보다 분석 설계 선택이다. 위 코드는 평균을 먼저 내는 SemAxis의 기본 형태에 가깝다. 중요한 것은 전처리를 명시하고, seed와 평가 단어에 똑같이 적용하며, 다른 설정에서도 순위가 안정적인지 확인하는 것이다.</p>
-<h2 id="497-meaning-axis">49.7 Meaning axis를 찾는 방법들의 차이<a class="header-anchor" href="#497-meaning-axis" title="Link to this section">#</a></h2>
+<h4 id="497-meaning-axis">49.7 Meaning axis를 찾는 방법들의 차이<a class="header-anchor" href="#497-meaning-axis" title="Link to this section">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -2385,7 +2414,7 @@ $$</p>
 </tbody>
 </table>
 <p>가설이 먼저라면 pole centroid가 가장 설명하기 쉽다. 관계쌍이 이미 있다면 matched-pair 평균이나 PCA가 자연스럽다. label을 예측하는 축이 필요하면 linear probe가 유용하다. “발견”과 “검증”에 같은 seed를 모두 사용하지 말고 일부 pair를 held-out으로 남겨 두는 것이 좋다.</p>
-<h2 id="498">49.8 좋은 축인지 어떻게 검증할까?<a class="header-anchor" href="#498" title="Link to this section">#</a></h2>
+<h4 id="498">49.8 좋은 축인지 어떻게 검증할까?<a class="header-anchor" href="#498" title="Link to this section">#</a></h4>
 <p>축을 만들었다고 곧바로 의미 축이 되는 것은 아니다. 최소한 다음을 확인하자.</p>
 <ol>
 <li><strong>held-out validity:</strong> 축 생성에 쓰지 않은 예상 단어쌍도 올바른 순서로 놓이는가?</li>
@@ -2395,7 +2424,7 @@ $$</p>
 <li><strong>run stability:</strong> random seed를 바꿔 학습해도 같은 결론이 나오는가?</li>
 </ol>
 <p>서로 따로 학습한 두 embedding을 비교할 때는 좌표계가 다를 수 있다. 공통 anchor vocabulary로 orthogonal Procrustes alignment를 한 뒤 축이나 변화량을 비교해야 한다. 반대로 <strong>같은 공간 안에서 단어와 축을 함께 다루는 분석</strong>은 임의의 직교 회전에 영향을 받지 않는다.</p>
-<h2 id="499">49.9 해석할 때 꼭 붙여야 하는 단서<a class="header-anchor" href="#499" title="Link to this section">#</a></h2>
+<h4 id="499">49.9 해석할 때 꼭 붙여야 하는 단서<a class="header-anchor" href="#499" title="Link to this section">#</a></h4>
 <ul>
 <li>선형 analogy는 SGNS objective가 보장하는 법칙이 아니라 corpus에 반복 관계가 충분히 있을 때 나타나는 경험적 현상이다.</li>
 <li>하나의 word vector는 다의어의 여러 뜻을 섞는다. <code>bank</code>의 금융/강둑 의미를 한 축 점수로 분리하기 어렵다.</li>
@@ -2408,7 +2437,7 @@ $$</p>
 <p><strong>특정 corpus가 만든 의미 공간을, 명시한 두 pole 사이에서 읽는 투영 도구</strong></p>
 </blockquote>
 <p>라고 이해하는 것이 가장 정확하다.</p>
-<h3 id="axis">잠깐 연습: 관계 방향과 axis<a class="header-anchor" href="#axis" title="Link to this section">#</a></h3>
+<h4 id="axis">잠깐 연습: 관계 방향과 axis<a class="header-anchor" href="#axis" title="Link to this section">#</a></h4>
 <p>다음 네 차이벡터를 얻었다고 하자.</p>
 <p>$$
 d_1=[1.0,0.1],\quad
@@ -2436,7 +2465,9 @@ $$
 
 <p>analogy와 axis는 별개 기술처럼 보이지만 사실 같은 기하학을 쓴다. analogy는 <strong>관계 방향을 한 점에 더해 다음 점을 찾고</strong>, meaning axis는 <strong>그 방향에 모든 점을 투영해 순서를 읽는다.</strong></p>
 <hr />
-<h1 id="50-word2vec-logistic-matrix-factorization">50. Word2Vec을 logistic matrix factorization으로 보기<a class="header-anchor" href="#50-word2vec-logistic-matrix-factorization" title="Link to this section">#</a></h1>
+<p><a id="part-9"></a></p>
+<h2 id="ix">Ⅸ. 다른 모델과의 연결<a class="header-anchor" href="#ix" title="Link to this section">#</a></h2>
+<h3 id="50-word2vec-logistic-matrix-factorization">50. Word2Vec을 logistic matrix factorization으로 보기<a class="header-anchor" href="#50-word2vec-logistic-matrix-factorization" title="Link to this section">#</a></h3>
 <p>SGNS는 사실상 binary matrix factorization 문제다.</p>
 <p>observed pair:</p>
 <p>$$
@@ -2459,7 +2490,7 @@ $$</p>
 <p>이다.</p>
 <p>이 관점은 추천 시스템과 매우 유사하다.</p>
 <hr />
-<h1 id="51">51. 추천 시스템과 비교<a class="header-anchor" href="#51" title="Link to this section">#</a></h1>
+<h3 id="51">51. 추천 시스템과 비교<a class="header-anchor" href="#51" title="Link to this section">#</a></h3>
 <p>추천 시스템에서</p>
 <div class="highlight"><pre><span></span><code>user → item
 </code></pre></div>
@@ -2487,7 +2518,7 @@ $$</p>
 <p>모두 같은 family다.</p>
 <p>Negative Sampling도 implicit feedback recommendation에서 자주 쓰이는 방식과 거의 같다.</p>
 <hr />
-<h1 id="52-energy-model">52. Energy model 관점<a class="header-anchor" href="#52-energy-model" title="Link to this section">#</a></h1>
+<h3 id="52-energy-model">52. Energy model 관점<a class="header-anchor" href="#52-energy-model" title="Link to this section">#</a></h3>
 <p>score를 energy로 바꾸면</p>
 <p>$$
 E(w,c)=-q_w^\top k_c
@@ -2508,7 +2539,7 @@ $$</p>
 <p>Word2Vec은 observed pair의 energy는 낮추고 negative pair의 energy는 높인다.</p>
 <p>이 관점은 Boltzmann distribution과도 자연스럽게 연결된다.</p>
 <hr />
-<h1 id="53-boltzmann-softmax">53. Boltzmann / softmax 관점<a class="header-anchor" href="#53-boltzmann-softmax" title="Link to this section">#</a></h1>
+<h3 id="53-boltzmann-softmax">53. Boltzmann / softmax 관점<a class="header-anchor" href="#53-boltzmann-softmax" title="Link to this section">#</a></h3>
 <p>full softmax에서는</p>
 <p>$$
 P(c\mid w)
@@ -2539,19 +2570,21 @@ $$</p>
 <p>즉 Skip-gram은 conditional Boltzmann distribution이다.</p>
 <p>Negative Sampling은 이 normalization constant를 매번 직접 계산하지 않고 contrastive하게 score structure를 학습한다고 볼 수 있다.</p>
 <hr />
-<h1 id="54-5">54. 가장 중요한 식 5개<a class="header-anchor" href="#54-5" title="Link to this section">#</a></h1>
-<h2 id="1-score">1. score<a class="header-anchor" href="#1-score" title="Link to this section">#</a></h2>
+<p><a id="part-10"></a></p>
+<h2 id="x-mental-model">Ⅹ. 공식, Mental Model, 연습문제<a class="header-anchor" href="#x-mental-model" title="Link to this section">#</a></h2>
+<h3 id="54-5">54. 가장 중요한 식 5개<a class="header-anchor" href="#54-5" title="Link to this section">#</a></h3>
+<h4 id="1-score">1. score<a class="header-anchor" href="#1-score" title="Link to this section">#</a></h4>
 <p>$$
 s(w,c)=q_w^\top k_c
 $$</p>
-<h2 id="2-sgns-objective">2. SGNS objective<a class="header-anchor" href="#2-sgns-objective" title="Link to this section">#</a></h2>
+<h4 id="2-sgns-objective">2. SGNS objective<a class="header-anchor" href="#2-sgns-objective" title="Link to this section">#</a></h4>
 <p>$$
 \log\sigma(q_w^\top k_c)
 +
 \sum_{n=1}^{K}
 \log\sigma(-q_w^\top k_n)
 $$</p>
-<h2 id="3-optimal-score">3. optimal score<a class="header-anchor" href="#3-optimal-score" title="Link to this section">#</a></h2>
+<h4 id="3-optimal-score">3. optimal score<a class="header-anchor" href="#3-optimal-score" title="Link to this section">#</a></h4>
 <p>$$
 q_w^\top k_c
 \approx
@@ -2559,13 +2592,13 @@ q_w^\top k_c
 \frac{P(c\mid w)}
 {K P_n(c)}
 $$</p>
-<h2 id="4-unigram-noise">4. unigram noise일 때<a class="header-anchor" href="#4-unigram-noise" title="Link to this section">#</a></h2>
+<h4 id="4-unigram-noise">4. unigram noise일 때<a class="header-anchor" href="#4-unigram-noise" title="Link to this section">#</a></h4>
 <p>$$
 q_w^\top k_c
 \approx
 PMI(w,c)-\log K
 $$</p>
-<h2 id="5-gravity-form">5. gravity form<a class="header-anchor" href="#5-gravity-form" title="Link to this section">#</a></h2>
+<h4 id="5-gravity-form">5. gravity form<a class="header-anchor" href="#5-gravity-form" title="Link to this section">#</a></h4>
 <p>$$
 P_{\text{data}}(w,c)
 \propto
@@ -2574,7 +2607,7 @@ P_{\text{data}}(w)P_n(c)
 $$</p>
 <p>이 다섯 식을 연결해서 이해하면 Word2Vec의 핵심을 거의 다 이해한 것이다.</p>
 <hr />
-<h1 id="55">55. 한 줄씩 해석하면<a class="header-anchor" href="#55" title="Link to this section">#</a></h1>
+<h3 id="55">55. 한 줄씩 해석하면<a class="header-anchor" href="#55" title="Link to this section">#</a></h3>
 <p>$$
 P_{\text{data}}(w)P_n(c)
 $$</p>
@@ -2596,7 +2629,7 @@ center activity × noise가 정한 context baseline × latent semantic attractio
 </blockquote>
 <p>unigram noise에서는 $P_n(c)=P(c)$이므로 익숙한 $P(w)P(c)\exp(q_w^\top k_c)$가 된다. 이것이 embedding을 gravity model처럼 보는 가장 직관적인 방법이다.</p>
 <hr />
-<h1 id="56">56. 구현 관점 최종 요약<a class="header-anchor" href="#56" title="Link to this section">#</a></h1>
+<h3 id="56">56. 구현 관점 최종 요약<a class="header-anchor" href="#56" title="Link to this section">#</a></h3>
 <p>Word2Vec SGNS를 직접 구현한다고 생각하면 다음만 있으면 된다.</p>
 <ol>
 <li>vocabulary를 만든다.</li>
@@ -2618,7 +2651,7 @@ center activity × noise가 정한 context baseline × latent semantic attractio
 <li>저차원 embedding geometry가 형성된다.</li>
 </ul>
 <hr />
-<h1 id="57-mental-model">57. 가장 압축된 mental model<a class="header-anchor" href="#57-mental-model" title="Link to this section">#</a></h1>
+<h3 id="57-mental-model">57. 가장 압축된 mental model<a class="header-anchor" href="#57-mental-model" title="Link to this section">#</a></h3>
 <p>Word2Vec을 기억할 때는 아래 그림 하나면 된다.</p>
 <div class="highlight"><pre><span></span><code>                center word
                     |
@@ -2658,7 +2691,7 @@ negative key들로부터 query를 밀어낸다.
 
 <p>즉 <strong>점의 가까움은 유사성</strong>, <strong>반복되는 이동 방향은 관계</strong>, <strong>그 방향으로의 투영은 해석 가능한 axis score</strong>가 된다.</p>
 <hr />
-<h1 id="58-gravity-model-mental-model">58. Gravity-model 관점의 최종 mental model<a class="header-anchor" href="#58-gravity-model-mental-model" title="Link to this section">#</a></h1>
+<h3 id="58-gravity-model-mental-model">58. Gravity-model 관점의 최종 mental model<a class="header-anchor" href="#58-gravity-model-mental-model" title="Link to this section">#</a></h3>
 <div class="highlight"><pre><span></span><code>Observed interaction
         |
         v
@@ -2684,7 +2717,7 @@ F(i,j) / [m_i m_j]
 
 <p>를 학습하는 모델이라고 볼 수 있다.</p>
 <hr />
-<h1 id="59">59. 다음에 연결해서 공부하면 좋은 주제<a class="header-anchor" href="#59" title="Link to this section">#</a></h1>
+<h3 id="59">59. 다음에 연결해서 공부하면 좋은 주제<a class="header-anchor" href="#59" title="Link to this section">#</a></h3>
 <p>이 문서를 이해했다면 다음 순서가 자연스럽다.</p>
 <div class="highlight"><pre><span></span><code>Word2Vec SGNS
     ↓
@@ -2725,18 +2758,18 @@ Transformer query-key attention
 <li>Transformer attention에서 Word2Vec의 static Q/K와 무엇이 본질적으로 달라지는가?</li>
 </ul>
 <hr />
-<h1 id="60">60. 연습문제: 코퍼스 마을 다시 걷기<a class="header-anchor" href="#60" title="Link to this section">#</a></h1>
+<h3 id="60">60. 연습문제: 코퍼스 마을 다시 걷기<a class="header-anchor" href="#60" title="Link to this section">#</a></h3>
 <p>문제는 앞의 스토리를 같은 순서로 한 번 더 걷도록 구성했다. 먼저 답을 가리고 풀고, 막힐 때만 각 묶음 아래의 힌트를 열어 보자.</p>
-<h2 id="a">A. 그림을 말로 설명하기<a class="header-anchor" href="#a" title="Link to this section">#</a></h2>
-<h3 id="1-window">1. Window가 만드는 데이터<a class="header-anchor" href="#1-window" title="Link to this section">#</a></h3>
+<h4 id="a">A. 그림을 말로 설명하기<a class="header-anchor" href="#a" title="Link to this section">#</a></h4>
+<h5 id="1-window">1. Window가 만드는 데이터<a class="header-anchor" href="#1-window" title="Link to this section">#</a></h5>
 <p>문장 <code>the cat likes pet food</code>에서 window size가 2이고 center가 <code>cat</code>일 때 만들어지는 positive pair를 모두 쓰라. window size를 1로 줄이면 어떤 pair가 사라지는가?</p>
-<h3 id="2">2. 누가 업데이트되는가?<a class="header-anchor" href="#2" title="Link to this section">#</a></h3>
+<h5 id="2">2. 누가 업데이트되는가?<a class="header-anchor" href="#2" title="Link to this section">#</a></h5>
 <p>positive가 <code>(cat, pet)</code>, negatives가 <code>road</code>, <code>load</code>일 때 한 step에서 직접 업데이트되는 embedding row를 $Q$와 $K$로 나누어 쓰라. 왜 <code>Q[pet]</code>은 이 step에서 직접 업데이트되지 않는가?</p>
-<h3 id="3">3. 같은 문맥이 의미를 만드는 이유<a class="header-anchor" href="#3" title="Link to this section">#</a></h3>
+<h5 id="3">3. 같은 문맥이 의미를 만드는 이유<a class="header-anchor" href="#3" title="Link to this section">#</a></h5>
 <p><code>cat</code>과 <code>dog</code>의 query가 가까워지는 과정을 “두 단어가 서로 positive pair이기 때문”이라는 표현 없이 설명하라.</p>
-<h3 id="4_1">4. 고빈도 단어의 함정<a class="header-anchor" href="#4_1" title="Link to this section">#</a></h3>
+<h5 id="4_1">4. 고빈도 단어의 함정<a class="header-anchor" href="#4_1" title="Link to this section">#</a></h5>
 <p><code>the</code>가 <code>cat</code>, <code>dog</code>, <code>car</code>, <code>truck</code> 주변에 모두 많이 등장한다고 하자. raw co-occurrence count만 쓰면 무슨 문제가 생기는가? unigram 또는 $3/4$ noise는 이를 어떻게 완화하는가?</p>
-<h3 id="5-positive">5. Positive인데 음수 점수?<a class="header-anchor" href="#5-positive" title="Link to this section">#</a></h3>
+<h5 id="5-positive">5. Positive인데 음수 점수?<a class="header-anchor" href="#5-positive" title="Link to this section">#</a></h5>
 <p>toy 실행에서 <code>score(cat,pet)=-0.6651</code>이다. 이 결과가 학습 실패를 뜻하지 않는 이유를 <code>K</code>와 비교 순서를 사용해 설명하라.</p>
 <details>
 <summary>A 정답·힌트</summary>
@@ -2749,18 +2782,18 @@ Transformer query-key attention
 
 </details>
 
-<h2 id="b">B. 식을 손으로 움직이기<a class="header-anchor" href="#b" title="Link to this section">#</a></h2>
-<h3 id="6-gradient">6. Gradient의 세기<a class="header-anchor" href="#6-gradient" title="Link to this section">#</a></h3>
+<h4 id="b">B. 식을 손으로 움직이기<a class="header-anchor" href="#b" title="Link to this section">#</a></h4>
+<h5 id="6-gradient">6. Gradient의 세기<a class="header-anchor" href="#6-gradient" title="Link to this section">#</a></h5>
 <p>positive score가 $s_+=-2$이고 negative score가 $s_-=2$라고 하자. 각각의 scalar gradient strength $1-\sigma(s_+)$와 $\sigma(s_-)$를 구하고, 왜 둘 다 큰지 설명하라.</p>
-<h3 id="7-score">7. 최적 score 계산<a class="header-anchor" href="#7-score" title="Link to this section">#</a></h3>
+<h5 id="7-score">7. 최적 score 계산<a class="header-anchor" href="#7-score" title="Link to this section">#</a></h5>
 <p>어떤 center $w$에 대해</p>
 <p>$$
 P_{\text{data}}(c\mid w)=0.08,\qquad P_n(c)=0.01,\qquad K=5
 $$</p>
 <p>라면 이상화된 SGNS 최적 score를 계산하라.</p>
-<h3 id="8-negative">8. Negative 수를 늘리면<a class="header-anchor" href="#8-negative" title="Link to this section">#</a></h3>
+<h5 id="8-negative">8. Negative 수를 늘리면<a class="header-anchor" href="#8-negative" title="Link to this section">#</a></h5>
 <p>나머지는 그대로 두고 $K$를 5에서 20으로 늘리면 최적 score가 얼마나 이동하는가? 이 변화가 cosine similarity도 반드시 같은 양만큼 바꾼다고 할 수 있는가?</p>
-<h3 id="9-noise-exponent">9. 일반 noise exponent<a class="header-anchor" href="#9-noise-exponent" title="Link to this section">#</a></h3>
+<h5 id="9-noise-exponent">9. 일반 noise exponent<a class="header-anchor" href="#9-noise-exponent" title="Link to this section">#</a></h5>
 <p>$$
 P_n(c)=\frac{P(c)^\alpha}{Z_\alpha}
 $$</p>
@@ -2771,12 +2804,12 @@ q_w^\top k_c
 PMI(w,c)+(1-\alpha)\log P(c)-\log K+\log Z_\alpha
 $$</p>
 <p>$\alpha=1$과 $\alpha=3/4$를 각각 대입해 해석하라.</p>
-<h3 id="10-gravity">10. Gravity 식으로 되돌리기<a class="header-anchor" href="#10-gravity" title="Link to this section">#</a></h3>
+<h5 id="10-gravity">10. Gravity 식으로 되돌리기<a class="header-anchor" href="#10-gravity" title="Link to this section">#</a></h5>
 <p>$$
 P(w)=0.02,\qquad P_n(c)=0.01,\qquad K=5,\qquad q_w^\top k_c=0.7
 $$</p>
 <p>이라 할 때 pairwise optimum 식이 예측하는 $P(w,c)$를 계산하라.</p>
-<h3 id="11">11. 상대적 끌림<a class="header-anchor" href="#11" title="Link to this section">#</a></h3>
+<h5 id="11">11. 상대적 끌림<a class="header-anchor" href="#11" title="Link to this section">#</a></h5>
 <p>동일한 center에 대해 $s(cat,pet)=-0.7$, $s(cat,road)=-3.0$이라 하자. noise-adjusted 상대 attraction</p>
 <p>$$
 \frac{P(pet\mid cat)/P_n(pet)}{P(road\mid cat)/P_n(road)}
@@ -2794,8 +2827,8 @@ $$</p>
 
 </details>
 
-<h2 id="c">C. 구현을 바꿔 예측을 시험하기<a class="header-anchor" href="#c" title="Link to this section">#</a></h2>
-<h3 id="12-k">12. $K$ 실험<a class="header-anchor" href="#12-k" title="Link to this section">#</a></h3>
+<h4 id="c">C. 구현을 바꿔 예측을 시험하기<a class="header-anchor" href="#c" title="Link to this section">#</a></h4>
+<h5 id="12-k">12. $K$ 실험<a class="header-anchor" href="#12-k" title="Link to this section">#</a></h5>
 <p><a href="toy_sgns_story.py"><code>toy_sgns_story.py</code></a>의 <code>NEGATIVES</code>를 1, 5, 20으로 바꾸어 실행하라. 실행 전에 다음 세 가지를 예측하고 표로 기록하라.</p>
 <ul>
 <li>final loss의 단순 수치</li>
@@ -2803,13 +2836,13 @@ $$</p>
 <li><code>cat–dog</code>, <code>cat–car</code> cosine의 상대 순서</li>
 </ul>
 <p>loss에는 negative 항이 $K$개 더해진다는 점 때문에 서로 다른 $K$의 raw loss를 그대로 품질 비교에 쓰기 어렵다는 것도 확인하라.</p>
-<h3 id="13-noise-exponent">13. Noise exponent 실험<a class="header-anchor" href="#13-noise-exponent" title="Link to this section">#</a></h3>
+<h5 id="13-noise-exponent">13. Noise exponent 실험<a class="header-anchor" href="#13-noise-exponent" title="Link to this section">#</a></h5>
 <p>스크립트의 <code>counts[word] ** 0.75</code>를 <code>** 1.0</code>과 <code>** 0.0</code>으로 바꾸어 보라. 자주 나오는 context의 sampling 횟수와 score가 어느 방향으로 바뀌는지 기록하라.</p>
-<h3 id="14-the">14. <code>the</code>를 다시 넣기<a class="header-anchor" href="#14-the" title="Link to this section">#</a></h3>
+<h5 id="14-the">14. <code>the</code>를 다시 넣기<a class="header-anchor" href="#14-the" title="Link to this section">#</a></h5>
 <p><code>STOPWORDS = set()</code>으로 바꾸어 학습하라. 2차원 query 그림에서 두 동네의 분리가 약해지는지 확인하고, 그 이유를 “공유 positive context”와 “capacity”라는 단어를 사용해 설명하라.</p>
-<h3 id="15">15. 차원의 가격<a class="header-anchor" href="#15" title="Link to this section">#</a></h3>
+<h5 id="15">15. 차원의 가격<a class="header-anchor" href="#15" title="Link to this section">#</a></h5>
 <p><code>DIM=1</code>, <code>DIM=2</code>, <code>DIM=8</code>을 비교하라. 차원이 늘면 모든 pairwise optimum을 더 잘 맞출 수 있지만, 이 작은 corpus의 시각적 해석과 일반화에는 어떤 trade-off가 생기는가?</p>
-<h3 id="16-corpus">16. 확장 문제: 방향성 있는 corpus<a class="header-anchor" href="#16-corpus" title="Link to this section">#</a></h3>
+<h5 id="16-corpus">16. 확장 문제: 방향성 있는 corpus<a class="header-anchor" href="#16-corpus" title="Link to this section">#</a></h5>
 <p><code>doctor treats patient</code>, <code>patient visits doctor</code> 같은 문장을 추가하고 $q_{doctor}^\top k_{patient}$와 $q_{patient}^\top k_{doctor}$를 비교하라. 대칭 window로 pair를 만들 때와 한쪽 방향 context만 쓸 때 결과가 어떻게 달라질지 먼저 예측하라.</p>
 <details>
 <summary>C 관찰 포인트</summary>
@@ -2821,8 +2854,8 @@ $$</p>
 
 </details>
 
-<h2 id="d-meaning-axis">D. 벡터 산술과 meaning axis<a class="header-anchor" href="#d-meaning-axis" title="Link to this section">#</a></h2>
-<h3 id="17-3cosadd">17. 3CosAdd를 손으로 계산하기<a class="header-anchor" href="#17-3cosadd" title="Link to this section">#</a></h3>
+<h4 id="d-meaning-axis">D. 벡터 산술과 meaning axis<a class="header-anchor" href="#d-meaning-axis" title="Link to this section">#</a></h4>
+<h5 id="17-3cosadd">17. 3CosAdd를 손으로 계산하기<a class="header-anchor" href="#17-3cosadd" title="Link to this section">#</a></h5>
 <p>다음 벡터가 주어졌다고 하자.</p>
 <p>$$
 v_{man}=[1,0,0],\quad
@@ -2835,13 +2868,13 @@ v_{queen}=[0,1,0.9],\qquad
 v_{prince}=[1,0.9,0]
 $$</p>
 <p>이다. analogy target을 만들고 두 후보와의 cosine을 비교하라.</p>
-<h3 id="18-pole">18. 두 pole에서 축 만들기<a class="header-anchor" href="#18-pole" title="Link to this section">#</a></h3>
+<h5 id="18-pole">18. 두 pole에서 축 만들기<a class="header-anchor" href="#18-pole" title="Link to this section">#</a></h5>
 <p>positive pole vectors가 $[2,1],[2,-1]$, negative pole vectors가 $[-2,1],[-2,-1]$이다. 단위 meaning axis $a$와 midpoint $m$을 구하라. $v_x=[0.5,2]$, $v_y=[-1,0]$의 signed projection도 구하라.</p>
-<h3 id="19-pair">19. Pair 방향을 맞춰야 하는 이유<a class="header-anchor" href="#19-pair" title="Link to this section">#</a></h3>
+<h5 id="19-pair">19. Pair 방향을 맞춰야 하는 이유<a class="header-anchor" href="#19-pair" title="Link to this section">#</a></h5>
 <p><code>woman - man</code>과 <code>king - queen</code>을 그대로 평균하면 왜 gender-related direction이 상쇄될 수 있는가? 두 번째 차이벡터를 어떻게 고쳐야 하는가?</p>
-<h3 id="20-axis">20. Axis는 좌표축인가?<a class="header-anchor" href="#20-axis" title="Link to this section">#</a></h3>
+<h5 id="20-axis">20. Axis는 좌표축인가?<a class="header-anchor" href="#20-axis" title="Link to this section">#</a></h5>
 <p>embedding 전체와 meaning axis를 같은 직교행렬로 회전했다. 각 단어의 axis projection과 analogy cosine 순위는 변하는가? 이것이 “dimension 17에 고정된 의미는 없다”는 말과 어떻게 양립하는가?</p>
-<h3 id="21">21. 해석 비판하기<a class="header-anchor" href="#21" title="Link to this section">#</a></h3>
+<h5 id="21">21. 해석 비판하기<a class="header-anchor" href="#21" title="Link to this section">#</a></h5>
 <p>어떤 연구자가 <code>wealth ↔ poverty</code> pole로 축을 만든 뒤 특정 직업 단어의 높은 score를 보고 “그 직업은 본질적으로 부유하다”고 결론 내렸다. 최소 세 가지 문제를 지적하고 더 안전한 표현을 제안하라.</p>
 <details>
 <summary>D 정답·힌트</summary>
@@ -2859,7 +2892,7 @@ $$</p>
 </details>
 
 <hr />
-<h1 id="61">61. 핵심 결론<a class="header-anchor" href="#61" title="Link to this section">#</a></h1>
+<h3 id="61">61. 핵심 결론<a class="header-anchor" href="#61" title="Link to this section">#</a></h3>
 <p>Word2Vec은 단순한 &ldquo;단어를 벡터로 바꾸는 알고리즘&rdquo;이 아니다.</p>
 <p>더 정확하게는:</p>
 <blockquote>

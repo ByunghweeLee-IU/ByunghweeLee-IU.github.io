@@ -64,7 +64,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260318a">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260819a">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Google tag (gtag.js) -->
@@ -192,7 +192,7 @@
 <li>결과를 “사회가 원래 그렇다”거나 “모델이 차별한다”로 과장하지 않고, 다음 검증으로 연결할 수 있다.</li>
 </ul>
 <h2 id="_2">한 장짜리 연구 지도<a class="header-anchor" href="#_2" title="Link to this section">#</a></h2>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<div class="highlight"><pre><span></span><code>flowchart TD
     A[말뭉치 선택] --&gt; B[단어-문맥 관계 학습]
     B --&gt; C[축 또는 집합 기반 측정]
     C --&gt; D{한 시점인가?}
@@ -445,7 +445,7 @@ $s(engineer,A,B)=0.20$, $s(nurse,A,B)=-0.35$다. 두 값의 차이는 얼마이�
 $$</p>
 <p>이다. 즉, 벡터에서 성별 축으로의 투영을 뺀다. <code>mother–father</code>처럼 성별 자체가 뜻의 일부인 단어와, <code>doctor</code>처럼 중립으로 취급할 단어는 다르게 다뤄야 한다.</p>
 <p>그러나 <a href="https://aclanthology.org/N19-1061/">Gonen &amp; Goldberg (NAACL, 2019)</a>는 직접적인 성별 축 점수가 작아져도 원래 남성 편향 단어와 여성 편향 단어가 각각 이웃으로 뭉치고 분류기로 구분될 수 있음을 보였다.</p>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<div class="highlight"><pre><span></span><code>flowchart TD
     A[원래 공간의 편향 구조] --&gt; B[한 성별 축 성분 제거]
     B --&gt; C[직접 projection은 작아짐]
     B --&gt; D[이웃·군집 구조는 남을 수 있음]
@@ -529,7 +529,7 @@ debias 후 모든 직업의 성별 axis score가 0에 가까워졌다. “성별
 </table>
 <p>빈도는 “얼마나 많이”, 임베딩은 “어떤 관계 속에서”를 본다. 둘을 같이 보면 더 좋지만 서로 대체하지 않는다.</p>
 <h2 id="42">4.2 시대별 공간을 만드는 순서<a class="header-anchor" href="#42" title="Link to this section">#</a></h2>
-<div class="highlight"><pre><span></span><code>flowchart LR
+<div class="highlight"><pre><span></span><code>flowchart TD
     A[1900년대 텍스트] --&gt; A1[W_1900]
     B[1910년대 텍스트] --&gt; B1[W_1910]
     C[1920년대 텍스트] --&gt; C1[W_1920]
@@ -1623,6 +1623,9 @@ $0.08$이다. 이것이 큰지 작은지는 같은 빈도대 단어의 null 분�
 
             const applyTheme = (theme) => {
                 document.documentElement.setAttribute("data-theme", theme);
+                window.dispatchEvent(new CustomEvent("site-theme-change", {
+                    detail: { theme }
+                }));
                 if (themeToggle) {
                     const isDark = theme === "dark";
                     themeToggle.setAttribute("aria-pressed", String(isDark));
@@ -1903,6 +1906,62 @@ $0.08$이다. 이것이 큰지 작은지는 같은 빈도대 단어의 null 분�
                 link.setAttribute("href", toSiteUrl(resolved));
             });
         });
+    </script>
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+        const mermaidStart = /^(?:flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|xychart-beta|sankey-beta|packet-beta|architecture-beta|block-beta)\b/;
+        const codeBlocks = Array.from(document.querySelectorAll(".content .highlight > pre > code, .content .codehilite > pre > code"));
+        const diagrams = codeBlocks
+            .filter((code) => mermaidStart.test(code.textContent.trim()))
+            .map((code) => {
+                const container = document.createElement("div");
+                container.className = "mermaid-diagram";
+                container.dataset.mermaidSource = code.textContent.trim();
+                container.setAttribute("role", "img");
+                container.setAttribute("aria-label", "Flowchart");
+                code.closest(".highlight, .codehilite").replaceWith(container);
+                return container;
+            });
+
+        let renderVersion = 0;
+
+        async function renderMermaid(theme) {
+            if (!diagrams.length) return;
+
+            renderVersion += 1;
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: "strict",
+                theme: theme === "dark" ? "dark" : "default",
+                flowchart: {
+                    htmlLabels: true,
+                    useMaxWidth: true
+                }
+            });
+
+            await Promise.all(diagrams.map(async (container, index) => {
+                const source = container.dataset.mermaidSource;
+                try {
+                    const result = await mermaid.render(`mermaid-${renderVersion}-${index}`, source);
+                    container.innerHTML = result.svg;
+                    if (result.bindFunctions) result.bindFunctions(container);
+                    container.classList.remove("mermaid-error");
+                } catch (error) {
+                    container.classList.add("mermaid-error");
+                    container.textContent = source;
+                    console.error("Mermaid rendering failed:", error);
+                }
+            }));
+        }
+
+        let themeRenderTimer;
+        window.addEventListener("site-theme-change", (event) => {
+            window.clearTimeout(themeRenderTimer);
+            themeRenderTimer = window.setTimeout(() => renderMermaid(event.detail.theme), 0);
+        });
+
+        await renderMermaid(document.documentElement.getAttribute("data-theme") || "light");
     </script>
 </body>
 </html>

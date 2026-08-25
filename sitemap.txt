@@ -6,7 +6,6 @@ https://byunghweelee-iu.github.io/publications/
 https://byunghweelee-iu.github.io/research/
 https://byunghweelee-iu.github.io/talks/
 https://byunghweelee-iu.github.io/visualization/
-https://byunghweelee-iu.github.io/wiki/inbox/Santa_Fe/
 https://byunghweelee-iu.github.io/wiki/notes/News-list/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/01_word2vec/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/01_word2vec_en/

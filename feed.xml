@@ -403,17 +403,16 @@ $$</p>
 <p>Here, &ldquo;negative&rdquo; is not the correct answer defined as &ldquo;words that have no semantic relationship in the world.&rdquo; It is simply a <strong>contrast set</strong> drawn from a predefined noise distribution. It is possible that a real positive is also drawn as a negative. In large corpora, probabilistic learning signals generally work, and positive tokens can be rejected depending on the implementation.</p>
 <hr />
 <h3 id="7-sgns-objective">7. SGNS objective<a class="header-anchor" href="#7-sgns-objective" title="Link to this section">#</a></h3>
-<p>Given a positive pair $(w, c)$,</p>
+<p>Given a positive pair $(w, c)$, draw the negative contexts</p>
 <p>$$
-n_1,\dots,n_K
+c_1^-,\dots,c_{n_{\mathrm{neg}}}^-.
 $$</p>
-<p>we have:</p>
 <p>The objective to maximize is:</p>
 <p>$$
 \log\sigma(q_w^\top k_c)
 +
-\sum_{i=1}^{K}
-\log\sigma(-q_w^\top k_{n_i})
+\sum_{i=1}^{n_{\mathrm{neg}}}
+\log\sigma(-q_w^\top k_{c_i^-})
 $$</p>
 <p>In terms of loss, it is:</p>
 <p>$$
@@ -640,7 +639,7 @@ q_{cat}^{new}
 $$</p>
 <p>something like this. Focus on the direction, not the absolute values of the numbers. Add the key directional component of <code>pet</code> and subtract the key directional component of <code>road</code>. Simultaneously, $k_{pet}$ and $k_{road}$ are also adjusted to match their opposite roles. Repeat this process millions of times, but each time, <strong>the same parameters are exposed to the requirements of multiple relationships.</strong></p>
 <blockquote>
-<p>A positive pair does not necessarily need a positive score. Showing $K$ negative pairs shifts the optimal baseline by $K$. What matters is whether a relevant pair scores higher than an unrelated pair and whether the score reflects the data-to-noise ratio. The $-\log K$ term makes this precise.</p>
+<p>A positive pair does not necessarily need a positive score. Showing $n_{\mathrm{neg}}$ negative pairs shifts the optimal baseline by $n_{\mathrm{neg}}$. What matters is whether a relevant pair scores higher than an unrelated pair and whether the score reflects the data-to-noise ratio. The $-\log n_{\mathrm{neg}}$ term makes this precise.</p>
 </blockquote>
 <h4 id="a-quick-exercise-which-pair-will-move-the-most">A quick exercise: Which pair will move the most?<a class="header-anchor" href="#a-quick-exercise-which-pair-will-move-the-most" title="Link to this section">#</a></h4>
 <p>The model incorrectly evaluates the positive pair as $s_+=-3$ and the negative pair as $s_-=3$. What are the respective scalar strengths of the $1-\sigma(s_+)$ and $\sigma(s_-)$? What happens if the signs of the scores are reversed?</p>
@@ -700,68 +699,94 @@ $$</p>
 <h2 id="iii-from-pmi-to-gravity">Ⅲ. From PMI to Gravity<a class="header-anchor" href="#iii-from-pmi-to-gravity" title="Link to this section">#</a></h2>
 <p><small><a href="#toc">↑ Table of Contents</a></small></p>
 <h3 id="13-word2vec-factors-a-huge-relationship-matrix">13. Word2Vec factors a huge relationship matrix<a class="header-anchor" href="#13-word2vec-factors-a-huge-relationship-matrix" title="Link to this section">#</a></h3>
-<p>Let&rsquo;s consider the entire word-context relationship as a matrix.</p>
+<p>Collect every word-context score into a matrix $S$, whose $(w,c)$ entry is</p>
 <p>$$
-M_{wc}
+S_{wc}=s_{wc}=q_w^\top k_c.
 $$</p>
-<p>Let $w$ be a word and $c$ be a context. The relationship strength is represented by</p>
-<p>Word2Vec does not explicitly create this, but</p>
+<p>If the word query vectors form the rows of $Q$ and the context key vectors form the rows of $K$, then</p>
 <p>$$
-M_{wc}\approx q_w^\top k_c
+Q\in\mathbb{R}^{V\times d},
+\qquad
+K\in\mathbb{R}^{V\times d},
 $$</p>
-<p>learns a low-rank representation that makes it</p>
-<p>matrix notation:</p>
+<p>and the complete score matrix is</p>
 <p>$$
-M \approx QK^\top
+S=QK^\top.
 $$</p>
-<p>where</p>
+<p>Word2Vec does not construct $S$ as a free $V\times V$ parameter table. Instead, it represents the table through the much smaller matrices $Q$ and $K$, usually with $d\ll V$. Because both factors have only $d$ columns,</p>
 <p>$$
-Q\in\mathbb{R}^{V\times d}
+\operatorname{rank}(S)\le d.
 $$</p>
-<p>$$
-K\in\mathbb{R}^{V\times d}
-$$</p>
-<p>and usually</p>
-<p>$$
-d \ll V
-$$</p>
-<p>is.</p>
-<p>In other words, Word2Vec is essentially factorizing a very large word-context interaction matrix into a low-dimensional representation.</p>
+<p>Thus, the score matrix is a low-rank representation of the full word-context relationship structure. Throughout this chapter, uppercase $K$ denotes the <strong>context key matrix</strong>; we will use $n_{\mathrm{neg}}$ for the <strong>number of negative samples per positive pair</strong>.</p>
 <hr />
-<h3 id="14-connecting-sgns-and-pmi-first-a-special-case">14. Connecting SGNS and PMI: First, a special case<a class="header-anchor" href="#14-connecting-sgns-and-pmi-first-a-special-case" title="Link to this section">#</a></h3>
-<p>Levy &amp; Goldberg&rsquo;s important interpretation is that SGNS implicitly performs <strong>shifted PMI matrix factorization</strong>. However, the following clean formula only holds when the noise distribution is the same as the actual context unigram:</p>
+<h3 id="14-connecting-sgns-and-pmi-from-one-pair-to-the-matrix">14. Connecting SGNS and PMI: From one pair to the matrix<a class="header-anchor" href="#14-connecting-sgns-and-pmi-from-one-pair-to-the-matrix" title="Link to this section">#</a></h3>
+<p>Levy &amp; Goldberg&rsquo;s important interpretation is that SGNS implicitly performs <strong>shifted PMI matrix factorization</strong>. We will derive the shift before returning to the matrix-level constraint.</p>
+<h4 id="step-1-write-the-objective-for-one-pair">Step 1: Write the objective for one pair<a class="header-anchor" href="#step-1-write-the-objective-for-one-pair" title="Link to this section">#</a></h4>
+<p>Let $n_{\mathrm{neg}}$ be the number of negative samples drawn for each observed positive pair. For a fixed word-context pair $(w,c)$, suppose temporarily that its scalar score $s_{wc}$ can be optimized independently. Its expected contribution to the SGNS objective is</p>
 <p>$$
-P_n(c)=P(c)
+\ell_{wc}
+=
+P_{\text{data}}(w,c)\log\sigma(s_{wc})
++
+n_{\mathrm{neg}}P_{\text{data}}(w)P_n(c)\log\sigma(-s_{wc}).
 $$</p>
-<p>In practice, when the noise distribution uses an exponent of $3/4$, a correction term is added as shown.</p>
-<p>PMI:</p>
+<p>The factor $n_{\mathrm{neg}}$ appears because SGNS creates $n_{\mathrm{neg}}$ noise pairs for every positive pair.</p>
+<h4 id="step-2-solve-for-the-pairwise-optimum">Step 2: Solve for the pairwise optimum<a class="header-anchor" href="#step-2-solve-for-the-pairwise-optimum" title="Link to this section">#</a></h4>
+<p>Setting the derivative with respect to $s_{wc}$ to zero gives</p>
+<p>$$
+P_{\text{data}}(w,c)\sigma(-s_{wc})
+=
+n_{\mathrm{neg}}P_{\text{data}}(w)P_n(c)\sigma(s_{wc}).
+$$</p>
+<p>Using $\sigma(s)/\sigma(-s)=e^s$, we obtain</p>
+<p>$$
+e^{s_{wc}^*}
+=
+\frac{P_{\text{data}}(w,c)}
+{n_{\mathrm{neg}}P_{\text{data}}(w)P_n(c)},
+$$</p>
+<p>and therefore</p>
+<p>$$
+\boxed{
+s_{wc}^*
+=
+\log\frac{P_{\text{data}}(c\mid w)}{P_n(c)}
+-\log n_{\mathrm{neg}}
+}.
+$$</p>
+<p>The $-\log n_{\mathrm{neg}}$ term is therefore not an extra assumption. It is the log-odds correction produced by comparing each positive pair with $n_{\mathrm{neg}}$ negative pairs.</p>
+<h4 id="step-3-recover-shifted-pmi-as-a-special-case">Step 3: Recover shifted PMI as a special case<a class="header-anchor" href="#step-3-recover-shifted-pmi-as-a-special-case" title="Link to this section">#</a></h4>
+<p>If the noise distribution equals the actual context unigram distribution,</p>
+<p>$$
+P_n(c)=P(c),
+$$</p>
+<p>then</p>
 <p>$$
 PMI(w,c)
 =
-\log
-\frac{P(w,c)}
-{P(w)P(c)}
-$$</p>
-<p>In an idealized SGNS where each $(w,c)$ score can be freely set, we get</p>
-<p>$$
-s_{wc}^*
+\log\frac{P(w,c)}{P(w)P(c)}
 =
-PMI(w,c)-\log K
+\log\frac{P(c\mid w)}{P(c)}.
 $$</p>
-<p>This is the pairwise optimum. In reality, $s_{wc}=q_w^\top k_c$ is constrained to be low-dimensional, so we cannot set every pair to its optimum independently. Instead, $Q$ and $K$ jointly approximate the entire matrix so that $q_w^\top k_c\approx s_{wc}^*$ as closely as possible.</p>
-<p>Here, $K$ is the number of negative samples.
-In other words, the dot product is not simply a similarity, but</p>
-<blockquote>
-<p>&ldquo;How much more frequently do these two words appear together in reality, compared to their independent appearance?&rdquo;</p>
-</blockquote>
-<p>This can be represented in log scale.</p>
+<p>Substituting this into the pairwise optimum gives</p>
+<p>$$
+\boxed{
+s_{wc}^*=PMI(w,c)-\log n_{\mathrm{neg}}
+}.
+$$</p>
+<p>This clean shifted-PMI formula is exact only for unigram noise. With the practical choice $P_n(c)\propto P(c)^{3/4}$, an additional context-frequency correction remains, as we will derive below.</p>
+<h4 id="step-4-return-to-the-embedding-constraint">Step 4: Return to the embedding constraint<a class="header-anchor" href="#step-4-return-to-the-embedding-constraint" title="Link to this section">#</a></h4>
+<p>The derivation above treats every $s_{wc}$ as an independent scalar. Actual embeddings cannot choose the scores independently because Section 13 showed that the entire matrix must have the form</p>
+<p>$$
+S=QK^\top,
+\qquad
+\operatorname{rank}(S)\le d.
+$$</p>
+<p>If the matrix of pairwise optima $S^*$ has rank greater than $d$, no $d$-dimensional $Q$ and $K$ can reproduce all of its entries exactly. SGNS therefore learns the factors jointly and finds the best low-rank compromise under its weighted logistic objective.</p>
+<p>The dot product is thus more than a generic similarity score. At the pairwise optimum, it represents the log ratio between the observed conditional context frequency and the noise baseline, shifted by the number of negative samples.</p>
 <hr />
 <h3 id="15-using-pmi-to-count">15. Using PMI to count<a class="header-anchor" href="#15-using-pmi-to-count" title="Link to this section">#</a></h3>
-<p>In the corpus,</p>
-<p>$$
-N(w,c)
-$$</p>
-<p>we have word-context pair counts.</p>
+<p>Let $N(w,c)$ be the observed count of the word-context pair $(w,c)$. Its marginal counts are</p>
 <p>$$
 N(w)=\sum_c N(w,c)
 $$</p>
@@ -784,10 +809,9 @@ PMI(w,c)
 =
 \log
 \frac{N(w,c)N}
-{N(w)N(c)}
+{N(w)N(c)}.
 $$</p>
-<p>is.</p>
-<p>Therefore, the dot product learned by SGNS is approximately</p>
+<p>Under the unigram-noise assumption from Section 14, the idealized SGNS score is therefore</p>
 <p>$$
 q_w^\top k_c
 \approx
@@ -795,9 +819,8 @@ q_w^\top k_c
 \frac{N(w,c)N}
 {N(w)N(c)}
 -
-\log K
+\log n_{\mathrm{neg}}.
 $$</p>
-<p>is.</p>
 <hr />
 <h3 id="16-noise-distribution-compared-to-what">16. Noise distribution: &ldquo;Compared to what?&rdquo;<a class="header-anchor" href="#16-noise-distribution-compared-to-what" title="Link to this section">#</a></h3>
 <p>The key point is that the noise distribution $P_n(c)$ defines the <strong>baseline</strong> against which the model evaluates the data.</p>
@@ -869,7 +892,7 @@ $$</p>
 <p>$$
 (w,c)\sim P_{\text{data}}(w,c)
 $$</p>
-<p>If we create $K$ negative pairs for each positive pair, then the noise pairs come in the following way:</p>
+<p>If we create $n_{\mathrm{neg}}$ negative pairs for each positive pair, then the noise pairs come in the following way:</p>
 <p>$$
 w\sim P_{\text{data}}(w),
 \qquad
@@ -890,7 +913,7 @@ $$</p>
 </tr>
 <tr>
 <td>Noise $D=0$</td>
-<td>$K P_{\text{data}}(w)P_n(c)$</td>
+<td>$n_{\mathrm{neg}} P_{\text{data}}(w)P_n(c)$</td>
 </tr>
 </tbody>
 </table>
@@ -900,10 +923,10 @@ $$</p>
 \log\frac{P(D=1\mid w,c)}{P(D=0\mid w,c)}
 &amp;=
 \log\frac{P_{\text{data}}(w,c)}
-{K P_{\text{data}}(w)P_n(c)}\\
+{n_{\mathrm{neg}} P_{\text{data}}(w)P_n(c)}\\
 &amp;=
 \log\frac{P_{\text{data}}(c\mid w)}
-{K P_n(c)}.
+{n_{\mathrm{neg}} P_n(c)}.
 \end{aligned}
 $$</p>
 <p>SGNS attempts to represent this log-odds as a single inner product.</p>
@@ -911,7 +934,7 @@ $$</p>
 \boxed{
 q_w^\top k_c
 \approx
-\log\frac{P_{\text{data}}(c\mid w)}{K P_n(c)}
+\log\frac{P_{\text{data}}(c\mid w)}{n_{\mathrm{neg}} P_n(c)}
 }
 $$</p>
 <p>It is important to read this equation aloud.</p>
@@ -932,14 +955,14 @@ $$</p>
 q_w^\top k_c
 \approx
 \log\frac{P_{\text{data}}(w,c)}
-{K P_{\text{data}}(w)P_n(c)}
+{n_{\mathrm{neg}} P_{\text{data}}(w)P_n(c)}
 $$</p>
 <p>Taking the exponential of both sides and simplifying, we get:</p>
 <p>$$
 \boxed{
 P_{\text{data}}(w,c)
 \approx
-K\,
+n_{\mathrm{neg}}\,
 P_{\text{data}}(w)
 P_n(c)
 \exp(q_w^\top k_c)
@@ -992,7 +1015,7 @@ $$</p>
 <p>$$
 q_w^\top k_c
 \approx
-PMI(w,c)-\log K
+PMI(w,c)-\log n_{\mathrm{neg}}
 $$</p>
 <p>where the inner product represents the unigram probability of each word, which plays the role of two masses.</p>
 <h4 id="with-34-noise-the-destination-mass-changes">With $3/4$ noise, the destination mass changes<a class="header-anchor" href="#with-34-noise-the-destination-mass-changes" title="Link to this section">#</a></h4>
@@ -1006,12 +1029,12 @@ $$</p>
 <p>$$
 q_w^\top k_c
 \approx
-PMI(w,c)-\log K
+PMI(w,c)-\log n_{\mathrm{neg}}
 +\frac14\log P(c)+\log Z_{3/4}.
 $$</p>
-<p>Therefore, the statement &ldquo;SGNS always learns $PMI-\log K$&rdquo; is incomplete. It is exact in the special case of unigram noise; with $3/4$ noise, a context-frequency correction term remains.</p>
+<p>Therefore, the statement &ldquo;SGNS always learns $PMI-\log n_{\mathrm{neg}}$&rdquo; is incomplete. It is exact in the special case of unigram noise; with $3/4$ noise, a context-frequency correction term remains.</p>
 <h4 id="practice-converting-log-odds-to-flow">Practice: Converting log-odds to flow<a class="header-anchor" href="#practice-converting-log-odds-to-flow" title="Link to this section">#</a></h4>
-<p>Let $P(w) = 0.1$, $P_n(c) = 0.02$, $K = 5$, and $q_w^\top k_c = \log 3$. What is the gravity term that predicts $P(w, c)$ for pairwise optimum? What does the &ldquo;3&rdquo; represent here?</p>
+<p>Let $P(w) = 0.1$, $P_n(c) = 0.02$, $n_{\mathrm{neg}} = 5$, and $q_w^\top k_c = \log 3$. What is the gravity term that predicts $P(w, c)$ for pairwise optimum? What does the &ldquo;3&rdquo; represent here?</p>
 <details>
 <summary>Simple solution</summary>
 
@@ -1022,7 +1045,7 @@ P(w,c)
 =0.03.
 $$
 
-$e^{q_w^\top k_c} = 3$ is a latent attraction that is multiplied by the endpoint baseline $K P(w)P_n(c)$. In other words, this pair has a combined strength of 3 times the baseline.
+$e^{q_w^\top k_c} = 3$ is a latent attraction that is multiplied by the endpoint baseline $n_{\mathrm{neg}} P(w)P_n(c)$. In other words, this pair has a combined strength of 3 times the baseline.
 
 </details>
 
@@ -1127,7 +1150,7 @@ $$</p>
 </tr>
 </tbody>
 </table>
-<p>If the difference in scores between the two contexts is exponentiated, $K$ disappears, making it more intuitive.</p>
+<p>If the difference in scores between the two contexts is exponentiated, $n_{\mathrm{neg}}$ disappears, making it more intuitive.</p>
 <p>$$
 \exp\left(
 q_{cat}^\top k_{pet}
@@ -1378,7 +1401,7 @@ k_j
         <span class="c1"># [batch]</span>
 
         <span class="c1"># negatives:</span>
-        <span class="c1"># [batch, K]</span>
+        <span class="c1"># [batch, m]</span>
 
         <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_embedding</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
 
@@ -1527,16 +1550,16 @@ $$</p>
 <p>$$
 x_w=\sum_c x_{wc}
 $$</p>
-<p>If the number of negative samples is $K$ and the noise distribution is $P_n(c)$, then the expected number of times the pair $(w, c)$ appears as a negative sample is</p>
+<p>If the number of negative samples is $n_{\mathrm{neg}}$ and the noise distribution is $P_n(c)$, then the expected number of times the pair $(w, c)$ appears as a negative sample is</p>
 <p>$$
-K x_w P_n(c)
+n_{\mathrm{neg}} x_w P_n(c)
 $$</p>
 <p>given by</p>
 <p>In the SGNS objective, the part corresponding to a specific pair $(w, c)$ is</p>
 <p>$$
 x_{wc}\log\sigma(s_{wc})
 +
-Kx_wP_n(c)\log\sigma(-s_{wc})
+n_{\mathrm{neg}}x_wP_n(c)\log\sigma(-s_{wc})
 $$</p>
 <p>given by</p>
 <p>Here,</p>
@@ -1549,7 +1572,7 @@ $$</p>
 <p>$$
 x_{wc}\sigma(-s)
 -
-Kx_wP_n(c)\sigma(s)
+n_{\mathrm{neg}}x_wP_n(c)\sigma(s)
 =
 0
 $$</p>
@@ -1558,7 +1581,7 @@ $$</p>
 e^s
 =
 \frac{x_{wc}}
-{Kx_wP_n(c)}
+{n_{\mathrm{neg}}x_wP_n(c)}
 $$</p>
 <p>Therefore, the optimal value when the score can be freely set for each pair is</p>
 <p>$$
@@ -1570,7 +1593,7 @@ s
 -
 \log P_n(c)
 -
-\log K
+\log n_{\mathrm{neg}}
 $$</p>
 <p>given by</p>
 <p>$$
@@ -1579,7 +1602,7 @@ s_{wc}^*
 =
 \log
 \frac{P_{\text{data}}(c\mid w)}
-{K P_n(c)}
+{n_{\mathrm{neg}} P_n(c)}
 }
 $$</p>
 <p>In a low-dimensional model, $q_w^\top k_c \approx s_{wc}^*$. The non-normalized optimal value for pairs where $x_{wc} = 0$ is $-\infty$, which limits the learning.</p>
@@ -1598,7 +1621,7 @@ q_w^\top k_c
 \frac{P(c\mid w)}
 {P(c)}
 -
-\log K
+\log n_{\mathrm{neg}}
 $$</p>
 <p>However,</p>
 <p>$$
@@ -1611,26 +1634,26 @@ $$</p>
 <p>$$
 q_w^\top k_c
 =
-PMI(w,c)-\log K
+PMI(w,c)-\log n_{\mathrm{neg}}
 $$</p>
 <p>is obtained.</p>
 <p>In other words, the shifted PMI result is directly obtained.</p>
 <hr />
-<h3 id="33-the-meaning-of-the-number-of-negative-samples-k">33. The Meaning of the Number of Negative Samples K<a class="header-anchor" href="#33-the-meaning-of-the-number-of-negative-samples-k" title="Link to this section">#</a></h3>
+<h3 id="33-the-meaning-of-the-number-of-negative-samples-n_mathrmneg">33. The Meaning of the Number of Negative Samples $n_{\mathrm{neg}}$<a class="header-anchor" href="#33-the-meaning-of-the-number-of-negative-samples-n_mathrmneg" title="Link to this section">#</a></h3>
 <p>In the case of unigram noise and shifted-PMI,</p>
 <p>$$
 q_w^\top k_c
-\approx PMI(w,c)-\log K
+\approx PMI(w,c)-\log n_{\mathrm{neg}}
 $$</p>
-<p>so as $K$ increases, the overall score baseline decreases.</p>
+<p>so as $n_{\mathrm{neg}}$ increases, the overall score baseline decreases.</p>
 <p>For example:</p>
 <p>$$
-K=5
-\Rightarrow \log K\approx1.61
+n_{\mathrm{neg}}=5
+\Rightarrow \log n_{\mathrm{neg}}\approx1.61
 $$</p>
 <p>$$
-K=20
-\Rightarrow \log K\approx3.0
+n_{\mathrm{neg}}=20
+\Rightarrow \log n_{\mathrm{neg}}\approx3.0
 $$</p>
 <p>In other words, as the number of negative samples increases, stronger evidence is needed for a positive pair to receive a high score.</p>
 <hr />
@@ -1875,7 +1898,7 @@ evaluation: cosine similarity
 <p>For each positive pair, sample negative contexts.</p>
 <div class="highlight"><pre><span></span><code>(center, positive)
 +
-K negatives
+n_neg negatives
 </code></pre></div>
 
 <p>For example, in</p>
@@ -1931,10 +1954,10 @@ chair
 <p>are used instead.</p>
 <hr />
 <h3 id="46-common-points-to-confuse-when-implementing-batching">46. Common Points to Confuse When Implementing: Batching<a class="header-anchor" href="#46-common-points-to-confuse-when-implementing-batching" title="Link to this section">#</a></h3>
-<p>If the batch size is $B$, the number of negative samples is $K$, and the dimension is $d$, then</p>
+<p>If the batch size is $B$, the number of negative samples is $n_{\mathrm{neg}}$, and the dimension is $d$, then</p>
 <div class="highlight"><pre><span></span><code>q       : [B, d]
 k_pos   : [B, d]
-k_neg   : [B, K, d]
+k_neg   : [B, n_neg, d]
 </code></pre></div>
 
 <p>positive:</p>
@@ -1953,7 +1976,7 @@ k_neg   : [B, K, d]
 </code></pre></div>
 
 <p>shape:</p>
-<div class="highlight"><pre><span></span><code>[B, K]
+<div class="highlight"><pre><span></span><code>[B, n_neg]
 </code></pre></div>
 
 <p>the following holds.</p>
@@ -1981,7 +2004,7 @@ k_neg   : [B, K, d]
 <td>To make <code>(cat, pet)</code> and <code>(car, road)</code> positive</td>
 </tr>
 <tr>
-<td>Number of negatives per positive $K$</td>
+<td>Number of negatives per positive $n_{\mathrm{neg}}$</td>
 <td style="text-align: right;">5</td>
 <td>To clearly see contrastive learning</td>
 </tr>
@@ -2026,7 +2049,7 @@ wrote=sgns_toy_diagnostics.svg
 <li><strong>B — Score matrix:</strong> Similar pairs in the same neighborhood, such as <code>cat/dog → pet/home</code> and <code>car/truck → road/load</code>, tend to have higher scores, while the representative pairs <code>cat → road</code> and <code>car → pet</code> have very low scores.</li>
 <li><strong>C — Query direction:</strong> The same contextual problems, <code>cat–dog</code> and <code>car–truck</code>, take almost the same direction, while the direction between the two neighborhoods diverges.</li>
 </ol>
-<p>Another good example is the pair <code>(cat, pet)</code>, where the score is also negative. If $K=5$, the model compares one positive pair and five noise pairs, so the score includes $-\log K$. Therefore, <strong>a positive pair does not necessarily have a score that is greater than 0.</strong> The key is the relative order: <code>-0.6651</code> is much larger than <code>-12.9805</code>.</p>
+<p>Another good example is the pair <code>(cat, pet)</code>, where the score is also negative. If $n_{\mathrm{neg}}=5$, the model compares one positive pair and five noise pairs, so the score includes $-\log n_{\mathrm{neg}}$. Therefore, <strong>a positive pair does not necessarily have a score that is greater than 0.</strong> The key is the relative order: <code>-0.6651</code> is much larger than <code>-12.9805</code>.</p>
 <p>Furthermore, the independent optimal score for a pair like <code>(cat, road)</code> will tend towards $-\infty$ if there is no normalization or regularization. The very small negative value in this toy run reflects the result of learning in that direction. In real-world large corpora, finite dimensions, limited learning, shared parameters, and subsampling all help to mitigate the extremes.</p>
 <blockquote>
 <p>This experiment is not a quality benchmark, but rather a mechanism microscope. Because the corpus is too symmetrical, the cosine between <code>cat–dog</code> and <code>car–truck</code> is almost 1, which is normal. In real-world corpora, this perfect overlap does not occur because each word does not share many contexts.</p>
@@ -2087,14 +2110,14 @@ $$</p>
 (q_b-q_a)^\top k_c
 &amp;=q_b^\top k_c-q_a^\top k_c\\
 &amp;\approx
-\log\frac{P(c\mid b)}{K P_n(c)}
+\log\frac{P(c\mid b)}{n_{\mathrm{neg}} P_n(c)}
 -
-\log\frac{P(c\mid a)}{K P_n(c)}\\
+\log\frac{P(c\mid a)}{n_{\mathrm{neg}} P_n(c)}\\
 &amp;=
 \log\frac{P(c\mid b)}{P(c\mid a)}.
 \end{aligned}
 $$</p>
-<p>$K$ and $P_n(c)$ disappear. That is, $q_b - q_a$ is the amount that represents <strong>how much the log association changes when going from $a$ to $b$ across multiple contexts.</strong></p>
+<p>$n_{\mathrm{neg}}$ and $P_n(c)$ disappear. That is, $q_b - q_a$ is the amount that represents <strong>how much the log association changes when going from $a$ to $b$ across multiple contexts.</strong></p>
 <p>If two word pairs show similar association changes across the vocabulary,</p>
 <p>$$
 v_b-v_a
@@ -2202,15 +2225,15 @@ negative &lt;---------------------------&gt;  positive
 
 <p>When the centered vector of a word $w$ is decomposed into the axis direction and the remaining direction, it is</p>
 <p>$$
-v_w-m
+v_w-\mu_0
 =
-\underbrace{\big((v_w-m)^\top a\big)a}_{\text{component explained by the axis}}
+\underbrace{\big((v_w-\mu_0)^\top a\big)a}_{\text{component explained by the axis}}
 +
 \underbrace{r_w}_{r_w\perp a}
 $$</p>
-<p>where $a$ is a vector with length 1, and $m$ is the reference point of the axis. The scalar</p>
+<p>where $a$ is a vector with length 1, and $\mu_0$ is the reference point of the axis. The scalar</p>
 <p>$$
-z_w=(v_w-m)^\top a
+z_w=(v_w-\mu_0)^\top a
 $$</p>
 <p>is not the overall meaning of the word, but rather a <strong>coordinate for a specific question</strong>. Instead of discarding high-dimensional meaning, we obtain a single, interpretable number that can be compared, sorted, and visualized.</p>
 <p>This has a significant meaning.</p>
@@ -2250,9 +2273,9 @@ $$</p>
 <p>$$
 score_{axis}(w)=\cos(v_w,a)
 $$</p>
-<p>Alternatively, you can use the signed projection $z_w = (v_w - m)^T a$, where &lsquo;a&rsquo; is the axis, and &lsquo;m&rsquo; is the midpoint of the two poles.</p>
+<p>Alternatively, you can use the signed projection $z_w = (v_w - \mu_0)^\top a$, where $a$ is the axis and $\mu_0$ is the midpoint of the two poles.</p>
 <p>$$
-m=\frac{\mu^++\mu^-}{2}
+\mu_0=\frac{\mu^++\mu^-}{2}
 $$</p>
 <p>Cosine measures the alignment of the direction, while the signed projection emphasizes how much the axis is moved along the chosen reference point.</p>
 <p>This approach mirrors the core procedure in the original <a href="https://aclanthology.org/P18-1228/">SemAxis paper</a>: &ldquo;embedding construction → average of the opposite pole set → axis generation from the difference of the average → cosine projection of the word onto the axis&rdquo;. Using multiple poles instead of a single pair can reduce sensitivity to the specific seed selection.</p>
@@ -2486,8 +2509,8 @@ $$</p>
 <p>$$
 \log\sigma(q_w^\top k_c)
 +
-\sum_{n=1}^{K}
-\log\sigma(-q_w^\top k_n)
+\sum_{i=1}^{n_{\mathrm{neg}}}
+\log\sigma(-q_w^\top k_{c_i^-})
 $$</p>
 <h4 id="3-optimal-score">3. optimal score<a class="header-anchor" href="#3-optimal-score" title="Link to this section">#</a></h4>
 <p>$$
@@ -2495,13 +2518,13 @@ q_w^\top k_c
 \approx
 \log
 \frac{P(c\mid w)}
-{K P_n(c)}
+{n_{\mathrm{neg}} P_n(c)}
 $$</p>
 <h4 id="4-when-using-unigram-noise">4. When using unigram noise<a class="header-anchor" href="#4-when-using-unigram-noise" title="Link to this section">#</a></h4>
 <p>$$
 q_w^\top k_c
 \approx
-PMI(w,c)-\log K
+PMI(w,c)-\log n_{\mathrm{neg}}
 $$</p>
 <h4 id="5-gravity-form">5. gravity form<a class="header-anchor" href="#5-gravity-form" title="Link to this section">#</a></h4>
 <p>$$
@@ -2674,7 +2697,7 @@ Transformer query-key attention
 <h5 id="4-the-trap-of-high-frequency-words">4. The Trap of High-Frequency Words<a class="header-anchor" href="#4-the-trap-of-high-frequency-words" title="Link to this section">#</a></h5>
 <p>Suppose &ldquo;the&rdquo; appears frequently around &ldquo;cat&rdquo;, &ldquo;dog&rdquo;, &ldquo;car&rdquo;, and &ldquo;truck&rdquo;. What problem arises if we only use the raw co-occurrence count? How do unigram or $3/4$ noise alleviate this?</p>
 <h5 id="5-positive-but-negative-score">5. Positive but Negative Score?<a class="header-anchor" href="#5-positive-but-negative-score" title="Link to this section">#</a></h5>
-<p>The score for the &ldquo;toy&rdquo; example is <code>score(cat,pet)=-0.6651</code>. Explain why this result does not indicate learning failure, using the comparison between &ldquo;K&rdquo; and the order of the events.</p>
+<p>The score for the &ldquo;toy&rdquo; example is <code>score(cat,pet)=-0.6651</code>. Explain why this result does not indicate learning failure, using the negative-sample count $n_{\mathrm{neg}}$ and the relative ordering of the scores.</p>
 <details>
 <summary>Answer and Hint</summary>
 
@@ -2682,7 +2705,7 @@ Transformer query-key attention
 2. `Q[cat]`, `K[pet]`, `K[road]`, and `K[load]` are updated. Since `pet` plays the role of context in this event, only `K[pet]` is selected. `Q[pet]` changes when `pet` is the center of another event.
 3. The two queries should have similar high scores for the same set of keys, such as "pet", "food", and "home". In a limited low-dimensional space, the two queries converge to similar relation profiles while compressing the relation.
 4. The common word "the" makes all relationships stronger. If "the" is frequently presented in noise, the observation `(w,the)` becomes less surprising, and the gradient and optimal score reflect the association against the baseline.
-5. The optimal score includes $-\log K$. The absolute sign is less important than whether `(cat,pet)` scores much higher than `(cat,road)`.
+5. The optimal score includes $-\log n_{\mathrm{neg}}$. The absolute sign is less important than whether `(cat,pet)` scores much higher than `(cat,road)`.
 
 </details>
 
@@ -2692,27 +2715,27 @@ Transformer query-key attention
 <h5 id="7-calculating-the-optimal-score">7. Calculating the Optimal Score<a class="header-anchor" href="#7-calculating-the-optimal-score" title="Link to this section">#</a></h5>
 <p>For any center $w$,</p>
 <p>$$
-P_{\text{data}}(c\mid w)=0.08,\qquad P_n(c)=0.01,\qquad K=5
+P_{\text{data}}(c\mid w)=0.08,\qquad P_n(c)=0.01,\qquad n_{\mathrm{neg}}=5
 $$</p>
 <p>calculate the idealized SGNS optimal score.</p>
 <h5 id="8-increasing-the-number-of-negative-samples">8. Increasing the Number of Negative Samples<a class="header-anchor" href="#8-increasing-the-number-of-negative-samples" title="Link to this section">#</a></h5>
-<p>Keeping the rest the same, if you increase $K$ from 5 to 20, how much does the optimal score change? Can we say that this change also necessarily changes the cosine similarity by the same amount?</p>
+<p>Keeping the rest the same, if you increase $n_{\mathrm{neg}}$ from 5 to 20, how much does the optimal score change? Can we say that this change also necessarily changes the cosine similarity by the same amount?</p>
 <h5 id="9-general-noise-exponent">9. General Noise Exponent<a class="header-anchor" href="#9-general-noise-exponent" title="Link to this section">#</a></h5>
 <p>$$
 P_n(c)=\frac{P(c)^\alpha}{Z_\alpha}
 $$</p>
-<p>When $K=2$, derive the following equation directly.</p>
+<p>When $n_{\mathrm{neg}}=2$, derive the following equation directly.</p>
 <p>$$
 q_w^\top k_c
 \approx
-PMI(w,c)+(1-\alpha)\log P(c)-\log K+\log Z_\alpha
+PMI(w,c)+(1-\alpha)\log P(c)-\log n_{\mathrm{neg}}+\log Z_\alpha
 $$</p>
 <p>Substitute $\alpha=1$ and $\alpha=3/4$ and interpret the results.</p>
 <h5 id="10-returning-to-the-gravity-model">10. Returning to the Gravity Model<a class="header-anchor" href="#10-returning-to-the-gravity-model" title="Link to this section">#</a></h5>
 <p>$$
-P(w)=0.02,\qquad P_n(c)=0.01,\qquad K=5,\qquad q_w^\top k_c=0.7
+P(w)=0.02,\qquad P_n(c)=0.01,\qquad n_{\mathrm{neg}}=5,\qquad q_w^\top k_c=0.7
 $$</p>
-<p>When $K=2$, calculate $P(w,c)$, the pairwise optimum value predicted by the gravity equation.</p>
+<p>Using $n_{\mathrm{neg}}=5$, calculate $P(w,c)$, the pairwise optimum value predicted by the gravity equation.</p>
 <h5 id="11-relative-attraction">11. Relative Attraction<a class="header-anchor" href="#11-relative-attraction" title="Link to this section">#</a></h5>
 <p>Suppose that $s(cat,pet)=-0.7$ and $s(cat,road)=-3.0$ for the same center. Calculate the noise-adjusted relative attraction.</p>
 <p>$$
@@ -2724,21 +2747,21 @@ $$</p>
 6. Both are approximately 0.881. Because we overestimated the positive and underestimated the negative, both errors are strongly corrected.
 7. $\log(0.08/(5\times0.01))=\log 1.6\approx0.470$
 8. This decreases by $-\log(20/5)=-\log4\approx-1.386$. This explains the idealized pairwise dot-product baseline, but it does not mean that after retraining on a limited number of dimensions, the cosine of each vector is changed by the same amount.
-9. Substitute $\log P_n(c)=\alpha\log P(c)-\log Z_\alpha$ into $\log P(c\mid w)-\log K-\log P_n(c)$. If $\alpha=1$, this leaves shifted PMI, and if $\alpha=3/4$, this leaves $\frac14\log P(c)+\log Z_{3/4}$.
+9. Substitute $\log P_n(c)=\alpha\log P(c)-\log Z_\alpha$ into $\log P(c\mid w)-\log n_{\mathrm{neg}}-\log P_n(c)$. If $\alpha=1$, this leaves shifted PMI, and if $\alpha=3/4$, this leaves $\frac14\log P(c)+\log Z_{3/4}$.
 10. This is approximately $5\times0.02\times0.01\times e^{0.7}\approx0.002014$.
 11. This is $e^{-0.7-(-3.0)}=e^{2.3}\approx9.97$. Thus, based on the noise, the `pet` side is approximately 10 times stronger.
 
 </details>
 
 <h4 id="c-testing-predictions-by-changing-the-implementation">C. Testing Predictions by Changing the Implementation<a class="header-anchor" href="#c-testing-predictions-by-changing-the-implementation" title="Link to this section">#</a></h4>
-<h5 id="12-experiment-with-k">12. Experiment with $K$<a class="header-anchor" href="#12-experiment-with-k" title="Link to this section">#</a></h5>
+<h5 id="12-experiment-with-n_mathrmneg">12. Experiment with $n_{\mathrm{neg}}$<a class="header-anchor" href="#12-experiment-with-n_mathrmneg" title="Link to this section">#</a></h5>
 <p>Run the script with <code>NEGATIVES</code> set to 1, 5, and 20 in <code>toy_sgns_story.py</code>. Before running, predict and record the following three values in a table:</p>
 <ul>
 <li>The raw loss value</li>
 <li>The score for related/unrelated pairs</li>
 <li>The relative order of cosine similarity between &ldquo;cat–dog&rdquo; and &ldquo;cat–car&rdquo;</li>
 </ul>
-<p>Also, verify that the raw loss values for different values of <em>K</em> can&rsquo;t be directly used for quality comparison because the negative term is added to the loss.</p>
+<p>Also, verify that the raw loss values for different values of $n_{\mathrm{neg}}$ can&rsquo;t be directly used for quality comparison because the negative term is added to the loss.</p>
 <h5 id="13-noise-exponent-experiment">13. Noise exponent experiment<a class="header-anchor" href="#13-noise-exponent-experiment" title="Link to this section">#</a></h5>
 <p>Try changing <code>counts[word] ** 0.75</code> to <code>** 1.0</code> and <code>** 0.0</code> in the script. Record the sampling frequency and score for the most frequent contexts, and note the direction of the change.</p>
 <h5 id="14-re-introducing-the">14. Re-introducing &ldquo;the&rdquo;<a class="header-anchor" href="#14-re-introducing-the" title="Link to this section">#</a></h5>
@@ -2750,7 +2773,7 @@ $$</p>
 <details>
 <summary>C Observation Points</summary>
 
-- As $K$ increases, the idealized score baseline generally decreases by $-\log K$, but due to limited dimensions and SGD, not all scores move exactly in parallel.
+- As $n_{\mathrm{neg}}$ increases, the idealized score baseline generally decreases by $-\log n_{\mathrm{neg}}$, but due to limited dimensions and SGD, not all scores move exactly in parallel.
 - Setting $\alpha=1$ more frequently pushes negative contexts, while setting $\alpha=0$ relatively increases the proportion of rare contexts.
 - Reintroducing "the" encourages all center words to score highly against the same key, using some of the two-dimensional capacity to represent a shared high-frequency pattern.
 - Symmetric windows make it easier to create pairs in both directions, reducing asymmetry. The ability to create directional pairs further clarifies the advantages of having separate $Q/K$ to play source/target roles.
@@ -2772,7 +2795,7 @@ v_{prince}=[1,0.9,0]
 $$</p>
 <p>. Create an analogy target and compare the cosine between the two candidates.</p>
 <h5 id="18-creating-axes-from-two-poles">18. Creating Axes from Two Poles<a class="header-anchor" href="#18-creating-axes-from-two-poles" title="Link to this section">#</a></h5>
-<p>The positive pole vectors are $[2,1],[2,-1]$, and the negative pole vectors are $[-2,1],[-2,-1]$. Find the unit meaning axis $a$ and the midpoint $m$. Also, find the signed projection of $v_x=[0.5,2]$, $v_y=[-1,0]$.</p>
+<p>The positive pole vectors are $[2,1],[2,-1]$, and the negative pole vectors are $[-2,1],[-2,-1]$. Find the unit meaning axis $a$ and the midpoint $\mu_0$. Also, find the signed projection of $v_x=[0.5,2]$, $v_y=[-1,0]$.</p>
 <h5 id="19-why-aligning-pairs-matters">19. Why Aligning Pairs Matters<a class="header-anchor" href="#19-why-aligning-pairs-matters" title="Link to this section">#</a></h5>
 <p>Why does averaging &ldquo;woman - man&rdquo; and &ldquo;king - queen&rdquo; cancel out gender-related directions? How should the second difference vector be corrected?</p>
 <h5 id="20-are-axes-coordinate-axes">20. Are Axes Coordinate Axes?<a class="header-anchor" href="#20-are-axes-coordinate-axes" title="Link to this section">#</a></h5>
@@ -2784,7 +2807,7 @@ $$</p>
 
 17. The target is $[0,1,1]$. The cosine between "queen" is approximately 0.999, and between "prince" is approximately 0.473, so "queen" is selected.
 
-18. Since $\mu^+ = [2,0]$ and $\mu^- = [-2,0]$, we have $a = [1,0]$ and $m = [0,0]$. Therefore, $z_x = 0.5$ and $z_y = -1$.
+18. Since $\mu^+ = [2,0]$ and $\mu^- = [-2,0]$, we have $a = [1,0]$ and $\mu_0 = [0,0]$. Therefore, $z_x = 0.5$ and $z_y = -1$.
 
 19. The transformation "woman - man" is from male to female, while "king - queen" is from female to male, so they are opposite. We need to change the second one to "queen - king" to match the direction.
 

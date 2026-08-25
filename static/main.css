@@ -64,6 +64,17 @@ body.lightbox-open {
   overflow: hidden;
 }
 
+body.has-page-toc {
+  max-width: 1140px;
+}
+
+body.has-page-toc > nav.top-nav,
+body.has-page-toc > .footer-separator,
+body.has-page-toc > footer {
+  width: calc(100% - 260px);
+  max-width: 820px;
+}
+
 article {
   width: 100%;
   padding: 1.25rem 0 3rem;
@@ -80,6 +91,89 @@ section {
   border: 0;
   border-radius: 0;
   background: var(--background-panel);
+}
+
+.page-with-toc {
+  display: grid;
+  grid-template-columns: minmax(0, 820px) 220px;
+  grid-template-areas:
+    "header toc"
+    "content toc"
+    "license toc";
+  column-gap: 2.5rem;
+  align-items: start;
+}
+
+.page-with-toc > header {
+  grid-area: header;
+}
+
+.page-with-toc > .content {
+  grid-area: content;
+}
+
+.page-with-toc > .content-license {
+  grid-area: license;
+}
+
+.page-toc {
+  grid-area: toc;
+  position: sticky;
+  top: 1.5rem;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
+}
+
+.page-toc-title {
+  margin: 0 0 0.65rem;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.page-toc-list {
+  margin: 0;
+  padding: 0;
+  max-width: none;
+  list-style: none;
+}
+
+.page-toc-item {
+  margin: 0;
+}
+
+.page-toc-link {
+  display: block;
+  margin: 0;
+  padding: 0.32rem 0 0.32rem 0.75rem;
+  border-left: 1px solid var(--border-light);
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.28;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.page-toc-link:hover {
+  color: var(--text-secondary);
+}
+
+.page-toc-link[aria-current="location"] {
+  border-left-color: var(--color-primary);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.page-toc-toggle {
+  display: none;
+}
+
+.content h2[id] {
+  scroll-margin-top: 1rem;
 }
 
 .content > :first-child {
@@ -1070,6 +1164,86 @@ html[data-theme="dark"] .social-github {
 
   .gallery-arrow-next {
     right: -0.3rem;
+  }
+}
+
+@media (max-width: 1099px) {
+  body.has-page-toc {
+    max-width: 820px;
+  }
+
+  body.has-page-toc > nav.top-nav,
+  body.has-page-toc > .footer-separator,
+  body.has-page-toc > footer {
+    width: 100%;
+    max-width: none;
+  }
+
+  .page-with-toc {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "header"
+      "toc"
+      "content"
+      "license";
+    column-gap: 0;
+  }
+
+  .page-toc {
+    position: static;
+    max-height: none;
+    margin: 0.2rem 0 1rem;
+    overflow: visible;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .page-toc-toggle {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 0;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .page-toc-chevron {
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 0.18s ease;
+  }
+
+  .page-toc.is-open .page-toc-chevron {
+    transform: rotate(180deg);
+  }
+
+  .page-toc-title {
+    display: none;
+  }
+
+  body.toc-ready .page-toc-nav {
+    display: none;
+  }
+
+  body.toc-ready .page-toc.is-open .page-toc-nav {
+    display: block;
+  }
+
+  .page-toc-list {
+    padding: 0 0 0.65rem;
+  }
+
+  .page-toc-link {
+    padding: 0.35rem 0 0.35rem 0.65rem;
+    font-size: 0.86rem;
   }
 }
 

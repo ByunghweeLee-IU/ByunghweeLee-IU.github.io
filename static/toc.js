@@ -59,14 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   links.forEach((link) => {
     link.addEventListener("click", function () {
-      if (window.matchMedia("(max-width: 1099px)").matches) {
+      if (window.matchMedia("(max-width: 899px)").matches) {
         toc.classList.remove("is-open");
         toggle.setAttribute("aria-expanded", "false");
       }
     });
   });
 
-  const compactLayout = window.matchMedia("(max-width: 1099px)");
+  const compactLayout = window.matchMedia("(max-width: 899px)");
   const syncLayout = (event) => {
     const isCompact = event.matches;
     toc.classList.remove("is-open");

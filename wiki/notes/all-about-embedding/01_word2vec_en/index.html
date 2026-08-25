@@ -157,7 +157,7 @@
         
         
             
-                2026-08-24 → 2026-08-24
+                2026-08-24 → 2026-08-25
             
         
     </p>
@@ -838,7 +838,7 @@ $$</p>
 <p>$$
 P_n(c)=P(c)
 $$</p>
-<p>In practice, when the noise is 3/4, a correction term is added as shown.</p>
+<p>In practice, when the noise distribution uses an exponent of $3/4$, a correction term is added as shown.</p>
 <p>PMI:</p>
 <p>$$
 PMI(w,c)
@@ -854,8 +854,8 @@ s_{wc}^*
 PMI(w,c)-\log K
 $$</p>
 <p>This is the pairwise optimum. In reality, $s_{wc}=q_w^\top k_c$ is constrained to be low-dimensional, so we cannot set every pair to its optimum independently. Instead, $Q$ and $K$ jointly approximate the entire matrix so that $q_w^\top k_c\approx s_{wc}^*$ as closely as possible.</p>
-<p>Here, $K$ is the number of negative samples.</p>
-<p>In other words, the dot product is not simply a similarity, but</p>
+<p>Here, $K$ is the number of negative samples.
+In other words, the dot product is not simply a similarity, but</p>
 <blockquote>
 <p>&ldquo;How much more frequently do these two words appear together in reality, compared to their independent appearance?&rdquo;</p>
 </blockquote>

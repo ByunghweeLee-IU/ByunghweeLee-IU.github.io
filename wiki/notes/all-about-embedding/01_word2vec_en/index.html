@@ -1142,7 +1142,13 @@ PMI(w,c)-\log n_{\mathrm{neg}}
 $$</p>
 <p>where the inner product represents the unigram probability of each word, which plays the role of two masses.</p>
 <h4 id="with-34-noise-the-destination-mass-changes">With $3/4$ noise, the destination mass changes<a class="header-anchor" href="#with-34-noise-the-destination-mass-changes" title="Link to this section">#</a></h4>
-<p>If the practical noise distribution is $P_n(c) = P(c)^{3/4}/Z_{3/4}$, then</p>
+<p>If the practical noise distribution is</p>
+<p>$$
+P_n(c)=\frac{P(c)^{3/4}}{Z_{3/4}},
+\qquad
+Z_{3/4}=\sum_u P(u)^{3/4},
+$$</p>
+<p>then $Z_{3/4}$ is the normalization factor that ensures $\sum_c P_n(c)=1$. Under this noise distribution,</p>
 <p>$$
 P_{\text{data}}(w,c)
 \propto

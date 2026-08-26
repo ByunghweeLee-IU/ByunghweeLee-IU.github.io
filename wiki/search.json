@@ -4,7 +4,7 @@
     "path": "Home",
     "url": "/wiki/Home/",
     "content": "## About This Wiki\n\nWelcome to the public wiki section of my site!\ud83d\udc4b \nThis wiki is where I collect my thoughts, essays, research ideas and useful information. \n![Hwiki illustration](assets/files/hwiki_illust.png)\n## Science Essays\n\n**The Hidden Secrets of Art Through Data (in Korean)**\n\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (1) - \ud669\uae08\ube44\uc728\uc758 \ube44\ubc00: \uc815\ubcf4\uc774\ub860\uc73c\ub85c \ubc14\ub77c\ubcf8 \ubbf8\uc220\uc0ac \uc18d \uad6c\ub3c4\uc640 \ube44\ub840](notes/blogs/01_art-goldenratio.md)\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (2) - \uc791\ud488 \uac00\uaca9\uc758 \ube44\ubc00: \uc2dc\uac01\uc801 \ud2b9\uc9d5 vs. \uc0ac\ud68c\uc801 \uc2e0\ud638](notes/blogs/02_art-price.md)\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (3) - \uc131\uacf5\uc758 \ube44\ubc00: \uc608\uc220\uac00\ub4e4\uc758 \uba85\uc131 \ub4a4\uc5d4 \ub124",
-    "published": "2026-08-24T21:29:18.650437+00:00",
+    "published": "2026-08-26T22:18:51.344354+00:00",
     "tags": []
   },
   {
@@ -64,24 +64,10 @@
     "tags": []
   },
   {
-    "title": "[All-about-embedding 1] \uc784\ubca0\ub529 \uccab\uac78\uc74c \u2014 Word2Vec, SGNS, \uadf8\ub9ac\uace0 Gravity",
-    "path": "notes/all-about-embedding/01_word2vec",
-    "url": "/wiki/notes/all-about-embedding/01_word2vec/",
-    "content": "# 01. \uc784\ubca0\ub529 \uccab\uac78\uc74c \u2014 Word2Vec, SGNS, \uadf8\ub9ac\uace0 Gravity\n\n> **\ud55c\uad6d\uc5b4** | [English](01_word2vec_en)\n\n> [**All About Embedding**](README) \u00b7 **1\ud3b8: \uc6d0\ub9ac\uc640 \uad6c\ud604** \u00b7 [2\ud3b8: \uc784\ubca0\ub529\uc73c\ub85c \ubb38\ud654 \uc77d\uae30 \u2014 Bias, \uc2dc\uac04 \ubcc0\ud654, Semantic Axes](02_word2vec_applications)\n\n<small>\u00a9 2026 Byunghwee Lee. OpenAI Codex\uc640 \ud568\uaed8 \uc791\uc131\u00b7\ud3b8\uc9d1\ud588\uc2b5\ub2c8\ub2e4. \uc800\uc791\uad8c\uc790\uc758 \uc0ac\uc804 \ud5c8\uac00 \uc5c6\ub294 \ubcf5\uc81c\u00b7\uc804\uc7ac\u00b7\ubc30\ud3ec \ubc0f \uc0ac\uc6a9\uc744 \uae08\ud569\ub2c8\ub2e4.</small>\n\n> \ud558\ub098\uc758 \uc791\uc740 \ub9d0\ubb49\uce58\uc5d0\uc11c \ucd9c\ubc1c\ud574 **\uc758\ubbf8 \uad6c\uc870 \u2192 query\u2013key \ud559\uc2b5 \u2192 negative sampling \u2192 noise distribution \u2192 SGNS \u2192 exponential gravity law**\uae4c\uc9c0 \uad6c\ud604 \uc218\uc900\uc73c\ub85c \uc5f0\uacb0\ud558\ub294 \uac15\uc758\ub178\ud2b8\n\nWord2Vec\uc744 \ucc98\uc74c \ub9cc\ub098\uba74 \uacb0\uacfc\ubd80\ud130 \ubcf4\uac8c \ub41c\ub2e4. `cat`\uacfc `dog`\uac00 \uac00\uae5d\uace0",
-    "published": "2026-08-19T00:00:00+00:00",
-    "tags": [
-      "embedding",
-      "word2vec",
-      "sgns",
-      "negative-sampling",
-      "representation-learning"
-    ]
-  },
-  {
     "title": "[All-about-embedding 1] Embedding Basics \u2014 Word2Vec, SGNS, and Gravity",
     "path": "notes/all-about-embedding/01_word2vec_en",
     "url": "/wiki/notes/all-about-embedding/01_word2vec_en/",
-    "content": "# 01. Embedding Basics \u2014 Word2Vec, SGNS, and Gravity\n\n> [\ud55c\uad6d\uc5b4](01_word2vec) | **English**\n\n> [**All About Embedding**](README) \u00b7 **Part 1: Principles and Implementation** \u00b7 [Part 2: Reading Culture with Embeddings \u2014 Bias, Change over Time, and Semantic Axes](02_word2vec_applications_en)\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Prohibited from copying, reprinting, distributing, and using without prior consent.</small>\n\n> This lecture note connects the im",
+    "content": "# 01. Embedding Basics \u2014 Word2Vec, SGNS, and Gravity\n\n> [**All About Embedding**](README) \u00b7 **Part 1: Principles and Implementation** \u00b7 [Part 2: Reading Culture with Embeddings \u2014 Bias, Change over Time, and Semantic Axes](02_word2vec_applications_en)\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Prohibited from copying, reprinting, distributing, and using without prior consent.</small>\n\n> This lecture note connects the implementation level, starting from a ",
     "published": "2026-08-24T00:00:00+00:00",
     "tags": [
       "embedding",
@@ -92,24 +78,10 @@
     ]
   },
   {
-    "title": "[All-about-embedding 2] \uc784\ubca0\ub529 \uc751\uc6a9 \u2014 \uc758\ubbf8\uacf5\uac04\uc73c\ub85c \ubb38\ud654 \uc77d\uae30",
-    "path": "notes/all-about-embedding/02_word2vec_applications",
-    "url": "/wiki/notes/all-about-embedding/02_word2vec_applications/",
-    "content": "# 02. \uc784\ubca0\ub529 \uc751\uc6a9 \u2014 \uc758\ubbf8\uacf5\uac04\uc73c\ub85c \ubb38\ud654 \uc77d\uae30\n\n> **\ud55c\uad6d\uc5b4** | [English](02_word2vec_applications_en)\n\n> Word2Vec \uc751\uc6a9: **bias \uce21\uc815 \u2192 \uc2dc\uac04\uc5d0 \ub530\ub978 \uc758\ubbf8 \ubcc0\ud654 \u2192 SemAxis \u2192 \uc678\ubd80 \ud604\uc2e4\uacfc\uc758 \uac80\uc99d**\n\n> [**All About Embedding**](README) \u00b7 [1\ud3b8: Word2Vec, SGNS, \uadf8\ub9ac\uace0 Gravity](01_word2vec) \u00b7 **2\ud3b8: Bias, \uc2dc\uac04 \ubcc0\ud654, Semantic Axes**\n\n<small>\u00a9 2026 Byunghwee Lee. OpenAI Codex\uc640 \ud568\uaed8 \uc791\uc131\u00b7\ud3b8\uc9d1\ud588\uc2b5\ub2c8\ub2e4. \uc800\uc791\uad8c\uc790\uc758 \uc0ac\uc804 \ud5c8\uac00 \uc5c6\ub294 \ubcf5\uc81c\u00b7\uc804\uc7ac\u00b7\ubc30\ud3ec \ubc0f \uc0ac\uc6a9\uc744 \uae08\ud569\ub2c8\ub2e4.</small>\n\n1\ud3b8\uc5d0\uc11c \uc6b0\ub9ac\ub294 \ub9d0\ubb49\uce58\uc758 `(center, context)` \ub9cc\ub0a8\uc774 \ubca1\ud130\uac00 \ub418\uace0, \ubc18\ubcf5\ub418\ub294 \uad00\uacc4\uac00 \ubc29\ud5a5\uacfc \ucd95\uc73c\ub85c \uc555\ucd95\ub418\ub294 \uacfc\uc815\uc744 \ubcf4\uc558\ub2e4. \uc774\uc81c \uadf8 \uc9c0\ub3c4\ub97c \ub4e4\uace0 \ud604\uc2e4\uc758 \uc9c8\ubb38\uc73c\ub85c \ub098\uac00 \ubcf4\uc790.\n\n\uc774\ubc88\uc5d0\ub3c4 \uc608\uc2dc\ub294 \ud558\ub098\ub9cc \uc624\ub798 \ub04c\uace0 \uac04\ub2e4.",
-    "published": "2026-08-19T00:00:00+00:00",
-    "tags": [
-      "embedding",
-      "bias",
-      "semantic-axis",
-      "diachronic-embedding",
-      "computational-social-science"
-    ]
-  },
-  {
     "title": "[All-about-embedding 2] Embedding Applications \u2014 Reading Culture Through Semantic Space",
     "path": "notes/all-about-embedding/02_word2vec_applications_en",
     "url": "/wiki/notes/all-about-embedding/02_word2vec_applications_en/",
-    "content": "# 02. Embedding Applications \u2014 Reading Culture Through Semantic Space\n\n> [\ud55c\uad6d\uc5b4](02_word2vec_applications) | **English**\n\n> Word2Vec Application: **Bias Measurement \u2192 Meaning Changes Over Time \u2192 SemAxis \u2192 Verification with External Reality**\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 **Part 2: Bias, Change over Time, and Semantic Axes**\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, repr",
+    "content": "# 02. Embedding Applications \u2014 Reading Culture Through Semantic Space\n\n> Word2Vec Application: **Bias Measurement \u2192 Meaning Changes Over Time \u2192 SemAxis \u2192 Verification with External Reality**\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 **Part 2: Bias, Change over Time, and Semantic Axes**\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</",
     "published": "2026-08-24T00:00:00+00:00",
     "tags": [
       "embedding",
@@ -123,7 +95,7 @@
     "title": "All About Embedding",
     "path": "notes/all-about-embedding/README",
     "url": "/wiki/notes/all-about-embedding/README/",
-    "content": "# All About Embedding\n\nThis bilingual lecture-note series develops embeddings from first principles and then uses them to study meaning, culture, and change over time. The English editions are the primary versions going forward; the original Korean editions remain available alongside them.\n\n## English\n\n1. [Embedding Basics \u2014 Word2Vec, SGNS, and Gravity](01_word2vec_en)\n2. [Embedding Applications \u2014 Reading Culture Through Semantic Space](02_word2vec_applications_en)\n\n## \ud55c\uad6d\uc5b4\n\n1. [\uc784\ubca0\ub529 \uccab\uac78\uc74c \u2014 Word2Ve",
+    "content": "# All About Embedding\n\nThis lecture-note series develops embeddings from first principles and then uses them to study meaning, culture, and change over time.\n\n1. [Embedding Basics \u2014 Word2Vec, SGNS, and Gravity](01_word2vec_en)\n2. [Embedding Applications \u2014 Reading Culture Through Semantic Space](02_word2vec_applications_en)",
     "published": "2026-08-24T00:00:00+00:00",
     "tags": [
       "embedding",

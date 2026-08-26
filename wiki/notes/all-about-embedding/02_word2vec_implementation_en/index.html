@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>[All-about-embedding 2] Implementing Word2Vec — From Data to Meaning Axes - Byunghwee Lee</title>
+
+    <!-- Description for search engines -->
+    
+    <meta name="description" content="A compact guide to implementing SGNS, interpreting relation profiles, and turning repeated relationship directions into meaningful semantic axes.">
+    
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="[All-about-embedding 2] Implementing Word2Vec — From Data to Meaning Axes">
+    
+    <meta property="og:description" content="A compact guide to implementing SGNS, interpreting relation profiles, and turning repeated relationship directions into meaningful semantic axes.">
+    
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/02_word2vec_implementation_en/">
+    
+    <meta property="article:published_time" content="2026-08-26">
+    
+    
+    <meta property="article:modified_time" content="2026-08-26">
+    
+
+    <!-- Canonical URL (treat /index/ as duplicate of /) -->
+    
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/02_word2vec_implementation_en/">
+    
+
+    <!-- JSON-LD structured data for author/site -->
+    
+    
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
+    
+    <meta property="og:site_name" content="Byunghwee Lee">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="[All-about-embedding 2] Implementing Word2Vec — From Data to Meaning Axes">
+    
+    <meta name="twitter:description" content="A compact guide to implementing SGNS, interpreting relation profiles, and turning repeated relationship directions into meaningful semantic axes.">
+    
+    
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
+    
+
+    <script>
+        (function() {
+            const storageKey = "theme-preference";
+            const storedTheme = localStorage.getItem(storageKey);
+            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = storedTheme || (systemPrefersDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/assets/site-icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/site-icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/site-icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260825c">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WQNHVCTPN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3WQNHVCTPN');
+    </script>
+
+    <!-- Atom Feed autodiscovery -->
+    
+    <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
+    
+</head>
+<body data-page-path="notes/all-about-embedding/02_word2vec_implementation_en" class="has-page-toc">
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
+            <div class="nav-controls">
+                <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav-links">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="visually-hidden">Menu</span>
+                </button>
+                <div class="nav-links" id="site-nav-links">
+                
+                <a href="/">
+                    
+                        Home
+                    
+                </a>
+                
+                <a href="/research/">
+                    
+                        Research
+                    
+                </a>
+                
+                <a href="/publications/">
+                    
+                        Publications
+                    
+                </a>
+                
+                <a href="/visualization/">
+                    
+                        Visualization
+                    
+                </a>
+                
+                <a href="/talks/">
+                    
+                        Talks
+                    
+                </a>
+                
+                <a href="/wiki/Home/">
+                    
+                        Hwiki
+                    
+                </a>
+                
+                <a href="/cv/">
+                    
+                        CV
+                    
+                </a>
+                
+                </div>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+                    <span class="visually-hidden theme-toggle-label">Dark mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article>
+        
+
+
+<div class="page-with-toc">
+
+
+
+<header>
+    <h1>[All-about-embedding 2] Implementing Word2Vec — From Data to Meaning Axes</h1>
+    
+    
+    <p class="page-dates">
+        
+        
+        
+            
+                2026-08-26 → 2026-08-26
+            
+        
+    </p>
+    
+</header>
+
+
+
+<aside class="page-toc" aria-label="Table of contents">
+    <button class="page-toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-nav">
+        <span>On this page</span>
+        <span class="page-toc-chevron" aria-hidden="true">⌄</span>
+    </button>
+    <nav class="page-toc-nav" id="page-toc-nav" aria-label="On this page">
+        <p class="page-toc-title">On this page</p>
+        <ol class="page-toc-list"></ol>
+    </nav>
+</aside>
+
+
+<section class="content">
+    <h1 id="02-implementing-word2vec-from-data-to-meaning-axes">02. Implementing Word2Vec — From Data to Meaning Axes<a class="header-anchor" href="#02-implementing-word2vec-from-data-to-meaning-axes" title="Link to this section">#</a></h1>
+<blockquote>
+<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <strong>Part 2: Implementation, Relations, and Meaning Axes</strong> · <a href="03_word2vec_applications_en">Part 3: Culture and Semantic Change</a></p>
+</blockquote>
+<p><small>© 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</small></p>
+<p>Part 1 established the mathematical story: a context window creates center–context events, SGNS compares those events with noise, and the learned dot product approximates a low-rank data-versus-noise log-odds matrix. This note turns that story into code and then explains the most useful geometry that emerges from it.</p>
+<p>The central progression is:</p>
+<div class="highlight"><pre><span></span><code>corpus
+→ positive and negative pairs
+→ SGNS training
+→ relation profiles
+→ repeated difference directions
+→ analogies and meaning axes
+</code></pre></div>
+
+<h2 id="after-reading-this-note">After reading this note<a class="header-anchor" href="#after-reading-this-note" title="Link to this section">#</a></h2>
+<ul>
+<li>You can build positive pairs and a negative-sampling distribution from a corpus.</li>
+<li>You can implement the SGNS objective in NumPy or PyTorch and explain every tensor shape.</li>
+<li>You can connect the learned vectors to relation profiles rather than treating coordinates as named features.</li>
+<li>You can explain why vector subtraction can reveal a repeated relationship.</li>
+<li>You can construct, score, and validate a meaning axis from matched pairs or two pole sets.</li>
+<li>You can connect Word2Vec to matrix factorization, recommendation, node embedding, and energy models.</li>
+</ul>
+<p><a id="toc"></a></p>
+<h2 id="table-of-contents">Table of Contents<a class="header-anchor" href="#table-of-contents" title="Link to this section">#</a></h2>
+<ol>
+<li><a href="#part-1">Ⅰ. Implementing and Creating Data</a> — 1–3</li>
+<li><a href="#part-2">Ⅱ. Deeper Interpretation of SGNS</a> — 4–6</li>
+<li><a href="#part-3">Ⅲ. A Minimal Training Experiment</a> — 7–9</li>
+<li><a href="#part-4">Ⅳ. Relationship Direction and Meaning Axis</a> — 10–16</li>
+<li><a href="#part-5">Ⅴ. Connections to Other Models</a> — 17–18</li>
+<li><a href="#part-6">Ⅵ. Core Formulas and Mental Model</a> — 19–21</li>
+</ol>
+<hr />
+<p><a id="part-1"></a></p>
+<h2 id="i-implementing-and-creating-data">Ⅰ. Implementing and Creating Data<a class="header-anchor" href="#i-implementing-and-creating-data" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="1-from-text-to-training-events">1. From text to training events<a class="header-anchor" href="#1-from-text-to-training-events" title="Link to this section">#</a></h3>
+<p>SGNS does not train directly on sentences. It trains on positive <code>(center, context)</code> pairs produced by a context window.</p>
+<p>For the sentence</p>
+<div class="highlight"><pre><span></span><code>the cat likes warm food
+</code></pre></div>
+
+<p>with <code>window=2</code>, the center <code>cat</code> produces:</p>
+<div class="highlight"><pre><span></span><code>(cat, the)
+(cat, likes)
+(cat, warm)
+</code></pre></div>
+
+<p>The window therefore defines what “related” means. Small windows emphasize local syntactic roles; larger windows include broader topical context.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">build_vocabulary</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">token</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">sentence</span><span class="p">)</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">counts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="n">min_count</span><span class="p">]</span>
+    <span class="n">word_to_id</span> <span class="o">=</span> <span class="p">{</span><span class="n">word</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">word</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">words</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="n">word_to_id</span><span class="p">,</span> <span class="n">counts</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">positive_pairs</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">word_to_id</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">word_to_id</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">sentence</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_to_id</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">center</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-</span> <span class="n">window</span><span class="p">)</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">),</span> <span class="n">i</span> <span class="o">+</span> <span class="n">window</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">j</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">center</span><span class="p">,</span> <span class="n">ids</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+</code></pre></div>
+
+<p>A dynamic window samples a radius between <code>1</code> and the maximum window for each center. This gives nearby contexts more weight without changing the learning objective.</p>
+<p>High-frequency words can dominate the event stream. Word2Vec commonly subsamples them before pair generation. Conceptually, this changes the effective corpus: the model learns from a deliberately reweighted set of encounters, not raw text alone.</p>
+<h3 id="2-negative-sampling-and-the-noise-baseline">2. Negative sampling and the noise baseline<a class="header-anchor" href="#2-negative-sampling-and-the-noise-baseline" title="Link to this section">#</a></h3>
+<p>For every positive pair <code>(w, c)</code>, draw several context IDs from a noise distribution:</p>
+<p>$$
+P_n(c)
+\propto
+\operatorname{count}(c)^{3/4}.
+$$</p>
+<p>The $3/4$ exponent softens the raw unigram distribution. Frequent contexts still appear often as negatives, but not in direct proportion to their overwhelming frequency.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_noise_distribution</span><span class="p">(</span><span class="n">word_to_id</span><span class="p">,</span> <span class="n">counts</span><span class="p">,</span> <span class="n">exponent</span><span class="o">=</span><span class="mf">0.75</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">counts</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">**</span> <span class="n">exponent</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">word_to_id</span><span class="p">],</span>
+        <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">weights</span> <span class="o">/</span> <span class="n">weights</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_negatives</span><span class="p">(</span><span class="n">noise_probs</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_negatives</span><span class="p">):</span>
+    <span class="n">sampled</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">multinomial</span><span class="p">(</span>
+        <span class="n">noise_probs</span><span class="p">,</span>
+        <span class="n">batch_size</span> <span class="o">*</span> <span class="n">n_negatives</span><span class="p">,</span>
+        <span class="n">replacement</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">sampled</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">n_negatives</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Negative sampling does two jobs at once:</p>
+<ol>
+<li>It avoids a full softmax over the vocabulary.</li>
+<li>It defines the baseline against which an observed pair must be surprising.</li>
+</ol>
+<p>Thus <code>(cat, the)</code> may be common but not especially informative because <code>the</code> is also common under the noise distribution. <code>(cat, pet)</code> can receive a stronger relative score because it occurs more often than its baseline would predict.</p>
+<h3 id="3-the-sgns-model-in-code">3. The SGNS model in code<a class="header-anchor" href="#3-the-sgns-model-in-code" title="Link to this section">#</a></h3>
+<p>Each token has two learned rows:</p>
+<ul>
+<li><code>Q[w]</code>: the word as a center, or query.</li>
+<li><code>K[c]</code>: the word as a context, or key.</li>
+</ul>
+<p>For one positive context $c^+$ and negative contexts $c_i^-$, the loss is</p>
+<p>$$
+\mathcal L
+=
+-\log\sigma(q_w^\top k_{c^+})
+-\sum_i\log\sigma(-q_w^\top k_{c_i^-}).
+$$</p>
+<p>The following NumPy function exposes one update step explicitly.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">sgns_step</span><span class="p">(</span><span class="n">Q</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">center_id</span><span class="p">,</span> <span class="n">positive_id</span><span class="p">,</span> <span class="n">negative_ids</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">center_id</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">k_pos</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">positive_id</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">k_neg</span> <span class="o">=</span> <span class="n">K</span><span class="p">[</span><span class="n">negative_ids</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">pos_score</span> <span class="o">=</span> <span class="n">q</span> <span class="o">@</span> <span class="n">k_pos</span>
+    <span class="n">neg_scores</span> <span class="o">=</span> <span class="n">k_neg</span> <span class="o">@</span> <span class="n">q</span>
+
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">pos_score</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">sigmoid</span><span class="p">(</span><span class="o">-</span><span class="n">neg_scores</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+    <span class="n">pos_error</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">pos_score</span><span class="p">)</span> <span class="o">-</span> <span class="mf">1.0</span>
+    <span class="n">neg_error</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">neg_scores</span><span class="p">)</span>
+
+    <span class="n">grad_q</span> <span class="o">=</span> <span class="n">pos_error</span> <span class="o">*</span> <span class="n">k_pos</span>
+    <span class="n">grad_q</span> <span class="o">+=</span> <span class="p">(</span><span class="n">neg_error</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">k_neg</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">grad_k_pos</span> <span class="o">=</span> <span class="n">pos_error</span> <span class="o">*</span> <span class="n">q</span>
+    <span class="n">grad_k_neg</span> <span class="o">=</span> <span class="n">neg_error</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="n">q</span>
+
+    <span class="n">Q</span><span class="p">[</span><span class="n">center_id</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_q</span>
+    <span class="n">K</span><span class="p">[</span><span class="n">positive_id</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">grad_k_pos</span>
+    <span class="k">for</span> <span class="n">context_id</span><span class="p">,</span> <span class="n">gradient</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">negative_ids</span><span class="p">,</span> <span class="n">grad_k_neg</span><span class="p">):</span>
+        <span class="n">K</span><span class="p">[</span><span class="n">context_id</span><span class="p">]</span> <span class="o">-=</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">gradient</span>
+
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The copied rows matter because all gradients must be computed from the same forward state. Automatic differentiation handles this bookkeeping in PyTorch:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">SGNS</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">negatives</span><span class="p">):</span>
+        <span class="c1"># center, positive: [batch]</span>
+        <span class="c1"># negatives:       [batch, n_negatives]</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_embedding</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>       <span class="c1"># [B, d]</span>
+        <span class="n">k_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_embedding</span><span class="p">(</span><span class="n">positive</span><span class="p">)</span> <span class="c1"># [B, d]</span>
+        <span class="n">k_neg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_embedding</span><span class="p">(</span><span class="n">negatives</span><span class="p">)</span> <span class="c1"># [B, n, d]</span>
+
+        <span class="n">pos_score</span> <span class="o">=</span> <span class="p">(</span><span class="n">q</span> <span class="o">*</span> <span class="n">k_pos</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>                    <span class="c1"># [B]</span>
+        <span class="n">neg_score</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">bmm</span><span class="p">(</span><span class="n">k_neg</span><span class="p">,</span> <span class="n">q</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># [B, n]</span>
+
+        <span class="n">pos_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">logsigmoid</span><span class="p">(</span><span class="n">pos_score</span><span class="p">)</span>
+        <span class="n">neg_loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">F</span><span class="o">.</span><span class="n">logsigmoid</span><span class="p">(</span><span class="o">-</span><span class="n">neg_score</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pos_loss</span> <span class="o">+</span> <span class="n">neg_loss</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Training then follows the standard pattern:</p>
+<div class="highlight"><pre><span></span><code><span class="n">model</span> <span class="o">=</span> <span class="n">SGNS</span><span class="p">(</span><span class="n">vocab_size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">word_to_id</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">center</span><span class="p">,</span> <span class="n">positive</span> <span class="ow">in</span> <span class="n">loader</span><span class="p">:</span>
+    <span class="n">negatives</span> <span class="o">=</span> <span class="n">draw_negatives</span><span class="p">(</span>
+        <span class="n">noise_probs</span><span class="p">,</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">center</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">n_negatives</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">positive</span><span class="p">,</span> <span class="n">negatives</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</code></pre></div>
+
+<p>The entire pipeline is now visible:</p>
+<div class="highlight"><pre><span></span><code>tokens → window pairs → noise samples → embedding lookup
+       → dot products → logistic loss → shared-vector updates
+</code></pre></div>
+
+<hr />
+<p><a id="part-2"></a></p>
+<h2 id="ii-deeper-interpretation-of-sgns">Ⅱ. Deeper Interpretation of SGNS<a class="header-anchor" href="#ii-deeper-interpretation-of-sgns" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="4-the-pairwise-optimum">4. The pairwise optimum<a class="header-anchor" href="#4-the-pairwise-optimum" title="Link to this section">#</a></h3>
+<p>Let $x_{wc}$ be the number of positive occurrences of pair $(w,c)$ and $x_w=\sum_c x_{wc}$. With $n_{\mathrm{neg}}$ negatives per positive event, the expected number of negative occurrences of the pair is</p>
+<p>$$
+n_{\mathrm{neg}}x_wP_n(c).
+$$</p>
+<p>If each pair score could be optimized independently, its optimum would be</p>
+<p>$$
+\boxed{
+s_{wc}^*
+=
+\log
+\frac{P_{\mathrm{data}}(c\mid w)}
+{n_{\mathrm{neg}}P_n(c)}
+}.
+$$</p>
+<p>With unigram noise, $P_n(c)=P(c)$, this becomes</p>
+<p>$$
+q_w^\top k_c
+\approx
+PMI(w,c)-\log n_{\mathrm{neg}}.
+$$</p>
+<p>The actual model cannot assign every pair an independent score. It must use the shared, low-dimensional factorization $s_{wc}=q_w^\top k_c$. The embedding is therefore a compressed approximation to the full log-odds relation matrix.</p>
+<p>Increasing $n_{\mathrm{neg}}$ lowers the idealized score baseline by $\log n_{\mathrm{neg}}$. This is why a genuinely observed pair need not have a positive dot product: it only needs to score appropriately relative to the alternatives.</p>
+<h3 id="5-a-word-vector-is-a-compressed-relation-profile">5. A word vector is a compressed relation profile<a class="header-anchor" href="#5-a-word-vector-is-a-compressed-relation-profile" title="Link to this section">#</a></h3>
+<p>For a center word $w$, consider its scores against every context key:</p>
+<p>$$
+r_w
+=
+q_w^\top K^\top
+=
+[q_w^\top k_1,\ldots,q_w^\top k_V].
+$$</p>
+<p>$r_w$ is the word&rsquo;s full relation profile. If <code>cat</code> and <code>dog</code> occur in similar contexts, then</p>
+<p>$$
+r_{cat}\approx r_{dog}.
+$$</p>
+<p>The $V$-dimensional profiles are too large to store and compare directly. Word2Vec represents each one with a $d$-dimensional vector. Similar vectors arise because similar words repeatedly solve similar prediction problems.</p>
+<p>The training score depends on both direction and magnitude:</p>
+<p>$$
+q^\top k=\|q\|\,\|k\|\cos\theta.
+$$</p>
+<p>Cosine similarity is useful after training because it removes vector magnitude and focuses on direction. It is an evaluation geometry, not the SGNS training loss.</p>
+<h3 id="6-from-log-odds-to-gravity">6. From log-odds to gravity<a class="header-anchor" href="#6-from-log-odds-to-gravity" title="Link to this section">#</a></h3>
+<p>Rearranging the pairwise optimum gives</p>
+<p>$$
+P_{\mathrm{data}}(w,c)
+\propto
+P_{\mathrm{data}}(w)P_n(c)
+\exp(q_w^\top k_c).
+$$</p>
+<p>This has the structure of a gravity model:</p>
+<div class="highlight"><pre><span></span><code>observed interaction
+= source activity
+× destination baseline
+× latent pair attraction
+</code></pre></div>
+
+<p>The endpoint frequencies explain how active the two sides are. The exponential dot product explains pair-specific attraction beyond that baseline.</p>
+<p>The same idea extends to a graph flow $F_{ij}$:</p>
+<p>$$
+F_{ij}\propto m_i m_j\exp(q_i^\top k_j).
+$$</p>
+<p>Traditional gravity models begin with a known space, such as geographic distance. Embedding models instead learn a latent interaction space from observed flows.</p>
+<hr />
+<p><a id="part-3"></a></p>
+<h2 id="iii-a-minimal-training-experiment">Ⅲ. A Minimal Training Experiment<a class="header-anchor" href="#iii-a-minimal-training-experiment" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="7-what-to-inspect-while-training">7. What to inspect while training<a class="header-anchor" href="#7-what-to-inspect-while-training" title="Link to this section">#</a></h3>
+<p>Loss alone does not explain the learned geometry. A small diagnostic should track three levels:</p>
+<ol>
+<li><strong>Optimization:</strong> Does the average SGNS loss decrease?</li>
+<li><strong>Pair scores:</strong> Do observed pairs score above mismatched pairs for the same center?</li>
+<li><strong>Word geometry:</strong> Do words with similar context profiles have higher cosine similarity?</li>
+</ol>
+<p>For a tiny corpus containing animal and vehicle sentences, inspect values such as:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">cosine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span> <span class="o">@</span> <span class="n">b</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">eps</span><span class="p">))</span>
+
+
+<span class="n">animal_score</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">id_cat</span><span class="p">]</span> <span class="o">@</span> <span class="n">K</span><span class="p">[</span><span class="n">id_pet</span><span class="p">]</span>
+<span class="n">mismatch_score</span> <span class="o">=</span> <span class="n">Q</span><span class="p">[</span><span class="n">id_cat</span><span class="p">]</span> <span class="o">@</span> <span class="n">K</span><span class="p">[</span><span class="n">id_road</span><span class="p">]</span>
+<span class="n">animal_similarity</span> <span class="o">=</span> <span class="n">cosine</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">id_cat</span><span class="p">],</span> <span class="n">Q</span><span class="p">[</span><span class="n">id_dog</span><span class="p">])</span>
+<span class="n">cross_similarity</span> <span class="o">=</span> <span class="n">cosine</span><span class="p">(</span><span class="n">Q</span><span class="p">[</span><span class="n">id_cat</span><span class="p">],</span> <span class="n">Q</span><span class="p">[</span><span class="n">id_car</span><span class="p">])</span>
+</code></pre></div>
+
+<p>A successful mechanism-level result should usually satisfy</p>
+<p>$$
+s(cat,pet)&gt;s(cat,road)
+$$</p>
+<p>and</p>
+<p>$$
+\cos(q_{cat},q_{dog})&gt;\cos(q_{cat},q_{car}).
+$$</p>
+<p>The precise numbers are not meaningful on a tiny corpus. The relative pattern is.</p>
+<h3 id="8-four-implementation-checks">8. Four implementation checks<a class="header-anchor" href="#8-four-implementation-checks" title="Link to this section">#</a></h3>
+<p>Only a few checks are essential:</p>
+<ul>
+<li>Train with dot products and the logistic objective; use cosine for downstream similarity.</li>
+<li>Keep tensor shapes explicit: <code>q [B,d]</code>, <code>k_pos [B,d]</code>, <code>k_neg [B,n,d]</code>.</li>
+<li>In manual NumPy updates, compute all gradients from copied pre-update vectors.</li>
+<li>Sample negatives from the intended distribution with replacement; repeated IDs should accumulate gradients.</li>
+</ul>
+<p>Everything else is an engineering choice. Larger corpora may need faster samplers, streaming pair generation, or sparse optimizers, but these do not change the conceptual model.</p>
+<h3 id="9-what-an-experiment-can-and-cannot-show">9. What an experiment can and cannot show<a class="header-anchor" href="#9-what-an-experiment-can-and-cannot-show" title="Link to this section">#</a></h3>
+<p>A toy corpus is a mechanism microscope. It can show that shared contexts produce shared directions and that the model distinguishes observed pairs from noise. It cannot demonstrate high-quality general semantics, because the vocabulary and contexts are too small.</p>
+<p>When changing the window, noise exponent, number of negatives, or dimensionality, ask one question at a time:</p>
+<div class="highlight"><pre><span></span><code>Which definition of relation or baseline did this change?
+</code></pre></div>
+
+<p>This keeps hyperparameters connected to their statistical meaning.</p>
+<hr />
+<p><a id="part-4"></a></p>
+<h2 id="iv-relationship-direction-and-meaning-axis">Ⅳ. Relationship Direction and Meaning Axis<a class="header-anchor" href="#iv-relationship-direction-and-meaning-axis" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="10-meaning-is-relational-not-attached-to-one-coordinate">10. Meaning is relational, not attached to one coordinate<a class="header-anchor" href="#10-meaning-is-relational-not-attached-to-one-coordinate" title="Link to this section">#</a></h3>
+<p>It is tempting to label coordinates directly:</p>
+<div class="highlight"><pre><span></span><code>dimension 17 = animalness
+dimension 42 = formality
+</code></pre></div>
+
+<p>But the SGNS factorization does not identify individual coordinates. For an orthogonal matrix $R$,</p>
+<p>$$
+Q'=QR,\qquad K'=KR
+$$</p>
+<p>preserves every query–key score because</p>
+<p>$$
+Q'K'^\top=QRR^\top K^\top=QK^\top.
+$$</p>
+<p>The coordinate labels can change under rotation while the learned relationships remain identical. What is interpretable is the relative geometry within a fixed representation:</p>
+<ul>
+<li>nearby directions: similar relation profiles;</li>
+<li>a difference between two vectors: a change in relation profile;</li>
+<li>a direction repeated across pairs: a recurring semantic relationship.</li>
+</ul>
+<p>Before analyzing geometry, choose one word representation and use it consistently:</p>
+<p>$$
+v_w=Q[w]
+$$</p>
+<p>or, after confirming compatible preprocessing,</p>
+<p>$$
+v_w=\frac{Q[w]+K[w]}{2}.
+$$</p>
+<p>The first choice is simplest and keeps the analysis in the query space.</p>
+<h3 id="11-what-vector-subtraction-measures">11. What vector subtraction measures<a class="header-anchor" href="#11-what-vector-subtraction-measures" title="Link to this section">#</a></h3>
+<p>For two query vectors, define the relationship direction</p>
+<p>$$
+d_{a\rightarrow b}=q_b-q_a.
+$$</p>
+<p>Projecting this difference onto a context key $k_c$ gives</p>
+<p>$$
+\begin{aligned}
+(q_b-q_a)^\top k_c
+&amp;=q_b^\top k_c-q_a^\top k_c\\
+&amp;\approx
+\log\frac{P(c\mid b)}{n_{\mathrm{neg}}P_n(c)}
+-\log\frac{P(c\mid a)}{n_{\mathrm{neg}}P_n(c)}\\
+&amp;=
+\log\frac{P(c\mid b)}{P(c\mid a)}.
+\end{aligned}
+$$</p>
+<p>The noise baseline cancels. The difference vector summarizes how associations with many contexts change when moving from $a$ to $b$.</p>
+<p>Suppose several pairs satisfy</p>
+<p>$$
+v_{b_1}-v_{a_1}
+\approx
+v_{b_2}-v_{a_2}
+\approx
+\cdots.
+$$</p>
+<p>Then the corpus has produced a recurring transformation. That shared transformation is a <strong>relationship direction</strong>.</p>
+<p>This is more precise than saying that one coordinate “contains” the relationship. The relationship is expressed by a direction across the whole space.</p>
+<h3 id="12-analogy-as-parallel-translation">12. Analogy as parallel translation<a class="header-anchor" href="#12-analogy-as-parallel-translation" title="Link to this section">#</a></h3>
+<p>The familiar analogy</p>
+<p>$$
+v_{king}-v_{man}
+\approx
+v_{queen}-v_{woman}
+$$</p>
+<p>says that two pairwise changes are approximately parallel. Rearranging gives</p>
+<p>$$
+v_{king}-v_{man}+v_{woman}
+\approx
+v_{queen}.
+$$</p>
+<p>The operation is a translation:</p>
+<div class="highlight"><pre><span></span><code>1. Estimate the movement from man to king.
+2. Apply the same movement from woman.
+3. Search for the word nearest the predicted destination.
+</code></pre></div>
+
+<p>It does not literally remove a pure “male component” from <code>king</code>. The safer interpretation is that the two pairs exhibit similar changes in their compressed context profiles.</p>
+<p>The standard 3CosAdd search is:</p>
+<p>$$
+t=v_b-v_a+v_c,
+\qquad
+\hat{x}=\arg\max_x\cos(v_x,t).
+$$</p>
+<div class="highlight"><pre><span></span><code><span class="n">E_unit</span> <span class="o">=</span> <span class="n">E</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="n">id_b</span><span class="p">]</span> <span class="o">-</span> <span class="n">E</span><span class="p">[</span><span class="n">id_a</span><span class="p">]</span> <span class="o">+</span> <span class="n">E</span><span class="p">[</span><span class="n">id_c</span><span class="p">]</span>
+<span class="n">target</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">target</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="n">scores</span> <span class="o">=</span> <span class="n">E_unit</span> <span class="o">@</span> <span class="n">target</span>
+<span class="n">scores</span><span class="p">[[</span><span class="n">id_a</span><span class="p">,</span> <span class="n">id_b</span><span class="p">,</span> <span class="n">id_c</span><span class="p">]]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">answer_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:][::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Analogy quality depends on how consistently the relationship repeats in the corpus. It is an empirical property of the learned geometry, not a constraint explicitly guaranteed by SGNS.</p>
+<h3 id="13-from-repeated-pair-differences-to-a-relationship-direction">13. From repeated pair differences to a relationship direction<a class="header-anchor" href="#13-from-repeated-pair-differences-to-a-relationship-direction" title="Link to this section">#</a></h3>
+<p>One pair difference can mix the intended relationship with word-specific details. Multiple matched pairs give a more stable estimate.</p>
+<p>For aligned pairs $(a_i,b_i)$, compute</p>
+<p>$$
+d_i=v_{b_i}-v_{a_i}.
+$$</p>
+<p>The orientation must be consistent. For a female-directed relationship, use</p>
+<p>$$
+v_{woman}-v_{man},\quad
+v_{queen}-v_{king},\quad
+v_{actress}-v_{actor},
+$$</p>
+<p>not a mixture of forward and reversed differences. Otherwise the directions cancel.</p>
+<p>A simple shared direction is the normalized average:</p>
+<p>$$
+a_{rel}
+=
+\frac{\frac{1}{n}\sum_i d_i}
+{\left\|\frac{1}{n}\sum_i d_i\right\|}.
+$$</p>
+<p>Before averaging, check whether the pair directions are actually coherent:</p>
+<div class="highlight"><pre><span></span><code><span class="n">offsets</span> <span class="o">=</span> <span class="n">E</span><span class="p">[</span><span class="n">right_ids</span><span class="p">]</span> <span class="o">-</span> <span class="n">E</span><span class="p">[</span><span class="n">left_ids</span><span class="p">]</span>
+<span class="n">offsets_unit</span> <span class="o">=</span> <span class="n">offsets</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span>
+    <span class="n">offsets</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="n">agreement</span> <span class="o">=</span> <span class="n">offsets_unit</span> <span class="o">@</span> <span class="n">offsets_unit</span><span class="o">.</span><span class="n">T</span>
+<span class="n">mean_offset</span> <span class="o">=</span> <span class="n">offsets</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">relation_axis</span> <span class="o">=</span> <span class="n">mean_offset</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">mean_offset</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If the pairwise cosine matrix <code>agreement</code> contains many negative or near-zero values, there may be no single shared relationship to summarize.</p>
+<h3 id="14-a-meaning-axis-turns-a-direction-into-a-question">14. A meaning axis turns a direction into a question<a class="header-anchor" href="#14-a-meaning-axis-turns-a-direction-into-a-question" title="Link to this section">#</a></h3>
+<p>A relationship direction describes a recurring transformation. A <strong>meaning axis</strong> uses such a direction as a ruler for all words.</p>
+<p>Examples include:</p>
+<div class="highlight"><pre><span></span><code>informal &lt;--------------------------&gt; formal
+concrete &lt;--------------------------&gt; abstract
+negative &lt;--------------------------&gt; positive
+</code></pre></div>
+
+<p>Let $a$ be a unit axis and $\mu_0$ a reference point. A word&rsquo;s signed projection is</p>
+<p>$$
+z_w=(v_w-\mu_0)^\top a.
+$$</p>
+<p>The vector decomposes into its axis component and residual meaning:</p>
+<p>$$
+v_w-\mu_0
+=
+z_wa+r_w,
+\qquad r_w\perp a.
+$$</p>
+<p>$z_w$ answers one specified question. It is not the complete meaning of the word. Two words can have the same axis score and still differ greatly in the residual space.</p>
+<p>This distinction matters:</p>
+<div class="highlight"><pre><span></span><code>analogy:
+    apply a relationship direction to one point
+
+meaning axis:
+    project many points onto a relationship direction
+</code></pre></div>
+
+<p>Both operations use the same geometry.</p>
+<h3 id="15-building-an-axis-from-two-poles">15. Building an axis from two poles<a class="header-anchor" href="#15-building-an-axis-from-two-poles" title="Link to this section">#</a></h3>
+<p>A single contrast such as <code>formal - informal</code> may be sensitive to the idiosyncrasies of those two words. Use several seed words for each pole:</p>
+<p>$$
+S^+=\{formal,professional,official\},
+\qquad
+S^-=\{informal,casual,colloquial\}.
+$$</p>
+<p>Compute the pole centroids:</p>
+<p>$$
+\mu^+
+=
+\frac{1}{|S^+|}\sum_{w\in S^+}v_w,
+\qquad
+\mu^-
+=
+\frac{1}{|S^-|}\sum_{w\in S^-}v_w.
+$$</p>
+<p>The axis points from the negative pole to the positive pole:</p>
+<p>$$
+\boxed{
+a
+=
+\frac{\mu^+-\mu^-}{\|\mu^+-\mu^-\|}
+}.
+$$</p>
+<p>A natural reference point is the midpoint</p>
+<p>$$
+\mu_0=\frac{\mu^++\mu^-}{2}.
+$$</p>
+<div class="highlight"><pre><span></span><code><span class="n">E_work</span> <span class="o">=</span> <span class="n">E</span> <span class="o">-</span> <span class="n">E</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># optional global centering</span>
+
+<span class="n">mu_pos</span> <span class="o">=</span> <span class="n">E_work</span><span class="p">[</span><span class="n">positive_ids</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">mu_neg</span> <span class="o">=</span> <span class="n">E_work</span><span class="p">[</span><span class="n">negative_ids</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">axis</span> <span class="o">=</span> <span class="n">mu_pos</span> <span class="o">-</span> <span class="n">mu_neg</span>
+<span class="n">axis</span> <span class="o">/=</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">axis</span><span class="p">),</span> <span class="mf">1e-12</span><span class="p">)</span>
+<span class="n">midpoint</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">mu_pos</span> <span class="o">+</span> <span class="n">mu_neg</span><span class="p">)</span>
+
+<span class="n">projection_scores</span> <span class="o">=</span> <span class="p">(</span><span class="n">E_work</span> <span class="o">-</span> <span class="n">midpoint</span><span class="p">)</span> <span class="o">@</span> <span class="n">axis</span>
+<span class="n">ranked_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">projection_scores</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<p>There are two common scoring choices:</p>
+<ul>
+<li><strong>Signed projection</strong> $(v_w-\mu_0)^\top a$: retains magnitude along the axis.</li>
+<li><strong>Cosine alignment</strong> $\cos(v_w,a)$: focuses on direction and removes word-vector norm.</li>
+</ul>
+<p>Neither is universally correct. Choose the score that matches the research question, document preprocessing, and use the same procedure for seeds and evaluated words.</p>
+<p>Matched-pair averaging and pole centroids are related but not identical. Matched pairs preserve correspondence between contrasts; pole centroids compare two groups as wholes. Use matched pairs when pair identity matters, and pole centroids when the two conceptual poles are primary.</p>
+<h3 id="16-when-is-an-axis-convincing">16. When is an axis convincing?<a class="header-anchor" href="#16-when-is-an-axis-convincing" title="Link to this section">#</a></h3>
+<p>An axis is useful when it generalizes beyond the words used to construct it. A compact validation set is enough:</p>
+<ol>
+<li><strong>Held-out order:</strong> Do unused contrast pairs appear in the expected order?</li>
+<li><strong>Seed stability:</strong> Does removing one seed or resampling seeds preserve the ranking?</li>
+<li><strong>Coherent extremes:</strong> Do the highest- and lowest-scoring words fit the stated contrast?</li>
+<li><strong>Run stability:</strong> Does the conclusion survive retraining with another random seed?</li>
+</ol>
+<p>When comparing separately trained spaces, align them before comparing coordinates or directions. Within one fixed space, words and their axis rotate together, so orthogonal rotation does not change projections. Across independent spaces, arbitrary rotations make raw coordinate comparisons meaningless.</p>
+<p>Finally, the axis measures how a corpus organizes language between chosen poles. It does not establish an essential property or a causal effect. The accurate claim is:</p>
+<blockquote>
+<p>In this corpus, under this embedding and pole definition, the word is more aligned with one side of the specified semantic contrast.</p>
+</blockquote>
+<hr />
+<p><a id="part-5"></a></p>
+<h2 id="v-connections-to-other-models">Ⅴ. Connections to Other Models<a class="header-anchor" href="#v-connections-to-other-models" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="17-one-family-of-interaction-models">17. One family of interaction models<a class="header-anchor" href="#17-one-family-of-interaction-models" title="Link to this section">#</a></h3>
+<p>The same low-rank scoring pattern appears in several domains:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Source</th>
+<th>Target</th>
+<th>Score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Word2Vec</td>
+<td>center word</td>
+<td>context word</td>
+<td>$q_w^\top k_c$</td>
+</tr>
+<tr>
+<td>Recommendation</td>
+<td>user</td>
+<td>item</td>
+<td>$u_i^\top v_j$</td>
+</tr>
+<tr>
+<td>node2vec</td>
+<td>source node</td>
+<td>context node</td>
+<td>$q_i^\top k_j$</td>
+</tr>
+</tbody>
+</table>
+<p>SGNS can therefore be read as a low-rank logistic factorization of a sparse interaction matrix. DeepWalk and node2vec create their interaction events from random walks rather than sentences, but the training structure is closely related.</p>
+<p>Separate query and key embeddings are particularly natural for directional data: a word or node can behave differently as a source and as a target.</p>
+<h3 id="18-energy-and-softmax">18. Energy and softmax<a class="header-anchor" href="#18-energy-and-softmax" title="Link to this section">#</a></h3>
+<p>Define energy as</p>
+<p>$$
+E(w,c)=-q_w^\top k_c.
+$$</p>
+<p>Then full softmax has the Boltzmann form</p>
+<p>$$
+P(c\mid w)
+=
+\frac{e^{-E(w,c)}}{\sum_j e^{-E(w,j)}}.
+$$</p>
+<p>Observed pairs should have low energy, or high dot products. Negative sampling learns this compatibility structure contrastively without evaluating the full normalization term for every update.</p>
+<p>Transformer attention also uses query–key dot products, but its queries and keys are dynamically computed from contextual token states. Word2Vec attaches static query and key parameters to word IDs. The scoring motif is shared; the representation mechanism is different.</p>
+<hr />
+<p><a id="part-6"></a></p>
+<h2 id="vi-core-formulas-and-mental-model">Ⅵ. Core Formulas and Mental Model<a class="header-anchor" href="#vi-core-formulas-and-mental-model" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="19-five-equations-to-remember">19. Five equations to remember<a class="header-anchor" href="#19-five-equations-to-remember" title="Link to this section">#</a></h3>
+<p><strong>Score</strong></p>
+<p>$$
+s(w,c)=q_w^\top k_c
+$$</p>
+<p><strong>SGNS objective for one positive pair</strong></p>
+<p>$$
+\log\sigma(q_w^\top k_c)
++
+\sum_{i=1}^{n_{\mathrm{neg}}}
+\log\sigma(-q_w^\top k_{c_i^-})
+$$</p>
+<p><strong>Pairwise optimal score</strong></p>
+<p>$$
+q_w^\top k_c
+\approx
+\log\frac{P(c\mid w)}{n_{\mathrm{neg}}P_n(c)}
+$$</p>
+<p><strong>Shifted PMI under unigram noise</strong></p>
+<p>$$
+q_w^\top k_c
+\approx
+PMI(w,c)-\log n_{\mathrm{neg}}
+$$</p>
+<p><strong>Gravity form</strong></p>
+<p>$$
+P(w,c)
+\propto
+P(w)P_n(c)\exp(q_w^\top k_c)
+$$</p>
+<h3 id="20-the-compact-mental-model">20. The compact mental model<a class="header-anchor" href="#20-the-compact-mental-model" title="Link to this section">#</a></h3>
+<div class="highlight"><pre><span></span><code>window defines positive relations
+        ↓
+noise defines the comparison baseline
+        ↓
+SGNS learns low-rank log-odds
+        ↓
+similar relation profiles become similar vectors
+        ↓
+similar changes in profiles become parallel offsets
+        ↓
+parallel offsets support analogies and meaning axes
+</code></pre></div>
+
+<p>The crucial distinction is:</p>
+<div class="highlight"><pre><span></span><code>word similarity     = similarity between relation profiles
+relationship        = change between two relation profiles
+meaning-axis score  = projection onto a repeated relationship direction
+</code></pre></div>
+
+<h3 id="21-from-geometry-to-research">21. From geometry to research<a class="header-anchor" href="#21-from-geometry-to-research" title="Link to this section">#</a></h3>
+<p>Implementation gives us vectors; interpretation turns their geometry into measured questions. The next note uses meaning axes, WEAT, temporal alignment, and external validation to study cultural association and semantic change.</p>
+<p>Continue to <a href="03_word2vec_applications_en">Part 3: Embedding Applications — Reading Culture Through Semantic Space</a>.</p>
+</section>
+
+
+<footer class="content-license">
+    <p>Text is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>. Cited images remain the property of their respective rights holders.</p>
+</footer>
+
+
+
+</div>
+<script src="/static/toc.js?v=20260825b" defer></script>
+
+
+
+
+
+
+    </article>
+
+    <div class="image-lightbox" aria-hidden="true" hidden>
+        <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Show previous image">←</button>
+        <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+        <img class="image-lightbox-media" alt="">
+        <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Show next image">→</button>
+    </div>
+
+    <div class="footer-separator"></div>
+
+    <footer>
+        <p class="footer-text">
+            
+            &copy; 2026
+            
+            Byunghwee Lee
+            
+            
+        </p>
+    </footer>
+
+    <!-- KaTeX for math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false,
+                ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const storageKey = "theme-preference";
+            const themeToggle = document.querySelector(".theme-toggle");
+            const themeToggleLabel = document.querySelector(".theme-toggle-label");
+            const themeToggleIcon = document.querySelector(".theme-toggle-icon");
+            const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            const mobileNavQuery = window.matchMedia("(max-width: 720px)");
+            const lightbox = document.querySelector(".image-lightbox");
+            const lightboxImage = document.querySelector(".image-lightbox-media");
+            const lightboxClose = document.querySelector(".image-lightbox-close");
+            const lightboxPrev = document.querySelector(".image-lightbox-prev");
+            const lightboxNext = document.querySelector(".image-lightbox-next");
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            let activeLightboxIndex = -1;
+
+            const applyTheme = (theme) => {
+                document.documentElement.setAttribute("data-theme", theme);
+                window.dispatchEvent(new CustomEvent("site-theme-change", {
+                    detail: { theme }
+                }));
+                if (themeToggle) {
+                    const isDark = theme === "dark";
+                    themeToggle.setAttribute("aria-pressed", String(isDark));
+                    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    if (themeToggleLabel) {
+                        themeToggleLabel.textContent = isDark ? "Light mode" : "Dark mode";
+                    }
+                    if (themeToggleIcon) {
+                        themeToggleIcon.textContent = isDark ? "☀" : "☾";
+                    }
+                }
+            };
+
+            const setNavOpen = (isOpen) => {
+                if (!navToggle || !navLinks) return;
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navLinks.dataset.open = String(isOpen);
+            };
+
+            const syncNavWithViewport = () => {
+                if (!navToggle || !navLinks) return;
+                if (mobileNavQuery.matches) {
+                    if (!navLinks.dataset.open) {
+                        setNavOpen(false);
+                    }
+                } else {
+                    navLinks.dataset.open = "true";
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            };
+
+            applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+            syncNavWithViewport();
+
+            if (themeToggle) {
+                themeToggle.addEventListener("click", function() {
+                    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+                    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+                    localStorage.setItem(storageKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener("click", function() {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setNavOpen(!isOpen);
+                });
+
+                navLinks.querySelectorAll("a").forEach((link) => {
+                    link.addEventListener("click", function() {
+                        if (mobileNavQuery.matches) {
+                            setNavOpen(false);
+                        }
+                    });
+                });
+            }
+
+            const syncWithSystemTheme = (event) => {
+                if (localStorage.getItem(storageKey)) return;
+                applyTheme(event.matches ? "dark" : "light");
+            };
+
+            const syncNavMedia = () => {
+                syncNavWithViewport();
+            };
+
+            if (typeof systemThemeQuery.addEventListener === "function") {
+                systemThemeQuery.addEventListener("change", syncWithSystemTheme);
+            } else if (typeof systemThemeQuery.addListener === "function") {
+                systemThemeQuery.addListener(syncWithSystemTheme);
+            }
+
+            if (typeof mobileNavQuery.addEventListener === "function") {
+                mobileNavQuery.addEventListener("change", syncNavMedia);
+            } else if (typeof mobileNavQuery.addListener === "function") {
+                mobileNavQuery.addListener(syncNavMedia);
+            }
+
+            const renderLightboxImage = (index) => {
+                if (!lightbox || !lightboxImage) return;
+                const boundedIndex = Math.max(0, Math.min(index, zoomableImages.length - 1));
+                const image = zoomableImages[boundedIndex];
+                if (!image) return;
+                activeLightboxIndex = boundedIndex;
+                lightboxImage.src = image.currentSrc || image.src;
+                lightboxImage.alt = image.alt || "";
+                if (lightboxPrev) lightboxPrev.disabled = boundedIndex === 0;
+                if (lightboxNext) lightboxNext.disabled = boundedIndex === zoomableImages.length - 1;
+            };
+
+            const openLightbox = (image) => {
+                if (!lightbox || !lightboxImage) return;
+                const index = zoomableImages.indexOf(image);
+                renderLightboxImage(index >= 0 ? index : 0);
+                lightbox.hidden = false;
+                lightbox.setAttribute("aria-hidden", "false");
+                document.body.classList.add("lightbox-open");
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox || !lightboxImage) return;
+                lightbox.hidden = true;
+                lightbox.setAttribute("aria-hidden", "true");
+                lightboxImage.src = "";
+                lightboxImage.alt = "";
+                activeLightboxIndex = -1;
+                document.body.classList.remove("lightbox-open");
+            };
+
+            const stepLightbox = (delta) => {
+                if (activeLightboxIndex < 0) return;
+                renderLightboxImage(activeLightboxIndex + delta);
+            };
+
+            zoomableImages.forEach((image) => {
+                image.classList.add("zoomable-image");
+                image.setAttribute("tabindex", "0");
+                image.setAttribute("role", "button");
+                image.setAttribute("aria-label", (image.alt || "Image") + ". Open larger view");
+
+                image.addEventListener("click", () => openLightbox(image));
+                image.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openLightbox(image);
+                    }
+                });
+            });
+
+            if (lightbox && lightboxClose) {
+                lightboxClose.addEventListener("click", closeLightbox);
+                if (lightboxPrev) {
+                    lightboxPrev.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(-1);
+                    });
+                }
+                if (lightboxNext) {
+                    lightboxNext.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(1);
+                    });
+                }
+                lightbox.addEventListener("click", (event) => {
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+                    closeLightbox();
+                }
+                if (event.key === "ArrowLeft" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(-1);
+                }
+                if (event.key === "ArrowRight" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(1);
+                }
+            });
+
+            document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+                const track = carousel.querySelector("[data-carousel-track]");
+                const prevButton = carousel.querySelector("[data-carousel-prev]");
+                const nextButton = carousel.querySelector("[data-carousel-next]");
+                const dotsContainer = carousel.querySelector("[data-carousel-dots]");
+                if (!track) return;
+
+                const slides = Array.from(track.querySelectorAll(".gallery-card"));
+                if (!slides.length) return;
+
+                let currentIndex = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                const updateControls = () => {
+                    track.dataset.activeIndex = String(currentIndex);
+                    slides.forEach((slide, index) => {
+                        slide.hidden = index !== currentIndex;
+                    });
+                    if (prevButton) prevButton.disabled = currentIndex === 0;
+                    if (nextButton) nextButton.disabled = currentIndex === slides.length - 1;
+                    if (dotsContainer) {
+                        dotsContainer.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+                            dot.setAttribute("aria-pressed", String(index === currentIndex));
+                        });
+                    }
+                };
+
+                const scrollToSlide = (index) => {
+                    const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
+                    currentIndex = boundedIndex;
+                    updateControls();
+                };
+
+                if (dotsContainer) {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.className = "gallery-dot";
+                        dot.setAttribute("aria-label", `Go to figure ${index + 1}`);
+                        dot.setAttribute("aria-pressed", String(index === 0));
+                        dot.addEventListener("click", () => scrollToSlide(index));
+                        dotsContainer.appendChild(dot);
+                    });
+                }
+
+                if (prevButton) {
+                    prevButton.addEventListener("click", () => scrollToSlide(currentIndex - 1));
+                }
+
+                if (nextButton) {
+                    nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
+                }
+
+                track.addEventListener("touchstart", (event) => {
+                    const touch = event.changedTouches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                }, { passive: true });
+
+                track.addEventListener("touchend", (event) => {
+                    const touch = event.changedTouches[0];
+                    const deltaX = touch.clientX - touchStartX;
+                    const deltaY = touch.clientY - touchStartY;
+                    if (Math.abs(deltaX) < 40) return;
+                    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+                    if (deltaX < 0) {
+                        scrollToSlide(currentIndex + 1);
+                    } else {
+                        scrollToSlide(currentIndex - 1);
+                    }
+                }, { passive: true });
+
+                updateControls();
+            });
+
+            const homepagePaths = new Set(["index", "research", "visualization", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
+            });
+        });
+    </script>
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+        const mermaidStart = /^(?:flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|xychart-beta|sankey-beta|packet-beta|architecture-beta|block-beta)\b/;
+        const codeBlocks = Array.from(document.querySelectorAll(".content .highlight > pre > code, .content .codehilite > pre > code"));
+        const diagrams = codeBlocks
+            .filter((code) => mermaidStart.test(code.textContent.trim()))
+            .map((code) => {
+                const container = document.createElement("div");
+                container.className = "mermaid-diagram";
+                container.dataset.mermaidSource = code.textContent.trim();
+                container.setAttribute("role", "img");
+                container.setAttribute("aria-label", "Flowchart");
+                code.closest(".highlight, .codehilite").replaceWith(container);
+                return container;
+            });
+
+        let renderVersion = 0;
+
+        async function renderMermaid(theme) {
+            if (!diagrams.length) return;
+
+            renderVersion += 1;
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: "strict",
+                theme: theme === "dark" ? "dark" : "default",
+                flowchart: {
+                    htmlLabels: true,
+                    useMaxWidth: true
+                }
+            });
+
+            await Promise.all(diagrams.map(async (container, index) => {
+                const source = container.dataset.mermaidSource;
+                try {
+                    const result = await mermaid.render(`mermaid-${renderVersion}-${index}`, source);
+                    container.innerHTML = result.svg;
+                    if (result.bindFunctions) result.bindFunctions(container);
+                    container.classList.remove("mermaid-error");
+                } catch (error) {
+                    container.classList.add("mermaid-error");
+                    container.textContent = source;
+                    console.error("Mermaid rendering failed:", error);
+                }
+            }));
+        }
+
+        let themeRenderTimer;
+        window.addEventListener("site-theme-change", (event) => {
+            window.clearTimeout(themeRenderTimer);
+            themeRenderTimer = window.setTimeout(() => renderMermaid(event.detail.theme), 0);
+        });
+
+        await renderMermaid(document.documentElement.getAttribute("data-theme") || "light");
+    </script>
+</body>
+</html>

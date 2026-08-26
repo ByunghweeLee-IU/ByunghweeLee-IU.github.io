@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>[All-about-embedding 2] Embedding Applications — Reading Culture Through Semantic Space - Byunghwee Lee</title>
+    <title>[All-about-embedding 3] Embedding Applications — Reading Culture Through Semantic Space - Byunghwee Lee</title>
 
     <!-- Description for search engines -->
     
@@ -12,11 +12,11 @@
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="[All-about-embedding 2] Embedding Applications — Reading Culture Through Semantic Space">
+    <meta property="og:title" content="[All-about-embedding 3] Embedding Applications — Reading Culture Through Semantic Space">
     
     <meta property="og:description" content="Lecture notes covering the use of embeddings for bias measurement, changes in meaning over time, WEAT and SemAxis, and the principles and considerations for verifying external data.">
     
-    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/02_word2vec_applications_en/">
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/03_word2vec_applications_en/">
     
     <meta property="article:published_time" content="2026-08-24">
     
@@ -26,7 +26,7 @@
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
     
-    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/02_word2vec_applications_en/">
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/03_word2vec_applications_en/">
     
 
     <!-- JSON-LD structured data for author/site -->
@@ -38,7 +38,7 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="[All-about-embedding 2] Embedding Applications — Reading Culture Through Semantic Space">
+    <meta name="twitter:title" content="[All-about-embedding 3] Embedding Applications — Reading Culture Through Semantic Space">
     
     <meta name="twitter:description" content="Lecture notes covering the use of embeddings for bias measurement, changes in meaning over time, WEAT and SemAxis, and the principles and considerations for verifying external data.">
     
@@ -81,7 +81,7 @@
     <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
     
 </head>
-<body data-page-path="notes/all-about-embedding/02_word2vec_applications_en" class="has-page-toc">
+<body data-page-path="notes/all-about-embedding/03_word2vec_applications_en" class="has-page-toc">
     <nav class="top-nav">
         <div class="nav-inner">
             <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
@@ -154,7 +154,7 @@
 
 
 <header>
-    <h1>[All-about-embedding 2] Embedding Applications — Reading Culture Through Semantic Space</h1>
+    <h1>[All-about-embedding 3] Embedding Applications — Reading Culture Through Semantic Space</h1>
     
     
     <p class="page-dates">
@@ -184,13 +184,13 @@
 
 
 <section class="content">
-    <h1 id="02-embedding-applications-reading-culture-through-semantic-space">02. Embedding Applications — Reading Culture Through Semantic Space<a class="header-anchor" href="#02-embedding-applications-reading-culture-through-semantic-space" title="Link to this section">#</a></h1>
+    <h1 id="03-embedding-applications-reading-culture-through-semantic-space">03. Embedding Applications — Reading Culture Through Semantic Space<a class="header-anchor" href="#03-embedding-applications-reading-culture-through-semantic-space" title="Link to this section">#</a></h1>
 <blockquote>
 <p>Word2Vec Application: <strong>Bias Measurement → Meaning Changes Over Time → SemAxis → Verification with External Reality</strong></p>
-<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <strong>Part 2: Bias, Change over Time, and Semantic Axes</strong></p>
+<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <a href="02_word2vec_implementation_en">Part 2: Implementation, Relations, and Meaning Axes</a> · <strong>Part 3: Culture and Semantic Change</strong></p>
 </blockquote>
 <p><small>© 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</small></p>
-<p>In Part 1, we saw that the encounter between a corpus (center, context) results in a vector, and that repeated relationships are compressed into directions and axes. Now, let&rsquo;s take this map and apply it to real-world questions.</p>
+<p>In Parts 1 and 2, we saw how center–context events become vectors and how repeated relationships become directions and meaning axes. Now, let&rsquo;s take that geometry into real-world research questions.</p>
 <p>As before, let&rsquo;s take a single example.</p>
 <blockquote>
 <p><strong>Question from the Archival Research Team:</strong>
@@ -213,11 +213,11 @@ If these positions have changed, has society changed, or has the corpus changed,
 <p><a id="toc"></a></p>
 <h2 id="table-of-contents">Table of Contents<a class="header-anchor" href="#table-of-contents" title="Link to this section">#</a></h2>
 <ol>
-<li><a href="#part-1">Ⅰ. Defining the Problem and Selecting Measurement Tools</a> — 0–3</li>
-<li><a href="#part-2">Ⅱ. Tracking Meaning Changes Over Time</a> — 4–5</li>
-<li><a href="#part-3">Ⅲ. Multidimensional Meaning, Framing, and Intersectionality</a> — 6–8</li>
-<li><a href="#part-4">Ⅳ. Designing and Implementing Research</a> — 9–11</li>
-<li><a href="#part-5">Ⅴ. Practice, Check, and Synthesis</a> — 12–15</li>
+<li><a href="#part-1">Ⅰ. Defining the Problem and Selecting Measurement Tools</a> — 1–4</li>
+<li><a href="#part-2">Ⅱ. Tracking Meaning Changes Over Time</a> — 5–6</li>
+<li><a href="#part-3">Ⅲ. Multidimensional Meaning, Framing, and Intersectionality</a> — 7–9</li>
+<li><a href="#part-4">Ⅳ. Designing and Implementing Research</a> — 10–12</li>
+<li><a href="#part-5">Ⅴ. Practice, Check, and Synthesis</a> — 13–16</li>
 <li><a href="#part-6">Ⅵ. Further Reading</a> — References and Appendix</li>
 </ol>
 <h2 id="one-page-research-roadmap">One-Page Research Roadmap<a class="header-anchor" href="#one-page-research-roadmap" title="Link to this section">#</a></h2>
@@ -240,7 +240,7 @@ If these positions have changed, has society changed, or has the corpus changed,
 <p><a id="part-1"></a></p>
 <h2 id="i-defining-the-problem-and-selecting-measurement-tools">Ⅰ. Defining the Problem and Selecting Measurement Tools<a class="header-anchor" href="#i-defining-the-problem-and-selecting-measurement-tools" title="Link to this section">#</a></h2>
 <p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="0-lets-divide-the-term-bias-into-four-layers">0. Let&rsquo;s divide the term &ldquo;bias&rdquo; into four layers<a class="header-anchor" href="#0-lets-divide-the-term-bias-into-four-layers" title="Link to this section">#</a></h3>
+<h3 id="1-lets-divide-the-term-bias-into-four-layers">1. Let&rsquo;s divide the term &ldquo;bias&rdquo; into four layers<a class="header-anchor" href="#1-lets-divide-the-term-bias-into-four-layers" title="Link to this section">#</a></h3>
 <p>A common mistake in embedding research is to treat different sentences as the same.</p>
 <table>
 <thead>
@@ -299,9 +299,9 @@ No. The former refers to the **technical association** within a specific corpus,
 </details>
 
 <hr />
-<h3 id="1-asking-in-one-direction-meaning-axis">1. Asking in one direction: meaning axis<a class="header-anchor" href="#1-asking-in-one-direction-meaning-axis" title="Link to this section">#</a></h3>
+<h3 id="2-asking-in-one-direction-meaning-axis">2. Asking in one direction: meaning axis<a class="header-anchor" href="#2-asking-in-one-direction-meaning-axis" title="Link to this section">#</a></h3>
 <p>As seen in Part 1, individual coordinates in an embedding do not have fixed meanings. Rotating the entire space does not change inner products or cosine similarities. What is interpretable is not a coordinate number, but the <strong>relationships and directions between words</strong>.</p>
-<h4 id="11-two-poles-form-a-ruler">1.1 Two poles form a ruler<a class="header-anchor" href="#11-two-poles-form-a-ruler" title="Link to this section">#</a></h4>
+<h4 id="21-two-poles-form-a-ruler">2.1 Two poles form a ruler<a class="header-anchor" href="#21-two-poles-form-a-ruler" title="Link to this section">#</a></h4>
 <p>To measure gender association, using only one pair such as <code>man - woman</code> makes the axis overly sensitive to idiosyncratic usage. A more stable approach uses the centroids of several reference words.</p>
 <p>$$
 \mu_{M}
@@ -325,7 +325,7 @@ $$</p>
 \cos(\mathbf v_w,\mathbf g)
 $$</p>
 <p>If the score for &ldquo;engineer&rdquo; is 0.31 and the score for &ldquo;nurse&rdquo; is -0.24, then in this space, the former points towards the male pole, and the latter points towards the female pole.</p>
-<h4 id="12-the-score-is-a-relationship-profile-not-identity">1.2 The score is a relationship profile, not identity<a class="header-anchor" href="#12-the-score-is-a-relationship-profile-not-identity" title="Link to this section">#</a></h4>
+<h4 id="22-the-score-is-a-relationship-profile-not-identity">2.2 The score is a relationship profile, not identity<a class="header-anchor" href="#22-the-score-is-a-relationship-profile-not-identity" title="Link to this section">#</a></h4>
 <p>This score is not a declaration that &ldquo;engineer&rdquo; means &ldquo;male&rdquo;.</p>
 <ul>
 <li>Model: What algorithm and dimension were used?</li>
@@ -354,10 +354,10 @@ Only the signs of all the scores are reversed. If the label "positive=male" is a
 </details>
 
 <hr />
-<h3 id="2-asking-with-four-sets-instead-of-one-word-weat">2. Asking with Four Sets Instead of One Word: WEAT<a class="header-anchor" href="#2-asking-with-four-sets-instead-of-one-word-weat" title="Link to this section">#</a></h3>
+<h3 id="3-asking-with-four-sets-instead-of-one-word-weat">3. Asking with Four Sets Instead of One Word: WEAT<a class="header-anchor" href="#3-asking-with-four-sets-instead-of-one-word-weat" title="Link to this section">#</a></h3>
 <p>While axis projection is intuitive, the <strong>Word Embedding Association Test (WEAT)</strong> is convenient for testing &ldquo;how differently two sets of objects are associated with two sets of attributes?&rdquo;</p>
 <p><a href="https://doi.org/10.1126/science.aal4230">Caliskan, Bryson, Narayanan (Science, 2017)</a> applied a structure similar to the Implicit Association Test to word vectors. The main analysis used Common Crawl GloVe, and the results were also replicated using Google News Word2Vec.</p>
-<h4 id="21-four-baskets">2.1 Four Baskets<a class="header-anchor" href="#21-four-baskets" title="Link to this section">#</a></h4>
+<h4 id="31-four-baskets">3.1 Four Baskets<a class="header-anchor" href="#31-four-baskets" title="Link to this section">#</a></h4>
 <p>If we convert our example to WEAT, it would look like this.</p>
 <table>
 <thead>
@@ -414,13 +414,13 @@ d
 \operatorname{std}_{w\in X\cup Y}s(w,A,B)
 }
 $$</p>
-<h4 id="22-what-the-permutation-test-asks">2.2 What the permutation test asks<a class="header-anchor" href="#22-what-the-permutation-test-asks" title="Link to this section">#</a></h4>
+<h4 id="32-what-the-permutation-test-asks">3.2 What the permutation test asks<a class="header-anchor" href="#32-what-the-permutation-test-asks" title="Link to this section">#</a></h4>
 <p>Under the null hypothesis, even if the words in $X \cup Y$ are divided into two sets of equal size, we should expect to see a similar degree of association. By observing the most extreme proportion of $S$ across multiple possible or random partitions, we obtain the permutation $p$-value.</p>
 <p>This test does not mean &ldquo;the probability that a person has a bias.&rdquo;</p>
 <blockquote>
 <p>Given this word set partition, how unusual is the observed association difference compared to the difference obtained when mixing the labels?</p>
 </blockquote>
-<h4 id="23-axis-and-weat-are-not-competitors">2.3 axis and WEAT are not competitors<a class="header-anchor" href="#23-axis-and-weat-are-not-competitors" title="Link to this section">#</a></h4>
+<h4 id="33-axis-and-weat-are-not-competitors">3.3 axis and WEAT are not competitors<a class="header-anchor" href="#33-axis-and-weat-are-not-competitors" title="Link to this section">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -463,11 +463,11 @@ The difference is $0.55$. This indicates that, for the two selected attribute se
 </details>
 
 <hr />
-<h3 id="3-what-a-famous-bias-study-actually-did">3. What a famous bias study actually did<a class="header-anchor" href="#3-what-a-famous-bias-study-actually-did" title="Link to this section">#</a></h3>
-<h4 id="31-vectors-carry-social-associations">3.1 &ldquo;Vectors carry social associations&rdquo;<a class="header-anchor" href="#31-vectors-carry-social-associations" title="Link to this section">#</a></h4>
+<h3 id="4-what-a-famous-bias-study-actually-did">4. What a famous bias study actually did<a class="header-anchor" href="#4-what-a-famous-bias-study-actually-did" title="Link to this section">#</a></h3>
+<h4 id="41-vectors-carry-social-associations">4.1 &ldquo;Vectors carry social associations&rdquo;<a class="header-anchor" href="#41-vectors-carry-social-associations" title="Link to this section">#</a></h4>
 <p>Caliskan et al. found association patterns resembling those in human studies across several contrasts: flowers–insects and pleasant–unpleasant words, European American–African American names, and male–female terms with career–family words. Their key contribution was not the observation that a few words looked unusual, but a measurement procedure built from word sets, effect sizes, and permutation tests.</p>
 <p>However, the authors also emphasize that the &ldquo;subjects&rdquo; of embeddings are words and corpora, not people. The IAT and WEAT scores should not be directly mapped one-to-one.</p>
-<h4 id="32-can-removing-the-axis-solve-it">3.2 &ldquo;Can removing the axis solve it?&rdquo;<a class="header-anchor" href="#32-can-removing-the-axis-solve-it" title="Link to this section">#</a></h4>
+<h4 id="42-can-removing-the-axis-solve-it">4.2 &ldquo;Can removing the axis solve it?&rdquo;<a class="header-anchor" href="#42-can-removing-the-axis-solve-it" title="Link to this section">#</a></h4>
 <p><a href="https://proceedings.neurips.cc/paper_files/paper/2016/file/a486cd07e4ac3d270571622f4f316ec5-Paper.pdf">Bolukbasi et al. (NeurIPS, 2016)</a> proposed a hard debiasing method in Google News Word2Vec to find and remove the gender bias component, by removing the axis.</p>
 <p>For the gender axis $\mathbf g$, the simplest neutralization is</p>
 <p>$$
@@ -537,10 +537,10 @@ For example: (1) Label the original gender-biased words and perform cross-valida
 <p><a id="part-2"></a></p>
 <h2 id="ii-tracking-meaning-changes-over-time">Ⅱ. Tracking Meaning Changes Over Time<a class="header-anchor" href="#ii-tracking-meaning-changes-over-time" title="Link to this section">#</a></h2>
 <p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="4-as-time-passes-n-gram-frequency-and-diachronic-embedding">4. As Time Passes: N-gram Frequency and Diachronic Embedding<a class="header-anchor" href="#4-as-time-passes-n-gram-frequency-and-diachronic-embedding" title="Link to this section">#</a></h3>
+<h3 id="5-as-time-passes-n-gram-frequency-and-diachronic-embedding">5. As Time Passes: N-gram Frequency and Diachronic Embedding<a class="header-anchor" href="#5-as-time-passes-n-gram-frequency-and-diachronic-embedding" title="Link to this section">#</a></h3>
 <p>When a user asks, &ldquo;Does temporal change research use N-grams?&rdquo;, the answer is <strong>&ldquo;Yes, but it doesn&rsquo;t just use N-gram Viewer.&rdquo;</strong></p>
 <p><a href="https://aclanthology.org/P16-1141/">Hamilton, Leskovec, Jurafsky (ACL, 2016)</a> created diachronic embeddings with PPMI, SVD, and SGNS across six historical corpora—including Google Books N-Gram and COHA—four languages, and roughly two centuries. Google N-Gram supplied massive <strong>word-context co-occurrence statistics</strong>, from which they reconstructed a semantic space for each period.</p>
-<h4 id="41-whats-the-difference">4.1 What&rsquo;s the Difference?<a class="header-anchor" href="#41-whats-the-difference" title="Link to this section">#</a></h4>
+<h4 id="51-whats-the-difference">5.1 What&rsquo;s the Difference?<a class="header-anchor" href="#51-whats-the-difference" title="Link to this section">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -563,7 +563,7 @@ For example: (1) Label the original gender-biased words and perform cross-valida
 </tbody>
 </table>
 <p>Frequency looks at &ldquo;how often,&rdquo; while embedding looks at &ldquo;in what context.&rdquo; It&rsquo;s better to look at both, but they are not substitutes for each other.</p>
-<h4 id="42-creating-a-temporal-space">4.2 Creating a temporal space<a class="header-anchor" href="#42-creating-a-temporal-space" title="Link to this section">#</a></h4>
+<h4 id="52-creating-a-temporal-space">5.2 Creating a temporal space<a class="header-anchor" href="#52-creating-a-temporal-space" title="Link to this section">#</a></h4>
 <div class="highlight"><pre><span></span><code>flowchart TD
     A[1900s text] --&gt; A1[W_1900]
     B[1910s text] --&gt; B1[W_1910]
@@ -584,7 +584,7 @@ For example: (1) Label the original gender-biased words and perform cross-valida
 <li>Measure cosine similarity, movement, and changes in axis scores.</li>
 <li>Estimate uncertainty from multiple seeds and bootstrapping.</li>
 </ol>
-<h4 id="43-why-align">4.3 Why align?<a class="header-anchor" href="#43-why-align" title="Link to this section">#</a></h4>
+<h4 id="53-why-align">5.3 Why align?<a class="header-anchor" href="#53-why-align" title="Link to this section">#</a></h4>
 <p>Word2Vec spaces can be rotated as a whole, but the inner product between words remains the same. The 17th coordinate of the 1900 model and the 17th coordinate of the 1910 model do not necessarily have the same meaning. Simply subtracting the coordinates can measure <strong>not meaning change, but random rotation</strong>.</p>
 <p>Let $X$ and $Y$ be the matrices of common words, then the orthogonal Procrustes alignment is</p>
 <p>$$
@@ -605,7 +605,7 @@ $$</p>
 1-\cos(\mathbf v_{w,t}R_t,\mathbf v_{w,t+1})
 $$</p>
 <p>measured as</p>
-<h4 id="44-hamiltons-two-statistical-laws">4.4 Hamilton&rsquo;s Two Statistical Laws<a class="header-anchor" href="#44-hamiltons-two-statistical-laws" title="Link to this section">#</a></h4>
+<h4 id="54-hamiltons-two-statistical-laws">5.4 Hamilton&rsquo;s Two Statistical Laws<a class="header-anchor" href="#54-hamiltons-two-statistical-laws" title="Link to this section">#</a></h4>
 <p>This study observed the following trends in multiple datasets and methods.</p>
 <ul>
 <li><strong>conformity</strong>: Words that are frequently used tend to change their meaning more slowly.</li>
@@ -624,10 +624,10 @@ It's difficult. The frequency may be the same, but the context distribution has 
 </details>
 
 <hr />
-<h3 id="5-measuring-stereotypes-over-time">5. Measuring Stereotypes Over Time<a class="header-anchor" href="#5-measuring-stereotypes-over-time" title="Link to this section">#</a></h3>
+<h3 id="6-measuring-stereotypes-over-time">6. Measuring Stereotypes Over Time<a class="header-anchor" href="#6-measuring-stereotypes-over-time" title="Link to this section">#</a></h3>
 <p><a href="https://doi.org/10.1073/pnas.1720347115">Garg et al. (PNAS, 2018)</a> quantified the changes in gender and ethnic associations over 100 years in American history using historical embeddings. They used diachronic embeddings from Google Books and COHA, as well as the New York Times&rsquo; yearly embeddings, and compared them with external data such as occupational demographics and past human stereotypes surveys.</p>
 <p>Now, let&rsquo;s concretize the research of the archive team.</p>
-<h4 id="51-gender-association-trajectory-of-professions">5.1 Gender association trajectory of professions<a class="header-anchor" href="#51-gender-association-trajectory-of-professions" title="Link to this section">#</a></h4>
+<h4 id="61-gender-association-trajectory-of-professions">6.1 Gender association trajectory of professions<a class="header-anchor" href="#61-gender-association-trajectory-of-professions" title="Link to this section">#</a></h4>
 <p>Create a gender axis for each era $t$,</p>
 <p>$$
 g_t(w)=\cos(\mathbf v_{w,t},\mathbf g_t)
@@ -664,7 +664,7 @@ $$</p>
 </tbody>
 </table>
 <p>The values in the table are illustrative and not real. In actual analysis, you should not only show the point estimates but also the seed and bootstrap confidence intervals.</p>
-<h4 id="52-moving-words-and-moving-axes">5.2 Moving Words and Moving Axes<a class="header-anchor" href="#52-moving-words-and-moving-axes" title="Link to this section">#</a></h4>
+<h4 id="62-moving-words-and-moving-axes">6.2 Moving Words and Moving Axes<a class="header-anchor" href="#62-moving-words-and-moving-axes" title="Link to this section">#</a></h4>
 <p>There is a subtle trap here.</p>
 <blockquote>
 <p>Both &ldquo;engineer&rdquo; and the &ldquo;man/woman&rdquo; pole can change.</p>
@@ -676,7 +676,7 @@ $$</p>
 <li><strong>Pairwise relation</strong>: Check how consistent the differences in direction between multiple gender pairs are across eras.</li>
 </ol>
 <p>If the three results are similar, the interpretation is strengthened. If they are different, you need to separate and explain &ldquo;movement of the target word&rdquo; and &ldquo;movement of the reference concept&rdquo;.</p>
-<h4 id="53-comparing-with-reality-but-not-equating">5.3 Comparing with Reality, but Not Equating<a class="header-anchor" href="#53-comparing-with-reality-but-not-equating" title="Link to this section">#</a></h4>
+<h4 id="63-comparing-with-reality-but-not-equating">6.3 Comparing with Reality, but Not Equating<a class="header-anchor" href="#63-comparing-with-reality-but-not-equating" title="Link to this section">#</a></h4>
 <p>The increase in the association between &ldquo;engineer&rdquo; and women can coincide with the actual increase in the proportion of female engineers. However, correlation does not necessarily imply causation.</p>
 <p>There are several possible explanations.</p>
 <ul>
@@ -743,7 +743,7 @@ This is not possible. Even a small difference in sample size can make the varian
 <p><a id="part-3"></a></p>
 <h2 id="iii-multidimensional-meaning-framing-and-intersectionality">Ⅲ. Multidimensional Meaning, Framing, and Intersectionality<a class="header-anchor" href="#iii-multidimensional-meaning-framing-and-intersectionality" title="Link to this section">#</a></h2>
 <p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="6-beyond-a-single-dimension-semaxis">6. Beyond a Single Dimension: SemAxis<a class="header-anchor" href="#6-beyond-a-single-dimension-semaxis" title="Link to this section">#</a></h3>
+<h3 id="7-beyond-a-single-dimension-semaxis">7. Beyond a Single Dimension: SemAxis<a class="header-anchor" href="#7-beyond-a-single-dimension-semaxis" title="Link to this section">#</a></h3>
 <p>If we only consider one gender dimension, all changes appear to be related to gender. However, <code>leader</code> simultaneously</p>
 <ul>
 <li>young ↔ old</li>
@@ -754,7 +754,7 @@ This is not possible. Even a small difference in sample size can make the varian
 </ul>
 <p>places individuals in multiple directions. <strong>SemAxis</strong> is a method of placing multiple axes in the semantic space, each corresponding to a different question.</p>
 <p><a href="https://aclanthology.org/P18-1228/">An, Kwak, Ahn (ACL, 2018)</a> created semantic axes from antonym poles and projected words onto each axis to describe domain-specific semantics. Based on the antonym relations in ConceptNet, they constructed 732 axes and expanded the words around each pole to reduce the instability of word pairs.</p>
-<h4 id="61-the-core-of-semaxis-lies-in-these-three-points">6.1 The core of SemAxis lies in these three points<a class="header-anchor" href="#61-the-core-of-semaxis-lies-in-these-three-points" title="Link to this section">#</a></h4>
+<h4 id="71-the-core-of-semaxis-lies-in-these-three-points">7.1 The core of SemAxis lies in these three points<a class="header-anchor" href="#71-the-core-of-semaxis-lies-in-these-three-points" title="Link to this section">#</a></h4>
 <p>Define the positive pole set $P^+$ and the negative pole set $P^-$,</p>
 <p>$$
 \mu^+
@@ -777,7 +777,7 @@ $$</p>
 $$</p>
 <p>Calculate this.</p>
 <p>By projecting the &ldquo;leader&rdquo; onto hundreds of axes, it is possible to identify the &ldquo;most salient dimension of meaning.&rdquo; Alternatively, the researcher can pre-define the gender, age, and power axes and test hypotheses against them.</p>
-<h4 id="62-three-strategies-for-discovering-axes">6.2 Three Strategies for &ldquo;Discovering&rdquo; Axes<a class="header-anchor" href="#62-three-strategies-for-discovering-axes" title="Link to this section">#</a></h4>
+<h4 id="72-three-strategies-for-discovering-axes">7.2 Three Strategies for &ldquo;Discovering&rdquo; Axes<a class="header-anchor" href="#72-three-strategies-for-discovering-axes" title="Link to this section">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -809,7 +809,7 @@ $$</p>
 </tbody>
 </table>
 <p>The healthiest approach is to <strong>separate exploration and validation</strong>. Discover interesting axes in one corpus and replicate them in a separate corpus, time period, or seed.</p>
-<h4 id="63-conditions-for-good-axes">6.3 Conditions for Good Axes<a class="header-anchor" href="#63-conditions-for-good-axes" title="Link to this section">#</a></h4>
+<h4 id="73-conditions-for-good-axes">7.3 Conditions for Good Axes<a class="header-anchor" href="#73-conditions-for-good-axes" title="Link to this section">#</a></h4>
 <p>A good axis is not necessarily one with a plausible name.</p>
 <ol>
 <li>Are the directions of the axis pairs consistent with each other?</li>
@@ -864,7 +864,7 @@ It is not possible to determine this from a single score. We need to consider th
 </details>
 
 <hr />
-<h3 id="7-from-word-to-document-framing-frameaxis">7. From Word to Document Framing: FrameAxis<a class="header-anchor" href="#7-from-word-to-document-framing-frameaxis" title="Link to this section">#</a></h3>
+<h3 id="8-from-word-to-document-framing-frameaxis">8. From Word to Document Framing: FrameAxis<a class="header-anchor" href="#8-from-word-to-document-framing-frameaxis" title="Link to this section">#</a></h3>
 <p>While SemAxis asks &ldquo;Which pole does the word belong to?&rdquo;, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8323720/">FrameAxis (Kwak et al., 2021)</a> extends the axis to document and corpus framing analysis.</p>
 <p>Let $f$ be the contribution of the word $w$ to the axis, and let $n_d(w)$ be the frequency of the word $w$ in document $d$. The simplified document bias for educational purposes is:</p>
 <p>$$
@@ -925,14 +925,14 @@ The strong gendered expressions in opposite directions might cancel each other o
 </details>
 
 <hr />
-<h3 id="8-recent-nature-study-distortions-observed-when-axes-intersect">8. Recent Nature Study: Distortions Observed When Axes Intersect<a class="header-anchor" href="#8-recent-nature-study-distortions-observed-when-axes-intersect" title="Link to this section">#</a></h3>
+<h3 id="9-recent-nature-study-distortions-observed-when-axes-intersect">9. Recent Nature Study: Distortions Observed When Axes Intersect<a class="header-anchor" href="#9-recent-nature-study-distortions-observed-when-axes-intersect" title="Link to this section">#</a></h3>
 <p>The recent Nature study that best aligns with what you mentioned is <a href="https://www.nature.com/articles/s41586-025-09581-z">Guilbeault, Delecourt, Desikan, “Age and gender distortion in online media and large language models” (Nature, 2025)</a>.</p>
 <p>The core question of this study goes beyond &ldquo;Are women less visible?&rdquo;.</p>
 <blockquote>
 <p>When representing the same job or social role, do women appear younger than men?
 And does this <strong>age × gender distortion</strong> relate to status, people&rsquo;s beliefs, and hiring decisions, as well as the output of language models?</p>
 </blockquote>
-<h4 id="81-embedding-as-a-layer-in-a-large-evidence-chain">8.1 Embedding as a Layer in a Large Evidence Chain<a class="header-anchor" href="#81-embedding-as-a-layer-in-a-large-evidence-chain" title="Link to this section">#</a></h4>
+<h4 id="91-embedding-as-a-layer-in-a-large-evidence-chain">9.1 Embedding as a Layer in a Large Evidence Chain<a class="header-anchor" href="#91-embedding-as-a-layer-in-a-large-evidence-chain" title="Link to this section">#</a></h4>
 <p>The study combined online platform data from approximately 1.4 million images and videos, text embeddings, demographic data, human subject experiments, and language model evaluations.</p>
 <table>
 <thead>
@@ -971,7 +971,7 @@ And does this <strong>age × gender distortion</strong> relate to status, people
 </tbody>
 </table>
 <p>The strength of this design lies in not stopping at &ldquo;cosine = 0.2&rdquo;.</p>
-<h4 id="82-crossing-the-two-axes">8.2 Crossing the Two Axes<a class="header-anchor" href="#82-crossing-the-two-axes" title="Link to this section">#</a></h4>
+<h4 id="92-crossing-the-two-axes">9.2 Crossing the Two Axes<a class="header-anchor" href="#92-crossing-the-two-axes" title="Link to this section">#</a></h4>
 <p>For each social category $w$,</p>
 <p>$$
 g(w)=\operatorname{gender\ association}(w)
@@ -991,7 +991,7 @@ $$</p>
 </code></pre></div>
 
 <p>The paper found a strong relationship where social categories that are more strongly associated with masculinity tend to be associated with older age. They also used static embeddings, as well as contextual models where the sentence structure was parallelized. In the static model, they compared the cosine relationship of multiple pole words, while in the contextual model, they compared parallel sentences where only the gender and age representations were changed, controlling for context.</p>
-<h4 id="83-intersectionality-is-not-just-adding-scores">8.3 &ldquo;Intersectionality&rdquo; is Not Just Adding Scores<a class="header-anchor" href="#83-intersectionality-is-not-just-adding-scores" title="Link to this section">#</a></h4>
+<h4 id="93-intersectionality-is-not-just-adding-scores">9.3 &ldquo;Intersectionality&rdquo; is Not Just Adding Scores<a class="header-anchor" href="#93-intersectionality-is-not-just-adding-scores" title="Link to this section">#</a></h4>
 <p>If you simply report on gender distortion and age distortion separately, you risk missing the combined pattern where &ldquo;women are younger, and men are older&rdquo;. However, this alone is not sufficient.</p>
 <ul>
 <li>Have you controlled for the gender and age distribution of the actual occupation?</li>
@@ -1022,9 +1022,9 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 <p><a id="part-4"></a></p>
 <h2 id="iv-designing-and-implementing-the-study">Ⅳ. Designing and Implementing the Study<a class="header-anchor" href="#iv-designing-and-implementing-the-study" title="Link to this section">#</a></h2>
 <p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="9-designing-and-implementing-a-single-study-from-start-to-finish">9. Designing and Implementing a Single Study from Start to Finish<a class="header-anchor" href="#9-designing-and-implementing-a-single-study-from-start-to-finish" title="Link to this section">#</a></h3>
+<h3 id="10-designing-and-implementing-a-single-study-from-start-to-finish">10. Designing and Implementing a Single Study from Start to Finish<a class="header-anchor" href="#10-designing-and-implementing-a-single-study-from-start-to-finish" title="Link to this section">#</a></h3>
 <p>Now, let&rsquo;s write a project proposal for the records team as if it were a real research proposal.</p>
-<h4 id="91-research-questions">9.1 Research Questions<a class="header-anchor" href="#91-research-questions" title="Link to this section">#</a></h4>
+<h4 id="101-research-questions">10.1 Research Questions<a class="header-anchor" href="#101-research-questions" title="Link to this section">#</a></h4>
 <p>Bad questions:</p>
 <blockquote>
 <p>&ldquo;How do people in society perceive engineers?&rdquo;</p>
@@ -1034,7 +1034,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 <p>&ldquo;What are the changes in the cosine projection of &lsquo;engineer&rsquo; on the predefined gender axis in the SGNS space of the English text corpus from 1900–2000, and are these changes correlated with the female ratio in American professions?&rdquo;</p>
 </blockquote>
 <p>This sentence includes data, time, model, axes, metrics, and external validation.</p>
-<h4 id="92-analysis-specifications">9.2 Analysis Specifications<a class="header-anchor" href="#92-analysis-specifications" title="Link to this section">#</a></h4>
+<h4 id="102-analysis-specifications">10.2 Analysis Specifications<a class="header-anchor" href="#102-analysis-specifications" title="Link to this section">#</a></h4>
 <table>
 <thead>
 <tr>
@@ -1090,7 +1090,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 </tbody>
 </table>
 <p>These numbers are examples. Adjust them to fit the actual corpus size and reproducibility.</p>
-<h4 id="93-analysis-procedure">9.3 Analysis Procedure<a class="header-anchor" href="#93-analysis-procedure" title="Link to this section">#</a></h4>
+<h4 id="103-analysis-procedure">10.3 Analysis Procedure<a class="header-anchor" href="#103-analysis-procedure" title="Link to this section">#</a></h4>
 <ol>
 <li><strong>First, fix the hypothesis and poles.</strong> Don&rsquo;t just look for the results that support your hypothesis.</li>
 <li>Examine the frequency and original samples for each era.</li>
@@ -1102,7 +1102,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 <li>Compare with independent data such as population statistics, surveys, and experiments.</li>
 <li>Only claim up to the level that is observable.</li>
 </ol>
-<h4 id="94-when-results-arent-pretty-thats-real-research">9.4 When Results Aren&rsquo;t Pretty, That&rsquo;s Real Research<a class="header-anchor" href="#94-when-results-arent-pretty-thats-real-research" title="Link to this section">#</a></h4>
+<h4 id="104-when-results-arent-pretty-thats-real-research">10.4 When Results Aren&rsquo;t Pretty, That&rsquo;s Real Research<a class="header-anchor" href="#104-when-results-arent-pretty-thats-real-research" title="Link to this section">#</a></h4>
 <p>Results like these also have meaning.</p>
 <ul>
 <li>Google Books shows changes, but COHA doesn&rsquo;t → Genre and sample composition hypothesis</li>
@@ -1114,7 +1114,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 </ul>
 <p>Instead of asking &ldquo;Did we get the desired conclusion?&rdquo;, it&rsquo;s better to ask &ldquo;What alternative explanations were ruled out?&rdquo;</p>
 <hr />
-<h3 id="10-minimal-implementation-axes-weat-alignment-and-document-framing">10. Minimal Implementation: Axes, WEAT, Alignment, and Document Framing<a class="header-anchor" href="#10-minimal-implementation-axes-weat-alignment-and-document-framing" title="Link to this section">#</a></h3>
+<h3 id="11-minimal-implementation-axes-weat-alignment-and-document-framing">11. Minimal Implementation: Axes, WEAT, Alignment, and Document Framing<a class="header-anchor" href="#11-minimal-implementation-axes-weat-alignment-and-document-framing" title="Link to this section">#</a></h3>
 <p>The functions below form the framework of the analysis. For a full research-level analysis, you will need to handle OOV (out-of-vocabulary) words, multiple seeds, bootstrapping, permutation, and multiple comparison corrections.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
@@ -1194,7 +1194,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 
 <p>In practice, if the null hypothesis does not have a predefined direction, you should use a two-tailed test to compare the absolute values. For small sets where a precise permutation is possible, you can enumerate all possible divisions.</p>
 <hr />
-<h3 id="11-good-graphs-to-add-after-implementation">11. Good Graphs to Add After Implementation<a class="header-anchor" href="#11-good-graphs-to-add-after-implementation" title="Link to this section">#</a></h3>
+<h3 id="12-good-graphs-to-add-after-implementation">12. Good Graphs to Add After Implementation<a class="header-anchor" href="#12-good-graphs-to-add-after-implementation" title="Link to this section">#</a></h3>
 <p>With one table and four graphs, you can convey most of the story.</p>
 <h4 id="figure-1-meaning-map-at-a-single-point">Figure 1. Meaning Map at a Single Point<a class="header-anchor" href="#figure-1-meaning-map-at-a-single-point" title="Link to this section">#</a></h4>
 <ul>
@@ -1258,7 +1258,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 <p><a id="part-5"></a></p>
 <h2 id="v-practice-check-and-synthesis">Ⅴ. Practice, Check, and Synthesis<a class="header-anchor" href="#v-practice-check-and-synthesis" title="Link to this section">#</a></h2>
 <p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="12-practice-problems-small-lab">12. Practice Problems — Small Lab<a class="header-anchor" href="#12-practice-problems-small-lab" title="Link to this section">#</a></h3>
+<h3 id="13-practice-problems-small-lab">13. Practice Problems — Small Lab<a class="header-anchor" href="#13-practice-problems-small-lab" title="Link to this section">#</a></h3>
 <h4 id="a-concepts-and-claims">A. Concepts and Claims<a class="header-anchor" href="#a-concepts-and-claims" title="Link to this section">#</a></h4>
 <h5 id="1-classifying-into-four-layers">1. Classifying into Four Layers<a class="header-anchor" href="#1-classifying-into-four-layers" title="Link to this section">#</a></h5>
 <p>Classify the following conclusions into the four layers of the 0th section.</p>
@@ -1400,7 +1400,7 @@ Each layer retains its own limitations, but the evidence chain becomes stronger 
 </details>
 
 <hr />
-<h3 id="13-checklist-for-reading-papers">13. Checklist for Reading Papers<a class="header-anchor" href="#13-checklist-for-reading-papers" title="Link to this section">#</a></h3>
+<h3 id="14-checklist-for-reading-papers">14. Checklist for Reading Papers<a class="header-anchor" href="#14-checklist-for-reading-papers" title="Link to this section">#</a></h3>
 <h4 id="data">Data<a class="header-anchor" href="#data" title="Link to this section">#</a></h4>
 <ul>
 <li>What is the era, language, genre, and platform of the corpus?</li>
@@ -1429,7 +1429,7 @@ Each layer retains its own limitations, but the evidence chain becomes stronger 
 <li>Does debiasing only hide measurement values?</li>
 </ul>
 <hr />
-<h3 id="14-summarizing-research-connections-in-a-table">14. Summarizing Research Connections in a Table<a class="header-anchor" href="#14-summarizing-research-connections-in-a-table" title="Link to this section">#</a></h3>
+<h3 id="15-summarizing-research-connections-in-a-table">15. Summarizing Research Connections in a Table<a class="header-anchor" href="#15-summarizing-research-connections-in-a-table" title="Link to this section">#</a></h3>
 <table>
 <thead>
 <tr>
@@ -1487,7 +1487,7 @@ Each layer retains its own limitations, but the evidence chain becomes stronger 
 </tbody>
 </table>
 <hr />
-<h3 id="15-the-final-scene-are-vectors-mirrors-or-maps">15. The Final Scene: Are Vectors Mirrors or Maps?<a class="header-anchor" href="#15-the-final-scene-are-vectors-mirrors-or-maps" title="Link to this section">#</a></h3>
+<h3 id="16-the-final-scene-are-vectors-mirrors-or-maps">16. The Final Scene: Are Vectors Mirrors or Maps?<a class="header-anchor" href="#16-the-final-scene-are-vectors-mirrors-or-maps" title="Link to this section">#</a></h3>
 <p>The records team finally obtained &ldquo;engineer&rdquo; and &ldquo;nurse&rdquo; as two lines. But a good researcher doesn&rsquo;t just shout &ldquo;society has changed&rdquo; when seeing these lines.</p>
 <p>They ask:</p>
 <ul>

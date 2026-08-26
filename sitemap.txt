@@ -12,6 +12,7 @@ https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/01_word2vec_en/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/02_word2vec_applications/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/02_word2vec_implementation_en/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/03_word2vec_applications_en/
+https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/04_embedding_research_companion_en/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/README/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/01_art-goldenratio/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/02_art-price/

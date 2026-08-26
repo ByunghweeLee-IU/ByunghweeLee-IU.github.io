@@ -5,7 +5,7 @@
   <link href="https://ByunghweeLee-IU.github.io/feed.xml" rel="self" type="application/atom+xml"/>
   <link href="https://ByunghweeLee-IU.github.io/" rel="alternate" type="text/html"/>
   <id>https://ByunghweeLee-IU.github.io/</id>
-  <updated>2026-08-26T22:23:09Z</updated>
+  <updated>2026-08-26T22:35:02Z</updated>
   
   <author>
     <name>Byunghwee Lee</name>
@@ -18,8 +18,8 @@
     <title>Hwiki: Home</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/Home/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/Home/</id>
-    <published>2026-08-26T22:23:09Z</published>
-    <updated>2026-08-26T22:23:09Z</updated>
+    <published>2026-08-26T22:35:02Z</published>
+    <updated>2026-08-26T22:35:02Z</updated>
     
     <content type="html"><![CDATA[<h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section">#</a></h2>
 <p>Welcome to the public wiki section of my site!👋 
@@ -41,6 +41,7 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
 <li><a href="notes/all-about-embedding/01_word2vec_en">Embedding Basics — Word2Vec, SGNS, and Gravity</a></li>
 <li><a href="notes/all-about-embedding/02_word2vec_implementation_en">Implementing Word2Vec — From Data to Meaning Axes</a></li>
 <li><a href="notes/all-about-embedding/03_word2vec_applications_en">Embedding Applications — Reading Culture Through Semantic Space</a></li>
+<li><a href="notes/all-about-embedding/04_embedding_research_companion_en">Embedding Research Companion — Design, Practice, and Further Reading</a></li>
 </ol>
 <h2 id="news">News<a class="header-anchor" href="#news" title="Link to this section">#</a></h2>
 <ul>
@@ -58,7 +59,7 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
     
     <content type="html"><![CDATA[<h1 id="02-implementing-word2vec-from-data-to-meaning-axes">02. Implementing Word2Vec — From Data to Meaning Axes<a class="header-anchor" href="#02-implementing-word2vec-from-data-to-meaning-axes" title="Link to this section">#</a></h1>
 <blockquote>
-<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <strong>Part 2: Implementation, Relations, and Meaning Axes</strong> · <a href="03_word2vec_applications_en">Part 3: Culture and Semantic Change</a></p>
+<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <strong>Part 2: Implementation, Relations, and Meaning Axes</strong> · <a href="03_word2vec_applications_en">Part 3: Culture and Semantic Change</a> · <a href="04_embedding_research_companion_en">Part 4: Research Companion</a></p>
 </blockquote>
 <p><small>© 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</small></p>
 <p>Part 1 established the mathematical story: a context window creates center–context events, SGNS compares those events with noise, and the learned dot product approximates a low-rank data-versus-noise log-odds matrix. This note turns that story into code and then explains the most useful geometry that emerges from it.</p>
@@ -707,6 +708,620 @@ meaning-axis score  = projection onto a repeated relationship direction
   </entry>
   
   <entry>
+    <title>[All-about-embedding 4] Embedding Research Companion — Design, Practice, and Further Reading</title>
+    <link href="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/04_embedding_research_companion_en/" rel="alternate" type="text/html"/>
+    <id>https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/04_embedding_research_companion_en/</id>
+    <published>2026-08-26T00:00:00Z</published>
+    <updated>2026-08-26T00:00:00Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="04-embedding-research-companion-design-practice-and-further-reading">04. Embedding Research Companion — Design, Practice, and Further Reading<a class="header-anchor" href="#04-embedding-research-companion-design-practice-and-further-reading" title="Link to this section">#</a></h1>
+<blockquote>
+<p>Research Companion: <strong>Study Design → Implementation → Diagnostics → Practice → Further Reading</strong></p>
+<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <a href="02_word2vec_implementation_en">Part 2: Implementation, Relations, and Meaning Axes</a> · <a href="03_word2vec_applications_en">Part 3: Culture and Semantic Change</a> · <strong>Part 4: Research Companion</strong></p>
+</blockquote>
+<p><small>© 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</small></p>
+<p>This companion continues Part 3 by turning embedding-based cultural analysis into a concrete research workflow. It is organized as an appendix-like lab: specify a study, implement the core measurements, inspect the results, practice the reasoning, and use the references to go further.</p>
+<h2 id="after-reading-this-note-you-will-be-able-to">After reading this note, you will be able to:<a class="header-anchor" href="#after-reading-this-note-you-will-be-able-to" title="Link to this section">#</a></h2>
+<ul>
+<li>Translate a broad cultural question into a measurable embedding study.</li>
+<li>Implement axes, WEAT, temporal alignment, and document framing in a compact workflow.</li>
+<li>Choose figures and robustness checks that match the claim.</li>
+<li>Audit an embedding paper using a concise checklist.</li>
+<li>Identify useful extensions and further readings for a new project.</li>
+</ul>
+<p><a id="toc"></a></p>
+<h2 id="table-of-contents">Table of Contents<a class="header-anchor" href="#table-of-contents" title="Link to this section">#</a></h2>
+<ol>
+<li><a href="#part-1">Ⅰ. Designing and Implementing the Study</a> — 1–3</li>
+<li><a href="#part-2">Ⅱ. Practice, Check, and Synthesis</a> — 4–7</li>
+<li><a href="#part-3">Ⅲ. Further Reading</a> — References and Appendix</li>
+</ol>
+<hr />
+<p><a id="part-1"></a></p>
+<h2 id="i-designing-and-implementing-the-study">Ⅰ. Designing and Implementing the Study<a class="header-anchor" href="#i-designing-and-implementing-the-study" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="1-designing-and-implementing-a-single-study-from-start-to-finish">1. Designing and Implementing a Single Study from Start to Finish<a class="header-anchor" href="#1-designing-and-implementing-a-single-study-from-start-to-finish" title="Link to this section">#</a></h3>
+<p>Now, let&rsquo;s write a project proposal for the records team as if it were a real research proposal.</p>
+<h4 id="11-research-questions">1.1 Research Questions<a class="header-anchor" href="#11-research-questions" title="Link to this section">#</a></h4>
+<p>Bad questions:</p>
+<blockquote>
+<p>&ldquo;How do people in society perceive engineers?&rdquo;</p>
+</blockquote>
+<p>Measurable questions:</p>
+<blockquote>
+<p>&ldquo;What are the changes in the cosine projection of &lsquo;engineer&rsquo; on the predefined gender axis in the SGNS space of the English text corpus from 1900–2000, and are these changes correlated with the female ratio in American professions?&rdquo;</p>
+</blockquote>
+<p>This sentence includes data, time, model, axes, metrics, and external validation.</p>
+<h4 id="12-analysis-specifications">1.2 Analysis Specifications<a class="header-anchor" href="#12-analysis-specifications" title="Link to this section">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Corpus</td>
+<td>Google Books N-Gram + COHA for genre balance comparison</td>
+</tr>
+<tr>
+<td>Time unit</td>
+<td>10 years</td>
+</tr>
+<tr>
+<td>Minimum frequency</td>
+<td>More than 500 occurrences per era</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>SGNS 300 dimensions, window 4</td>
+</tr>
+<tr>
+<td>Seeds</td>
+<td>10 seeds per era and setting</td>
+</tr>
+<tr>
+<td>Alignment</td>
+<td>Procrustes alignment for stable and frequent anchors</td>
+</tr>
+<tr>
+<td>Axes</td>
+<td>Predefined gender, age, and power pole sets</td>
+</tr>
+<tr>
+<td>Key results</td>
+<td>Job-specific axis scores and change rates</td>
+</tr>
+<tr>
+<td>Secondary results</td>
+<td>Nearest neighbor, semantic displacement</td>
+</tr>
+<tr>
+<td>External data</td>
+<td>Census gender ratio, average age, and income</td>
+</tr>
+<tr>
+<td>Robustness</td>
+<td>Corpus, window, pole, anchor, and seed replacement</td>
+</tr>
+</tbody>
+</table>
+<p>These numbers are examples. Adjust them to fit the actual corpus size and reproducibility.</p>
+<h4 id="13-analysis-procedure">1.3 Analysis Procedure<a class="header-anchor" href="#13-analysis-procedure" title="Link to this section">#</a></h4>
+<ol>
+<li><strong>First, fix the hypothesis and poles.</strong> Don&rsquo;t just look for the results that support your hypothesis.</li>
+<li>Examine the frequency and original samples for each era.</li>
+<li>Train era embeddings with the same hyperparameters and multiple seeds.</li>
+<li>Align the space using a common anchor.</li>
+<li>Verify the internal consistency and leave-one-pole-out stability of the axes.</li>
+<li>Calculate scores, neighbors, and displacement for each word, along with uncertainty intervals.</li>
+<li>Perform robustness analysis by swapping corpus, window, pole, anchor, and seed.</li>
+<li>Compare with independent data such as population statistics, surveys, and experiments.</li>
+<li>Only claim up to the level that is observable.</li>
+</ol>
+<h4 id="14-when-results-arent-pretty-thats-real-research">1.4 When Results Aren&rsquo;t Pretty, That&rsquo;s Real Research<a class="header-anchor" href="#14-when-results-arent-pretty-thats-real-research" title="Link to this section">#</a></h4>
+<p>Results like these also have meaning.</p>
+<ul>
+<li>Google Books shows changes, but COHA doesn&rsquo;t → Genre and sample composition hypothesis</li>
+<li>Axis score changes, but neighbors remain similar → Possible movement of the axis itself</li>
+<li>Average changes, but smaller than seed variance → Difficult to call this a change</li>
+<li>Text embedding changes, but not correlated with Census → Separation of expression and composition</li>
+<li>Controlling for occupational gender eliminates the effect → Possible reflection of real-world composition</li>
+<li>Remains even after control → Further exploration of optional descriptions and stereotypes</li>
+</ul>
+<p>Instead of asking &ldquo;Did we get the desired conclusion?&rdquo;, it&rsquo;s better to ask &ldquo;What alternative explanations were ruled out?&rdquo;</p>
+<hr />
+<h3 id="2-minimal-implementation-axes-weat-alignment-and-document-framing">2. Minimal Implementation: Axes, WEAT, Alignment, and Document Framing<a class="header-anchor" href="#2-minimal-implementation-axes-weat-alignment-and-document-framing" title="Link to this section">#</a></h3>
+<p>The functions below form the framework of the analysis. For a full research-level analysis, you will need to handle OOV (out-of-vocabulary) words, multiple seeds, bootstrapping, permutation, and multiple comparison corrections.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">unit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">eps</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">cosine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">unit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">@</span> <span class="n">unit</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">centroid_axis</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">positive_words</span><span class="p">,</span> <span class="n">negative_words</span><span class="p">):</span>
+    <span class="c1"># Normalize each vector first to reduce word-specific norm effects.</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">unit</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">positive_words</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">unit</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">negative_words</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">unit</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">neg</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">axis_score</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cosine</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">word</span><span class="p">],</span> <span class="n">axis</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="n">sim_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">cosine</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">word</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">a</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">])</span>
+    <span class="n">sim_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">cosine</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">word</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">sim_a</span> <span class="o">-</span> <span class="n">sim_b</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">weat_effect_size</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="n">sx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
+    <span class="n">sy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">])</span>
+    <span class="n">pooled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="n">sx</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">sy</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">pooled</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">orthogonal_align</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="c1"># Two matrices whose rows are shared anchor words. Align X @ R to Y.</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">U</span> <span class="o">@</span> <span class="n">Vt</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">semantic_displacement</span><span class="p">(</span><span class="n">v_old</span><span class="p">,</span> <span class="n">v_new</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">cosine</span><span class="p">(</span><span class="n">v_old</span> <span class="o">@</span> <span class="n">R</span><span class="p">,</span> <span class="n">v_new</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">document_frame_score</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">axis_score</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">E</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">))</span> <span class="k">if</span> <span class="n">values</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+</code></pre></div>
+
+<h4 id="core-of-permutation-test">Core of Permutation Test<a class="header-anchor" href="#core-of-permutation-test" title="Link to this section">#</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">weat_statistic</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">sum</span><span class="p">(</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">X</span><span class="p">)</span>
+        <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">permutation_p_value</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">words</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+    <span class="n">observed</span> <span class="o">=</span> <span class="n">weat_statistic</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">extreme</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">):</span>
+        <span class="n">shuffled</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+        <span class="n">Xp</span> <span class="o">=</span> <span class="n">shuffled</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)]</span>
+        <span class="n">Yp</span> <span class="o">=</span> <span class="n">shuffled</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">):]</span>
+        <span class="k">if</span> <span class="n">weat_statistic</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">Xp</span><span class="p">,</span> <span class="n">Yp</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">observed</span><span class="p">:</span>
+            <span class="n">extreme</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c1"># Add 1 to avoid reporting p=0 in a randomization test.</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">extreme</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">repeats</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>In practice, if the null hypothesis does not have a predefined direction, you should use a two-tailed test to compare the absolute values. For small sets where a precise permutation is possible, you can enumerate all possible divisions.</p>
+<hr />
+<h3 id="3-good-graphs-to-add-after-implementation">3. Good Graphs to Add After Implementation<a class="header-anchor" href="#3-good-graphs-to-add-after-implementation" title="Link to this section">#</a></h3>
+<p>With one table and four graphs, you can convey most of the story.</p>
+<h4 id="figure-1-meaning-map-at-a-single-point">Figure 1. Meaning Map at a Single Point<a class="header-anchor" href="#figure-1-meaning-map-at-a-single-point" title="Link to this section">#</a></h4>
+<ul>
+<li>x-axis: gender score</li>
+<li>y-axis: age score</li>
+<li>Points: professions</li>
+<li>Point size: corpus frequency</li>
+<li>Color: actual female ratio or job title</li>
+</ul>
+<p><strong>Question to ask:</strong> Are male-dominated professions also portrayed as older and more powerful?</p>
+<h4 id="figure-2-trajectory-over-time">Figure 2. Trajectory over Time<a class="header-anchor" href="#figure-2-trajectory-over-time" title="Link to this section">#</a></h4>
+<ul>
+<li>x-axis: decade</li>
+<li>y-axis: axis score</li>
+<li>Lines: &lsquo;engineer&rsquo;, &lsquo;nurse&rsquo;, &lsquo;leader&rsquo;</li>
+<li>Bands: 95% confidence intervals for multiple seeds or bootstrapping</li>
+<li>Secondary panel: Actual composition from Census</li>
+</ul>
+<p><strong>Question to ask:</strong> Do the changes in text embeddings precede, follow, or are unrelated to changes in the real composition?</p>
+<h4 id="figure-3-neighbor-changes-table">Figure 3. Neighbor Changes Table<a class="header-anchor" href="#figure-3-neighbor-changes-table" title="Link to this section">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>1920s Nearest Neighbors</th>
+<th>1960s Nearest Neighbors</th>
+<th>2000s Nearest Neighbors</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>engineer</td>
+<td>railway, mechanical, engine</td>
+<td>electrical, industrial, design</td>
+<td>software, data, systems</td>
+</tr>
+<tr>
+<td>nurse</td>
+<td>hypothetical</td>
+<td>hypothetical</td>
+<td>hypothetical</td>
+</tr>
+</tbody>
+</table>
+<p>Adding the actual word neighbors next to the trajectory makes it much more intuitive to understand &ldquo;why the score changed.&rdquo;</p>
+<h4 id="figure-4-robustness-heatmap">Figure 4. Robustness Heatmap<a class="header-anchor" href="#figure-4-robustness-heatmap" title="Link to this section">#</a></h4>
+<ul>
+<li>Rows: pole set, corpus, window, alignment anchor</li>
+<li>Columns: key words, era</li>
+<li>Cells: direction and magnitude of effect</li>
+</ul>
+<p><strong>Reading Questions:</strong> Does the conclusion depend solely on a single model selection?</p>
+<h4 id="figure-5-biasintensity-plane">Figure 5. bias–intensity plane<a class="header-anchor" href="#figure-5-biasintensity-plane" title="Link to this section">#</a></h4>
+<ul>
+<li>X-axis: FrameAxis bias</li>
+<li>Y-axis: FrameAxis intensity</li>
+<li>Points: articles, newspapers, political parties, era</li>
+</ul>
+<p>The documents with the same average direction but different framing strength are separated.</p>
+<hr />
+<p><a id="part-2"></a></p>
+<h2 id="ii-practice-check-and-synthesis">Ⅱ. Practice, Check, and Synthesis<a class="header-anchor" href="#ii-practice-check-and-synthesis" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="4-practice-problems-small-lab">4. Practice Problems — Small Lab<a class="header-anchor" href="#4-practice-problems-small-lab" title="Link to this section">#</a></h3>
+<h4 id="a-concepts-and-claims">A. Concepts and Claims<a class="header-anchor" href="#a-concepts-and-claims" title="Link to this section">#</a></h4>
+<h5 id="1-classifying-into-four-layers">1. Classifying into Four Layers<a class="header-anchor" href="#1-classifying-into-four-layers" title="Link to this section">#</a></h5>
+<p>Classify the following conclusions into the four layers of the 0th section.</p>
+<ol>
+<li><code>scientist</code> is closer to the male pole.</li>
+<li>The proportion of men among actual scientists is higher.</li>
+<li>Participants rated identical resumes with male names more highly.</li>
+<li>Respondents associated science with men more quickly.</li>
+</ol>
+<details>
+<summary>Solution</summary>
+
+1 is corpus association, 2 is real-world framing, 3 is evidence of causality and discrimination within a specific experiment, and 4 is closer to measuring stereotypes about people. While they can be related, one does not automatically prove the other.
+
+</details>
+
+<h5 id="2-rewriting-the-model-has-bias">2. Rewriting &ldquo;The model has bias&rdquo;<a class="header-anchor" href="#2-rewriting-the-model-has-bias" title="Link to this section">#</a></h5>
+<p>WEAT noted this. Rewrite it into a more accurate sentence.</p>
+<details>
+<summary>Example Solution</summary>
+
+"In this corpus, a significant difference was observed in the relative association between the two predefined sets regarding gender attributes, as measured by the embedding." Also report the magnitude of the effect, the permutation method, the word list, and the seed variation.
+
+</details>
+
+<h4 id="b-calculation">B. Calculation<a class="header-anchor" href="#b-calculation" title="Link to this section">#</a></h4>
+<h5 id="3-axis-projection">3. Axis projection<a class="header-anchor" href="#3-axis-projection" title="Link to this section">#</a></h5>
+<p>Given the unit vector $\mathbf a = (0.8, 0.6)$ and the unit word vector $\mathbf v = (0.6, 0.8)$, find the dot product.</p>
+<details>
+<summary>Solution</summary>
+
+$$
+\mathbf v^\top\mathbf a
+=0.6\times0.8+0.8\times0.6=0.96
+$$
+
+The two vectors are very close in direction.
+
+</details>
+
+<h5 id="4-sign-of-the-weat-effect">4. Sign of the WEAT effect<a class="header-anchor" href="#4-sign-of-the-weat-effect" title="Link to this section">#</a></h5>
+<p>The average relative association of $X$ is 0.3, $Y$ is -0.1, and the combined standard deviation is 0.2. Find the effect size $d$ and interpret it.</p>
+<details>
+<summary>Solution</summary>
+
+$$
+d=\frac{0.3-(-0.1)}{0.2}=2.0
+$$
+
+There is a large standardized difference within the four selected sets. This cannot be directly translated into sample independence, the effect size of the IAT, or the magnitude of actual discrimination.
+
+</details>
+
+<h5 id="5-semantic-displacement">5. Semantic displacement<a class="header-anchor" href="#5-semantic-displacement" title="Link to this section">#</a></h5>
+<p>After sorting, the cosine between the two time periods for the same word is 0.92. What is the value of $1-\cos$?</p>
+<details>
+<summary>Solution</summary>
+
+It is 0.08. This needs to be compared to the null distribution of the same frequency group and the seed variation.
+
+</details>
+
+<h4 id="c-research-design">C. Research Design<a class="header-anchor" href="#c-research-design" title="Link to this section">#</a></h4>
+<h5 id="6-n-gram-or-embedding">6. N-gram or Embedding?<a class="header-anchor" href="#6-n-gram-or-embedding" title="Link to this section">#</a></h5>
+<p>What should be used for the questions &ldquo;When did the word <code>AI</code> become popular?&rdquo; and &ldquo;When did <code>AI</code> become closer to <code>creativity</code> than <code>automation</code>?&rdquo;</p>
+<details>
+<summary>Solution</summary>
+
+The first question requires a time series of N-gram frequencies. The second requires relative cosine between time-specific co-occurrence/embedding and the aligned features.
+
+</details>
+
+<h5 id="7-moving-axes">7. Moving Axes<a class="header-anchor" href="#7-moving-axes" title="Link to this section">#</a></h5>
+<p>The gender axis has changed significantly between the 1920s and the 2020s. How can we strengthen the comparison of occupational scores across these periods?</p>
+<details>
+<summary>Example Solution</summary>
+
+Use both the time-varying axis and a fixed anchor axis, and compare the consistency of multiple definitional pairs. Directly examine the most recent context for each pole, and perform sensitivity analysis by removing each axis word.
+
+</details>
+
+<h5 id="8-genre-confound">8. Genre confound<a class="header-anchor" href="#8-genre-confound" title="Link to this section">#</a></h5>
+<p>In one period, the proportion of romance novels increased significantly, and the female score for <code>nurse</code> also increased suddenly. What re-analysis is needed?</p>
+<details>
+<summary>Example Solution</summary>
+
+Create genre-specific models or fixed genre samples, and re-weight/downsample the genre proportions by period. Separate whether the changes occur within the romance genre or only in the overall composition.
+
+</details>
+
+<h5 id="9-semaxis-multiple-comparisons">9. SemAxis Multiple Comparisons<a class="header-anchor" href="#9-semaxis-multiple-comparisons" title="Link to this section">#</a></h5>
+<p>When searching for a <code>leader</code> among 732 axes, 37 were found to be significant ($p&lt;0.05$). Why can&rsquo;t we simply call these 37 &ldquo;discoveries&rdquo;?</p>
+<details>
+<summary>Solution</summary>
+
+Under the null hypothesis, approximately $732 \times 0.05 \approx 36.6$ could occur by chance. This requires multiple comparison correction (e.g., FDR), independent verification corpus, and evaluation of effect size and stability.
+
+</details>
+
+<h5 id="10-debiasing-evaluation">10. Debiasing Evaluation<a class="header-anchor" href="#10-debiasing-evaluation" title="Link to this section">#</a></h5>
+<p>Design evaluation tables before and after removing gender axes.</p>
+<details>
+<summary>Example Solution</summary>
+
+| Category | Metric |
+|---|---|
+| Direct Association | axis score, WEAT |
+| Hidden Structure | neighborhood similarity, gender label classification accuracy |
+| Meaning Preservation | analogy, similarity, task performance |
+| Application Results | group-specific exposure and error in hiring, search, and recommendation |
+
+Consider the reduction in one axis, the remaining structure, loss of utility, and the actual effect on application.
+
+</details>
+
+<h5 id="11-evidence-chain-for-nature-research">11. Evidence Chain for Nature Research<a class="header-anchor" href="#11-evidence-chain-for-nature-research" title="Link to this section">#</a></h5>
+<p>Given the observation that female figures appear younger in the image, what alternative explanations can be provided by adding text embedding, demographics, and human experiments?</p>
+<details>
+<summary>Example Solution</summary>
+
+- Text embedding: Exploring whether it's a phenomenon specific to one image platform.
+- Demographics: Comparing it to actual occupational composition.
+- Human experiments: Testing not only the correlation between exposure and judgment, but also limited causal effects.
+
+Each layer retains its own limitations, but the evidence chain becomes stronger when different measurements support the same pattern.
+
+</details>
+
+<h5 id="12-my-one-sentence-research-plan">12. My One-Sentence Research Plan<a class="header-anchor" href="#12-my-one-sentence-research-plan" title="Link to this section">#</a></h5>
+<p>Please fill in the blanks.</p>
+<blockquote>
+<p>&ldquo;Using the [embedding] learned from the [perspective] of the [corpus], I will measure the changes in [word groups] corresponding to the [specified axis], and compare them with [external data].&rdquo;</p>
+</blockquote>
+<details>
+<summary>Example Solution</summary>
+
+"Using the SGNS embedding learned from the 1980–2020 5-year period of the US newspaper corpus, I will measure the changes in the "young–old" and "competent–incompetent" axes corresponding to the names of female and male politicians, and compare them with candidate age, position, and separate experimental data."
+
+</details>
+
+<hr />
+<h3 id="5-checklist-for-reading-papers">5. Checklist for Reading Papers<a class="header-anchor" href="#5-checklist-for-reading-papers" title="Link to this section">#</a></h3>
+<h4 id="data">Data<a class="header-anchor" href="#data" title="Link to this section">#</a></h4>
+<ul>
+<li>What is the era, language, genre, and platform of the corpus?</li>
+<li>Who are the missing and overrepresented groups?</li>
+<li>Have you processed frequency, OCR, duplicate documents, and named entity issues?</li>
+</ul>
+<h4 id="vectors">Vectors<a class="header-anchor" href="#vectors" title="Link to this section">#</a></h4>
+<ul>
+<li>Is it static or contextual?</li>
+<li>What representation are you using? input, output, average, layer?</li>
+<li>Have you replicated it with multiple seeds and models?</li>
+<li>How have you aligned it in time and space using anchors and methods?</li>
+</ul>
+<h4 id="measurement">Measurement<a class="header-anchor" href="#measurement" title="Link to this section">#</a></h4>
+<ul>
+<li>Have you pre-defined the pole and target words?</li>
+<li>Does one word dominate the results?</li>
+<li>Are the axes, WEAT, and neighborhood structures consistent?</li>
+<li>Have you handled multiple comparisons according to the number of exploration axes?</li>
+</ul>
+<h4 id="interpretation">Interpretation<a class="header-anchor" href="#interpretation" title="Link to this section">#</a></h4>
+<ul>
+<li>Have you distinguished between corpus association, human stereotypes, reality construction, and downstream harm?</li>
+<li>Are you using correlation as causation?</li>
+<li>Are you validating it with external data and actual context?</li>
+<li>Does debiasing only hide measurement values?</li>
+</ul>
+<hr />
+<h3 id="6-summarizing-research-connections-in-a-table">6. Summarizing Research Connections in a Table<a class="header-anchor" href="#6-summarizing-research-connections-in-a-table" title="Link to this section">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Research</th>
+<th>Key Data &amp; Methods</th>
+<th>One-Sentence Takeaway</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://proceedings.neurips.cc/paper_files/paper/2016/file/a486cd07e4ac3d270571622f4f316ec5-Paper.pdf">Bolukbasi et al., 2016</a></td>
+<td>Google News Word2Vec, gender direction, hard debias</td>
+<td>The direction of the relationship becomes a tool for measurement and intervention</td>
+</tr>
+<tr>
+<td><a href="https://aclanthology.org/P16-1141/">Hamilton et al., 2016</a></td>
+<td>Google N-Gram·COHA, time-varying embeddings</td>
+<td>Measure the time changes in contextual relationships, not just frequency</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1126/science.aal4230">Caliskan et al., 2017</a></td>
+<td>GloVe·Word2Vec, WEAT</td>
+<td>Measure the relative association of four word sets with effect size and permutation</td>
+</tr>
+<tr>
+<td><a href="https://doi.org/10.1073/pnas.1720347115">Garg et al., 2018</a></td>
+<td>100-year history embeddings, Census·survey validation</td>
+<td>Compare the embedding association trajectory with external social data</td>
+</tr>
+<tr>
+<td><a href="https://aclanthology.org/P18-1228/">An et al., 2018</a></td>
+<td>732 antonym-based SemAxis</td>
+<td>Create a domain-specific meaning prism beyond a single emotion axis</td>
+</tr>
+<tr>
+<td><a href="https://journals.sagepub.com/doi/10.1177/0003122419877135">Kozlowski et al., 2019</a></td>
+<td>Comparing geometry and history of cultural and class meanings</td>
+<td>Can be manipulated as social concept axes and distances</td>
+</tr>
+<tr>
+<td><a href="https://aclanthology.org/N19-1061/">Gonen &amp; Goldberg, 2019</a></td>
+<td>Debiased after neighbor and classification structure check</td>
+<td>A single index can remain even if it becomes 0</td>
+</tr>
+<tr>
+<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8323720/">Kwak et al., 2021</a></td>
+<td>FrameAxis, document bias and intensity</td>
+<td>Extend the meaning axis to document framing comparison</td>
+</tr>
+<tr>
+<td><a href="https://www.nature.com/articles/s41586-025-09581-z">Guilbeault et al., 2025</a></td>
+<td>Age×gender analysis of image, text, population, experiment, and LM</td>
+<td>Place embeddings between multi-layered verification and causal experiments</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="7-the-final-scene-are-vectors-mirrors-or-maps">7. The Final Scene: Are Vectors Mirrors or Maps?<a class="header-anchor" href="#7-the-final-scene-are-vectors-mirrors-or-maps" title="Link to this section">#</a></h3>
+<p>The records team finally obtained &ldquo;engineer&rdquo; and &ldquo;nurse&rdquo; as two lines. But a good researcher doesn&rsquo;t just shout &ldquo;society has changed&rdquo; when seeing these lines.</p>
+<p>They ask:</p>
+<ul>
+<li>Are these lines created by word frequency or corpus genre?</li>
+<li>Is the gender itself moving?</li>
+<li>Do they remain in other poles, seeds, and models?</li>
+<li>Are they moving with actual occupational composition?</li>
+<li>Are they connected to people&rsquo;s beliefs and judgments?</li>
+<li>Does reducing the measurement value also reduce actual harm?</li>
+</ul>
+<p>Across Parts 1 and 2, Word2Vec compressed co-occurring encounters into a latent space and turned recurring relations into interpretable directions. Part 3 placed axes in that space, overlaid them with time, and compared them with external data.</p>
+<p>Therefore, the best one-sentence statement for using embeddings in cultural research is:</p>
+<blockquote>
+<p><strong>Embeddings are not simply mirrors reflecting the truth of society, but rather, maps created by specific data and measurement designs. Good research involves discovering patterns on these maps and continuously validating them with other maps and real-world indicators.</strong></p>
+</blockquote>
+<hr />
+<p><a id="part-3"></a></p>
+<h2 id="iii-further-reading">Ⅲ. Further Reading<a class="header-anchor" href="#iii-further-reading" title="Link to this section">#</a></h2>
+<p><small><a href="#toc">↑ Table of Contents</a></small></p>
+<h3 id="references-and-further-reading">References and Further Reading<a class="header-anchor" href="#references-and-further-reading" title="Link to this section">#</a></h3>
+<ol>
+<li>Bolukbasi, T. et al. (2016). &ldquo;Man is to Computer Programmer as Woman is to Homemaker?&rdquo; Debiasing Word Embeddings. <em>NeurIPS</em>.</li>
+<li>Hamilton, W. L., Leskovec, J., &amp; Jurafsky, D. (2016). &ldquo;Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change.&rdquo; <em>ACL</em>.</li>
+<li>Caliskan, A., Bryson, J. J., &amp; Narayanan, A. (2017). &ldquo;Semantics derived automatically from language corpora contain human-like biases.&rdquo; <em>Science</em>, 356, 183–186.</li>
+<li>Garg, N., Schiebinger, L., Jurafsky, D., &amp; Zou, J. (2018). &ldquo;Word embeddings quantify 100 years of gender and ethnic stereotypes.&rdquo; <em>PNAS</em>, 115, E3635–E3644. <a href="https://github.com/nikhgarg/EmbeddingDynamicStereotypes">Research code</a></li>
+<li>An, J., Kwak, H., &amp; Ahn, Y.-Y. (2018). &ldquo;SemAxis: A Lightweight Framework to Characterize Domain-Specific Word Semantics Beyond Sentiment.&rdquo; <em>ACL</em>.</li>
+<li>Kozlowski, A. C., Taddy, M., &amp; Evans, J. A. (2019). &ldquo;The Geometry of Culture: Analyzing the Meanings of Class through Word Embeddings.&rdquo; <em>American Sociological Review</em>.</li>
+<li>Gonen, H., &amp; Goldberg, Y. (2019). &ldquo;Lipstick on a Pig: Debiasing Methods Cover up Systematic Gender Biases in Word Embeddings But do not Remove Them.&rdquo; <em>NAACL</em>.</li>
+<li>Kwak, H., An, J., Jing, E., &amp; Ahn, Y.-Y. (2021). &ldquo;FrameAxis: characterizing microframe bias and intensity with word embedding.&rdquo; <em>PeerJ Computer Science</em>.</li>
+<li>Guilbeault, D., Delecourt, S., &amp; Desikan, B. S. (2025). &ldquo;Age and gender distortion in online media and large language models.&rdquo; <em>Nature</em>, 646, 1129–1137.</li>
+</ol>
+<blockquote>
+<p>Next, it is beneficial to study how to control sentence patterns in contextual embeddings, separate the sense of polysemous words across time, and connect the axes to actual downstream audits.</p>
+</blockquote>
+<hr />
+<h3 id="appendix-recent-interesting-embedding-applications">Appendix. Recent Interesting Embedding Applications<a class="header-anchor" href="#appendix-recent-interesting-embedding-applications" title="Link to this section">#</a></h3>
+<p>The following studies use embeddings not as simple classification inputs, but as a space to measure distances, axes, trajectories, and concept structures. I have briefly summarized recent papers suitable for presenting at a research seminar, focusing on the ideas and points to consider.</p>
+<h4 id="1-the-meaning-space-of-language-and-climate">1. The Meaning Space of Language and Climate<a class="header-anchor" href="#1-the-meaning-space-of-language-and-climate" title="Link to this section">#</a></h4>
+<p>Fu et al. (2026), <a href="https://www.nature.com/articles/s41467-026-70608-8">Semantic similarity across languages reflects neurocognitive dimensions shaped by climate</a>, <em>Nature Communications</em>.</p>
+<ul>
+<li><strong>Idea</strong>: Project 53 languages&rsquo; word embeddings into 13 semantic dimensions (e.g., sensation, motor, emotion, social) and compare the commonalities and differences between languages.</li>
+<li><strong>Validation Chain</strong>: Connect the embedding analysis with 8 language speakers&rsquo; behavioral ratings, a colexification network for 2,681 languages, and exploratory fMRI data.</li>
+<li><strong>Interesting Point</strong>: Test a bold hypothesis that language-specific semantic differences are related to climatic differences, not just language families and cultures.</li>
+<li><strong>Points to Consider</strong>: The results are correlations, not causation. The climate, geography, culture, and language family are strongly intertwined, and the results may be sensitive to translation and corpus composition.</li>
+</ul>
+<h4 id="2-creating-a-concept-space-with-llms-selection-behavior">2. Creating a Concept Space with LLM&rsquo;s Selection Behavior<a class="header-anchor" href="#2-creating-a-concept-space-with-llms-selection-behavior" title="Link to this section">#</a></h4>
+<p>Du et al. (2025), <a href="https://www.nature.com/articles/s42256-025-01049-z">Human-like object concept representations emerge naturally in multimodal large language models</a>, <em>Nature Machine Intelligence</em>.</p>
+<ul>
+<li><strong>Idea</strong>: Learn a 66-dimensional concept embedding by training on approximately 4.7 million &ldquo;choose one from three&rdquo; judgments performed by 1,854 objects using LLMs and a multimodal LLM.</li>
+<li><strong>Interesting Point</strong>: Reconstruct a new meaning space from the model&rsquo;s observed selection behavior, rather than directly reading the hidden vectors.</li>
+<li><strong>External Comparison</strong>: Compare the range and dimensionality of the learned space with fMRI representations of human judgments and visual stimuli.</li>
+<li><strong>Points to Consider</strong>: The similarity in geometry between the model and humans does not necessarily mean that they form concepts in the same way. There is also the possibility that a common categorical structure or learning material creates the alignment.</li>
+</ul>
+<h4 id="3-contextually-changing-meaning-axes">3. Contextually Changing Meaning Axes<a class="header-anchor" href="#3-contextually-changing-meaning-axes" title="Link to this section">#</a></h4>
+<p>Zeng, Jin, and Voigt (2024), <a href="https://aclanthology.org/2024.emnlp-main.872/">Adaptive Axes: A Pipeline for In-domain Social Stereotype Analysis</a>, <em>EMNLP</em>.</p>
+<ul>
+<li><strong>Idea</strong>: Mask the target group name and embed only the surrounding context, separating the associations stored in the target token from the framing in the current document.</li>
+<li><strong>Extension</strong>: Instead of using only fixed WordNet antonym axes, create and refine new meaning axes specific to domains such as science, health, and art using LLMs.</li>
+<li><strong>Interesting Point</strong>: This addresses the problem that the same group can be described differently depending on the domain, using contextual embeddings and adaptive axes.</li>
+<li><strong>Points to Consider</strong>: If the LLM creates axes, the model&rsquo;s learning data and cultural assumptions will enter the measurement tool. It is necessary to verify the validity of the axes with alternative axes and human evaluations.</li>
+</ul>
+<h4 id="4-users-information-displacement-after-fact-checking">4. Users&rsquo; &ldquo;Information Displacement&rdquo; After Fact-Checking<a class="header-anchor" href="#4-users-information-displacement-after-fact-checking" title="Link to this section">#</a></h4>
+<p>Kim et al. (2025), <a href="https://www.nature.com/articles/s41467-025-55868-0">Differential impact from individual versus collective misinformation tagging on the diversity of Twitter (X) information engagement and mobility</a>, <em>Nature Communications</em>.</p>
+<ul>
+<li><strong>Idea</strong>: Define content diversity and information mobility based on the average embedding of a user&rsquo;s past tweets, centered around their usual interests, and the degree to which a new tweet deviates from that center.</li>
+<li><strong>Research Question</strong>: Compare the different effects that personal fact-checking and community-verified &ldquo;Community Notes&rdquo; have on subsequent information seeking.</li>
+<li><strong>Interesting Point</strong>: Instead of using the embedding distance as an explanatory figure, make it an actual behavioral outcome variable and incorporate it into interrupted time series and delayed-feedback analysis.</li>
+<li><strong>Caution</strong>: As observational data, it is difficult to completely eliminate selection bias and unobserved events. The novelty in the embedding is not necessarily the same as diversity of perspectives or changes in attitudes.</li>
+</ul>
+<h4 id="5-reading-researcher-mobility-paths-as-sentences">5. Reading Researcher Mobility Paths as Sentences<a class="header-anchor" href="#5-reading-researcher-mobility-paths-as-sentences" title="Link to this section">#</a></h4>
+<p>Murray et al. (2023), <a href="https://doi.org/10.1073/pnas.2305414120">Unsupervised embedding of trajectories captures the latent structure of scientific migration</a>, <em>PNAS</em>.</p>
+<ul>
+<li><strong>Idea</strong>: Train Word2Vec by changing <code>institution·region = word</code>, <code>researcher's affiliation mobility path = sentence</code>.</li>
+<li><strong>Theoretical Connection</strong>: Demonstrate that SGNS is connected to the gravity model of mobility, and learn functional distance based on language, culture, and prestige, which cannot be explained solely by geographical distance.</li>
+<li><strong>Interesting Point</strong>: Not only do we apply natural language algorithms to other sequential data, but we also provide a mathematical correspondence with existing mobility theories.</li>
+<li><strong>Caution</strong>: The basic model assumes symmetry in the flow of mobility. The affiliation information in the paper cannot clearly distinguish between long-term migration, short-term visits, and simultaneous affiliation.</li>
+</ul>
+<h4 id="criteria-to-choose-at-seminars">Criteria to Choose at Seminars<a class="header-anchor" href="#criteria-to-choose-at-seminars" title="Link to this section">#</a></h4>
+<table>
+<thead>
+<tr>
+<th>Presentation Purpose</th>
+<th>Recommended Paper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Most provocative arguments and discussions</td>
+<td>Climate and Meaning Space</td>
+</tr>
+<tr>
+<td>Novelty in constructing embeddings</td>
+<td>Object concept space created by LLM selection behavior</td>
+</tr>
+<tr>
+<td>Latest extensions of SemAxis·FrameAxis</td>
+<td>Adaptive Axes</td>
+</tr>
+<tr>
+<td>Empirical and applied research in computational social science</td>
+<td>Fact-checking and information mobility distance</td>
+</tr>
+<tr>
+<td>Direct connection between SGNS and gravity theory</td>
+<td>Embedding of researcher mobility paths</td>
+</tr>
+</tbody>
+</table>
+<p>The common question that underlies these studies is:</p>
+<blockquote>
+<p><strong>What to use as a point, what to make into neighboring observations, and what real-world data to use to verify the distance and direction of that space?</strong></p>
+</blockquote>]]></content>
+    
+  </entry>
+  
+  <entry>
     <title>[All-about-embedding 1] Embedding Basics — Word2Vec, SGNS, and Gravity</title>
     <link href="https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/01_word2vec_en/" rel="alternate" type="text/html"/>
     <id>https://ByunghweeLee-IU.github.io/wiki/notes/all-about-embedding/01_word2vec_en/</id>
@@ -715,7 +1330,7 @@ meaning-axis score  = projection onto a repeated relationship direction
     
     <content type="html"><![CDATA[<h1 id="01-embedding-basics-word2vec-sgns-and-gravity">01. Embedding Basics — Word2Vec, SGNS, and Gravity<a class="header-anchor" href="#01-embedding-basics-word2vec-sgns-and-gravity" title="Link to this section">#</a></h1>
 <blockquote>
-<p><a href="README"><strong>All About Embedding</strong></a> · <strong>Part 1: Word2Vec, SGNS, and Gravity</strong> · <a href="02_word2vec_implementation_en">Part 2: Implementation, Relations, and Meaning Axes</a> · <a href="03_word2vec_applications_en">Part 3: Culture and Semantic Change</a></p>
+<p><a href="README"><strong>All About Embedding</strong></a> · <strong>Part 1: Word2Vec, SGNS, and Gravity</strong> · <a href="02_word2vec_implementation_en">Part 2: Implementation, Relations, and Meaning Axes</a> · <a href="03_word2vec_applications_en">Part 3: Culture and Semantic Change</a> · <a href="04_embedding_research_companion_en">Part 4: Research Companion</a></p>
 </blockquote>
 <p><small>© 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Prohibited from copying, reprinting, distributing, and using without prior consent.</small></p>
 <blockquote>
@@ -1955,7 +2570,7 @@ k_j
     <content type="html"><![CDATA[<h1 id="03-embedding-applications-reading-culture-through-semantic-space">03. Embedding Applications — Reading Culture Through Semantic Space<a class="header-anchor" href="#03-embedding-applications-reading-culture-through-semantic-space" title="Link to this section">#</a></h1>
 <blockquote>
 <p>Word2Vec Application: <strong>Bias Measurement → Meaning Changes Over Time → SemAxis → Verification with External Reality</strong></p>
-<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <a href="02_word2vec_implementation_en">Part 2: Implementation, Relations, and Meaning Axes</a> · <strong>Part 3: Culture and Semantic Change</strong></p>
+<p><a href="README"><strong>All About Embedding</strong></a> · <a href="01_word2vec_en">Part 1: Word2Vec, SGNS, and Gravity</a> · <a href="02_word2vec_implementation_en">Part 2: Implementation, Relations, and Meaning Axes</a> · <strong>Part 3: Culture and Semantic Change</strong> · <a href="04_embedding_research_companion_en">Part 4: Research Companion</a></p>
 </blockquote>
 <p><small>© 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</small></p>
 <p>In Parts 1 and 2, we saw how center–context events become vectors and how repeated relationships become directions and meaning axes. Now, let&rsquo;s take that geometry into real-world research questions.</p>
@@ -1984,9 +2599,6 @@ If these positions have changed, has society changed, or has the corpus changed,
 <li><a href="#part-1">Ⅰ. Defining the Problem and Selecting Measurement Tools</a> — 1–4</li>
 <li><a href="#part-2">Ⅱ. Tracking Meaning Changes Over Time</a> — 5–6</li>
 <li><a href="#part-3">Ⅲ. Multidimensional Meaning, Framing, and Intersectionality</a> — 7–9</li>
-<li><a href="#part-4">Ⅳ. Designing and Implementing Research</a> — 10–12</li>
-<li><a href="#part-5">Ⅴ. Practice, Check, and Synthesis</a> — 13–16</li>
-<li><a href="#part-6">Ⅵ. Further Reading</a> — References and Appendix</li>
 </ol>
 <h2 id="one-page-research-roadmap">One-Page Research Roadmap<a class="header-anchor" href="#one-page-research-roadmap" title="Link to this section">#</a></h2>
 <div class="highlight"><pre><span></span><code>flowchart TD
@@ -2787,587 +3399,7 @@ No. While there is a strong correlation, it is not a causal relationship. Job ti
 </details>
 
 <hr />
-<p><a id="part-4"></a></p>
-<h2 id="iv-designing-and-implementing-the-study">Ⅳ. Designing and Implementing the Study<a class="header-anchor" href="#iv-designing-and-implementing-the-study" title="Link to this section">#</a></h2>
-<p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="10-designing-and-implementing-a-single-study-from-start-to-finish">10. Designing and Implementing a Single Study from Start to Finish<a class="header-anchor" href="#10-designing-and-implementing-a-single-study-from-start-to-finish" title="Link to this section">#</a></h3>
-<p>Now, let&rsquo;s write a project proposal for the records team as if it were a real research proposal.</p>
-<h4 id="101-research-questions">10.1 Research Questions<a class="header-anchor" href="#101-research-questions" title="Link to this section">#</a></h4>
-<p>Bad questions:</p>
-<blockquote>
-<p>&ldquo;How do people in society perceive engineers?&rdquo;</p>
-</blockquote>
-<p>Measurable questions:</p>
-<blockquote>
-<p>&ldquo;What are the changes in the cosine projection of &lsquo;engineer&rsquo; on the predefined gender axis in the SGNS space of the English text corpus from 1900–2000, and are these changes correlated with the female ratio in American professions?&rdquo;</p>
-</blockquote>
-<p>This sentence includes data, time, model, axes, metrics, and external validation.</p>
-<h4 id="102-analysis-specifications">10.2 Analysis Specifications<a class="header-anchor" href="#102-analysis-specifications" title="Link to this section">#</a></h4>
-<table>
-<thead>
-<tr>
-<th>Decision</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Corpus</td>
-<td>Google Books N-Gram + COHA for genre balance comparison</td>
-</tr>
-<tr>
-<td>Time unit</td>
-<td>10 years</td>
-</tr>
-<tr>
-<td>Minimum frequency</td>
-<td>More than 500 occurrences per era</td>
-</tr>
-<tr>
-<td>Model</td>
-<td>SGNS 300 dimensions, window 4</td>
-</tr>
-<tr>
-<td>Seeds</td>
-<td>10 seeds per era and setting</td>
-</tr>
-<tr>
-<td>Alignment</td>
-<td>Procrustes alignment for stable and frequent anchors</td>
-</tr>
-<tr>
-<td>Axes</td>
-<td>Predefined gender, age, and power pole sets</td>
-</tr>
-<tr>
-<td>Key results</td>
-<td>Job-specific axis scores and change rates</td>
-</tr>
-<tr>
-<td>Secondary results</td>
-<td>Nearest neighbor, semantic displacement</td>
-</tr>
-<tr>
-<td>External data</td>
-<td>Census gender ratio, average age, and income</td>
-</tr>
-<tr>
-<td>Robustness</td>
-<td>Corpus, window, pole, anchor, and seed replacement</td>
-</tr>
-</tbody>
-</table>
-<p>These numbers are examples. Adjust them to fit the actual corpus size and reproducibility.</p>
-<h4 id="103-analysis-procedure">10.3 Analysis Procedure<a class="header-anchor" href="#103-analysis-procedure" title="Link to this section">#</a></h4>
-<ol>
-<li><strong>First, fix the hypothesis and poles.</strong> Don&rsquo;t just look for the results that support your hypothesis.</li>
-<li>Examine the frequency and original samples for each era.</li>
-<li>Train era embeddings with the same hyperparameters and multiple seeds.</li>
-<li>Align the space using a common anchor.</li>
-<li>Verify the internal consistency and leave-one-pole-out stability of the axes.</li>
-<li>Calculate scores, neighbors, and displacement for each word, along with uncertainty intervals.</li>
-<li>Perform robustness analysis by swapping corpus, window, pole, anchor, and seed.</li>
-<li>Compare with independent data such as population statistics, surveys, and experiments.</li>
-<li>Only claim up to the level that is observable.</li>
-</ol>
-<h4 id="104-when-results-arent-pretty-thats-real-research">10.4 When Results Aren&rsquo;t Pretty, That&rsquo;s Real Research<a class="header-anchor" href="#104-when-results-arent-pretty-thats-real-research" title="Link to this section">#</a></h4>
-<p>Results like these also have meaning.</p>
-<ul>
-<li>Google Books shows changes, but COHA doesn&rsquo;t → Genre and sample composition hypothesis</li>
-<li>Axis score changes, but neighbors remain similar → Possible movement of the axis itself</li>
-<li>Average changes, but smaller than seed variance → Difficult to call this a change</li>
-<li>Text embedding changes, but not correlated with Census → Separation of expression and composition</li>
-<li>Controlling for occupational gender eliminates the effect → Possible reflection of real-world composition</li>
-<li>Remains even after control → Further exploration of optional descriptions and stereotypes</li>
-</ul>
-<p>Instead of asking &ldquo;Did we get the desired conclusion?&rdquo;, it&rsquo;s better to ask &ldquo;What alternative explanations were ruled out?&rdquo;</p>
-<hr />
-<h3 id="11-minimal-implementation-axes-weat-alignment-and-document-framing">11. Minimal Implementation: Axes, WEAT, Alignment, and Document Framing<a class="header-anchor" href="#11-minimal-implementation-axes-weat-alignment-and-document-framing" title="Link to this section">#</a></h3>
-<p>The functions below form the framework of the analysis. For a full research-level analysis, you will need to handle OOV (out-of-vocabulary) words, multiple seeds, bootstrapping, permutation, and multiple comparison corrections.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">unit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-12</span><span class="p">):</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">eps</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">cosine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">unit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">@</span> <span class="n">unit</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">centroid_axis</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">positive_words</span><span class="p">,</span> <span class="n">negative_words</span><span class="p">):</span>
-    <span class="c1"># Normalize each vector first to reduce word-specific norm effects.</span>
-    <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">unit</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">positive_words</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">unit</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">w</span><span class="p">])</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">negative_words</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">unit</span><span class="p">(</span><span class="n">pos</span> <span class="o">-</span> <span class="n">neg</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">axis_score</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">cosine</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">word</span><span class="p">],</span> <span class="n">axis</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">word</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
-    <span class="n">sim_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">cosine</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">word</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">a</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">])</span>
-    <span class="n">sim_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">cosine</span><span class="p">(</span><span class="n">E</span><span class="p">[</span><span class="n">word</span><span class="p">],</span> <span class="n">E</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span><span class="p">])</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">sim_a</span> <span class="o">-</span> <span class="n">sim_b</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">weat_effect_size</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
-    <span class="n">sx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">X</span><span class="p">])</span>
-    <span class="n">sy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">])</span>
-    <span class="n">pooled</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">sx</span><span class="p">,</span> <span class="n">sy</span><span class="p">])</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="n">sx</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">sy</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span> <span class="o">/</span> <span class="n">pooled</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">orthogonal_align</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
-    <span class="c1"># Two matrices whose rows are shared anchor words. Align X @ R to Y.</span>
-    <span class="n">U</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">Vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">Y</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">U</span> <span class="o">@</span> <span class="n">Vt</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">semantic_displacement</span><span class="p">(</span><span class="n">v_old</span><span class="p">,</span> <span class="n">v_new</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">cosine</span><span class="p">(</span><span class="n">v_old</span> <span class="o">@</span> <span class="n">R</span><span class="p">,</span> <span class="n">v_new</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">document_frame_score</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="n">E</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="n">axis_score</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tokens</span> <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">E</span><span class="p">]</span>
-    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">values</span><span class="p">))</span> <span class="k">if</span> <span class="n">values</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
-</code></pre></div>
-
-<h4 id="core-of-permutation-test">Core of Permutation Test<a class="header-anchor" href="#core-of-permutation-test" title="Link to this section">#</a></h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">weat_statistic</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">(</span>
-        <span class="nb">sum</span><span class="p">(</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">X</span><span class="p">)</span>
-        <span class="o">-</span> <span class="nb">sum</span><span class="p">(</span><span class="n">relative_association</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">)</span>
-    <span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">permutation_p_value</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">repeats</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
-    <span class="n">words</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">Y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
-    <span class="n">observed</span> <span class="o">=</span> <span class="n">weat_statistic</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-    <span class="n">extreme</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">repeats</span><span class="p">):</span>
-        <span class="n">shuffled</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
-        <span class="n">Xp</span> <span class="o">=</span> <span class="n">shuffled</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)]</span>
-        <span class="n">Yp</span> <span class="o">=</span> <span class="n">shuffled</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">):]</span>
-        <span class="k">if</span> <span class="n">weat_statistic</span><span class="p">(</span><span class="n">E</span><span class="p">,</span> <span class="n">Xp</span><span class="p">,</span> <span class="n">Yp</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">observed</span><span class="p">:</span>
-            <span class="n">extreme</span> <span class="o">+=</span> <span class="mi">1</span>
-
-    <span class="c1"># Add 1 to avoid reporting p=0 in a randomization test.</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">extreme</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">repeats</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
-
-<p>In practice, if the null hypothesis does not have a predefined direction, you should use a two-tailed test to compare the absolute values. For small sets where a precise permutation is possible, you can enumerate all possible divisions.</p>
-<hr />
-<h3 id="12-good-graphs-to-add-after-implementation">12. Good Graphs to Add After Implementation<a class="header-anchor" href="#12-good-graphs-to-add-after-implementation" title="Link to this section">#</a></h3>
-<p>With one table and four graphs, you can convey most of the story.</p>
-<h4 id="figure-1-meaning-map-at-a-single-point">Figure 1. Meaning Map at a Single Point<a class="header-anchor" href="#figure-1-meaning-map-at-a-single-point" title="Link to this section">#</a></h4>
-<ul>
-<li>x-axis: gender score</li>
-<li>y-axis: age score</li>
-<li>Points: professions</li>
-<li>Point size: corpus frequency</li>
-<li>Color: actual female ratio or job title</li>
-</ul>
-<p><strong>Question to ask:</strong> Are male-dominated professions also portrayed as older and more powerful?</p>
-<h4 id="figure-2-trajectory-over-time">Figure 2. Trajectory over Time<a class="header-anchor" href="#figure-2-trajectory-over-time" title="Link to this section">#</a></h4>
-<ul>
-<li>x-axis: decade</li>
-<li>y-axis: axis score</li>
-<li>Lines: &lsquo;engineer&rsquo;, &lsquo;nurse&rsquo;, &lsquo;leader&rsquo;</li>
-<li>Bands: 95% confidence intervals for multiple seeds or bootstrapping</li>
-<li>Secondary panel: Actual composition from Census</li>
-</ul>
-<p><strong>Question to ask:</strong> Do the changes in text embeddings precede, follow, or are unrelated to changes in the real composition?</p>
-<h4 id="figure-3-neighbor-changes-table">Figure 3. Neighbor Changes Table<a class="header-anchor" href="#figure-3-neighbor-changes-table" title="Link to this section">#</a></h4>
-<table>
-<thead>
-<tr>
-<th>Word</th>
-<th>1920s Nearest Neighbors</th>
-<th>1960s Nearest Neighbors</th>
-<th>2000s Nearest Neighbors</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>engineer</td>
-<td>railway, mechanical, engine</td>
-<td>electrical, industrial, design</td>
-<td>software, data, systems</td>
-</tr>
-<tr>
-<td>nurse</td>
-<td>hypothetical</td>
-<td>hypothetical</td>
-<td>hypothetical</td>
-</tr>
-</tbody>
-</table>
-<p>Adding the actual word neighbors next to the trajectory makes it much more intuitive to understand &ldquo;why the score changed.&rdquo;</p>
-<h4 id="figure-4-robustness-heatmap">Figure 4. Robustness Heatmap<a class="header-anchor" href="#figure-4-robustness-heatmap" title="Link to this section">#</a></h4>
-<ul>
-<li>Rows: pole set, corpus, window, alignment anchor</li>
-<li>Columns: key words, era</li>
-<li>Cells: direction and magnitude of effect</li>
-</ul>
-<p><strong>Reading Questions:</strong> Does the conclusion depend solely on a single model selection?</p>
-<h4 id="figure-5-biasintensity-plane">Figure 5. bias–intensity plane<a class="header-anchor" href="#figure-5-biasintensity-plane" title="Link to this section">#</a></h4>
-<ul>
-<li>X-axis: FrameAxis bias</li>
-<li>Y-axis: FrameAxis intensity</li>
-<li>Points: articles, newspapers, political parties, era</li>
-</ul>
-<p>The documents with the same average direction but different framing strength are separated.</p>
-<hr />
-<p><a id="part-5"></a></p>
-<h2 id="v-practice-check-and-synthesis">Ⅴ. Practice, Check, and Synthesis<a class="header-anchor" href="#v-practice-check-and-synthesis" title="Link to this section">#</a></h2>
-<p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="13-practice-problems-small-lab">13. Practice Problems — Small Lab<a class="header-anchor" href="#13-practice-problems-small-lab" title="Link to this section">#</a></h3>
-<h4 id="a-concepts-and-claims">A. Concepts and Claims<a class="header-anchor" href="#a-concepts-and-claims" title="Link to this section">#</a></h4>
-<h5 id="1-classifying-into-four-layers">1. Classifying into Four Layers<a class="header-anchor" href="#1-classifying-into-four-layers" title="Link to this section">#</a></h5>
-<p>Classify the following conclusions into the four layers of the 0th section.</p>
-<ol>
-<li><code>scientist</code> is closer to the male pole.</li>
-<li>The proportion of men among actual scientists is higher.</li>
-<li>Participants rated identical resumes with male names more highly.</li>
-<li>Respondents associated science with men more quickly.</li>
-</ol>
-<details>
-<summary>Solution</summary>
-
-1 is corpus association, 2 is real-world framing, 3 is evidence of causality and discrimination within a specific experiment, and 4 is closer to measuring stereotypes about people. While they can be related, one does not automatically prove the other.
-
-</details>
-
-<h5 id="2-rewriting-the-model-has-bias">2. Rewriting &ldquo;The model has bias&rdquo;<a class="header-anchor" href="#2-rewriting-the-model-has-bias" title="Link to this section">#</a></h5>
-<p>WEAT noted this. Rewrite it into a more accurate sentence.</p>
-<details>
-<summary>Example Solution</summary>
-
-"In this corpus, a significant difference was observed in the relative association between the two predefined sets regarding gender attributes, as measured by the embedding." Also report the magnitude of the effect, the permutation method, the word list, and the seed variation.
-
-</details>
-
-<h4 id="b-calculation">B. Calculation<a class="header-anchor" href="#b-calculation" title="Link to this section">#</a></h4>
-<h5 id="3-axis-projection">3. Axis projection<a class="header-anchor" href="#3-axis-projection" title="Link to this section">#</a></h5>
-<p>Given the unit vector $\mathbf a = (0.8, 0.6)$ and the unit word vector $\mathbf v = (0.6, 0.8)$, find the dot product.</p>
-<details>
-<summary>Solution</summary>
-
-$$
-\mathbf v^\top\mathbf a
-=0.6\times0.8+0.8\times0.6=0.96
-$$
-
-The two vectors are very close in direction.
-
-</details>
-
-<h5 id="4-sign-of-the-weat-effect">4. Sign of the WEAT effect<a class="header-anchor" href="#4-sign-of-the-weat-effect" title="Link to this section">#</a></h5>
-<p>The average relative association of $X$ is 0.3, $Y$ is -0.1, and the combined standard deviation is 0.2. Find the effect size $d$ and interpret it.</p>
-<details>
-<summary>Solution</summary>
-
-$$
-d=\frac{0.3-(-0.1)}{0.2}=2.0
-$$
-
-There is a large standardized difference within the four selected sets. This cannot be directly translated into sample independence, the effect size of the IAT, or the magnitude of actual discrimination.
-
-</details>
-
-<h5 id="5-semantic-displacement">5. Semantic displacement<a class="header-anchor" href="#5-semantic-displacement" title="Link to this section">#</a></h5>
-<p>After sorting, the cosine between the two time periods for the same word is 0.92. What is the value of $1-\cos$?</p>
-<details>
-<summary>Solution</summary>
-
-It is 0.08. This needs to be compared to the null distribution of the same frequency group and the seed variation.
-
-</details>
-
-<h4 id="c-research-design">C. Research Design<a class="header-anchor" href="#c-research-design" title="Link to this section">#</a></h4>
-<h5 id="6-n-gram-or-embedding">6. N-gram or Embedding?<a class="header-anchor" href="#6-n-gram-or-embedding" title="Link to this section">#</a></h5>
-<p>What should be used for the questions &ldquo;When did the word <code>AI</code> become popular?&rdquo; and &ldquo;When did <code>AI</code> become closer to <code>creativity</code> than <code>automation</code>?&rdquo;</p>
-<details>
-<summary>Solution</summary>
-
-The first question requires a time series of N-gram frequencies. The second requires relative cosine between time-specific co-occurrence/embedding and the aligned features.
-
-</details>
-
-<h5 id="7-moving-axes">7. Moving Axes<a class="header-anchor" href="#7-moving-axes" title="Link to this section">#</a></h5>
-<p>The gender axis has changed significantly between the 1920s and the 2020s. How can we strengthen the comparison of occupational scores across these periods?</p>
-<details>
-<summary>Example Solution</summary>
-
-Use both the time-varying axis and a fixed anchor axis, and compare the consistency of multiple definitional pairs. Directly examine the most recent context for each pole, and perform sensitivity analysis by removing each axis word.
-
-</details>
-
-<h5 id="8-genre-confound">8. Genre confound<a class="header-anchor" href="#8-genre-confound" title="Link to this section">#</a></h5>
-<p>In one period, the proportion of romance novels increased significantly, and the female score for <code>nurse</code> also increased suddenly. What re-analysis is needed?</p>
-<details>
-<summary>Example Solution</summary>
-
-Create genre-specific models or fixed genre samples, and re-weight/downsample the genre proportions by period. Separate whether the changes occur within the romance genre or only in the overall composition.
-
-</details>
-
-<h5 id="9-semaxis-multiple-comparisons">9. SemAxis Multiple Comparisons<a class="header-anchor" href="#9-semaxis-multiple-comparisons" title="Link to this section">#</a></h5>
-<p>When searching for a <code>leader</code> among 732 axes, 37 were found to be significant ($p&lt;0.05$). Why can&rsquo;t we simply call these 37 &ldquo;discoveries&rdquo;?</p>
-<details>
-<summary>Solution</summary>
-
-Under the null hypothesis, approximately $732 \times 0.05 \approx 36.6$ could occur by chance. This requires multiple comparison correction (e.g., FDR), independent verification corpus, and evaluation of effect size and stability.
-
-</details>
-
-<h5 id="10-debiasing-evaluation">10. Debiasing Evaluation<a class="header-anchor" href="#10-debiasing-evaluation" title="Link to this section">#</a></h5>
-<p>Design evaluation tables before and after removing gender axes.</p>
-<details>
-<summary>Example Solution</summary>
-
-| Category | Metric |
-|---|---|
-| Direct Association | axis score, WEAT |
-| Hidden Structure | neighborhood similarity, gender label classification accuracy |
-| Meaning Preservation | analogy, similarity, task performance |
-| Application Results | group-specific exposure and error in hiring, search, and recommendation |
-
-Consider the reduction in one axis, the remaining structure, loss of utility, and the actual effect on application.
-
-</details>
-
-<h5 id="11-evidence-chain-for-nature-research">11. Evidence Chain for Nature Research<a class="header-anchor" href="#11-evidence-chain-for-nature-research" title="Link to this section">#</a></h5>
-<p>Given the observation that female figures appear younger in the image, what alternative explanations can be provided by adding text embedding, demographics, and human experiments?</p>
-<details>
-<summary>Example Solution</summary>
-
-- Text embedding: Exploring whether it's a phenomenon specific to one image platform.
-- Demographics: Comparing it to actual occupational composition.
-- Human experiments: Testing not only the correlation between exposure and judgment, but also limited causal effects.
-
-Each layer retains its own limitations, but the evidence chain becomes stronger when different measurements support the same pattern.
-
-</details>
-
-<h5 id="12-my-one-sentence-research-plan">12. My One-Sentence Research Plan<a class="header-anchor" href="#12-my-one-sentence-research-plan" title="Link to this section">#</a></h5>
-<p>Please fill in the blanks.</p>
-<blockquote>
-<p>&ldquo;Using the [embedding] learned from the [perspective] of the [corpus], I will measure the changes in [word groups] corresponding to the [specified axis], and compare them with [external data].&rdquo;</p>
-</blockquote>
-<details>
-<summary>Example Solution</summary>
-
-"Using the SGNS embedding learned from the 1980–2020 5-year period of the US newspaper corpus, I will measure the changes in the "young–old" and "competent–incompetent" axes corresponding to the names of female and male politicians, and compare them with candidate age, position, and separate experimental data."
-
-</details>
-
-<hr />
-<h3 id="14-checklist-for-reading-papers">14. Checklist for Reading Papers<a class="header-anchor" href="#14-checklist-for-reading-papers" title="Link to this section">#</a></h3>
-<h4 id="data">Data<a class="header-anchor" href="#data" title="Link to this section">#</a></h4>
-<ul>
-<li>What is the era, language, genre, and platform of the corpus?</li>
-<li>Who are the missing and overrepresented groups?</li>
-<li>Have you processed frequency, OCR, duplicate documents, and named entity issues?</li>
-</ul>
-<h4 id="vectors">Vectors<a class="header-anchor" href="#vectors" title="Link to this section">#</a></h4>
-<ul>
-<li>Is it static or contextual?</li>
-<li>What representation are you using? input, output, average, layer?</li>
-<li>Have you replicated it with multiple seeds and models?</li>
-<li>How have you aligned it in time and space using anchors and methods?</li>
-</ul>
-<h4 id="measurement">Measurement<a class="header-anchor" href="#measurement" title="Link to this section">#</a></h4>
-<ul>
-<li>Have you pre-defined the pole and target words?</li>
-<li>Does one word dominate the results?</li>
-<li>Are the axes, WEAT, and neighborhood structures consistent?</li>
-<li>Have you handled multiple comparisons according to the number of exploration axes?</li>
-</ul>
-<h4 id="interpretation">Interpretation<a class="header-anchor" href="#interpretation" title="Link to this section">#</a></h4>
-<ul>
-<li>Have you distinguished between corpus association, human stereotypes, reality construction, and downstream harm?</li>
-<li>Are you using correlation as causation?</li>
-<li>Are you validating it with external data and actual context?</li>
-<li>Does debiasing only hide measurement values?</li>
-</ul>
-<hr />
-<h3 id="15-summarizing-research-connections-in-a-table">15. Summarizing Research Connections in a Table<a class="header-anchor" href="#15-summarizing-research-connections-in-a-table" title="Link to this section">#</a></h3>
-<table>
-<thead>
-<tr>
-<th>Research</th>
-<th>Key Data &amp; Methods</th>
-<th>One-Sentence Takeaway</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://proceedings.neurips.cc/paper_files/paper/2016/file/a486cd07e4ac3d270571622f4f316ec5-Paper.pdf">Bolukbasi et al., 2016</a></td>
-<td>Google News Word2Vec, gender direction, hard debias</td>
-<td>The direction of the relationship becomes a tool for measurement and intervention</td>
-</tr>
-<tr>
-<td><a href="https://aclanthology.org/P16-1141/">Hamilton et al., 2016</a></td>
-<td>Google N-Gram·COHA, time-varying embeddings</td>
-<td>Measure the time changes in contextual relationships, not just frequency</td>
-</tr>
-<tr>
-<td><a href="https://doi.org/10.1126/science.aal4230">Caliskan et al., 2017</a></td>
-<td>GloVe·Word2Vec, WEAT</td>
-<td>Measure the relative association of four word sets with effect size and permutation</td>
-</tr>
-<tr>
-<td><a href="https://doi.org/10.1073/pnas.1720347115">Garg et al., 2018</a></td>
-<td>100-year history embeddings, Census·survey validation</td>
-<td>Compare the embedding association trajectory with external social data</td>
-</tr>
-<tr>
-<td><a href="https://aclanthology.org/P18-1228/">An et al., 2018</a></td>
-<td>732 antonym-based SemAxis</td>
-<td>Create a domain-specific meaning prism beyond a single emotion axis</td>
-</tr>
-<tr>
-<td><a href="https://journals.sagepub.com/doi/10.1177/0003122419877135">Kozlowski et al., 2019</a></td>
-<td>Comparing geometry and history of cultural and class meanings</td>
-<td>Can be manipulated as social concept axes and distances</td>
-</tr>
-<tr>
-<td><a href="https://aclanthology.org/N19-1061/">Gonen &amp; Goldberg, 2019</a></td>
-<td>Debiased after neighbor and classification structure check</td>
-<td>A single index can remain even if it becomes 0</td>
-</tr>
-<tr>
-<td><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8323720/">Kwak et al., 2021</a></td>
-<td>FrameAxis, document bias and intensity</td>
-<td>Extend the meaning axis to document framing comparison</td>
-</tr>
-<tr>
-<td><a href="https://www.nature.com/articles/s41586-025-09581-z">Guilbeault et al., 2025</a></td>
-<td>Age×gender analysis of image, text, population, experiment, and LM</td>
-<td>Place embeddings between multi-layered verification and causal experiments</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="16-the-final-scene-are-vectors-mirrors-or-maps">16. The Final Scene: Are Vectors Mirrors or Maps?<a class="header-anchor" href="#16-the-final-scene-are-vectors-mirrors-or-maps" title="Link to this section">#</a></h3>
-<p>The records team finally obtained &ldquo;engineer&rdquo; and &ldquo;nurse&rdquo; as two lines. But a good researcher doesn&rsquo;t just shout &ldquo;society has changed&rdquo; when seeing these lines.</p>
-<p>They ask:</p>
-<ul>
-<li>Are these lines created by word frequency or corpus genre?</li>
-<li>Is the gender itself moving?</li>
-<li>Do they remain in other poles, seeds, and models?</li>
-<li>Are they moving with actual occupational composition?</li>
-<li>Are they connected to people&rsquo;s beliefs and judgments?</li>
-<li>Does reducing the measurement value also reduce actual harm?</li>
-</ul>
-<p>In the first part, Word2Vec compressed &ldquo;co-occurring encounters&rdquo; into a latent space. In the second part, we placed axes in this space, overlaid them with time, and compared them with other real data.</p>
-<p>Therefore, the best one-sentence statement for using embeddings in cultural research is:</p>
-<blockquote>
-<p><strong>Embeddings are not simply mirrors reflecting the truth of society, but rather, maps created by specific data and measurement designs. Good research involves discovering patterns on these maps and continuously validating them with other maps and real-world indicators.</strong></p>
-</blockquote>
-<hr />
-<p><a id="part-6"></a></p>
-<h2 id="vi-further-reading">Ⅵ. Further Reading<a class="header-anchor" href="#vi-further-reading" title="Link to this section">#</a></h2>
-<p><small><a href="#toc">↑ Table of Contents</a></small></p>
-<h3 id="references-and-further-reading">References and Further Reading<a class="header-anchor" href="#references-and-further-reading" title="Link to this section">#</a></h3>
-<ol>
-<li>Bolukbasi, T. et al. (2016). &ldquo;Man is to Computer Programmer as Woman is to Homemaker?&rdquo; Debiasing Word Embeddings. <em>NeurIPS</em>.</li>
-<li>Hamilton, W. L., Leskovec, J., &amp; Jurafsky, D. (2016). &ldquo;Diachronic Word Embeddings Reveal Statistical Laws of Semantic Change.&rdquo; <em>ACL</em>.</li>
-<li>Caliskan, A., Bryson, J. J., &amp; Narayanan, A. (2017). &ldquo;Semantics derived automatically from language corpora contain human-like biases.&rdquo; <em>Science</em>, 356, 183–186.</li>
-<li>Garg, N., Schiebinger, L., Jurafsky, D., &amp; Zou, J. (2018). &ldquo;Word embeddings quantify 100 years of gender and ethnic stereotypes.&rdquo; <em>PNAS</em>, 115, E3635–E3644. <a href="https://github.com/nikhgarg/EmbeddingDynamicStereotypes">Research code</a></li>
-<li>An, J., Kwak, H., &amp; Ahn, Y.-Y. (2018). &ldquo;SemAxis: A Lightweight Framework to Characterize Domain-Specific Word Semantics Beyond Sentiment.&rdquo; <em>ACL</em>.</li>
-<li>Kozlowski, A. C., Taddy, M., &amp; Evans, J. A. (2019). &ldquo;The Geometry of Culture: Analyzing the Meanings of Class through Word Embeddings.&rdquo; <em>American Sociological Review</em>.</li>
-<li>Gonen, H., &amp; Goldberg, Y. (2019). &ldquo;Lipstick on a Pig: Debiasing Methods Cover up Systematic Gender Biases in Word Embeddings But do not Remove Them.&rdquo; <em>NAACL</em>.</li>
-<li>Kwak, H., An, J., Jing, E., &amp; Ahn, Y.-Y. (2021). &ldquo;FrameAxis: characterizing microframe bias and intensity with word embedding.&rdquo; <em>PeerJ Computer Science</em>.</li>
-<li>Guilbeault, D., Delecourt, S., &amp; Desikan, B. S. (2025). &ldquo;Age and gender distortion in online media and large language models.&rdquo; <em>Nature</em>, 646, 1129–1137.</li>
-</ol>
-<blockquote>
-<p>Next, it is beneficial to study how to control sentence patterns in contextual embeddings, separate the sense of polysemous words across time, and connect the axes to actual downstream audits.</p>
-</blockquote>
-<hr />
-<h3 id="appendix-recent-interesting-embedding-applications">Appendix. Recent Interesting Embedding Applications<a class="header-anchor" href="#appendix-recent-interesting-embedding-applications" title="Link to this section">#</a></h3>
-<p>The following studies use embeddings not as simple classification inputs, but as a space to measure distances, axes, trajectories, and concept structures. I have briefly summarized recent papers suitable for presenting at a research seminar, focusing on the ideas and points to consider.</p>
-<h4 id="1-the-meaning-space-of-language-and-climate">1. The Meaning Space of Language and Climate<a class="header-anchor" href="#1-the-meaning-space-of-language-and-climate" title="Link to this section">#</a></h4>
-<p>Fu et al. (2026), <a href="https://www.nature.com/articles/s41467-026-70608-8">Semantic similarity across languages reflects neurocognitive dimensions shaped by climate</a>, <em>Nature Communications</em>.</p>
-<ul>
-<li><strong>Idea</strong>: Project 53 languages&rsquo; word embeddings into 13 semantic dimensions (e.g., sensation, motor, emotion, social) and compare the commonalities and differences between languages.</li>
-<li><strong>Validation Chain</strong>: Connect the embedding analysis with 8 language speakers&rsquo; behavioral ratings, a colexification network for 2,681 languages, and exploratory fMRI data.</li>
-<li><strong>Interesting Point</strong>: Test a bold hypothesis that language-specific semantic differences are related to climatic differences, not just language families and cultures.</li>
-<li><strong>Points to Consider</strong>: The results are correlations, not causation. The climate, geography, culture, and language family are strongly intertwined, and the results may be sensitive to translation and corpus composition.</li>
-</ul>
-<h4 id="2-creating-a-concept-space-with-llms-selection-behavior">2. Creating a Concept Space with LLM&rsquo;s Selection Behavior<a class="header-anchor" href="#2-creating-a-concept-space-with-llms-selection-behavior" title="Link to this section">#</a></h4>
-<p>Du et al. (2025), <a href="https://www.nature.com/articles/s42256-025-01049-z">Human-like object concept representations emerge naturally in multimodal large language models</a>, <em>Nature Machine Intelligence</em>.</p>
-<ul>
-<li><strong>Idea</strong>: Learn a 66-dimensional concept embedding by training on approximately 4.7 million &ldquo;choose one from three&rdquo; judgments performed by 1,854 objects using LLMs and a multimodal LLM.</li>
-<li><strong>Interesting Point</strong>: Reconstruct a new meaning space from the model&rsquo;s observed selection behavior, rather than directly reading the hidden vectors.</li>
-<li><strong>External Comparison</strong>: Compare the range and dimensionality of the learned space with fMRI representations of human judgments and visual stimuli.</li>
-<li><strong>Points to Consider</strong>: The similarity in geometry between the model and humans does not necessarily mean that they form concepts in the same way. There is also the possibility that a common categorical structure or learning material creates the alignment.</li>
-</ul>
-<h4 id="3-contextually-changing-meaning-axes">3. Contextually Changing Meaning Axes<a class="header-anchor" href="#3-contextually-changing-meaning-axes" title="Link to this section">#</a></h4>
-<p>Zeng, Jin, and Voigt (2024), <a href="https://aclanthology.org/2024.emnlp-main.872/">Adaptive Axes: A Pipeline for In-domain Social Stereotype Analysis</a>, <em>EMNLP</em>.</p>
-<ul>
-<li><strong>Idea</strong>: Mask the target group name and embed only the surrounding context, separating the associations stored in the target token from the framing in the current document.</li>
-<li><strong>Extension</strong>: Instead of using only fixed WordNet antonym axes, create and refine new meaning axes specific to domains such as science, health, and art using LLMs.</li>
-<li><strong>Interesting Point</strong>: This addresses the problem that the same group can be described differently depending on the domain, using contextual embeddings and adaptive axes.</li>
-<li><strong>Points to Consider</strong>: If the LLM creates axes, the model&rsquo;s learning data and cultural assumptions will enter the measurement tool. It is necessary to verify the validity of the axes with alternative axes and human evaluations.</li>
-</ul>
-<h4 id="4-users-information-displacement-after-fact-checking">4. Users&rsquo; &ldquo;Information Displacement&rdquo; After Fact-Checking<a class="header-anchor" href="#4-users-information-displacement-after-fact-checking" title="Link to this section">#</a></h4>
-<p>Kim et al. (2025), <a href="https://www.nature.com/articles/s41467-025-55868-0">Differential impact from individual versus collective misinformation tagging on the diversity of Twitter (X) information engagement and mobility</a>, <em>Nature Communications</em>.</p>
-<ul>
-<li><strong>Idea</strong>: Define content diversity and information mobility based on the average embedding of a user&rsquo;s past tweets, centered around their usual interests, and the degree to which a new tweet deviates from that center.</li>
-<li><strong>Research Question</strong>: Compare the different effects that personal fact-checking and community-verified &ldquo;Community Notes&rdquo; have on subsequent information seeking.</li>
-<li><strong>Interesting Point</strong>: Instead of using the embedding distance as an explanatory figure, make it an actual behavioral outcome variable and incorporate it into interrupted time series and delayed-feedback analysis.</li>
-<li><strong>Caution</strong>: As observational data, it is difficult to completely eliminate selection bias and unobserved events. The novelty in the embedding is not necessarily the same as diversity of perspectives or changes in attitudes.</li>
-</ul>
-<h4 id="5-reading-researcher-mobility-paths-as-sentences">5. Reading Researcher Mobility Paths as Sentences<a class="header-anchor" href="#5-reading-researcher-mobility-paths-as-sentences" title="Link to this section">#</a></h4>
-<p>Murray et al. (2023), <a href="https://doi.org/10.1073/pnas.2305414120">Unsupervised embedding of trajectories captures the latent structure of scientific migration</a>, <em>PNAS</em>.</p>
-<ul>
-<li><strong>Idea</strong>: Train Word2Vec by changing <code>institution·region = word</code>, <code>researcher's affiliation mobility path = sentence</code>.</li>
-<li><strong>Theoretical Connection</strong>: Demonstrate that SGNS is connected to the gravity model of mobility, and learn functional distance based on language, culture, and prestige, which cannot be explained solely by geographical distance.</li>
-<li><strong>Interesting Point</strong>: Not only do we apply natural language algorithms to other sequential data, but we also provide a mathematical correspondence with existing mobility theories.</li>
-<li><strong>Caution</strong>: The basic model assumes symmetry in the flow of mobility. The affiliation information in the paper cannot clearly distinguish between long-term migration, short-term visits, and simultaneous affiliation.</li>
-</ul>
-<h4 id="criteria-to-choose-at-seminars">Criteria to Choose at Seminars<a class="header-anchor" href="#criteria-to-choose-at-seminars" title="Link to this section">#</a></h4>
-<table>
-<thead>
-<tr>
-<th>Presentation Purpose</th>
-<th>Recommended Paper</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Most provocative arguments and discussions</td>
-<td>Climate and Meaning Space</td>
-</tr>
-<tr>
-<td>Novelty in constructing embeddings</td>
-<td>Object concept space created by LLM selection behavior</td>
-</tr>
-<tr>
-<td>Latest extensions of SemAxis·FrameAxis</td>
-<td>Adaptive Axes</td>
-</tr>
-<tr>
-<td>Empirical and applied research in computational social science</td>
-<td>Fact-checking and information mobility distance</td>
-</tr>
-<tr>
-<td>Direct connection between SGNS and gravity theory</td>
-<td>Embedding of researcher mobility paths</td>
-</tr>
-</tbody>
-</table>
-<p>The common question that underlies these studies is:</p>
-<blockquote>
-<p><strong>What to use as a point, what to make into neighboring observations, and what real-world data to use to verify the distance and direction of that space?</strong></p>
-</blockquote>]]></content>
+<p>Continue to <a href="04_embedding_research_companion_en">Part 4: Embedding Research Companion — Design, Practice, and Further Reading</a>.</p>]]></content>
     
   </entry>
   
@@ -3384,6 +3416,7 @@ Each layer retains its own limitations, but the evidence chain becomes stronger 
 <li><a href="01_word2vec_en">Embedding Basics — Word2Vec, SGNS, and Gravity</a></li>
 <li><a href="02_word2vec_implementation_en">Implementing Word2Vec — From Data to Meaning Axes</a></li>
 <li><a href="03_word2vec_applications_en">Embedding Applications — Reading Culture Through Semantic Space</a></li>
+<li><a href="04_embedding_research_companion_en">Embedding Research Companion — Design, Practice, and Further Reading</a></li>
 </ol>]]></content>
     
   </entry>

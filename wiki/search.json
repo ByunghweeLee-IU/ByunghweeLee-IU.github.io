@@ -4,7 +4,7 @@
     "path": "Home",
     "url": "/wiki/Home/",
     "content": "## About This Wiki\n\nWelcome to the public wiki section of my site!\ud83d\udc4b \nThis wiki is where I collect my thoughts, essays, research ideas and useful information. \n![Hwiki illustration](assets/files/hwiki_illust.png)\n## Science Essays\n\n**The Hidden Secrets of Art Through Data (in Korean)**\n\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (1) - \ud669\uae08\ube44\uc728\uc758 \ube44\ubc00: \uc815\ubcf4\uc774\ub860\uc73c\ub85c \ubc14\ub77c\ubcf8 \ubbf8\uc220\uc0ac \uc18d \uad6c\ub3c4\uc640 \ube44\ub840](notes/blogs/01_art-goldenratio.md)\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (2) - \uc791\ud488 \uac00\uaca9\uc758 \ube44\ubc00: \uc2dc\uac01\uc801 \ud2b9\uc9d5 vs. \uc0ac\ud68c\uc801 \uc2e0\ud638](notes/blogs/02_art-price.md)\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (3) - \uc131\uacf5\uc758 \ube44\ubc00: \uc608\uc220\uac00\ub4e4\uc758 \uba85\uc131 \ub4a4\uc5d4 \ub124",
-    "published": "2026-08-26T22:23:09.600698+00:00",
+    "published": "2026-08-26T22:35:02.083514+00:00",
     "tags": []
   },
   {
@@ -67,7 +67,7 @@
     "title": "[All-about-embedding 1] Embedding Basics \u2014 Word2Vec, SGNS, and Gravity",
     "path": "notes/all-about-embedding/01_word2vec_en",
     "url": "/wiki/notes/all-about-embedding/01_word2vec_en/",
-    "content": "# 01. Embedding Basics \u2014 Word2Vec, SGNS, and Gravity\n\n> [**All About Embedding**](README) \u00b7 **Part 1: Word2Vec, SGNS, and Gravity** \u00b7 [Part 2: Implementation, Relations, and Meaning Axes](02_word2vec_implementation_en) \u00b7 [Part 3: Culture and Semantic Change](03_word2vec_applications_en)\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Prohibited from copying, reprinting, distributing, and using without prior consent.</small>\n\n> This lecture note follows a smal",
+    "content": "# 01. Embedding Basics \u2014 Word2Vec, SGNS, and Gravity\n\n> [**All About Embedding**](README) \u00b7 **Part 1: Word2Vec, SGNS, and Gravity** \u00b7 [Part 2: Implementation, Relations, and Meaning Axes](02_word2vec_implementation_en) \u00b7 [Part 3: Culture and Semantic Change](03_word2vec_applications_en) \u00b7 [Part 4: Research Companion](04_embedding_research_companion_en)\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Prohibited from copying, reprinting, distributing, and using",
     "published": "2026-08-24T00:00:00+00:00",
     "tags": [
       "embedding",
@@ -81,7 +81,7 @@
     "title": "[All-about-embedding 2] Implementing Word2Vec \u2014 From Data to Meaning Axes",
     "path": "notes/all-about-embedding/02_word2vec_implementation_en",
     "url": "/wiki/notes/all-about-embedding/02_word2vec_implementation_en/",
-    "content": "# 02. Implementing Word2Vec \u2014 From Data to Meaning Axes\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 **Part 2: Implementation, Relations, and Meaning Axes** \u00b7 [Part 3: Culture and Semantic Change](03_word2vec_applications_en)\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited.</small>\n\nPart 1 established the mathematical story: a context win",
+    "content": "# 02. Implementing Word2Vec \u2014 From Data to Meaning Axes\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 **Part 2: Implementation, Relations, and Meaning Axes** \u00b7 [Part 3: Culture and Semantic Change](03_word2vec_applications_en) \u00b7 [Part 4: Research Companion](04_embedding_research_companion_en)\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Unauthorized copying, reproduction, distribution, and use are prohibited",
     "published": "2026-08-26T00:00:00+00:00",
     "tags": [
       "embedding",
@@ -95,7 +95,7 @@
     "title": "[All-about-embedding 3] Embedding Applications \u2014 Reading Culture Through Semantic Space",
     "path": "notes/all-about-embedding/03_word2vec_applications_en",
     "url": "/wiki/notes/all-about-embedding/03_word2vec_applications_en/",
-    "content": "# 03. Embedding Applications \u2014 Reading Culture Through Semantic Space\n\n> Word2Vec Application: **Bias Measurement \u2192 Meaning Changes Over Time \u2192 SemAxis \u2192 Verification with External Reality**\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 [Part 2: Implementation, Relations, and Meaning Axes](02_word2vec_implementation_en) \u00b7 **Part 3: Culture and Semantic Change**\n\n<small>\u00a9 2026 Byunghwee Lee. Created and edited in collaboration with OpenAI Codex. Un",
+    "content": "# 03. Embedding Applications \u2014 Reading Culture Through Semantic Space\n\n> Word2Vec Application: **Bias Measurement \u2192 Meaning Changes Over Time \u2192 SemAxis \u2192 Verification with External Reality**\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 [Part 2: Implementation, Relations, and Meaning Axes](02_word2vec_implementation_en) \u00b7 **Part 3: Culture and Semantic Change** \u00b7 [Part 4: Research Companion](04_embedding_research_companion_en)\n\n<small>\u00a9 2026 Byung",
     "published": "2026-08-24T00:00:00+00:00",
     "tags": [
       "embedding",
@@ -106,10 +106,23 @@
     ]
   },
   {
+    "title": "[All-about-embedding 4] Embedding Research Companion \u2014 Design, Practice, and Further Reading",
+    "path": "notes/all-about-embedding/04_embedding_research_companion_en",
+    "url": "/wiki/notes/all-about-embedding/04_embedding_research_companion_en/",
+    "content": "# 04. Embedding Research Companion \u2014 Design, Practice, and Further Reading\n\n> Research Companion: **Study Design \u2192 Implementation \u2192 Diagnostics \u2192 Practice \u2192 Further Reading**\n\n> [**All About Embedding**](README) \u00b7 [Part 1: Word2Vec, SGNS, and Gravity](01_word2vec_en) \u00b7 [Part 2: Implementation, Relations, and Meaning Axes](02_word2vec_implementation_en) \u00b7 [Part 3: Culture and Semantic Change](03_word2vec_applications_en) \u00b7 **Part 4: Research Companion**\n\n<small>\u00a9 2026 Byunghwee Lee. Created and e",
+    "published": "2026-08-26T00:00:00+00:00",
+    "tags": [
+      "embedding",
+      "semantic-axis",
+      "research-design",
+      "computational-social-science"
+    ]
+  },
+  {
     "title": "All About Embedding",
     "path": "notes/all-about-embedding/README",
     "url": "/wiki/notes/all-about-embedding/README/",
-    "content": "# All About Embedding\n\nThis lecture-note series develops embeddings from first principles and then uses them to study meaning, culture, and change over time.\n\n1. [Embedding Basics \u2014 Word2Vec, SGNS, and Gravity](01_word2vec_en)\n2. [Implementing Word2Vec \u2014 From Data to Meaning Axes](02_word2vec_implementation_en)\n3. [Embedding Applications \u2014 Reading Culture Through Semantic Space](03_word2vec_applications_en)",
+    "content": "# All About Embedding\n\nThis lecture-note series develops embeddings from first principles and then uses them to study meaning, culture, and change over time.\n\n1. [Embedding Basics \u2014 Word2Vec, SGNS, and Gravity](01_word2vec_en)\n2. [Implementing Word2Vec \u2014 From Data to Meaning Axes](02_word2vec_implementation_en)\n3. [Embedding Applications \u2014 Reading Culture Through Semantic Space](03_word2vec_applications_en)\n4. [Embedding Research Companion \u2014 Design, Practice, and Further Reading](04_embedding_re",
     "published": "2026-08-24T00:00:00+00:00",
     "tags": [
       "embedding",

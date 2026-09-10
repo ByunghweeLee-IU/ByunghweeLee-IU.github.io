@@ -20,10 +20,10 @@
 
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-primary: #bfdac5;
-  --color-primary-dark: #d9ebdd;
-  --color-secondary: #f0b08b;
-  --color-accent: #ffc6a8;
+  --color-primary: #e9aa68;
+  --color-primary-dark: #f3c38d;
+  --color-secondary: #dca77e;
+  --color-accent: #f4bd7c;
   --text-primary: #e8edf3;
   --text-secondary: #bdc7d3;
   --text-muted: #8b98a7;

@@ -51,7 +51,7 @@
             const storageKey = "theme-preference";
             const storedTheme = localStorage.getItem(storageKey);
             const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            const theme = storedTheme || (systemPrefersDark ? "dark" : "light");
+            const theme = document.documentElement.dataset.forcedTheme || storedTheme || (systemPrefersDark ? "dark" : "light");
             document.documentElement.setAttribute("data-theme", theme);
         })();
     </script>
@@ -64,7 +64,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260825c">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20260910a">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Google tag (gtag.js) -->
@@ -294,6 +294,7 @@
             let activeLightboxIndex = -1;
 
             const applyTheme = (theme) => {
+                theme = document.documentElement.dataset.forcedTheme || theme;
                 document.documentElement.setAttribute("data-theme", theme);
                 window.dispatchEvent(new CustomEvent("site-theme-change", {
                     detail: { theme }
@@ -334,7 +335,12 @@
             syncNavWithViewport();
 
             if (themeToggle) {
+                if (document.documentElement.dataset.forcedTheme) {
+                    themeToggle.hidden = true;
+                    themeToggle.style.display = "none";
+                }
                 themeToggle.addEventListener("click", function() {
+                    if (document.documentElement.dataset.forcedTheme) return;
                     const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
                     const nextTheme = currentTheme === "dark" ? "light" : "dark";
                     localStorage.setItem(storageKey, nextTheme);

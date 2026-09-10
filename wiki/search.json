@@ -195,14 +195,6 @@
     ]
   },
   {
-    "title": "Belief Embeddings with Large Language Models",
-    "path": "notes/papers/belief-embeddings-llms",
-    "url": "/wiki/notes/papers/belief-embeddings-llms/",
-    "content": "## Citation\n\nLee, Byunghwee, Rachith Aiyappa, Yong-Yeol Ahn, Haewoon Kwak, and Jisun An. 2025. *A semantic embedding space based on large language models for modelling human beliefs*. *Nature Human Behaviour*.\n\n## Overview\n\nThis paper develops a semantic embedding space based on large language models to model human beliefs and positions in public debate. The project connects representation learning with computational social science and provides a framework for studying relative belief structure ",
-    "published": "2026-03-16T00:00:00+00:00",
-    "tags": []
-  },
-  {
     "title": "News Press Landscape and Asymmetric Polarization",
     "path": "notes/papers/news-press-polarization",
     "url": "/wiki/notes/papers/news-press-polarization/",

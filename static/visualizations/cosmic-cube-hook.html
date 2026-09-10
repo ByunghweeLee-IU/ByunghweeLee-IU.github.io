@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-visualize-standalone data-theme="dark">
+<html lang="en" data-visualize-standalone>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1022,26 +1022,29 @@ svg.lucide {
 }
 
 html>body{padding:0}</style>
-<style>html[data-visualize-standalone],html[data-visualize-standalone]>body{background:#000!important;color-scheme:dark;min-height:100svh}body{margin:0;min-height:100svh}#cosmic-cube{max-width:560px;margin:0 auto;padding:16px 12px 24px}</style></head>
+<style>html[data-visualize-standalone],html[data-visualize-standalone]>body{background:#000!important;color-scheme:dark;min-height:100svh}body{margin:0;min-height:100svh}#cosmic-cube-challenge{max-width:560px;margin:0 auto;padding:16px 12px 24px}</style></head>
 <body>
-<div id="cosmic-cube">
+<div id="cosmic-cube-challenge">
   <style>
-    #cosmic-cube {background:#000;color:#f5f5f5;color-scheme:dark;padding:12px;box-sizing:border-box;--foreground:#f5f5f5;--background:#000;--secondary:#242424;--secondary-foreground:#f5f5f5;--primary:#eee;--primary-foreground:#111;--border:#444;--muted-foreground:#aaa;}
-    #cosmic-cube .cosmos {display:block;width:100%;max-width:530px;margin-inline:auto;aspect-ratio:1;background:#000;}
-    #cosmic-cube .controls {display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px auto 0;max-width:530px;}
-    #cosmic-cube .status {flex-basis:100%;text-align:center;}
+    #cosmic-cube-challenge {background:#000;color:#f5f5f5;color-scheme:dark;padding:12px;box-sizing:border-box;--foreground:#f5f5f5;--background:#000;--secondary:#242424;--secondary-foreground:#f5f5f5;--primary:#eee;--primary-foreground:#111;--border:#444;--muted-foreground:#aaa;}
+    #cosmic-cube-challenge .cosmos {display:block;width:100%;max-width:530px;margin-inline:auto;aspect-ratio:1;background:#000;}
+    #cosmic-cube-challenge .controls {display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin:16px auto 0;max-width:530px;}
+    #cosmic-cube-challenge .status {flex-basis:100%;text-align:center;}
   </style>
   <canvas class="cosmos" role="img" aria-label="Which way is this logo spinning? A rotating cube formed from glowing orange particles and white star clusters against a deep space background. Can you make it switch?"></canvas>
   <div class="controls">
     <button type="button" class="btn pause">Pause</button>
     <button type="button" class="btn music" aria-pressed="false">Music on</button>
     <label class="form-check form-switch"><input type="checkbox" class="form-check-input faces" checked><span class="form-check-label">Face colors</span></label>
+    <label class="form-label" style="flex-basis:100%;max-width:300px">Depth cue · <output class="depth-value">75%</output>
+      <input class="form-range depth-strength" type="range" min="0" max="100" value="75" step="5" aria-label="Depth cue strength">
+    </label>
     <span class="text-small text-muted status" aria-live="polite">Cosmic cube · Seamless loop</span>
   </div>
 </div>
 <script>
 (() => {
-  const root=document.getElementById('cosmic-cube');
+  const root=document.getElementById('cosmic-cube-challenge');
   const canvas=root.querySelector('canvas'), ctx=canvas.getContext('2d');
   const pause=root.querySelector('.pause'), facesToggle=root.querySelector('.faces');
   const musicButton=root.querySelector('.music');
@@ -1066,6 +1069,15 @@ html>body{padding:0}</style>
   for(let i=0;i<8;i++)for(let j=i+1;j<8;j++)if(vertices[i].filter((v,k)=>v!==vertices[j][k]).length===1)edges.push([i,j]);
   const strands=edges.map(()=>Array.from({length:240},()=>({t:rand(),offset:(rand()+rand()+rand()-1.5)*7,r:.35+rand()*.9,a:.2+rand()*.8})));
   const clusters=vertices.map(()=>Array.from({length:170},()=>{const a=rand()*tau,r=Math.pow(rand(),.7)*16.5;return {x:Math.cos(a)*r,y:Math.sin(a)*r,r:.35+rand()*.8,a:.3+rand()*.7};}));
+  const interior=Array.from({length:900},()=>({p:[rand()*1.8-.9,rand()*1.8-.9,rand()*1.8-.9],r:.4+rand()*.65,phase:rand()*tau}));
+  let shimmerTime=0;
+  let depthStrength=.75;
+  const depthControl=root.querySelector('.depth-strength');
+  depthControl.addEventListener('input',()=>{
+    depthStrength=Number(depthControl.value)/100;
+    root.querySelector('.depth-value').textContent=depthControl.value+'%';
+    draw();
+  });
   const faces=[[0,1,3,2],[4,6,7,5],[0,4,5,1],[0,2,6,4],[1,5,7,3],[2,3,7,6]];
   let backdrop;
   function glow(x,y,r,color){
@@ -1118,10 +1130,43 @@ html>body{padding:0}</style>
     if(facesToggle.checked){
       faces.forEach((f,i)=>{
         ctx.beginPath();f.forEach((v,k)=>k?ctx.lineTo(...p[v]):ctx.moveTo(...p[v]));ctx.closePath();
-        ctx.fillStyle=i===5?'rgba(0,0,0,.65)':'rgba(24,43,85,.20)';ctx.fill();
+        ctx.fillStyle=i===5?'rgba(0,0,0,.65)':'rgba(24,43,85,.20)';
+        if(i!==5 && depthStrength>0){
+          // Depth is affine over each projected planar face.
+          const [a,b,d]=[f[0],f[1],f[3]];
+          const vx=p[b][0]-p[a][0],vy=p[b][1]-p[a][1];
+          const wx=p[d][0]-p[a][0],wy=p[d][1]-p[a][1];
+          const det=vx*wy-vy*wx;
+          if(Math.abs(det)>1){
+            const depthOf=j=>{const [x,y,z]=vertices[j];return (y*se+(-x*s+z*c)*ce)/Math.sqrt(3);};
+            const da=depthOf(a),db=depthOf(b)-da,dd=depthOf(d)-da;
+            const gx=(db*wy-dd*vy)/det,gy=(vx*dd-wx*db)/det;
+            const norm=gx*gx+gy*gy;
+            if(norm>1e-10){
+              const grad=ctx.createLinearGradient(p[a][0]+gx*(-1-da)/norm,p[a][1]+gy*(-1-da)/norm,p[a][0]+gx*(1-da)/norm,p[a][1]+gy*(1-da)/norm);
+              const blend=(from,to)=>Math.round(from+(to-from)*depthStrength);
+              const alpha=.20+.46*depthStrength;
+              grad.addColorStop(0,`rgba(${blend(24,5)},${blend(43,10)},${blend(85,27)},${alpha})`);
+              grad.addColorStop(1,`rgba(${blend(24,65)},${blend(43,109)},${blend(85,185)},${alpha})`);
+              ctx.fillStyle=grad;
+            }
+          }
+        }
+        ctx.fill();
       });
     }
     ctx.globalCompositeOperation='lighter';
+    for(const q of interior){
+      const [x,y,z]=q.p;
+      const px=width/2+unit*(x*c+z*s),py=height*.545+unit*(-y*ce+(-x*s+z*c)*se);
+      const depth=(y*se+(-x*s+z*c)*ce)/Math.sqrt(3);
+      const twinkle=.08+.57*Math.pow(.5+.5*Math.sin(shimmerTime*tau/5+q.phase),2);
+      const a=twinkle*(1+depthStrength*depth);
+      const radius=q.r*Math.max(.8,scale)*1.5;
+      glow(px,py,radius*3.5,'rgba(137,177,255,'+a*.14+')');
+      ctx.fillStyle='rgba(207,225,255,'+a+')';
+      ctx.beginPath();ctx.arc(px,py,radius,0,tau);ctx.fill();
+    }
     edges.forEach(([a,b],e)=>{
       const [x,y]=p[a],[xx,yy]=p[b],dx=xx-x,dy=yy-y,len=Math.hypot(dx,dy)||1;
       ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(xx,yy);
@@ -1153,7 +1198,8 @@ html>body{padding:0}</style>
   }
   function tick(now){
     if(!root.isConnected){observer.disconnect();return;}
-    if(last)phase=(phase+Math.min((now-last)/1000,.06)*tau*1.2/20)%tau;
+    if(last)phase=(phase+Math.min((now-last)/1000,.06)*tau*2.4/20)%tau;
+    if(last)shimmerTime+=Math.min((now-last)/1000,.06);
     last=now;draw();if(running)frame=requestAnimationFrame(tick);
   }
   function update(){pause.textContent=running?'Pause':'Play';root.querySelector('.status').textContent=running?'Cosmic cube · Seamless loop':'Cosmic cube · Paused';}

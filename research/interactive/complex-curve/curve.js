@@ -10,7 +10,7 @@ function curve(r, beta) {
   const npp = 6 * r * (1 - a);
   const dp = 3 * (a - 1) * (1 - 2 * r);
   const dpp = 6 * (1 - a);
-  return { y: n / d, d2: npp / d - (2 * np * dp + n * dpp) / d ** 2 + 2 * n * dp ** 2 / d ** 3 };
+  return { y: n / d, d1: np / d - n * dp / d ** 2, d2: npp / d - (2 * np * dp + n * dpp) / d ** 2 + 2 * n * dp ** 2 / d ** 3 };
 }
 
 const betaSlider = document.getElementById('beta');
@@ -59,10 +59,16 @@ function render(resample = true) {
   let limit = Math.max(...samples.map(s => Math.abs(s.d2)));
   limit = limit < 1e-9 ? 1 : limit * 1.08;
   plot('function-plot', 'y', -.05, 1.05, '#315dd5', r);
+  const slopes = samples.map(s => s.d1);
+  const slopeMin = Math.min(0, ...slopes);
+  const slopeMax = Math.max(1, ...slopes);
+  const padding = (slopeMax - slopeMin) * .08;
+  plot('first-derivative-plot', 'd1', slopeMin - padding, slopeMax + padding, '#148074', r);
   plot('derivative-plot', 'd2', -limit, limit, '#cf632a', r);
   const current = curve(r, beta);
   document.getElementById('r-value').value = r.toFixed(3);
   document.getElementById('y-value').value = `y = ${format(current.y)}`;
+  document.getElementById('d1-value').value = `y′ = ${format(current.d1)}`;
   document.getElementById('d2-value').value = `y″ = ${format(current.d2)}`;
 }
 function setBeta(value) {

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Complex curve · Byunghwee Lee</title>
+<link rel="stylesheet" href="style.css">
+<script src="curve.js" defer></script>
+</head>
+<body>
+<header><a href="../">← Interactive</a><span>RESEARCH EXPLORER</span></header>
+<main>
+<div class="intro"><p class="eyebrow">PARAMETER EXPLORATION</p><h1>Complex curve</h1><p>β를 움직이며 함수와 곡률의 변화를 함께 살펴보세요.</p></div>
+<section class="formula" aria-label="함수 정의">
+<math display="block"><mrow><mi>y</mi><mo>=</mo><mfrac><mrow><msup><mi>r</mi><mn>3</mn></msup><mo>+</mo><msup><mi>e</mi><mrow><mo>−</mo><mn>2</mn><mi>β</mi></mrow></msup><mi>r</mi><msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo>)</mo></mrow><mn>2</mn></msup></mrow><mrow><msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo>)</mo></mrow><mn>3</mn></msup><mo>+</mo><msup><mi>r</mi><mn>3</mn></msup><mo>+</mo><mn>3</mn><msup><mi>e</mi><mrow><mo>−</mo><mn>2</mn><mi>β</mi></mrow></msup><mi>r</mi><mo>(</mo><mn>1</mn><mo>−</mo><mi>r</mi><mo>)</mo></mrow></mfrac></mrow></math>
+</section>
+<section class="controls" aria-label="그래프 조절">
+<div class="control"><div class="label"><label for="beta">매개변수 β</label><input id="beta-number" type="number" aria-label="β 직접 입력" min="-3" max="6" step="0.01" value="0"></div><input id="beta" type="range" min="-3" max="6" step="0.01" value="0"><div class="ends"><span>−3</span><span>6</span></div><p id="beta-error" role="status"></p></div>
+<div class="control"><div class="label"><label for="r">관찰 지점 r</label><output id="r-value" for="r">0.500</output></div><input id="r" type="range" min="0" max="1" step="0.001" value="0.5"><div class="ends"><span>0</span><span>1</span></div></div>
+<div class="presets"><span>β 프리셋</span><button type="button" data-beta="-1">−1</button><button type="button" data-beta="0">0</button><button type="button" data-beta="1">1</button><button type="button" data-beta="3">3</button></div>
+</section>
+<div class="plots">
+<section class="plot"><div class="plot-head"><div><p class="eyebrow">FUNCTION</p><h2>y(r; β)</h2></div><output id="y-value"></output></div><svg id="function-plot" viewBox="0 0 620 390" role="img" aria-label="r에 따른 함수 그래프"></svg><p class="legend"><span class="blue">● 함수</span><span>┄ 기준선 y = r</span></p></section>
+<section class="plot"><div class="plot-head"><div><p class="eyebrow">SECOND DERIVATIVE</p><h2>∂²y / ∂r²</h2></div><output id="d2-value"></output></div><svg id="derivative-plot" viewBox="0 0 620 390" role="img" aria-label="r에 대한 2차 미분 그래프"></svg><p class="legend"><span class="orange">● 2차 미분</span><span>세로축 자동 조절</span></p></section>
+</div>
+<p class="note">정의역: 0 ≤ r ≤ 1 · β 범위: −3 ≤ β ≤ 6 · 2차 미분은 β를 고정하고 r에 대해 계산합니다. 두 그래프의 세로축 범위는 서로 다릅니다.</p>
+<details><summary>2차 미분 계산식</summary><p>a = exp(−2β), N = r³ + ar(1−r)², D = (1−r)³ + r³ + 3ar(1−r)로 놓으면:</p><p class="equation">y″ = N″/D − (2N′D′ + ND″)/D² + 2N(D′)²/D³</p><p>N′ = 3r² + a(1−4r+3r²), N″ = 6r + a(−4+6r)<br>D′ = 3(a−1)(1−2r), D″ = 6(1−a)</p><p>유한한 β와 이 정의역에서 D &gt; 0입니다. 2차 미분 그래프는 위 해석식을 직접 계산합니다.</p></details>
+</main>
+<footer>Byunghwee Lee · Interactive research</footer>
+</body></html>

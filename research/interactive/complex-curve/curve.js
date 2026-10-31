@@ -4,10 +4,10 @@
 function curve(r, beta) {
   const a = Math.exp(-2 * beta);
   const q = 1 - r;
-  const n = r ** 3 + a * r * q ** 2;
+  const n = r ** 3 + a * r * (1 - r ** 2);
   const d = q ** 3 + r ** 3 + 3 * a * r * q;
-  const np = 3 * r ** 2 + a * (1 - 4 * r + 3 * r ** 2);
-  const npp = 6 * r + a * (-4 + 6 * r);
+  const np = 3 * r ** 2 + a * (1 - 3 * r ** 2);
+  const npp = 6 * r * (1 - a);
   const dp = 3 * (a - 1) * (1 - 2 * r);
   const dpp = 6 * (1 - a);
   return { y: n / d, d2: npp / d - (2 * np * dp + n * dpp) / d ** 2 + 2 * n * dp ** 2 / d ** 3 };

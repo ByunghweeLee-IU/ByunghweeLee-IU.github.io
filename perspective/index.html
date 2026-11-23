@@ -27,11 +27,18 @@
     .rule{background:#334b40}.viewport{background:#e6e3d5}
 
     .top-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:flex-end}
+    .mirror-direct-badge{position:absolute;right:24px;top:76px;z-index:2;background:#fffdf7ed;padding:6px 12px;border-radius:30px;font-size:12px;font-weight:750;color:#334b40;pointer-events:none}
+    .mirror-divider{position:absolute;top:0;bottom:0;left:var(--mirror-share,50%);transform:translateX(-50%);width:34px;background:transparent;border:0;z-index:3;cursor:ew-resize;touch-action:none;padding:0}
+    .mirror-divider:before{content:"";position:absolute;left:16px;top:0;bottom:0;border-left:2px solid #fffdf7;box-shadow:0 0 3px #334b40}
+    .mirror-divider:after{content:"↔";position:absolute;left:0;top:50%;transform:translateY(-50%);width:34px;height:42px;display:grid;place-items:center;background:#fffdf7;color:#334b40;border:1px solid #d3b98a;border-radius:9px;font-size:22px;box-shadow:0 2px 12px #334b4033}
+    .mirror-reveal-control{grid-column:1/-1}.mirror-view .mirror-toggle{z-index:4}
+    .mirror-view [hidden]{display:none!important}
+    @media(max-width:640px){.mirror-direct-badge{right:16px;top:90px;font-size:10px}.mirror-badge{max-width:85%;font-size:10px}}
     .mirror-intro{max-width:760px}.mirror-intro p{color:var(--muted)}
     .mirror-lab{background:var(--panel);border:1px solid var(--line);border-radius:19px;overflow:hidden;box-shadow:var(--shadow)}
     .mirror-view{position:relative;background:#e9e5d8}.mirror-view canvas{display:block;width:100%;aspect-ratio:1.8/1}
-    .mirror-view.is-mirror:after{content:"";position:absolute;inset:0;pointer-events:none;border:10px solid #98764d;box-shadow:inset 0 0 0 2px #d3b98a,inset 0 0 25px #49392344}
-    .mirror-badge{position:absolute;left:24px;top:23px;background:#fffdf7ed;padding:6px 12px;border-radius:30px;font-size:12px;font-weight:750;color:#334b40;pointer-events:none}
+    .mirror-view.has-panel:after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--mirror-share,50%);pointer-events:none;border:8px solid #98764d;border-right-width:2px;box-shadow:inset 0 0 0 1px #d3b98a,inset 0 0 18px #49392333}
+    .mirror-badge{position:absolute;z-index:2;left:24px;top:23px;background:#fffdf7ed;padding:6px 12px;border-radius:30px;font-size:12px;font-weight:750;color:#334b40;pointer-events:none}
     .mirror-toolbar{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:22px 26px;border-top:1px solid var(--line)}
     .mirror-toggle{background:var(--dark);color:#fffdf7;border:1px solid var(--dark);border-radius:9px;padding:12px 20px;font-weight:700}
     .mirror-view .mirror-toggle{position:absolute;top:23px;right:24px;z-index:1;font-size:13px;padding:9px 14px}
@@ -85,19 +92,20 @@
     <section class="simple"><h2>Why do horizontal vanishing points lie on the horizon?</h2><p>Parallel horizontal lines extend toward a common direction at infinity. Perspective projection maps that direction to a vanishing point on the horizon. A building’s <strong>vertical direction</strong> is different: when you tilt the camera up, vertical lines can converge toward a third vanishing point above the image; tilt down, and it can lie below.</p><p class="small-note">A modern geometric exploration inspired by Brunelleschi’s experiment; the buildings form an imagined piazza. Model assumptions: level ground, upright people, and an ideal pinhole camera with pitch rotation only. Earth’s curvature and lens distortion are ignored. The geometric horizon still exists when it falls outside the image.</p></section>
 
     <section class="section" id="mirror-lab" aria-labelledby="mirror-title">
-      <div class="mirror-intro"><span class="eyebrow">The mirror experiment</span><h2 id="mirror-title">A painting, or a view through a window?</h2><p>Brunelleschi invited viewers to compare a painted panel reflected in a mirror with the building in front of them. Here, turn the mirror on to see a painting made from one fixed viewpoint, then turn it off to look at a virtual Florentine piazza with an imagined cathedral.</p></div>
+      <div class="mirror-intro"><span class="eyebrow">The mirror experiment</span><h2 id="mirror-title">A painting, or a view through a window?</h2><p>Brunelleschi invited viewers to compare a painted panel reflected in a mirror with the building in front of them. Slide the mirror out of the way to compare its reflected painting with the virtual Florentine piazza behind it. Both views share the same image coordinates: at the original viewpoint, the cathedral’s edges line up across the divide.</p></div>
       <div class="mirror-lab">
-        <div class="mirror-view is-mirror" id="mirror-frame"><canvas id="mirror-scene" role="img" aria-label="Painted view of the virtual piazza from the original viewpoint">Compare a fixed perspective painting with the current view of a virtual piazza. Use the mirror button and viewpoint sliders below.</canvas><span class="mirror-badge" id="mirror-badge">MIRROR ON · PAINTED PANEL</span><button class="mirror-toggle" type="button" id="mirror-toggle" aria-pressed="true" aria-controls="mirror-scene">Mirror on — switch to the piazza</button></div>
-        <div class="mirror-toolbar"><p>Use the button in the image to switch views.</p><p>Painting viewpoint: centered · eye height 1.60 m</p></div>
+        <div class="mirror-view is-mirror" id="mirror-frame"><canvas id="mirror-scene" role="img" aria-label="Painted view of the virtual piazza from the original viewpoint">Compare a fixed perspective painting with the current view of a virtual piazza. Use the mirror button and viewpoint sliders below.</canvas><span class="mirror-badge" id="mirror-badge">REFLECTED PAINTING</span><span class="mirror-direct-badge" id="mirror-direct-badge">DIRECT VIEW · VIRTUAL PIAZZA</span><button class="mirror-divider" id="mirror-divider" type="button" role="slider" aria-label="Mirror edge position" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50 percent reflected painting" aria-controls="mirror-scene"></button><button class="mirror-toggle" type="button" id="mirror-toggle" aria-pressed="true" aria-controls="mirror-scene">Hide mirror</button></div>
+        <div class="mirror-toolbar"><p>Drag the vertical edge to move the mirror. Compare both views at once.</p><p>Painting viewpoint: centered · eye height 1.60 m</p></div>
         <div class="mirror-controls">
+          <div class="control mirror-reveal-control"><div class="control-header"><label for="mirror-reveal">Mirror coverage</label><output class="number" id="mirror-reveal-val" for="mirror-reveal">50% painting · 50% piazza</output></div><input id="mirror-reveal" type="range" min="0" max="100" step="1" value="50"><div class="scale"><span>0% · full direct view</span><span>100% · full reflected painting</span></div></div>
           <div class="control"><div class="control-header"><label for="mirror-offset">Move sideways</label><output class="number" id="mirror-offset-val" for="mirror-offset">Centered</output></div><input id="mirror-offset" type="range" min="-3" max="3" step="0.1" value="0"><div class="scale"><span>Left · −3 m</span><span>Right · +3 m</span></div></div>
           <div class="control"><div class="control-header"><label for="mirror-height">Change your eye height</label><output class="number" id="mirror-height-val" for="mirror-height">1.60 m</output></div><input id="mirror-height" type="range" min="0.8" max="4" step="0.1" value="1.6"><div class="scale"><span>0.8 m</span><span>4 m</span></div></div>
         </div>
         <div class="mirror-toolbar"><button class="mirror-reset" type="button" id="mirror-reset">Return to the original viewpoint</button><p>The painting stays fixed. Only your view of the piazza moves.</p></div>
-        <div class="mirror-status" role="status" aria-live="polite" aria-atomic="true"><strong id="mirror-alignment">You are at the painting’s viewpoint.</strong><p id="mirror-explanation">Toggle the mirror: the buildings and people line up in both views. The warm tint and frame identify the painted panel.</p></div>
+        <div class="mirror-status" role="status" aria-live="polite" aria-atomic="true"><strong id="mirror-alignment">You are at the painting’s viewpoint.</strong><p id="mirror-explanation">The painted and direct views line up across the mirror edge. Drag the divider to check the cathedral’s silhouette, doors, and dome. The warm tint identifies the reflection.</p></div>
       </div>
-      <div class="mirror-steps"><p><b>01 · Compare</b>Switch the mirror on and off. At the original viewpoint, the geometry matches.</p><p><b>02 · Move</b>Step sideways or change eye height. Toggle again to reveal the mismatch.</p><p><b>03 · Realign</b>Return to the original viewpoint and the two views line up again.</p></div>
-      <p class="small-note">A digital analogy using an imagined Florentine cathedral and piazza, rather than a reconstruction of the original Baptistery or apparatus. The painted panel is shown in its final reflected orientation. The frame and warm tint mark the mirror view; there is no photograph or live camera feed. This comparison has its own controls, independent of the simulator above.</p>
+      <div class="mirror-steps"><p><b>01 · Compare</b>Drag the mirror edge across the cathedral. At the original viewpoint, both halves line up.</p><p><b>02 · Move</b>Step sideways or change eye height. The direct view shifts while the reflected painting stays fixed.</p><p><b>03 · Realign</b>Return to the original viewpoint and the two views line up again.</p></div>
+      <p class="small-note">A digital analogy using an imagined Florentine cathedral and piazza, rather than a reconstruction of the original Baptistery or apparatus. The painted panel is shown in its final reflected orientation. The left region is the reflected painting and the right is the direct virtual view. The moving edge is a screen-space analogy for moving the mirror. The frame and warm tint mark the reflection; there is no photograph or live camera feed. This comparison has its own controls, independent of the simulator above.</p>
     </section>
   </main>
   <footer class="shell footer"><span>Sightlines & Horizons · Perspective Lab</span><span>Byunghwee Lee · Interactive perspective lab</span></footer>
@@ -312,22 +320,52 @@
       mirrorCtx.setTransform(dpr,0,0,dpr,0,0);
       const observerX=Number(el('mirror-offset').value);
       const height=Number(el('mirror-height').value);
-      if(mirrorOn)mirrorCtx.drawImage(paintedPanel,0,0,w,h);
-      else renderScene(mirrorCtx,w,h,{...reference,height},{annotations:false,observerX,architecture:'cathedral'});
+      const coverage=Number(el('mirror-reveal').value);
+      const share=mirrorOn?coverage/100:0;
+      // Render the current scene underneath, then reveal the fixed painting
+      // through a screen-space mask. Both use exactly the same projection.
+      renderScene(mirrorCtx,w,h,{...reference,height},{annotations:false,observerX,architecture:'cathedral'});
+      if(share>0){
+        mirrorCtx.save();mirrorCtx.beginPath();mirrorCtx.rect(0,0,w*share,h);mirrorCtx.clip();
+        mirrorCtx.drawImage(paintedPanel,0,0,w,h);mirrorCtx.restore();
+      }
+      el('mirror-frame').style.setProperty('--mirror-share',`${share*100}%`);
+      el('mirror-frame').classList.toggle('has-panel',share>0);
+      el('mirror-divider').hidden=!mirrorOn;
+      el('mirror-divider').setAttribute('aria-valuenow',String(coverage));
+      el('mirror-divider').setAttribute('aria-valuetext',`${coverage} percent reflected painting`);
+      el('mirror-badge').hidden=share<.18;
+      el('mirror-direct-badge').hidden=share>.82;
+      el('mirror-reveal-val').value=mirrorOn?`${coverage}% painting · ${100-coverage}% piazza`:'Mirror hidden · 100% piazza';
       el('mirror-frame').classList.toggle('is-mirror',mirrorOn);
-      el('mirror-badge').textContent=mirrorOn?'MIRROR ON · PAINTED PANEL':'MIRROR OFF · VIRTUAL PIAZZA';
-      el('mirror-toggle').textContent=mirrorOn?'Mirror on — switch to the piazza':'Mirror off — reveal the painting';
+      el('mirror-badge').textContent='REFLECTED PAINTING';
+      el('mirror-toggle').textContent=mirrorOn?'Hide mirror':'Show mirror';
       el('mirror-toggle').setAttribute('aria-pressed',String(mirrorOn));
-      mirrorCanvas.setAttribute('aria-label',mirrorOn?'Fixed painting of the piazza, reflected in the mirror':`View of the virtual piazza: eye height ${height.toFixed(2)} meters, horizontal offset ${observerX.toFixed(1)} meters`);
+      mirrorCanvas.setAttribute('aria-label',`Comparison: ${Math.round(share*100)} percent fixed reflected painting on the left and ${Math.round((1-share)*100)} percent current piazza on the right. Eye height ${height.toFixed(2)} meters, horizontal offset ${observerX.toFixed(1)} meters.`);
       el('mirror-offset-val').textContent=Math.abs(observerX)<.001?'Centered':`${observerX>0?'Right':'Left'} ${Math.abs(observerX).toFixed(1)} m`;
       el('mirror-height-val').textContent=height.toFixed(2)+' m';
       const aligned=Math.abs(observerX)<.001&&Math.abs(height-reference.height)<.001;
       el('mirror-alignment').textContent=aligned?'You are at the painting’s viewpoint.':'You have moved away from the painting’s viewpoint.';
-      el('mirror-explanation').textContent=aligned?'Toggle the mirror: the buildings and people line up in both views. The warm tint and frame identify the painted panel.':`Your eye height is ${height.toFixed(2)} m and your sideways offset is ${observerX.toFixed(1)} m. Toggle the mirror to compare this view with the fixed painting. Return to the original viewpoint to restore the match.`;
+      el('mirror-explanation').textContent=aligned?'The painted and direct views line up across the mirror edge. Drag the divider to check the cathedral’s silhouette, doors, and dome. The warm tint identifies the reflection.':`Your eye height is ${height.toFixed(2)} m and your sideways offset is ${observerX.toFixed(1)} m. Compare the cathedral across the divider: the direct view moves while the painting remains fixed. Return to the original viewpoint to restore the match.`;
     }
     el('mirror-toggle').addEventListener('click',()=>{mirrorOn=!mirrorOn;updateMirror()});
-    ['mirror-offset','mirror-height'].forEach(id=>el(id).addEventListener('input',updateMirror));
-    el('mirror-reset').addEventListener('click',()=>{el('mirror-offset').value=0;el('mirror-height').value=1.6;updateMirror()});
+    ['mirror-offset','mirror-height','mirror-reveal'].forEach(id=>el(id).addEventListener('input',updateMirror));
+    el('mirror-reset').addEventListener('click',()=>{el('mirror-offset').value=0;el('mirror-height').value=1.6;el('mirror-reveal').value=50;mirrorOn=true;updateMirror()});
+    const divider=el('mirror-divider');
+    let dragging=false;
+    function dragMirror(event){
+      const bounds=el('mirror-frame').getBoundingClientRect();
+      el('mirror-reveal').value=Math.round(Math.max(0,Math.min(100,(event.clientX-bounds.left)/bounds.width*100)));
+      updateMirror();
+    }
+    divider.addEventListener('pointerdown',event=>{if(event.button!==0)return;dragging=true;divider.setPointerCapture(event.pointerId);dragMirror(event)});
+    divider.addEventListener('pointermove',event=>{if(dragging)dragMirror(event)});
+    ['pointerup','pointercancel','lostpointercapture'].forEach(type=>divider.addEventListener(type,()=>{dragging=false}));
+    divider.addEventListener('keydown',event=>{
+      const current=Number(el('mirror-reveal').value),step=event.shiftKey?10:1;
+      const value=event.key==='ArrowLeft'?current-step:event.key==='ArrowRight'?current+step:event.key==='Home'?0:event.key==='End'?100:null;
+      if(value!==null){event.preventDefault();el('mirror-reveal').value=Math.max(0,Math.min(100,value));updateMirror()}
+    });
     window.addEventListener('resize',updateMirror,{passive:true});
     updateMirror();
     inputs.forEach(i=>i.addEventListener('input',sync));

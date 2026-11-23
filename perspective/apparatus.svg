@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360" role="img" aria-labelledby="title desc">
+<title id="title">Brunelleschi’s mirror comparison: a simplified apparatus</title><desc id="desc">From left to right: the eye, a peephole through a panel with the painted side facing right, a movable mirror facing the painting, and the real Baptistery beyond. The same viewing direction allows comparison when the mirror is removed. Diagrammatic layout, not a ray trace.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="m0 0 8 4-8 4Z" fill="#ad5b3c"/></marker><pattern id="silver" width="8" height="8" patternUnits="userSpaceOnUse"><path d="m0 8 8-8" stroke="#b9cbd0" stroke-width="2"/></pattern></defs>
+<rect width="1100" height="360" rx="16" fill="#fffdf7"/>
+<g font-family="system-ui,sans-serif" fill="#334b40"><text x="30" y="36" font-size="12" letter-spacing="2" fill="#ad5b3c">SCHEMATIC SIDE VIEW · NOT TO SCALE</text>
+<path d="M100 200H1000" stroke="#a9b8ae" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="350" y="225" font-size="13" fill="#6d7d71">same viewing direction</text>
+<path d="M67 200Q100 165 134 200Q100 235 67 200Z" fill="#e3e9df" stroke="#526d61" stroke-width="2"/><circle cx="104" cy="200" r="10" fill="#526d61"/>
+<rect x="280" y="75" width="15" height="112" fill="#a87950"/><rect x="280" y="213" width="15" height="72" fill="#a87950"/>
+<path d="M295 75V187M295 213V285" stroke="#ad5b3c" stroke-width="5"/>
+<path d="M280 188 295 194M280 212 295 206" stroke="#80513c" stroke-width="2"/>
+<text x="205" y="175" font-size="13">peephole →</text>
+<path d="M310 110H390" stroke="#ad5b3c" stroke-width="2" marker-end="url(#arrow)"/><text x="313" y="94" font-size="13" fill="#ad5b3c">painted face</text>
+<rect x="545" y="123" width="14" height="151" rx="3" fill="#c6d5d8" stroke="#526d61" stroke-width="2"/><rect x="545" y="124" width="7" height="149" fill="url(#silver)"/>
+<path d="M565 120Q630 90 630 53" stroke="#ad5b3c" stroke-width="2" fill="none" marker-end="url(#arrow)"/><text x="650" y="76" font-size="13" fill="#ad5b3c">move mirror aside</text>
+<text x="446" y="302" font-size="12" fill="#6d7d71">reflecting surface faces the panel</text>
+<g stroke="#718773" stroke-width="2"><path d="M858 137 896 116 1000 128 1017 151V275L858 275Z" fill="#e9e4d3"/><path d="M858 137 944 144 1017 151" fill="none"/><path d="M858 137 937 91 1000 128 896 116Z" fill="#c4ac8a"/><path d="M896 116 944 144V275M858 173H944M858 211H944M944 173 1017 180M944 211 1017 218" fill="none"/><path d="M886 275V233Q900 215 914 233V275" fill="#526d61"/><path d="M936 91V75H949V98" fill="#e9e4d3"/></g>
+<g font-size="16" font-weight="700"><text x="49" y="334">01 · Eye</text><text x="217" y="334">02 · Painted panel</text><text x="484" y="334">03 · Mirror</text><text x="865" y="334">04 · Building</text></g>
+<text x="30" y="65" font-size="13" fill="#6d7d71">Mirror in: reflected panel. Mirror out: direct view of the building.</text>
+</g></svg>

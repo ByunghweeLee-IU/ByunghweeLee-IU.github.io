@@ -92,13 +92,13 @@ body{padding-left:168px}
 .top .museum-back{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;padding:5px 10px;background:#fffdf78c;color:var(--green);font-size:12px;font-weight:650}
 .top .museum-back:hover{background:var(--panel);border-color:#b9c2b5}
 @media(max-width:1179px){
- body{padding-left:0;padding-top:48px}
- .contents-nav{top:10px;left:14px;width:min(280px,calc(100vw - 28px));max-height:calc(100dvh - 24px);border:1px solid var(--line);border-radius:8px;background:#fffdf7f2;box-shadow:0 3px 12px #334b400d}
+ body{padding-left:0;padding-top:0}
+ .contents-nav{position:static;margin:14px 14px 0;width:min(280px,calc(100vw - 28px));max-height:calc(100dvh - 24px);border:1px solid var(--line);border-radius:8px;background:#fffdf7f2;box-shadow:0 3px 12px #334b400d}
  .contents-nav summary{padding:8px 11px;cursor:pointer;pointer-events:auto;letter-spacing:.04em}
  .contents-nav summary:after{content:'⌄';margin-left:auto;font-size:13px}
  .contents-nav[open] summary:after{content:'⌃'}
  .contents-current{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-transform:none;letter-spacing:0;font-weight:500}
  .contents-nav nav{padding:0 10px 10px}
  .contents-nav a{padding-top:9px;padding-bottom:9px;font-size:12px}
- .step,#intro,#the-apparatus,#drawing-notes{scroll-margin-top:62px}
+ .step,#intro,#the-apparatus,#drawing-notes{scroll-margin-top:24px}
 }

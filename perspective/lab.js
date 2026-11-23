@@ -235,10 +235,10 @@ function drawDuomo(prefix='duomo'){
  const inside=vp.x>=0&&vp.x<=w;
  cameraGuides(ctx,w,h,result,{showVP:el(prefix+'-vp').checked,showB:el(prefix+'-vpb').checked,showHorizon:el(prefix+'-horizon').checked});
  el(prefix+'-height-value').value=height.toFixed(2)+' m';el(prefix+'-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
- el(prefix+'-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el(prefix+'-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
+ el(prefix+'-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el(prefix+'-yaw-value').value=yaw===0?'Ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
  if(el(prefix+'-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
  sideView(prefix+'-side',pitch,height);
- el(prefix+'-status').textContent=`Gaze-to-horizon angle: ${Math.abs(pitch)}°. ${yaw===0?'A is centered horizontally; B is at infinity.':'A (blue) and B (purple) share the horizon; either may fall outside the image.'}`;
+ el(prefix+'-status').textContent=`Tilt: ${Math.abs(pitch)}°. ${yaw===0?'A centered; B at infinity.':'A & B share the horizon; VPs may be offscreen.'}`;
  canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
 }
 for(const prefix of ['preview','duomo']){

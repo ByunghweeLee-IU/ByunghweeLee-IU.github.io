@@ -34,3 +34,31 @@
 .experiment-controls .scale{font-size:10px;line-height:1.4;margin-top:3px}
 .guide-controls label.family-a:before,.guide-controls label.family-b:before{display:none}
 .guide-controls>span{display:flex;flex-wrap:wrap;gap:6px 14px;flex-basis:100%}
+
+/* Free exploration: a landscape viewport with a compact, readable sidebar. */
+.experiment--free{grid-template-columns:minmax(0,1fr) 276px}
+.experiment--free .experiment-view{min-height:420px}
+.experiment--free .experiment-controls .guide-controls{padding:10px 14px 6px;gap:6px 12px}
+.experiment--free .guide-controls label{font-size:12px;gap:5px;line-height:20px}
+.experiment--free .guide-controls input{width:15px;height:15px;margin:0}
+.experiment--free .guide-controls>span{gap:4px 12px;line-height:15px}
+.experiment--free .guide-controls span{font-size:10px}
+.experiment--free .experiment-controls .control{padding:5px 14px}
+.experiment--free .control-header{flex-wrap:nowrap;gap:4px;margin-bottom:2px;line-height:22px}
+.experiment--free .control label{font-size:12px;white-space:nowrap}
+.experiment--free output{font-size:11px;white-space:nowrap}
+.experiment--free .range-value{gap:4px}
+.experiment--free .range-reset{width:22px;height:22px;font-size:15px}
+.experiment--free .experiment-controls input[type=range]{height:18px}
+.experiment--free .experiment-controls .scale{font-size:9px;margin-top:1px}
+.experiment--free .experiment-controls .mirror-bottom{display:block;padding:7px 14px 12px}
+.experiment--free .mirror-bottom p{font-size:11px;line-height:1.45;min-height:32px;margin-bottom:7px}
+.experiment--free .preset-row{gap:5px;margin-bottom:5px}
+.experiment--free .mirror-bottom button{font-size:10px;line-height:16px;padding:4px 8px;border-radius:5px}
+@media(max-width:900px){
+ .experiment--free{grid-template-columns:1fr}
+ .experiment--free .experiment-view{min-height:0;aspect-ratio:1.65/1}
+ .experiment--free .experiment-controls .free-controls{grid-template-columns:1fr 1fr}
+ .experiment--free .mirror-bottom p{min-height:0}
+}
+@media(max-width:540px){.experiment--free .experiment-controls .free-controls{grid-template-columns:1fr}}

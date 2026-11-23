@@ -166,9 +166,11 @@ body{font-size:17px}
 .experiment-recap li>span{word-break:keep-all;overflow-wrap:break-word}
 .closing .recap-practice{font-family:inherit;font-size:16px;line-height:1.8;color:var(--muted);max-width:850px;margin-top:28px}
 .next-question{margin-top:34px;max-width:850px;scroll-margin-top:24px}
-.next-question>a{font-size:11px;text-decoration:none;letter-spacing:.04em}
-.next-question>a:hover{text-decoration:underline}
+.next-question>.eyebrow{font-size:11px;letter-spacing:.04em}
 .closing .next-question p{font-family:inherit;font-size:22px;font-weight:600;line-height:1.65;color:var(--green);margin:9px 0 0}
+.next-reading{margin-top:14px;max-width:780px}
+.closing .next-question .next-reading p{font-size:16px;font-weight:400;line-height:1.8;color:var(--muted);margin:0 0 7px}
+.next-reading a{font-size:14px;line-height:1.7;color:#80513c}
 @media(max-width:700px){.closing .next-question p{font-size:20px}}
 @media(max-width:700px){
  .experiment-recap{gap:20px}

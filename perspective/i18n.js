@@ -239,7 +239,11 @@ const korean={
   "A question to take with you": "다음 탐구로 이어지는 질문",
   "A further question · Russian icons ↗": "다음 질문 · 러시아 성상화 ↗",
   "What might a picture reveal if we let go of a single fixed observer?": "하나의 고정된 관찰자라는 가정을 버리면, 그림 속 세계는 어떻게 달라질까요?",
-  "Scroll: page · Drag / Shift+scroll: pan · + / −: zoom": "스크롤: 페이지 이동 · 드래그 / Shift+스크롤: 시선 이동 · + / −: 확대·축소"
+  "Scroll: page · Drag / Shift+scroll: pan · + / −: zoom": "스크롤: 페이지 이동 · 드래그 / Shift+스크롤: 시선 이동 · + / −: 확대·축소",
+  "A further question": "다음 질문",
+  "To explore this question through reverse perspective and multiple viewpoints in Russian icons, read Clemena Antonova’s essay.": "이 질문을 러시아 성상화의 역원근법과 다중시점 표현으로 더 탐구하고 싶다면, 클레메나 안토노바의 글을 읽어보세요.",
+  "Visuality among Cubism, Iconography, and Theosophy (PDF) ↗": "「입체주의·성상화·신지학의 시각성」 읽기 (PDF) ↗",
+  "Visuality among Cubism, Iconography, and Theosophy: Pavel Florensky’s Theory of Iconic Space": "입체주의·성상화·신지학의 시각성: 파벨 플로렌스키의 성상 공간 이론"
 };
 
 const key='brunelleschi-language';

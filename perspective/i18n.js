@@ -238,7 +238,8 @@ const korean={
   "Why was the painting reversed?": "보충 설명: 그림을 미리 좌우 반전한 이유",
   "A question to take with you": "다음 탐구로 이어지는 질문",
   "A further question · Russian icons ↗": "다음 질문 · 러시아 성상화 ↗",
-  "What might a picture reveal if we let go of a single fixed observer?": "하나의 고정된 관찰자라는 가정을 버리면, 그림 속 세계는 어떻게 달라질까요?"
+  "What might a picture reveal if we let go of a single fixed observer?": "하나의 고정된 관찰자라는 가정을 버리면, 그림 속 세계는 어떻게 달라질까요?",
+  "Scroll: page · Drag / Shift+scroll: pan · + / −: zoom": "스크롤: 페이지 이동 · 드래그 / Shift+스크롤: 시선 이동 · + / −: 확대·축소"
 };
 
 const key='brunelleschi-language';

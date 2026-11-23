@@ -263,11 +263,14 @@ for(const prefix of ['preview','duomo']){
  const canvas=el(prefix+'-scene');
  const setRange=(suffix,value)=>{const input=el(prefix+'-'+suffix),step=Number(input.step)||1;input.value=Math.max(Number(input.min),Math.min(Number(input.max),Math.round(value/step)*step))};
  const moveForward=step=>{travel[prefix]=Math.max(-80,Math.min(90,Math.round((travel[prefix]+step)*10)/10));drawDuomo(prefix)};
+ let wheelPanX=0,wheelPanY=0;
+ const clearWheelPan=()=>{wheelPanX=0;wheelPanY=0};
  el(prefix+'-forward').addEventListener('click',()=>moveForward(10));
  el(prefix+'-back').addEventListener('click',()=>moveForward(-10));
  let drag=null;
  canvas.addEventListener('pointerdown',event=>{
   if(event.button!==0||!event.isPrimary)return;
+  clearWheelPan();
   drag={id:event.pointerId,x:event.clientX,y:event.clientY,yaw:Number(el(prefix+'-yaw').value),pitch:Number(el(prefix+'-pitch').value)};
   canvas.setPointerCapture(event.pointerId);canvas.classList.add('is-dragging');canvas.focus({preventScroll:true});
  });
@@ -281,10 +284,27 @@ for(const prefix of ['preview','duomo']){
  const endDrag=()=>{drag=null;canvas.classList.remove('is-dragging')};
  ['pointerup','pointercancel','lostpointercapture'].forEach(type=>canvas.addEventListener(type,endDrag));
  canvas.addEventListener('wheel',event=>{
-  if(event.ctrlKey)return;
+  // Ordinary wheel and trackpad momentum belong to the page. Only an
+  // intentional pinch/Ctrl gesture or Shift-pan takes over the scene.
+  if(!event.ctrlKey&&!event.shiftKey){clearWheelPan();return}
   event.preventDefault();
-  const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?canvas.clientHeight:1);
-  moveForward(-Math.max(-100,Math.min(100,pixels))*.1);
+  const unit=event.deltaMode===1?16:event.deltaMode===2?canvas.clientHeight:1;
+  if(event.ctrlKey){
+   clearWheelPan();
+   moveForward(-Math.max(-100,Math.min(100,event.deltaY*unit))*.1);
+   return;
+  }
+  const bounds=canvas.getBoundingClientRect();
+  const dx=wheelPanX+event.deltaX*unit*160/bounds.width;
+  const dy=wheelPanY-event.deltaY*unit*80/bounds.height;
+  const yawStep=Math.round(dx),pitchStep=Math.round(dy);
+  // Preserve small trackpad deltas rather than rounding each one away.
+  wheelPanX=dx-yawStep;wheelPanY=dy-pitchStep;
+  if(yawStep||pitchStep){
+   setRange('yaw',Number(el(prefix+'-yaw').value)+yawStep);
+   setRange('pitch',Number(el(prefix+'-pitch').value)+pitchStep);
+   drawDuomo(prefix);
+  }
  },{passive:false});
  canvas.addEventListener('keydown',event=>{
   const arrows={ArrowLeft:['yaw',-2],ArrowRight:['yaw',2],ArrowUp:['pitch',2],ArrowDown:['pitch',-2]};
@@ -292,10 +312,10 @@ for(const prefix of ['preview','duomo']){
   else if(event.key==='+'||event.key==='='){event.preventDefault();moveForward(10)}
   else if(event.key==='-'){event.preventDefault();moveForward(-10)}
  });
- el(prefix+'-two-point').addEventListener('click',()=>{el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=45;el(prefix+'-vpb').checked=true;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
- el(prefix+'-center').addEventListener('click',()=>{el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=0;drawDuomo(prefix)});
+ el(prefix+'-two-point').addEventListener('click',()=>{clearWheelPan();el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=45;el(prefix+'-vpb').checked=true;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
+ el(prefix+'-center').addEventListener('click',()=>{clearWheelPan();el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=0;drawDuomo(prefix)});
  ['height','offset','pitch','yaw','vp','vpb','horizon'].forEach(suffix=>el(prefix+'-'+suffix).addEventListener('input',()=>drawDuomo(prefix)));
- el(prefix+'-reset').addEventListener('click',()=>{travel[prefix]=DEFAULT_TRAVEL;for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vpb').checked=false;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
+ el(prefix+'-reset').addEventListener('click',()=>{clearWheelPan();travel[prefix]=DEFAULT_TRAVEL;for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vpb').checked=false;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
 }
 document.querySelectorAll('[data-range-reset]').forEach(button=>button.addEventListener('click',()=>{const input=el(button.dataset.rangeReset);input.value=input.defaultValue;input.dispatchEvent(new Event('input',{bubbles:true}))}));
 function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo();drawDuomo('preview')}window.addEventListener('resize',drawAll,{passive:true});drawAll();

@@ -87,6 +87,10 @@ body{padding-left:168px}
 .contents-nav a[aria-current]>span:first-child{color:var(--accent)}
 .contents-current{display:none}
 #intro,#the-apparatus,#drawing-notes{scroll-margin-top:24px}
+.top{align-items:center;flex-wrap:wrap;gap:12px 20px}
+.top nav{align-items:center;flex-wrap:wrap;gap:12px 20px}
+.top .museum-back{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:6px;padding:5px 10px;background:#fffdf78c;color:var(--green);font-size:12px;font-weight:650}
+.top .museum-back:hover{background:var(--panel);border-color:#b9c2b5}
 @media(max-width:1179px){
  body{padding-left:0;padding-top:48px}
  .contents-nav{top:10px;left:14px;width:min(280px,calc(100vw - 28px));max-height:calc(100dvh - 24px);border:1px solid var(--line);border-radius:8px;background:#fffdf7f2;box-shadow:0 3px 12px #334b400d}

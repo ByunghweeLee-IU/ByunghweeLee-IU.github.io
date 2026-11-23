@@ -51,8 +51,8 @@
     "title": "Mini Projects",
     "path": "visualization",
     "url": "/visualization/",
-    "content": "A collection of small interactive projects, visual experiments, and research tools exploring science, perception, history, and art.\n\n<a class=\"perspective-feature\" href=\"/perspective/\">\n  <img src=\"/assets/files/perspective-lab-preview.svg\" alt=\"A perspective scene with a street grid converging on the horizon, buildings, and people at different distances\" width=\"1200\" height=\"620\">\n  <span class=\"perspective-feature-body\">\n    <span class=\"perspective-feature-tag\">INTERACTIVE LAB</span>\n    <spa",
-    "published": "2026-11-23T03:35:15.236560+00:00",
+    "content": "A collection of small interactive projects, visual experiments, and research tools exploring science, perception, history, and art.\n\n## Interactive Perspective Lab\n<a class=\"perspective-feature\" href=\"/perspective/\">\n  <img src=\"/assets/files/perspective-lab-preview.svg\" alt=\"A perspective scene with a street grid converging on the horizon, buildings, and people at different distances\" width=\"1200\" height=\"620\">\n  <span class=\"perspective-feature-body\">\n    <span class=\"perspective-feature-tag\">",
+    "published": "2026-11-23T03:37:39.280312+00:00",
     "tags": []
   },
   {

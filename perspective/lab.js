@@ -187,16 +187,7 @@ function sideView(id,pitch,height=1.6){
  const arc=Math.abs(pitch)<.1?'':`<path d="M ${eyeX+radius} ${eyeY} A ${radius} ${radius} 0 0 ${pitch>0?0:1} ${arcX} ${arcY}" fill="none" stroke="#436f7e" stroke-width="1.3"/>`;
  el(id).innerHTML=`<title>Side view: gaze ${Math.abs(pitch)} degrees ${pitch>0?'above':pitch<0?'below':'along'} the horizontal</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".95" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="13" y="18" font-size="9" letter-spacing=".8" fill="#697267">SIDE VIEW · PITCH ONLY</text><path d="M15 ${ground}H224" stroke="#bdc3b3" stroke-width="1.5"/><rect x="176" y="48" width="39" height="71" fill="#e4dfcc" stroke="#889b85"/><path d="m171 48 24-17 25 17Z" fill="#b97953" stroke="#889b85"/><path d="M186 119V101Q195 91 204 101V119M176 72H215M176 87H215" fill="none" stroke="#889b85"/><circle cx="${eyeX}" cy="${eyeY}" r="5" fill="#334b40"/><path d="M${eyeX} ${eyeY+7}V${ground-12}m0 0-8 12m8-12 8 12" fill="none" stroke="#334b40" stroke-width="2.6" stroke-linecap="round"/><path d="M${eyeX} ${eyeY}H224" stroke="#ad5b3c" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M${eyeX} ${eyeY}L${eyeX+length} ${endY}" stroke="#436f7e" stroke-width="2" stroke-dasharray="5 3"/>${arc}<text x="69" y="${pitch>0?eyeY-11:eyeY+17}" font-size="11" font-weight="700" fill="#436f7e">${pitch>0?'+':''}${pitch}°</text><text x="18" y="138" font-size="9" fill="#697267">Eye</text><text x="174" y="138" font-size="9" fill="#697267">Building</text></g>`;
 }
-function pitchAngle(ctx,w,h,pitch,horizon){
- const compact=w<=500,x=w/2+(compact?18:28),y=h/2;
- ctx.save();ctx.strokeStyle='#526d61';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,horizon);ctx.stroke();ctx.setLineDash([]);
- for(const yy of [y,horizon]){ctx.beginPath();ctx.moveTo(x-4,yy);ctx.lineTo(x+4,yy);ctx.stroke()}
- const text=`${pitch>0?'+':pitch<0?'−':''}${Math.abs(pitch)}°`;
- const yy=pitch===0?y+(compact?16:22):(y+horizon)/2;
- ctx.font=compact?'600 10px system-ui,sans-serif':'bold 12px system-ui,sans-serif';const tw=ctx.measureText(text).width;
- ctx.fillStyle=compact?'rgba(255,253,247,.65)':'rgba(255,253,247,.85)';ctx.fillRect(x+(compact?6:8),yy-(compact?10:13),tw+(compact?8:12),compact?16:22);ctx.fillStyle='#334b40';ctx.fillText(text,x+(compact?10:14),yy+(compact?1:2));ctx.restore();
-}
-function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);const {horizon}=renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});pitchAngle(ctx,w,h,pitch,horizon);sideView('pitch-side',pitch);el('view-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;canvas.setAttribute('aria-label',`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. The horizon is ${Math.abs(pitch)} degrees ${pitch>0?'below':pitch<0?'above':'level with'} the central gaze direction.`)}
+function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);const {horizon}=renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});sideView('pitch-side',pitch);el('view-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;canvas.setAttribute('aria-label',`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. The horizon is ${Math.abs(pitch)} degrees ${pitch>0?'below':pitch<0?'above':'level with'} the central gaze direction.`)}
 
 function drawVP(){const {ctx,w,h}=prepare('vp-scene');renderScene(ctx,w,h,base,{annotations:false});guides(ctx,w,h,{vp:el('vp-visible').checked,horizon:el('horizon-visible').checked})}
 let mirrorOn=true;
@@ -258,7 +249,6 @@ function drawDuomo(prefix='duomo'){
  cameraGuides(ctx,w,h,result,{showVP:el(prefix+'-vp').checked,showB:el(prefix+'-vpb').checked,showHorizon:el(prefix+'-horizon').checked});
  el(prefix+'-height-value').value=height.toFixed(2)+' m';el(prefix+'-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
  el(prefix+'-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el(prefix+'-yaw-value').value=yaw===0?'Ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
- if(el(prefix+'-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
  sideView(prefix+'-side',pitch,height);
  el(prefix+'-status').textContent=`Tilt: ${Math.abs(pitch)}°. ${yaw===0?'A centered; B at infinity.':'A & B share the horizon; VPs may be offscreen.'}`;
  el(prefix+'-travel').value=Number((118-travel[prefix]).toFixed(1))+' m away';

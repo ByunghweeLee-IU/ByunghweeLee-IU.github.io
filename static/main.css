@@ -97,6 +97,26 @@ article {
   color: var(--text-primary);
 }
 
+.page-header-illustrated {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.page-header-copy {
+  min-width: 0;
+}
+
+.page-header-illustration {
+  display: block;
+  flex: 0 0 144px;
+  width: 144px;
+  height: 144px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 section {
   width: 100%;
   padding: 0.5rem 0;
@@ -1026,6 +1046,16 @@ html[data-theme="dark"] .social-github {
 }
 
 @media (max-width: 720px) {
+  .page-header-illustrated {
+    gap: 0.9rem;
+  }
+
+  .page-header-illustration {
+    flex-basis: 88px;
+    width: 88px;
+    height: 88px;
+  }
+
   body {
     font-size: 1rem;
     padding: 0 1rem;

@@ -64,7 +64,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-art-translations">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-compact-illustrations">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Google tag (gtag.js) -->
@@ -154,6 +154,7 @@
 
 
 <header>
+    
     <h1>데이터로 본 예술 (4) - 인상의 비밀: 터너와 모네의 작품에 담긴 대기 오염의 변화</h1>
     
     <p class="page-author" rel="author">Byunghwee Lee (이병휘)</p>
@@ -168,6 +169,7 @@
             
         
     </p>
+    
     
 </header>
 
@@ -288,7 +290,7 @@ Phys. Eng. Sci. 462, 3775–3788 (2006).</p>
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo), .page-header-illustration'))
                 .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 

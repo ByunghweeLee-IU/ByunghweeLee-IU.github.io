@@ -30,7 +30,7 @@
     <!-- JSON-LD structured data for author/site -->
     
     
-    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/files/hwiki_illust.png">
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
     <meta property="og:site_name" content="Byunghwee Lee">
 
@@ -41,7 +41,7 @@
     <meta name="twitter:description" content="Entry page for the public wiki.">
     
     
-    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/hwiki_illust.png">
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
 
     <script>
@@ -62,7 +62,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-art-translations">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-compact-illustrations">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Google tag (gtag.js) -->
@@ -149,7 +149,8 @@
 
 
 
-<header>
+<header class="page-header-illustrated">
+    <div class="page-header-copy">
     <h1>Hwiki: Home</h1>
     
     
@@ -161,6 +162,10 @@
         
     </p>
     
+    
+    </div>
+    <img class="page-header-illustration" src="/assets/files/hwiki_illust.png" alt="Hwiki illustration" width="144" height="144" decoding="async">
+    
 </header>
 
 
@@ -169,8 +174,7 @@
 <section class="content">
     <h2 id="about-this-wiki">About This Wiki<a class="header-anchor" href="#about-this-wiki" title="Link to this section">#</a></h2>
 <p>Welcome to the public wiki section of my site!👋 
-This wiki is where I collect my thoughts, essays, research ideas and useful information. 
-<img alt="Hwiki illustration" src="/assets/files/hwiki_illust.png" /></p>
+This wiki is where I collect my thoughts, essays, research ideas and useful information. </p>
 <h2 id="science-essays">Science Essays<a class="header-anchor" href="#science-essays" title="Link to this section">#</a></h2>
 <p><strong>The Hidden Secrets of Art Through Data</strong></p>
 <p>Originally written in Korean. Each essay is also available in English.</p>
@@ -210,6 +214,21 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
 <section class="recent-pages">
     <h2>Recent Pages</h2>
     <ul class="page-list">
+        
+        <li>
+            <span class="page-date">2026-11-23</span>
+            <a href="/cv/">CV</a>
+        </li>
+        
+        <li>
+            <span class="page-date">2026-11-23</span>
+            <a href="/talks/">Talks</a>
+        </li>
+        
+        <li>
+            <span class="page-date">2026-11-23</span>
+            <a href="/research/">Research</a>
+        </li>
         
         <li>
             <span class="page-date">2026-11-23</span>
@@ -296,21 +315,6 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
             <a href="/wiki/notes/all-about-embedding/01_word2vec_en/">[All-about-embedding 1] Embedding Basics — Word2Vec, SGNS, and Gravity</a>
         </li>
         
-        <li>
-            <span class="page-date">2026-08-26</span>
-            <a href="/wiki/notes/all-about-embedding/02_word2vec_implementation_en/">[All-about-embedding 2] Implementing Word2Vec — From Data to Meaning Axes</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-08-26</span>
-            <a href="/wiki/notes/all-about-embedding/03_word2vec_applications_en/">[All-about-embedding 3] Embedding Applications — Reading Culture Through Semantic Space</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-08-26</span>
-            <a href="/wiki/notes/all-about-embedding/04_embedding_research_companion_en/">[All-about-embedding 4] Embedding Research Companion — Design, Practice, and Further Reading</a>
-        </li>
-        
     </ul>
 </section>
 
@@ -368,7 +372,7 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo), .page-header-illustration'))
                 .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 

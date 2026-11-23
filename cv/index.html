@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://ByunghweeLee-IU.github.io/cv/">
     
     
-    <meta property="article:modified_time" content="2026-05-03">
+    <meta property="article:modified_time" content="2026-11-23">
     
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
@@ -30,7 +30,7 @@
     <!-- JSON-LD structured data for author/site -->
     
     
-    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/files/cv_illust.png">
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
     <meta property="og:site_name" content="Byunghwee Lee">
 
@@ -41,7 +41,7 @@
     <meta name="twitter:description" content="Curriculum vitae and professional profile.">
     
     
-    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/cv_illust.png">
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/site-preview.svg">
     
 
     <script>
@@ -62,7 +62,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
     <link rel="shortcut icon" href="/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-art-translations">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-compact-illustrations">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
 
     <!-- Google tag (gtag.js) -->
@@ -149,9 +149,14 @@
 
 
 
-<header>
+<header class="page-header-illustrated">
+    <div class="page-header-copy">
     <h1>CV</h1>
     
+    
+    
+    </div>
+    <img class="page-header-illustration" src="/assets/files/cv_illust.png" alt="CV illustration" width="144" height="144" decoding="async">
     
 </header>
 
@@ -160,7 +165,6 @@
 
 <section class="content">
     <p>My current CV is available here: <a href="/assets/byunghwee-cv.pdf">CV.pdf</a></p>
-<p><img alt="Talks illustration" src="/assets/files/cv_illust.png"/></p>
 <h2 id="current-position">Current Position<a class="header-anchor" href="#current-position" title="Link to this section">#</a></h2>
 <ul>
 <li>Postdoctoral Research Associate, School of Data Science, University of Virginia</li>
@@ -258,7 +262,7 @@
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo), .page-header-illustration'))
                 .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 

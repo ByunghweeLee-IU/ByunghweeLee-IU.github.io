@@ -3,16 +3,16 @@
     "title": "Hwiki: Home",
     "path": "Home",
     "url": "/wiki/Home/",
-    "content": "## About This Wiki\n\nWelcome to the public wiki section of my site!\ud83d\udc4b \nThis wiki is where I collect my thoughts, essays, research ideas and useful information. \n![Hwiki illustration](assets/files/hwiki_illust.png)\n## Science Essays\n\n**The Hidden Secrets of Art Through Data**\n\nOriginally written in Korean. Each essay is also available in English.\n\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (1) - \ud669\uae08\ube44\uc728\uc758 \ube44\ubc00: \uc815\ubcf4\uc774\ub860\uc73c\ub85c \ubc14\ub77c\ubcf8 \ubbf8\uc220\uc0ac \uc18d \uad6c\ub3c4\uc640 \ube44\ub840](notes/blogs/01_art-goldenratio.md)  \n  [Read in English \u2014 The Golden Ratio and Composition](notes",
-    "published": "2026-11-23T15:59:36.776728+00:00",
+    "content": "## About This Wiki\n\nWelcome to the public wiki section of my site!\ud83d\udc4b \nThis wiki is where I collect my thoughts, essays, research ideas and useful information. \n## Science Essays\n\n**The Hidden Secrets of Art Through Data**\n\nOriginally written in Korean. Each essay is also available in English.\n\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (1) - \ud669\uae08\ube44\uc728\uc758 \ube44\ubc00: \uc815\ubcf4\uc774\ub860\uc73c\ub85c \ubc14\ub77c\ubcf8 \ubbf8\uc220\uc0ac \uc18d \uad6c\ub3c4\uc640 \ube44\ub840](notes/blogs/01_art-goldenratio.md)  \n  [Read in English \u2014 The Golden Ratio and Composition](notes/blogs/01_art-goldenratio_en.md)\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (2) -",
+    "published": "2026-11-23T16:05:52.884002+00:00",
     "tags": []
   },
   {
     "title": "CV",
     "path": "cv",
     "url": "/cv/",
-    "content": "My current CV is available here: [CV.pdf](/assets/byunghwee-cv.pdf)\n\n![Talks illustration](assets/files/cv_illust.png)\n## Current Position\n\n- Postdoctoral Research Associate, School of Data Science, University of Virginia\n- Charlottesville, Virginia (2025 - )\n- Advisor: Yong-Yeol Ahn\n\n## Education\n\n- PhD in Physics, KAIST, 2021\n- BS in Physics, KAIST, 2013\n\n## Previous Positions\n\n- Postdoctoral Researcher, Indiana University, 2023-2025\n- Senior Researcher, Sungkyunkwan University, Institute of B",
-    "published": "2026-05-03T03:37:19.057435+00:00",
+    "content": "My current CV is available here: [CV.pdf](/assets/byunghwee-cv.pdf)\n\n## Current Position\n\n- Postdoctoral Research Associate, School of Data Science, University of Virginia\n- Charlottesville, Virginia (2025 - )\n- Advisor: Yong-Yeol Ahn\n\n## Education\n\n- PhD in Physics, KAIST, 2021\n- BS in Physics, KAIST, 2013\n\n## Previous Positions\n\n- Postdoctoral Researcher, Indiana University, 2023-2025\n- Senior Researcher, Sungkyunkwan University, Institute of Basic Science, 2022-2023\n- Researcher / Curator, Na",
+    "published": "2026-11-23T16:05:52.969781+00:00",
     "tags": []
   },
   {
@@ -60,15 +60,15 @@
     "path": "research",
     "url": "/research/",
     "content": "My research develops quantitative and interpretable frameworks for **understanding human beliefs, behavior, and creativity**. Across my work, I represent beliefs and cultural expressions as structured entities in high-dimensional spaces and study their relational and geometric properties using large-scale empirical data. By combining **statistical physics, information theory, network science, and modern artificial intelligence, especially large language models and multimodal AI**, and by drawing",
-    "published": "2026-05-03T03:13:47.436360+00:00",
+    "published": "2026-11-23T16:05:52.914060+00:00",
     "tags": []
   },
   {
     "title": "Talks",
     "path": "talks",
     "url": "/talks/",
-    "content": "![Talks illustration](assets/files/talks_illust3.png)\n## Invited Talks and Seminars\n\n### 2026\n- (Invited talk) *The geometry of persuasion: Social judgment theory in a belief embedding space*. University of Seoul, South Korea, July 30, 2026. \n- (Invited talk) *The geometry of persuasion: Social judgment theory in a belief embedding space*. Pusan National University, South Korea, July 22, 2026. \n- (Poster) *The geometry of persuasion: Social judgment theory in a belief embedding space*. Netsci202",
-    "published": "2026-07-30T03:26:39.647326+00:00",
+    "content": "## Invited Talks and Seminars\n\n### 2026\n- (Invited talk) *The geometry of persuasion: Social judgment theory in a belief embedding space*. University of Seoul, South Korea, July 30, 2026. \n- (Invited talk) *The geometry of persuasion: Social judgment theory in a belief embedding space*. Pusan National University, South Korea, July 22, 2026. \n- (Poster) *The geometry of persuasion: Social judgment theory in a belief embedding space*. Netsci2026, Boston, MA, June 1-5, 2026. \n- (Invited talk) *The ",
+    "published": "2026-11-23T16:05:52.943703+00:00",
     "tags": []
   },
   {

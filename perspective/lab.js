@@ -14,7 +14,7 @@
     function circle(x,y,r,fill,stroke){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.5;ctx.stroke()}}
       const pitch=state.pitch*Math.PI/180, cp=Math.cos(pitch),sp=Math.sin(pitch);
       const yaw=(state.yaw||0)*Math.PI/180,cyaw=Math.cos(yaw),syaw=Math.sin(yaw);
-      const f=h/(2*Math.tan(29*Math.PI/180)), cx=w/2,cy=h/2;
+      const f=h/(2*Math.tan((state.fov||58)/2*Math.PI/180)), cx=w/2,cy=h/2;
       const horizon=cy+f*Math.tan(pitch);
       function proj(x,y,z){
         const relativeX=x-observerX,relativeY=y-state.height;
@@ -147,12 +147,12 @@
       segment({x:cx-9,y:cy},{x:cx+9,y:cy},'#2b4855',1.8);segment({x:cx,y:cy-9},{x:cx,y:cy+9},'#2b4855',1.8);
 
       }
-      return {horizon,forwardVP:{x:cx-f*Math.tan(yaw)/cp,y:horizon},project:proj};
+      return {horizon,forwardVP:{x:cx-f*Math.tan(yaw)/cp,y:horizon},crossVP:Math.abs(syaw)<1e-8?null:{x:cx+f*cyaw/syaw/cp,y:horizon},focal:f,project:proj};
     }
 
 const el=id=>document.getElementById(id);
 const base={height:1.6,pitch:0,distance:22,person:1.72};
-function prepare(id){const canvas=el(id),w=Math.max(280,Math.round(canvas.getBoundingClientRect().width)),h=Math.round(w/(window.matchMedia('(max-width:700px)').matches?1.4:1.8)),dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {canvas,ctx,w,h}}
+function prepare(id){const canvas=el(id),w=Math.max(280,Math.round(canvas.getBoundingClientRect().width)),h=Math.max(200,Math.round(canvas.getBoundingClientRect().height)),dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {canvas,ctx,w,h}}
 function guides(ctx,w,h,{vp=false,horizon=false,offset=0,height=1.6}={}){
  if(horizon){ctx.save();ctx.strokeStyle='#ad5b3c';ctx.lineWidth=1.8;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#80513c';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,h/2-12);ctx.restore()}
  if(vp){ctx.save();ctx.strokeStyle='#436f7e';ctx.lineWidth=1.8;ctx.setLineDash([6,5]);for(const x of [-4,4]){ctx.beginPath();ctx.moveTo(w/2+(x-offset)*h/2/height,h);ctx.lineTo(w/2,h/2);ctx.stroke()}ctx.setLineDash([]);ctx.beginPath();ctx.arc(w/2,h/2,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.strokeStyle='#334b40';ctx.stroke();ctx.fillStyle='#334b40';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('V · forward VP',w/2+13,h/2-13);ctx.restore()}
@@ -193,44 +193,61 @@ el('eye-height').addEventListener('input',drawHeight);el('view-pitch').addEventL
 const divider=el('mirror-divider');let dragging=false;
 function dragMirror(event){const r=el('mirror-frame').getBoundingClientRect();el('mirror-reveal').value=Math.round(Math.max(0,Math.min(100,(event.clientX-r.left)/r.width*100)));drawMirror()}
 divider.addEventListener('pointerdown',event=>{if(event.button!==0)return;dragging=true;divider.setPointerCapture(event.pointerId);dragMirror(event)});divider.addEventListener('pointermove',event=>{if(dragging)dragMirror(event)});['pointerup','pointercancel','lostpointercapture'].forEach(type=>divider.addEventListener(type,()=>{dragging=false}));divider.addEventListener('keydown',event=>{const value=Number(el('mirror-reveal').value),step=event.shiftKey?10:1,next=event.key==='ArrowLeft'?value-step:event.key==='ArrowRight'?value+step:event.key==='Home'?0:event.key==='End'?100:null;if(next!==null){event.preventDefault();el('mirror-reveal').value=Math.max(0,Math.min(100,next));drawMirror()}});
-function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,project},{showVP=true,showHorizon=true}={}){
- const inside=vp.x>=0&&vp.x<=w;
- if(showHorizon){ctx.save();ctx.strokeStyle='#ad5b3c';ctx.lineWidth=1.8;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(w,horizon);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#80513c';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,horizon>25?horizon-12:horizon+20);ctx.restore()}
- if(showVP){
-  ctx.save();ctx.strokeStyle='#436f7e';ctx.lineWidth=1.8;ctx.setLineDash([6,5]);for(const x of [-4,4]){const point=project(x,0,16);if(point){ctx.beginPath();ctx.moveTo(point.x,point.y);ctx.lineTo(vp.x,vp.y);ctx.stroke()}}ctx.setLineDash([]);
-  ctx.fillStyle='#fffdf7';ctx.strokeStyle='#334b40';ctx.lineWidth=2;ctx.font='bold 12px system-ui,sans-serif';
-  if(inside){ctx.beginPath();ctx.arc(vp.x,vp.y,6,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#334b40';ctx.textAlign=vp.x>w-140?'right':'left';ctx.fillText('V · street VP',vp.x+(vp.x>w-140?-12:12),vp.y>25?vp.y-12:vp.y+20)}
-  else{const x=vp.x<0?10:w-10,dir=vp.x<0?-1:1;ctx.fillStyle='#334b40';ctx.beginPath();ctx.moveTo(x,vp.y);ctx.lineTo(x-dir*10,vp.y-6);ctx.lineTo(x-dir*10,vp.y+6);ctx.closePath();ctx.fill();ctx.textAlign=dir<0?'left':'right';ctx.fillText(dir<0?'← VP outside image':'VP outside image →',dir<0?22:w-22,vp.y-12)}ctx.restore();
+const FAMILY_A='#286b83',FAMILY_B='#92517a';
+function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project},{showVP=true,showB=false,showHorizon=true}={}){
+ if(showHorizon){ctx.save();ctx.strokeStyle='#9b8d70';ctx.lineWidth=1.5;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(w,horizon);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#756448';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,horizon>25?horizon-12:horizon+20);ctx.restore()}
+ if(showVP||showB){
+  function family(target,color,lines,label,dy){
+   ctx.save();ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2;ctx.setLineDash([5,5]);
+   for(const [a,b] of lines){const p=project(...a),q=project(...b);if(!p||!q)continue;
+    ctx.beginPath();if(target){const far=Math.hypot(p.x-target.x,p.y-target.y)>Math.hypot(q.x-target.x,q.y-target.y)?p:q;ctx.moveTo(far.x,far.y);ctx.lineTo(target.x,target.y)}
+    else{ctx.moveTo(0,p.y);ctx.lineTo(w,p.y)}ctx.stroke();
+   }
+   ctx.setLineDash([]);ctx.font='bold 12px system-ui,sans-serif';
+   if(!target){ctx.textAlign='right';ctx.fillText('B · parallel here (VP at ∞)',w-14,Math.min(h-12,horizon+24))}
+   else if(target.x>=10&&target.x<=w-10){ctx.beginPath();ctx.arc(target.x,target.y,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.stroke();ctx.fillStyle=color;const right=target.x>w-150;ctx.textAlign=right?'right':'left';ctx.fillText(label,target.x+(right?-12:12),target.y+dy)}
+   else{const left=target.x<w/2,x=left?9:w-9;ctx.beginPath();ctx.moveTo(x,target.y);ctx.lineTo(x+(left?10:-10),target.y-6);ctx.lineTo(x+(left?10:-10),target.y+6);ctx.closePath();ctx.fill();ctx.textAlign=left?'left':'right';ctx.fillText((left?'← ':'')+label+' outside'+(left?'':' →'),left?22:w-22,target.y+dy)}ctx.restore();
+  }
+  if(showVP)family(vp,FAMILY_A,[[[-4,0,16],[-4,0,150]],[[4,0,16],[4,0,150]],[[-11,24,118],[-11,24,161]]],'VP A · street',-13);
+  if(showB)family(crossVP,FAMILY_B,[[[-11,0,118],[11,0,118]],[[-11,13,118],[11,13,118]],[[-11,24,118],[11,24,118]]],'VP B · across',24);
  }
  ctx.save();ctx.strokeStyle='#334b40';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(w/2-8,h/2);ctx.lineTo(w/2+8,h/2);ctx.moveTo(w/2,h/2-8);ctx.lineTo(w/2,h/2+8);ctx.stroke();ctx.restore();
 }
 function yawPlan(yaw){
  const a=yaw*Math.PI/180,x=120,y=112,r=23,endX=x+r*Math.sin(a),endY=y-r*Math.cos(a);
  const arc=yaw===0?'':`<path d="M ${x} ${y-r} A ${r} ${r} 0 0 ${yaw>0?1:0} ${endX} ${endY}" fill="none" stroke="#436f7e" stroke-width="1.4"/>`;
- el('yaw-plan').innerHTML=`<title>Top view: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".96" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="12" y="18" font-size="9" letter-spacing=".8" fill="#697267">TOP VIEW · TURNING ONLY</text><path d="M82 29V141M158 29V141" stroke="#bac0ae" stroke-width="2"/><path d="M120 112V32m-5 7 5-7 5 7" stroke="#ad5b3c" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/><text x="130" y="39" font-size="9" fill="#80513c">Street</text><path d="M120 112L${120+72*Math.sin(a)} ${112-72*Math.cos(a)}" stroke="#436f7e" stroke-width="2"/>${arc}<circle cx="120" cy="112" r="4" fill="#334b40"/><text x="${yaw<0?55:164}" y="78" font-size="11" font-weight="700" fill="#436f7e">${yaw>0?'+':''}${yaw}°</text><text x="12" y="136" font-size="9" fill="#436f7e">Gaze</text><text x="99" y="136" font-size="9" fill="#697267">Observer</text></g>`;
+ el('yaw-plan').innerHTML=`<title>Top view: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".96" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="12" y="18" font-size="9" letter-spacing=".8" fill="#697267">TOP VIEW · TURNING ONLY</text><path d="M82 29V141M158 29V141" stroke="#bac0ae" stroke-width="2"/><path d="M120 112V32m-5 7 5-7 5 7" stroke="#286b83" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/><text x="130" y="39" font-size="9" fill="#286b83">A · Street</text><path d="M50 112H198m-7-5 7 5-7 5" fill="none" stroke="#92517a" stroke-width="1.3" stroke-dasharray="4 3"/><text x="13" y="108" font-size="9" fill="#92517a">B</text><path d="M120 112L${120+72*Math.sin(a)} ${112-72*Math.cos(a)}" stroke="#436f7e" stroke-width="2"/>${arc}<circle cx="120" cy="112" r="4" fill="#334b40"/><text x="${yaw<0?55:164}" y="78" font-size="11" font-weight="700" fill="#436f7e">${yaw>0?'+':''}${yaw}°</text><text x="12" y="136" font-size="9" fill="#436f7e">Gaze</text><text x="99" y="136" font-size="9" fill="#697267">Observer</text></g>`;
 }
 function drawYaw(){
  const {canvas,ctx,w,h}=prepare('yaw-scene'),yaw=Number(el('view-yaw').value);
- const result=renderScene(ctx,w,h,{...base,yaw},{annotations:false,architecture:'cathedral'});cameraGuides(ctx,w,h,result);
+ const result=renderScene(ctx,w,h,{...base,yaw,fov:100},{annotations:false,architecture:'cathedral'});cameraGuides(ctx,w,h,result,{showVP:el('yaw-a').checked,showB:el('yaw-b').checked});
  el('view-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;yawPlan(yaw);
+ el('yaw-status').textContent=yaw===0?'One-point alignment: A is centered; B is at infinity.':`Two finite horizontal VPs: A (blue) and B (purple) share the horizon. ${Math.abs(yaw)===45?'Both fit in this wide-angle view.':'A point may be outside the image.'}`;
  canvas.setAttribute('aria-label',`Step 5: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}; the street vanishing point moves ${yaw>0?'left':yaw<0?'right':'to center'} on the horizon.`);
 }
-el('view-yaw').addEventListener('input',drawYaw);
+el('view-yaw').addEventListener('input',drawYaw);['yaw-a','yaw-b'].forEach(id=>el(id).addEventListener('input',drawYaw));
+el('yaw-two-point').addEventListener('click',()=>{el('view-yaw').value=45;el('yaw-a').checked=true;el('yaw-b').checked=true;drawYaw()});
 function drawDuomo(prefix='duomo'){
  const {canvas,ctx,w,h}=prepare(prefix+'-scene');
  const height=Number(el(prefix+'-height').value),offset=Number(el(prefix+'-offset').value),pitch=Number(el(prefix+'-pitch').value),yaw=Number(el(prefix+'-yaw').value);
- const {horizon,forwardVP:vp,project}=renderScene(ctx,w,h,{...base,height,pitch,yaw},{annotations:false,observerX:offset,architecture:'cathedral'});
+ const result=renderScene(ctx,w,h,{...base,height,pitch,yaw,fov:100},{annotations:false,observerX:offset,architecture:'cathedral'});
+ const {horizon,forwardVP:vp,crossVP,project}=result;
  const inside=vp.x>=0&&vp.x<=w;
- cameraGuides(ctx,w,h,{horizon,forwardVP:vp,project},{showVP:el(prefix+'-vp').checked,showHorizon:el(prefix+'-horizon').checked});
+ cameraGuides(ctx,w,h,result,{showVP:el(prefix+'-vp').checked,showB:el(prefix+'-vpb').checked,showHorizon:el(prefix+'-horizon').checked});
  el(prefix+'-height-value').value=height.toFixed(2)+' m';el(prefix+'-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
  el(prefix+'-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el(prefix+'-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
  if(el(prefix+'-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
  sideView(prefix+'-side',pitch,height);
- el(prefix+'-status').textContent=`Gaze-to-horizon angle: ${Math.abs(pitch)}°. Horizon ${pitch===0?'at center':pitch>0?'below center':'above center'} · street VP ${!inside?(vp.x<0?'beyond left edge':'beyond right edge'):yaw===0?'horizontally centered':yaw>0?'left of center':'right of center'}.`;
+ el(prefix+'-status').textContent=`Gaze-to-horizon angle: ${Math.abs(pitch)}°. ${yaw===0?'A is centered horizontally; B is at infinity.':'A (blue) and B (purple) share the horizon; either may fall outside the image.'}`;
  canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
 }
 for(const prefix of ['preview','duomo']){
- ['height','offset','pitch','yaw','vp','horizon'].forEach(suffix=>el(prefix+'-'+suffix).addEventListener('input',()=>drawDuomo(prefix)));
- el(prefix+'-reset').addEventListener('click',()=>{for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
+ el(prefix+'-two-point').addEventListener('click',()=>{el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=45;el(prefix+'-vpb').checked=true;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
+ el(prefix+'-center').addEventListener('click',()=>{el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=0;drawDuomo(prefix)});
+ ['height','offset','pitch','yaw','vp','vpb','horizon'].forEach(suffix=>el(prefix+'-'+suffix).addEventListener('input',()=>drawDuomo(prefix)));
+ el(prefix+'-reset').addEventListener('click',()=>{for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vpb').checked=false;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
 }
+document.querySelectorAll('[data-range-reset]').forEach(button=>button.addEventListener('click',()=>{const input=el(button.dataset.rangeReset);input.value=input.defaultValue;input.dispatchEvent(new Event('input',{bubbles:true}))}));
 function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo();drawDuomo('preview')}window.addEventListener('resize',drawAll,{passive:true});drawAll();
+
+let layoutFrame;const sceneResize=new ResizeObserver(()=>{cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(drawAll)});document.querySelectorAll('.experiment-view').forEach(view=>sceneResize.observe(view));

@@ -6,3 +6,31 @@
 .free-controls{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.free-controls .control{padding-top:8px;padding-bottom:20px}@media(max-width:700px){.free-controls{grid-template-columns:1fr}}
 
 .scene-wrap{position:relative}.side-inset{position:absolute;right:14px;top:14px;width:clamp(150px,25%,230px);height:auto;display:block;pointer-events:none;filter:drop-shadow(0 2px 8px #334b401c)}@media(max-width:700px){.side-inset{right:8px;top:8px;width:150px}}
+
+/* Keep controls beside each scene on landscape screens. */
+.experiment{display:grid;grid-template-columns:minmax(0,1fr) 285px;align-items:start}
+.experiment-view{min-width:0;overflow:hidden;background:#dce5ea}.experiment-view canvas{aspect-ratio:1.4/1}
+.experiment-controls{min-width:0;border-left:1px solid var(--line);align-self:stretch;background:var(--panel)}
+.experiment-controls .free-controls{grid-template-columns:1fr;gap:0}.experiment-controls .control{padding:15px 18px}
+.experiment-controls .guide-controls{padding:17px 18px;gap:12px 18px}.experiment-controls .mirror-bottom{padding:0 18px 18px;gap:12px}.experiment-controls .mirror-bottom p{font-size:12px}
+.control-header{flex-wrap:wrap;gap:8px}.range-value{display:inline-flex;align-items:center;gap:7px;margin-left:auto}.range-reset{display:inline-grid;place-items:center;width:26px;height:26px;border:1px solid var(--line);background:transparent;border-radius:6px;font-size:17px;line-height:1;color:#526d61}
+.preset-row{display:flex;gap:8px;flex-wrap:wrap}.preset-row button{border:1px solid #c1cbbb;background:#edf0e7;color:#334b40;border-radius:7px;padding:8px 11px;font-size:12px;font-weight:650}.experiment-controls>.preset-row{padding:0 18px 16px}
+.family-legend{display:flex;gap:8px 16px;flex-wrap:wrap;padding:16px 18px;font-size:12px;font-weight:700}.family-a{color:#286b83!important}.family-b{color:#92517a!important}.family-a:before,.family-b:before{content:"";display:inline-block;width:15px;border-top:2px dashed currentColor;margin-right:6px;vertical-align:middle}.compact-status{font-size:12px;color:var(--muted);padding:0 18px 18px;margin:0}
+@media(max-width:900px){.experiment{grid-template-columns:1fr}.experiment-controls{border-left:0;border-top:1px solid var(--line)}.experiment-controls .free-controls{grid-template-columns:1fr 1fr}.experiment-controls .mirror-bottom{padding-top:8px}}
+@media(max-width:540px){.experiment-controls .free-controls{grid-template-columns:1fr}}
+
+/* Let the viewport fill the full control-column height without stretching pixels. */
+.experiment{align-items:stretch}
+.experiment-view{position:relative;align-self:stretch;min-height:420px}
+.experiment-view>canvas,.experiment-view>.scene-wrap,.experiment-view>.mirror-view{position:absolute;inset:0;width:100%;height:100%}
+.experiment-view canvas{width:100%;height:100%;aspect-ratio:auto}
+@media(max-width:900px){.experiment-view{min-height:0;aspect-ratio:1.4/1;align-self:start}}
+/* Compact the sidebar so its controls remain usable on wide, short screens. */
+.experiment-controls .control{padding:10px 16px}
+.experiment-controls .control-header{margin-bottom:5px;gap:5px}
+.experiment-controls .control label{font-size:13px}
+.experiment-controls output{font-size:12px}
+.experiment-controls input[type=range]{display:block;margin:0;height:18px}
+.experiment-controls .scale{font-size:10px;line-height:1.4;margin-top:3px}
+.guide-controls label.family-a:before,.guide-controls label.family-b:before{display:none}
+.guide-controls>span{display:flex;flex-wrap:wrap;gap:6px 14px;flex-basis:100%}

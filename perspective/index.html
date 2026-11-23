@@ -30,7 +30,7 @@
     .mirror-direct-badge{position:absolute;right:24px;top:76px;z-index:2;background:#fffdf7ed;padding:6px 12px;border-radius:30px;font-size:12px;font-weight:750;color:#334b40;pointer-events:none}
     .mirror-divider{position:absolute;top:0;bottom:0;left:var(--mirror-share,50%);transform:translateX(-50%);width:34px;background:transparent;border:0;z-index:3;cursor:ew-resize;touch-action:none;padding:0}
     .mirror-divider:before{content:"";position:absolute;left:16px;top:0;bottom:0;border-left:2px solid #fffdf7;box-shadow:0 0 3px #334b40}
-    .mirror-divider:after{content:"↔";position:absolute;left:0;top:50%;transform:translateY(-50%);width:34px;height:42px;display:grid;place-items:center;background:#fffdf7;color:#334b40;border:1px solid #d3b98a;border-radius:9px;font-size:22px;box-shadow:0 2px 12px #334b4033}
+    .mirror-divider:after{content:"↔";position:absolute;left:0;top:72%;transform:translateY(-50%);width:34px;height:42px;display:grid;place-items:center;background:#fffdf7;color:#334b40;border:1px solid #d3b98a;border-radius:9px;font-size:22px;box-shadow:0 2px 12px #334b4033}
     .mirror-reveal-control{grid-column:1/-1}.mirror-view .mirror-toggle{z-index:4}
     .mirror-view [hidden]{display:none!important}
     @media(max-width:640px){.mirror-direct-badge{right:16px;top:90px;font-size:10px}.mirror-badge{max-width:85%;font-size:10px}}
@@ -60,6 +60,11 @@
     .mirror-view .mirror-toggle{z-index:4}
     @media(max-width:800px){.apparatus-parts,.evidence-grid,.investigation-prompts{grid-template-columns:1fr 1fr}.objectives ol{grid-template-columns:1fr}.hero{grid-template-columns:1fr;gap:25px}.heroaside{max-width:650px}}
     @media(max-width:540px){.apparatus-parts,.evidence-grid,.investigation-prompts{grid-template-columns:1fr}.objectives{padding:22px}.top{align-items:flex-start}.top-links{gap:5px 12px;max-width:170px}.top-links a{font-size:11px}.brand{max-width:150px}.exhibit-section{margin:40px 0}.observation-metric{padding:18px}.observation-metric>span{font-size:12px}}
+
+    .display-toggles{display:flex;align-items:center;gap:12px 24px;flex-wrap:wrap;padding:17px 26px;color:var(--muted);font-size:13px}.display-toggles label{display:flex;align-items:center;gap:7px;font-weight:750;color:var(--ink);cursor:pointer}.display-toggles input{accent-color:var(--orange);width:17px;height:17px}.display-toggles small{font-size:11px;flex-basis:100%}
+    .mirror-fine-tune{padding:15px 26px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.mirror-fine-tune summary{cursor:pointer;font-weight:650}.mirror-fine-tune .control{margin:18px 0 0}
+    .vp-investigation{background:#e8ecdf;padding:24px 28px;border-radius:13px;margin-top:24px}.vp-investigation h3{font-size:20px;margin-bottom:12px}.vp-investigation ol{padding-left:20px;font-size:14px;color:var(--muted)}.vp-investigation li{margin:10px 0}.vp-investigation strong{color:var(--ink)}
+    @media(max-width:540px){.display-toggles,.mirror-fine-tune{padding:16px 18px}.vp-investigation{padding:20px}}
   </style>
 </head>
 <body>
@@ -81,21 +86,24 @@
       </div>
       <details class="history-detail"><summary>A historical detail: the sky was reflective</summary><p>Manetti describes burnished silver in the panel’s sky area, reflecting the actual sky and moving clouds. The original panels are lost; our knowledge comes from later accounts and reconstructions. This screen simulation does not reproduce that silver-sky effect. <a href="#source-gallery">[2]</a></p></details>
     </section>
-    <section class="exhibit-section objectives" aria-labelledby="objectives-title"><span class="eyebrow">Learning goals</span><h2 id="objectives-title">After this experiment, you should be able to…</h2><ol><li><strong>Identify the roles of the eye, panel, mirror, and building</strong> in comparing a representation with its subject.</li><li><strong>Explain why a perspective image depends on a viewing position</strong>, using a matched and a displaced view as evidence.</li><li><strong>Separate an observation from a conclusion:</strong> matching outlines support a local geometric correspondence under controlled conditions.</li><li><strong>Distinguish eye height from viewing direction</strong> in the general perspective experiment that follows.</li></ol></section>
+    <section class="exhibit-section objectives" aria-labelledby="objectives-title"><span class="eyebrow">Learning goals</span><h2 id="objectives-title">After this experiment, you should be able to…</h2><ol><li><strong>Identify the roles of the eye, panel, mirror, and building</strong> in comparing a representation with its subject.</li><li><strong>Explain why a perspective image depends on a viewing position</strong>, using a matched and a displaced view as evidence.</li><li><strong>Separate an observation from a conclusion:</strong> matching outlines support a local geometric correspondence under controlled conditions.</li><li><strong>Locate a vanishing point</strong> by extending one family of parallel ground lines, and distinguish it from the full horizon.</li><li><strong>Distinguish eye height from viewing direction</strong> in the general perspective experiment that follows.</li></ol></section>
     <section class="section" id="mirror-lab" aria-labelledby="mirror-title">
-      <div class="mirror-intro"><span class="eyebrow">01 · Experiment</span><h2 id="mirror-title">A painting, or a view through a window?</h2><p>Start centered at an eye height of 1.60 m. Before moving anything, predict whether the dome and doors will line up. Slide the mirror edge across the cathedral, then change just one viewpoint control and compare again.</p></div>
+      <div class="mirror-intro"><span class="eyebrow">01 · Experiment</span><h2 id="mirror-title">A painting, or a view through a window?</h2><p>Start centered at an eye height of 1.60 m. Before moving anything, predict whether the dome and doors will line up. Slide the mirror edge across the cathedral, then change just one viewpoint control and compare again. Turn on VP and Horizon to trace the geometry behind the match.</p></div>
       <div class="mirror-lab">
         <div class="mirror-view is-mirror" id="mirror-frame"><canvas id="mirror-scene" role="img" aria-label="Painted view of the virtual piazza from the original viewpoint">Compare a fixed perspective painting with the current view of a virtual piazza. Use the mirror button and viewpoint sliders below.</canvas><span class="mirror-badge" id="mirror-badge">REFLECTED PAINTING</span><span class="mirror-direct-badge" id="mirror-direct-badge">DIRECT VIEW · VIRTUAL PIAZZA</span><button class="mirror-divider" id="mirror-divider" type="button" role="slider" aria-label="Mirror edge position" aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-valuetext="50 percent reflected painting" aria-controls="mirror-scene"></button><button class="mirror-toggle" type="button" id="mirror-toggle" aria-pressed="true" aria-controls="mirror-scene">Hide mirror</button></div>
         <div class="mirror-toolbar"><p>Drag the vertical edge to move the mirror. Compare both views at once.</p><p>Painting viewpoint: centered · eye height 1.60 m</p></div>
+        <div class="display-toggles" role="group" aria-label="Mirror experiment guides"><span>Show guides</span><label><input id="mirror-vp" type="checkbox" checked> VP</label><label><input id="mirror-horizon" type="checkbox" checked> Horizon</label><small>VP extends the forward ground lines to their common vanishing point.</small></div>
         <div class="mirror-controls">
-          <div class="control mirror-reveal-control"><div class="control-header"><label for="mirror-reveal">Mirror coverage</label><output class="number" id="mirror-reveal-val" for="mirror-reveal">50% painting · 50% piazza</output></div><input id="mirror-reveal" type="range" min="0" max="100" step="1" value="50"><div class="scale"><span>0% · full direct view</span><span>100% · full reflected painting</span></div></div>
+
           <div class="control"><div class="control-header"><label for="mirror-offset">Move sideways</label><output class="number" id="mirror-offset-val" for="mirror-offset">Centered</output></div><input id="mirror-offset" type="range" min="-3" max="3" step="0.1" value="0"><div class="scale"><span>Left · −3 m</span><span>Right · +3 m</span></div></div>
           <div class="control"><div class="control-header"><label for="mirror-height">Change your eye height</label><output class="number" id="mirror-height-val" for="mirror-height">1.60 m</output></div><input id="mirror-height" type="range" min="0.8" max="4" step="0.1" value="1.6"><div class="scale"><span>0.8 m</span><span>4 m</span></div></div>
         </div>
+        <details class="mirror-fine-tune"><summary>Fine-tune mirror coverage</summary><div class="control mirror-reveal-control"><div class="control-header"><label for="mirror-reveal">Mirror coverage</label><output class="number" id="mirror-reveal-val" for="mirror-reveal">50% painting · 50% piazza</output></div><input id="mirror-reveal" type="range" min="0" max="100" step="1" value="50"><div class="scale"><span>0% · full direct view</span><span>100% · full reflected painting</span></div></div></details>
         <div class="mirror-toolbar"><button class="mirror-reset" type="button" id="mirror-reset">Return to the original viewpoint</button><p>The painting stays fixed. Only your view of the piazza moves.</p></div>
         <div class="observation-metric"><span>Computed landmark displacement</span><output id="landmark-error">0.0 px</output><small>RMS displacement of four cathedral landmarks, normalized to a 1,000 px wide image. Calculated from this model.</small></div>
         <div class="mirror-status" role="status" aria-live="polite" aria-atomic="true"><strong id="mirror-alignment">You are at the painting’s viewpoint.</strong><p id="mirror-explanation">The painted and direct views line up across the mirror edge. Drag the divider to check the cathedral’s silhouette, doors, and dome. The warm tint identifies the reflection.</p></div>
       </div>
+      <div class="vp-investigation"><h3>Find the vanishing point</h3><ol><li><strong>Turn on VP.</strong> Follow the two extended ground lines: their shared point V belongs to lines running straight ahead.</li><li><strong>Turn on Horizon.</strong> V lies on this horizontal line. Other horizontal directions have their own vanishing points on the same horizon; not every line in the scene converges at V.</li><li><strong>Move sideways with the viewing direction unchanged.</strong> The facade shifts, but V and the horizon remain at the image center. Matching a vanishing point alone does not make two pictures identical.</li><li><strong>Change camera pitch in the next experiment.</strong> The horizon and forward VP move together. Compare that with changing eye height alone.</li></ol><p class="small-note">This mirror experiment keeps camera orientation fixed and level. The guide lines are explanatory overlays, not features of the historical mirror apparatus.</p></div>
       <div class="mirror-steps"><p><b>01 · Compare</b>Drag the mirror edge across the cathedral. At the original viewpoint, both halves line up.</p><p><b>02 · Move</b>Step sideways or change eye height. The direct view shifts while the reflected painting stays fixed.</p><p><b>03 · Realign</b>Return to the original viewpoint and the two views line up again.</p></div>
       <p class="small-note">A digital analogy using an imagined Florentine cathedral and piazza, rather than a reconstruction of the original Baptistery or apparatus. The painted panel is shown in its final reflected orientation. The left region is the reflected painting and the right is the direct virtual view. The moving edge is a screen-space analogy for moving the mirror. The frame and warm tint mark the reflection; there is no photograph or live camera feed. The sideways and height controls deliberately relax the fixed-viewpoint constraint of the historical peephole. These controls are independent of the general perspective simulator below.</p>
     </section>
@@ -104,6 +112,7 @@
       <div class="table-scroll"><table class="experiment-table"><thead><tr><th>Try this</th><th>Look for this</th><th>What it supports</th></tr></thead><tbody>
       <tr><td><strong>Match the original viewpoint.</strong><br>Keep the eye centered at 1.60 m and sweep the mirror edge.</td><td>The dome, facade, and door edges continue across the divide. The computed displacement is zero.</td><td>At this viewpoint, the two images assign the same screen positions to corresponding landmarks.</td></tr>
       <tr><td><strong>Change one variable.</strong><br>Move sideways, or change eye height while keeping direction fixed.</td><td>The direct view shifts relative to the fixed painting; the displacement increases.</td><td>A painting made for one viewpoint does not generally match the same scene from another position.</td></tr>
+      <tr><td><strong>Trace VP and Horizon.</strong><br>Enable both guides, then move sideways without turning the camera.</td><td>The facade shifts but the forward VP stays on the same horizon at image center.</td><td>Vanishing points encode line directions relative to the camera. A shared VP is not sufficient evidence of a complete image match.</td></tr>
       <tr><td><strong>Return to the original viewpoint.</strong><br>Use the reset button.</td><td>The outlines line up again and the displacement returns to zero.</td><td>The mismatch is controlled by viewpoint, rather than by a change to the painting.</td></tr>
       </tbody></table></div>
       <div class="evidence-grid"><article><h3>What the historical comparison tests</h3><p>From a constrained viewpoint, a painted representation can be compared directly with the visible geometry of a real building. Matching contours support a correspondence between the depicted and observed view at that position.</p></article><article><h3>What this digital exhibit checks</h3><p>The fixed image and current view use the <strong>same perspective model</strong>. Their alignment is a consistency demonstration of that model, not an independent empirical test of it. The displacement readout measures the difference between these computed images.</p></article><article><h3>What a match does not establish</h3><p>It does not establish a unique 3D reconstruction, a match from every viewpoint, a complete account of human vision, or the exact accuracy of Brunelleschi’s lost panel. An outline match also says little about color, material, or binocular depth.</p></article></div>
@@ -113,6 +122,7 @@
     <section id="studio" aria-labelledby="studio-title">
       <div class="studio">
         <div class="studio-heading"><h2 id="studio-title">Observer’s view</h2><span class="hint">Calculated using perspective projection</span></div>
+        <div class="display-toggles" role="group" aria-label="Perspective lab guides"><span>Show guides</span><label><input id="scene-vp" type="checkbox" checked> VP</label><label><input id="scene-horizon" type="checkbox" checked> Horizon</label></div>
         <div class="studio-body">
           <div class="viewport">
             <canvas id="scene" role="img" aria-label="Perspective scene controlled by eye height and camera pitch. Measurements and explanations update below.">Perspective simulator. Adjust the sliders to update the scene and the measurements below.</canvas>
@@ -172,7 +182,7 @@
       ctx.setTransform(dpr,0,0,dpr,0,0);
       draw(w,h);
     }
-    function renderScene(ctx,w,h,state,{annotations=true,observerX=0,architecture='piazza'}={}){
+    function renderScene(ctx,w,h,state,{annotations=true,observerX=0,architecture='piazza',showVP=true,showHorizon=true}={}){
     function polygon(points,fill,stroke,width=1) {
       if(points.some(p=>!p))return;
       ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);
@@ -295,9 +305,24 @@
       person(-3.3,Math.min(260,state.distance*2.2),state.person,'#6c8793','Far person');
       const focus=person(3.3,state.distance,state.person,'#254c65','Near person',annotations);
       if(annotations){
-      // Horizontal eye-level: screen position depends on camera pitch, not height.
-      if(horizon>=-8&&horizon<=h+8){segment({x:0,y:horizon},{x:w,y:horizon},'#d47738',2.5,[9,6]);circle(cx,horizon,5,'#d47738','#fff');ctx.fillStyle='#95501f';ctx.font='bold 12px system-ui,sans-serif';ctx.textAlign='left';const ly=horizon>28?horizon-11:horizon+20;ctx.fillText('Horizon · forward vanishing point',13,ly)}
-      else {ctx.fillStyle='rgba(255,253,247,.9)';ctx.fillRect(12,12,Math.min(w-24,255),33);ctx.font='bold 12px system-ui,sans-serif';ctx.fillStyle='#98531e';ctx.textAlign='left';ctx.fillText(horizon>h?'↓ Horizon below the image':'↑ Horizon above the image',22,33)}
+      // Horizon and vanishing point are separate teaching overlays.
+      const inFrame=horizon>=0&&horizon<=h;
+      if(showHorizon){
+        if(inFrame){
+          segment({x:0,y:horizon},{x:w,y:horizon},'#d47738',2,[9,6]);
+          ctx.fillStyle='#95501f';ctx.font='bold 12px system-ui,sans-serif';ctx.textAlign='left';
+          ctx.fillText('Horizon',13,horizon>28?horizon-11:horizon+20);
+        }else{
+          ctx.fillStyle='rgba(255,253,247,.9)';ctx.fillRect(12,12,230,33);
+          ctx.font='bold 12px system-ui,sans-serif';ctx.fillStyle='#98531e';ctx.textAlign='left';
+          ctx.fillText(horizon>h?'↓ Horizon below the image':'↑ Horizon above the image',22,33);
+        }
+      }
+      if(showVP&&inFrame){
+        circle(cx,horizon,6,'#526d61','#fffdf7');
+        ctx.fillStyle='#334b40';ctx.font='bold 12px system-ui,sans-serif';ctx.textAlign='left';
+        ctx.fillText('V · forward VP',cx+12,horizon>25?horizon-12:horizon+22);
+      }
       // Optical axis indicator is always at screen center.
       segment({x:cx-9,y:cy},{x:cx+9,y:cy},'#2b4855',1.8);segment({x:cx,y:cy-9},{x:cx,y:cy+9},'#2b4855',1.8);
 
@@ -305,7 +330,7 @@
       return {horizon};
     }
     function draw(w,h){
-      const {horizon}=renderScene(ctx,w,h,state);
+      const {horizon}=renderScene(ctx,w,h,state,{showVP:el('scene-vp').checked,showHorizon:el('scene-horizon').checked});
       const dy=state.person-.12-state.height;
       el('horizon-status').textContent=Math.abs(state.pitch)<0.001?'Image center':horizon<0?'Outside · above':horizon>h?'Outside · below':state.pitch>0?'Lower in the image':'Higher in the image';
       el('horizon-sub').textContent=`Pitch ${state.pitch>0?'+':''}${state.pitch}° · independent of eye height`;
@@ -369,6 +394,33 @@
         mirrorCtx.save();mirrorCtx.beginPath();mirrorCtx.rect(0,0,w*share,h);mirrorCtx.clip();
         mirrorCtx.drawImage(paintedPanel,0,0,w,h);mirrorCtx.restore();
       }
+      // Construction guides on each side use that side's eye position.
+      // With parallel camera axes the point at infinity stays at the center.
+      if(el('mirror-vp').checked){
+        function construction(xOffset,eyeHeight,left,right,color){
+          if(right<=left)return;
+          mirrorCtx.save();mirrorCtx.beginPath();mirrorCtx.rect(left,0,right-left,h);mirrorCtx.clip();
+          mirrorCtx.strokeStyle=color;mirrorCtx.lineWidth=1.8;mirrorCtx.setLineDash([6,5]);
+          for(const roadX of [-4,4]){
+            const bottomX=w/2+(roadX-xOffset)*(h/2)/eyeHeight;
+            mirrorCtx.beginPath();mirrorCtx.moveTo(bottomX,h);mirrorCtx.lineTo(w/2,h/2);mirrorCtx.stroke();
+          }
+          mirrorCtx.restore();
+        }
+        construction(0,reference.height,0,w*share,'#ad5b3c');
+        construction(observerX,height,w*share,w,'#436f7e');
+      }
+      if(el('mirror-horizon').checked){
+        mirrorCtx.save();mirrorCtx.strokeStyle='#ad5b3c';mirrorCtx.lineWidth=1.8;mirrorCtx.setLineDash([9,6]);
+        mirrorCtx.beginPath();mirrorCtx.moveTo(0,h/2);mirrorCtx.lineTo(w,h/2);mirrorCtx.stroke();
+        mirrorCtx.setLineDash([]);mirrorCtx.font='bold 12px system-ui,sans-serif';mirrorCtx.fillStyle='#80513c';
+        mirrorCtx.fillText('Horizon',20,h/2-12);mirrorCtx.restore();
+      }
+      if(el('mirror-vp').checked){
+        mirrorCtx.save();mirrorCtx.beginPath();mirrorCtx.arc(w/2,h/2,7,0,Math.PI*2);
+        mirrorCtx.fillStyle='#fffdf7';mirrorCtx.fill();mirrorCtx.lineWidth=2;mirrorCtx.strokeStyle='#334b40';mirrorCtx.stroke();
+        mirrorCtx.font='bold 12px system-ui,sans-serif';mirrorCtx.fillStyle='#334b40';mirrorCtx.fillText('V · forward VP',w/2+15,h/2-14);mirrorCtx.restore();
+      }
       el('mirror-frame').style.setProperty('--mirror-share',`${share*100}%`);
       el('mirror-frame').classList.toggle('has-panel',share>0);
       el('mirror-divider').hidden=!mirrorOn;
@@ -399,7 +451,7 @@
       el('mirror-explanation').textContent=aligned?'The painted and direct views line up across the mirror edge. Drag the divider to check the cathedral’s silhouette, doors, and dome. The warm tint identifies the reflection.':`Your eye height is ${height.toFixed(2)} m and your sideways offset is ${observerX.toFixed(1)} m. Compare the cathedral across the divider: the direct view moves while the painting remains fixed. Return to the original viewpoint to restore the match.`;
     }
     el('mirror-toggle').addEventListener('click',()=>{mirrorOn=!mirrorOn;updateMirror()});
-    ['mirror-offset','mirror-height','mirror-reveal'].forEach(id=>el(id).addEventListener('input',updateMirror));
+    ['mirror-offset','mirror-height','mirror-reveal','mirror-vp','mirror-horizon'].forEach(id=>el(id).addEventListener('input',updateMirror));
     el('mirror-reset').addEventListener('click',()=>{el('mirror-offset').value=0;el('mirror-height').value=1.6;el('mirror-reveal').value=50;mirrorOn=true;updateMirror()});
     const divider=el('mirror-divider');
     let dragging=false;
@@ -420,6 +472,7 @@
     updateMirror();
     inputs.forEach(i=>i.addEventListener('input',sync));
     document.querySelectorAll('[data-preset]').forEach(btn=>btn.addEventListener('click',()=>{const p=presets[btn.dataset.preset];inputs.forEach(i=>i.value=p[i.id]);sync()}));
+    ['scene-vp','scene-horizon'].forEach(id=>el(id).addEventListener('change',resize));
     window.addEventListener('resize',resize,{passive:true});
     sync();
   })();

@@ -20,7 +20,23 @@
     "path": "index",
     "url": "/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Prof. Yong-Yeol Ahn. He received his Ph.D. in Physics from KAIST. He aims to develop interpretable frameworks to uncover the principles underlying the structure and evolution of human beliefs, behavior, and creativity. His research combines statistical physics, network science, and machine learni",
-    "published": "2026-11-23T03:34:12.342535+00:00",
+    "published": "2026-11-23T04:00:43.962426+00:00",
+    "tags": []
+  },
+  {
+    "title": "Mapping Five Centuries of Korean History",
+    "path": "museum/joseon",
+    "url": "/museum/joseon/",
+    "content": "[\u2190 Mini Museum](../visualization.md)\n\n<div class=\"museum-exhibit-meta\">HISTORY &amp; GEOGRAPHY \u00b7 VIDEO EXHIBIT \u00b7 2015</div>\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/f-Gb-oGZdOs?si=S4rM4yjhjELXpZRA\"\n    title=\"Mapping 500 Years of Korean History | The Annals of Joseon Visualized\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n    referrerpolicy=\"strict-origin-when-cross-origin\"\n    allowfullscreen>",
+    "published": "2026-11-23T04:00:43.960732+00:00",
+    "tags": []
+  },
+  {
+    "title": "Dissecting Landscape Painting",
+    "path": "museum/landscape",
+    "url": "/museum/landscape/",
+    "content": "[\u2190 Mini Museum](../visualization.md)\n\n<div class=\"museum-exhibit-meta\">ART &amp; INFORMATION THEORY \u00b7 VIDEO EXHIBIT</div>\n\nHow can the composition of a painting be described through information? Watch an image divide into smaller regions as its structure emerges.\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/Bb23lO3dzxM\"\n    title=\"Dissecting landscape painting using information theory\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope;",
+    "published": "2026-11-23T04:00:43.960838+00:00",
     "tags": []
   },
   {
@@ -48,11 +64,11 @@
     "tags": []
   },
   {
-    "title": "Mini Projects",
+    "title": "Mini Museum",
     "path": "visualization",
     "url": "/visualization/",
-    "content": "A collection of small interactive projects, visual experiments, and research tools exploring science, perception, history, and art.\n\n## Brunelleschi\u2019s View (2026)\n<a class=\"perspective-feature\" href=\"/perspective/\">\n  <img src=\"/assets/files/perspective-lab-preview.svg\" alt=\"A perspective scene with a street grid converging on the horizon, buildings, and people at different distances\" width=\"1200\" height=\"620\">\n  <span class=\"perspective-feature-body\">\n    <span class=\"perspective-feature-tag\">I",
-    "published": "2026-11-23T03:55:06.879857+00:00",
+    "content": "A small online museum for curious minds. Step into an experiment, explore a historical landscape, or watch a painting reveal its structure.\n\n<section class=\"museum-gallery\" aria-label=\"Museum exhibitions\">\n<a class=\"perspective-feature museum-card museum-featured\" href=\"/perspective/\">\n  <img src=\"/assets/files/perspective-lab-preview.svg\" alt=\"An imagined Florentine piazza with a horizon and perspective grid\" width=\"1200\" height=\"620\">\n  <span class=\"perspective-feature-body\">\n    <span class=\"",
+    "published": "2026-11-23T04:00:43.961434+00:00",
     "tags": []
   },
   {

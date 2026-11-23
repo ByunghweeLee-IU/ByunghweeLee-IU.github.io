@@ -136,21 +136,25 @@ body{font-size:17px}
 .mirror-comparison{margin:28px 0 32px;scroll-margin-top:24px}
 .mirror-comparison>h3{font-size:21px;line-height:1.5;margin:0 0 18px;word-break:keep-all}
 .mirror-comparison-symbols{position:absolute;overflow:hidden;pointer-events:none}
-.mirror-comparison-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.mirror-comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
 .mirror-result{min-width:0}
 .mirror-result>svg{display:block;width:100%;height:auto;border-radius:8px;overflow:hidden;margin-bottom:10px}
 .mirror-result-kind{display:block;font-size:11px;color:var(--muted)}
 .mirror-result h4{font-size:17px;color:var(--green);margin:3px 0 7px;line-height:1.5}
 .mirror-result p{font-size:17px;line-height:1.7;margin:0}
 .mirror-comparison figcaption{max-width:none;margin-top:18px;line-height:1.8}
+.mirror-test-point{max-width:940px;font-size:18px;line-height:1.8;margin:26px 0}
+.mirror-test-point strong{display:block;color:#80513c;margin-bottom:5px;font-weight:750}
+.reversal-detail-content{display:grid;grid-template-columns:230px minmax(0,1fr);align-items:center;gap:24px;padding-top:16px}
+.reversal-detail-content>svg{display:block;width:100%;height:auto;border-radius:8px;overflow:hidden}
+.reversal-detail-content .mirror-explanation{margin:0}
 @media(max-width:700px){
  .mirror-explanation{font-size:16px}
+ .mirror-test-point{font-size:16px}
  .mirror-comparison>h3{font-size:19px}
  .mirror-comparison-grid{grid-template-columns:1fr 1fr;gap:20px 12px}
- .mirror-result--panel{grid-column:1/-1;display:grid;grid-template-columns:110px minmax(0,1fr);column-gap:14px;align-items:center}
- .mirror-result--panel>svg{grid-row:1/4;margin:0}
- .mirror-result--panel .mirror-result-kind,.mirror-result--panel h4,.mirror-result--panel p{grid-column:2}
- .mirror-result--panel h4{margin-bottom:3px}
+ .reversal-detail-content{grid-template-columns:1fr;gap:12px}
+ .reversal-detail-content>svg{width:160px}
  .mirror-result h4{font-size:16px}
  .mirror-result p{font-size:16px}
 }

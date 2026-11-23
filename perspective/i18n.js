@@ -227,7 +227,15 @@ const korean={
   "The same eye position now sees the real building directly.": "같은 눈 위치에서 실제 건물을 직접 보게 됩니다.",
   "The blue flag is only an orientation cue. The original panels are lost; these are explanatory drawings based on later accounts and reconstructions. Sources:": "파란 깃발은 방향을 구분하기 위한 설명용 표식입니다. 원래 그림판은 남아 있지 않으며, 이 그림은 후대의 기록과 재구성을 바탕으로 만든 설명용 일러스트입니다. 참고 근거:",
   "Museo Galileo [1]": "갈릴레오 박물관 [1]",
-  "National Gallery [2]": "내셔널 갤러리 [2]"
+  "National Gallery [2]": "내셔널 갤러리 [2]",
+  "This exhibit explores the insight behind Brunelleschi’s experiment: from one chosen viewpoint, a flat perspective image can reproduce the directions and proportions of a real view. Discover that relationship for yourself.": "이 전시는 브루넬레스키의 실험이 보여준 핵심을 직접 탐구합니다. 하나의 시점을 정하면, 평면의 원근법 그림도 실제 풍경의 방향과 비율을 재현할 수 있다는 것입니다. 그 관계를 직접 발견해보세요.",
+  "In the early fifteenth century, Brunelleschi put perspective to a visual test: could a flat painting match the real view of Florence’s Baptistery from a specific position? Manetti’s later account describes looking through a hole in the painted panel and using a movable mirror to compare its reflection with the real building.": "15세기 초, 브루넬레스키는 원근법을 눈으로 확인하는 실험을 했습니다. 특정한 위치에서 바라본 피렌체 세례당의 풍경을 평면의 그림과 일치시킬 수 있을까요? 후대 마네티의 기록에 따르면, 관찰자는 그림판의 작은 구멍으로 보면서 움직일 수 있는 거울을 이용해 반사된 그림과 실제 건물을 비교했습니다.",
+  "What does this test?": "무엇을 확인하는 실험일까요?",
+  "From the chosen eye position, do the reflected painting and the real building line up in direction, proportion, and apparent size?": "정해진 눈의 위치에서 거울에 비친 그림과 실제 건물의 방향·비율·겉보기 크기가 일치하는지 살펴봅니다.",
+  "The same viewpoint. Two views to compare.": "같은 시점에서 그림과 풍경을 비교합니다.",
+  "The mirror shows the fixed perspective painting.": "거울을 들면 미리 그린 원근법 그림이 비쳐 보입니다.",
+  "Removing the mirror reveals the real building along the same line of sight.": "거울을 치우면 같은 시선 방향의 실제 건물이 보입니다.",
+  "Why was the painting reversed?": "보충 설명: 그림을 미리 좌우 반전한 이유"
 };
 
 const key='brunelleschi-language';

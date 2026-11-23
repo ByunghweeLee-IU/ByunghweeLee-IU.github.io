@@ -1312,3 +1312,16 @@ html[data-theme="dark"] .paper-highlight {
     margin: 0 auto;
   }
 }
+
+/* Featured interactive experiment on the Visualization page. */
+.perspective-feature{display:block;margin:1.6rem 0 2.5rem;overflow:hidden;border:1px solid #dce2df;border-radius:16px;background:#f6f3ed;color:#1f3038!important;text-decoration:none!important;transition:box-shadow .2s,transform .2s}
+.perspective-feature:hover{transform:translateY(-2px);box-shadow:0 12px 35px rgba(28,49,60,.12)}
+.perspective-feature:focus-visible{outline:3px solid #cb723e;outline-offset:4px}
+.perspective-feature img{display:block;width:100%;height:auto;margin:0!important;border-radius:0!important}
+.perspective-feature-body{display:grid;gap:10px;padding:26px 30px}
+.perspective-feature-tag{color:#a6582c;font-size:11px;font-weight:750;letter-spacing:.13em}
+.perspective-feature-title{font-size:clamp(24px,4vw,34px);font-weight:750;line-height:1.2;letter-spacing:-.03em}
+.perspective-feature-description{color:#52666e;font-size:15px;line-height:1.7}
+.perspective-feature-link{color:#31586d;font-weight:700;font-size:14px;margin-top:5px}
+@media(max-width:640px){.perspective-feature-body{padding:20px}}
+@media(prefers-reduced-motion:reduce){.perspective-feature{transition:none}.perspective-feature:hover{transform:none}}

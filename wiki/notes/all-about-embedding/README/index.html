@@ -114,7 +114,7 @@
                 
                 <a href="/visualization/">
                     
-                        Visualization
+                        Mini Projects
                     
                 </a>
                 
@@ -245,7 +245,8 @@
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+                .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 
             const applyTheme = (theme) => {

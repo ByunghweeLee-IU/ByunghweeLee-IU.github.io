@@ -112,7 +112,7 @@
                 
                 <a href="/visualization/">
                     
-                        Visualization
+                        Mini Projects
                     
                 </a>
                 
@@ -206,18 +206,18 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
     <ul class="page-list">
         
         <li>
-            <span class="page-date">2026-11-16</span>
+            <span class="page-date">2026-11-23</span>
             <a href="/index/">Byunghwee Lee</a>
+        </li>
+        
+        <li>
+            <span class="page-date">2026-11-23</span>
+            <a href="/visualization/">Mini Projects</a>
         </li>
         
         <li>
             <span class="page-date">2026-09-03</span>
             <a href="/publications/">Publications</a>
-        </li>
-        
-        <li>
-            <span class="page-date">2026-08-26</span>
-            <a href="/visualization/">Data Visualization</a>
         </li>
         
         <li>
@@ -362,7 +362,8 @@ This wiki is where I collect my thoughts, essays, research ideas and useful info
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+                .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 
             const applyTheme = (theme) => {

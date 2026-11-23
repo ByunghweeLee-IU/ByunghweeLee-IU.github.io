@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://ByunghweeLee-IU.github.io/index/">
     
     
-    <meta property="article:modified_time" content="2026-11-16">
+    <meta property="article:modified_time" content="2026-11-23">
     
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
@@ -140,7 +140,7 @@
                 
                 <a href="/visualization/">
                     
-                        Visualization
+                        Mini Projects
                     
                 </a>
                 
@@ -233,7 +233,7 @@
 <p>Welcome to my homepage! You can find my research topics, publications, news, and essays below. </p>
 <ul>
 <li>🧐 Browse current <a href="research">research</a></li>
-<li>🗺️ Visit <a href="visualization.md">visualization</a></li>
+<li>🗺️ Explore <a href="visualization.md">mini projects</a></li>
 <li>📜 See <a href="publications">publications</a> and <a href="talks">talks</a></li>
 <li>🌎 Explore my <a href="Home.md">Hwiki</a> (thoughts, tips, essays, etc.)</li>
 </ul>
@@ -333,7 +333,8 @@
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+                .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 
             const applyTheme = (theme) => {

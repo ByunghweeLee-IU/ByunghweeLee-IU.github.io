@@ -3,23 +3,23 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Visualization - Byunghwee Lee</title>
+    <title>Mini Projects - Byunghwee Lee</title>
 
     <!-- Description for search engines -->
     
-    <meta name="description" content="Selected data visualization projects, including a historical map of places mentioned in the Annals of the Joseon Dynasty.">
+    <meta name="description" content="Small interactive projects and visual experiments exploring science, perception, history, and art.">
     
 
     <!-- Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Data Visualization">
+    <meta property="og:title" content="Mini Projects">
     
-    <meta property="og:description" content="Selected data visualization projects, including a historical map of places mentioned in the Annals of the Joseon Dynasty.">
+    <meta property="og:description" content="Small interactive projects and visual experiments exploring science, perception, history, and art.">
     
     <meta property="og:url" content="https://ByunghweeLee-IU.github.io/visualization/">
     
     
-    <meta property="article:modified_time" content="2026-08-26">
+    <meta property="article:modified_time" content="2026-11-23">
     
 
     <!-- Canonical URL (treat /index/ as duplicate of /) -->
@@ -36,9 +36,9 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Data Visualization">
+    <meta name="twitter:title" content="Mini Projects">
     
-    <meta name="twitter:description" content="Selected data visualization projects, including a historical map of places mentioned in the Annals of the Joseon Dynasty.">
+    <meta name="twitter:description" content="Small interactive projects and visual experiments exploring science, perception, history, and art.">
     
     
     <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/visualization_illust.png">
@@ -112,7 +112,7 @@
                 
                 <a href="/visualization/">
                     
-                        Visualization
+                        Mini Projects
                     
                 </a>
                 
@@ -150,7 +150,7 @@
 
 
 <header>
-    <h1>Data Visualization</h1>
+    <h1>Mini Projects</h1>
     
     
 </header>
@@ -159,8 +159,17 @@
 
 
 <section class="content">
-    <p>This page collects selected visualization work at the intersection of historical data, culture, and computational analysis.
-<img alt="Viz illustration" src="/assets/files/visualization_illust.png"/></p>
+    <p>A collection of small interactive projects, visual experiments, and research tools exploring science, perception, history, and art.</p>
+<p><a class="perspective-feature" href="/perspective/">
+<img alt="A perspective scene with a street grid converging on the horizon, buildings, and people at different distances" height="620" src="/assets/files/perspective-lab-preview.svg" width="1200"/>
+<span class="perspective-feature-body">
+<span class="perspective-feature-tag">INTERACTIVE LAB</span>
+<span class="perspective-feature-title">Sightlines &amp; Horizons</span>
+<span class="perspective-feature-description">How do eye height and camera pitch change what we see? Explore the horizon, vanishing points, and people in a live perspective simulator.</span>
+<span class="perspective-feature-link">Explore the Perspective Lab →</span>
+</span>
+</a></p>
+<p><img alt="Viz illustration" src="/assets/files/visualization_illust.png"/></p>
 <h2 id="mapping-five-centuries-of-korean-history-2015">Mapping five centuries of Korean history (2015)<a class="header-anchor" href="#mapping-five-centuries-of-korean-history-2015" title="Link to this section">#</a></h2>
 <div class="video-embed">
 <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/f-Gb-oGZdOs?si=S4rM4yjhjELXpZRA" title="Mapping 500 Years of Korean History | The Annals of Joseon Visualized">
@@ -274,7 +283,8 @@
             const lightboxClose = document.querySelector(".image-lightbox-close");
             const lightboxPrev = document.querySelector(".image-lightbox-prev");
             const lightboxNext = document.querySelector(".image-lightbox-next");
-            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'));
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+                .filter(image => !image.closest('a'));
             let activeLightboxIndex = -1;
 
             const applyTheme = (theme) => {

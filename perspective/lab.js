@@ -1,5 +1,5 @@
 'use strict';
-    function renderScene(ctx,w,h,state,{annotations=true,observerX=0,architecture='piazza',showVP=true,showHorizon=true}={}){
+    function renderScene(ctx,w,h,state,{annotations=true,observerX=0,observerZ=0,architecture='piazza',showVP=true,showHorizon=true}={}){
     function polygon(points,fill,stroke,width=1) {
       if(points.some(p=>!p))return;
       ctx.beginPath();ctx.moveTo(points[0].x,points[0].y);
@@ -16,23 +16,43 @@
       const yaw=(state.yaw||0)*Math.PI/180,cyaw=Math.cos(yaw),syaw=Math.sin(yaw);
       const f=h/(2*Math.tan((state.fov||58)/2*Math.PI/180)), cx=w/2,cy=h/2;
       const horizon=cy+f*Math.tan(pitch);
+      function cameraDepth(x,y,z){return ((x-observerX)*syaw+(z-observerZ)*cyaw)*cp+(y-state.height)*sp}
       function proj(x,y,z){
         const relativeX=x-observerX,relativeY=y-state.height;
-        const cameraX=relativeX*cyaw-z*syaw,cameraZ=relativeX*syaw+z*cyaw;
+        const relativeZ=z-observerZ;
+        const cameraX=relativeX*cyaw-relativeZ*syaw,cameraZ=relativeX*syaw+relativeZ*cyaw;
         const depth=cameraZ*cp+relativeY*sp;
         if(depth<=0.13)return null;
         return {x:cx+f*cameraX/depth,y:cy-f*(relativeY*cp-cameraZ*sp)/depth,depth};
+      }
+      // Clip world geometry at the camera before projecting a forward-moving view.
+      function crossing(a,b,da,db){const t=(.14-da)/(db-da);return a.map((v,i)=>v+t*(b[i]-v))}
+      function projectedFace(corners){
+        const clipped=[];
+        for(let i=0;i<corners.length;i++){
+          const a=corners[i],b=corners[(i+1)%corners.length],da=cameraDepth(...a),db=cameraDepth(...b);
+          if(da>=.14)clipped.push(a);
+          if((da>=.14)!==(db>=.14))clipped.push(crossing(a,b,da,db));
+        }
+        return clipped.map(p=>proj(...p));
+      }
+      function worldSegment(a,b,...style){
+        const da=cameraDepth(...a),db=cameraDepth(...b);
+        if(da<.14&&db<.14)return;
+        if(da<.14)a=crossing(a,b,da,db);
+        else if(db<.14)b=crossing(a,b,da,db);
+        segment(proj(...a),proj(...b),...style);
       }
       ctx.clearRect(0,0,w,h);
       const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#dce5ea');sky.addColorStop(1,'#f0f3f4');ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
       if(horizon<h){const ground=ctx.createLinearGradient(0,Math.max(0,horizon),0,h);ground.addColorStop(0,'#e7dec9');ground.addColorStop(1,'#c8c4ab');ctx.fillStyle=ground;ctx.fillRect(0,Math.max(0,horizon),w,h)}
       // Idealized ground grid, forward (z) lines and transverse (x) lines.
-      for(let x=-90;x<=90;x+=6){const a=proj(x,0,2),b=proj(x,0,320);segment(a,b,'rgba(100,134,122,.32)',1)}
-      for(let z=3;z<=300;z+=z<36?6:z<100?14:35){segment(proj(-120,0,z),proj(120,0,z),'rgba(100,134,122,.25)',1)}
+      for(let x=-90;x<=90;x+=6)worldSegment([x,0,2],[x,0,320],'rgba(100,134,122,.32)',1);
+      for(let z=3;z<=300;z+=z<36?6:z<100?14:35)worldSegment([-120,0,z],[120,0,z],'rgba(100,134,122,.25)',1);
       // Ground path highlights the horizontal lines converging toward the vanishing point.
-      segment(proj(-4,0,2),proj(-4,0,360),'rgba(255,255,255,.74)',2.8);
-      segment(proj(4,0,2),proj(4,0,360),'rgba(255,255,255,.74)',2.8);
-      for(let z=7;z<175;z+=12)segment(proj(0,0,z),proj(0,0,z+4),'rgba(255,255,255,.8)',2.5);
+      worldSegment([-4,0,2],[-4,0,360],'rgba(255,255,255,.74)',2.8);
+      worldSegment([4,0,2],[4,0,360],'rgba(255,255,255,.74)',2.8);
+      for(let z=7;z<175;z+=12)worldSegment([0,0,z],[0,0,z+4],'rgba(255,255,255,.8)',2.5);
       // Build every face from shared world-space corners. Only surfaces facing
       // the observer are visible; camera pitch does not reveal a hidden roof.
       const buildingFaces = [];
@@ -40,8 +60,8 @@
         const a=[x,0,z], b=[x+bw,0,z], c=[x+bw,0,z+bz], d=[x,0,z+bz];
         const at=[x,bh,z], bt=[x+bw,bh,z], ct=[x+bw,bh,z+bz], dt=[x,bh,z+bz];
         function face(corners,fill,panels=[]){
-          const points=corners.map(v=>proj(...v));
-          if(points.some(p=>!p))return;
+          const points=projectedFace(corners);
+          if(points.length<3||points.some(p=>!p))return;
           buildingFaces.push({points,fill,panels,
             depth:points.reduce((total,p)=>total+p.depth,0)/points.length});
         }
@@ -65,8 +85,8 @@
         // a gabled facade and an octagonal terracotta dome. All parts use the
         // same world coordinates and depth sorting as the surrounding piazza.
         function surface(corners,fill,panels=[]){
-          const points=corners.map(v=>proj(...v));
-          if(points.some(p=>!p))return;
+          const points=projectedFace(corners);
+          if(points.length<3||points.some(p=>!p))return;
           buildingFaces.push({points,fill,panels,depth:points.reduce((s,p)=>s+p.depth,0)/points.length});
         }
         block(-11,118,22,43,24,'#eee9db','#a8b6a6');
@@ -100,7 +120,7 @@
       // Paint far surfaces first so nearer buildings cover the ones behind.
       buildingFaces.sort((a,b)=>b.depth-a.depth).forEach(face=>{
         polygon(face.points,face.fill,'#7c8976',1);
-        face.panels.forEach(([a,b])=>segment(proj(...a),proj(...b),'rgba(80,120,136,.35)',.9));
+        face.panels.forEach(([a,b])=>worldSegment(a,b,'rgba(80,120,136,.35)',.9));
       });
       function person(x,z,height,color,caption,emphasis=false){
         const yEye=height-.12;
@@ -147,7 +167,7 @@
       segment({x:cx-9,y:cy},{x:cx+9,y:cy},'#2b4855',1.8);segment({x:cx,y:cy-9},{x:cx,y:cy+9},'#2b4855',1.8);
 
       }
-      return {horizon,forwardVP:{x:cx-f*Math.tan(yaw)/cp,y:horizon},crossVP:Math.abs(syaw)<1e-8?null:{x:cx+f*cyaw/syaw/cp,y:horizon},focal:f,project:proj};
+      return {horizon,forwardVP:{x:cx-f*Math.tan(yaw)/cp,y:horizon},crossVP:Math.abs(syaw)<1e-8?null:{x:cx+f*cyaw/syaw/cp,y:horizon},focal:f,observerZ,project:proj};
     }
 
 const el=id=>document.getElementById(id);
@@ -194,7 +214,7 @@ const divider=el('mirror-divider');let dragging=false;
 function dragMirror(event){const r=el('mirror-frame').getBoundingClientRect();el('mirror-reveal').value=Math.round(Math.max(0,Math.min(100,(event.clientX-r.left)/r.width*100)));drawMirror()}
 divider.addEventListener('pointerdown',event=>{if(event.button!==0)return;dragging=true;divider.setPointerCapture(event.pointerId);dragMirror(event)});divider.addEventListener('pointermove',event=>{if(dragging)dragMirror(event)});['pointerup','pointercancel','lostpointercapture'].forEach(type=>divider.addEventListener(type,()=>{dragging=false}));divider.addEventListener('keydown',event=>{const value=Number(el('mirror-reveal').value),step=event.shiftKey?10:1,next=event.key==='ArrowLeft'?value-step:event.key==='ArrowRight'?value+step:event.key==='Home'?0:event.key==='End'?100:null;if(next!==null){event.preventDefault();el('mirror-reveal').value=Math.max(0,Math.min(100,next));drawMirror()}});
 const FAMILY_A='#286b83',FAMILY_B='#92517a';
-function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project},{showVP=true,showB=false,showHorizon=true}={}){
+function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project,observerZ=0},{showVP=true,showB=false,showHorizon=true}={}){
  if(showHorizon){ctx.save();ctx.strokeStyle='#9b8d70';ctx.lineWidth=1.5;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(w,horizon);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#756448';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,horizon>25?horizon-12:horizon+20);ctx.restore()}
  if(showVP||showB){
   function family(target,color,lines,label,dy){
@@ -208,7 +228,7 @@ function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project},{showVP=tru
    else if(target.x>=10&&target.x<=w-10){ctx.beginPath();ctx.arc(target.x,target.y,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.stroke();ctx.fillStyle=color;const right=target.x>w-150;ctx.textAlign=right?'right':'left';ctx.fillText(label,target.x+(right?-12:12),target.y+dy)}
    else{const left=target.x<w/2,x=left?9:w-9;ctx.beginPath();ctx.moveTo(x,target.y);ctx.lineTo(x+(left?10:-10),target.y-6);ctx.lineTo(x+(left?10:-10),target.y+6);ctx.closePath();ctx.fill();ctx.textAlign=left?'left':'right';ctx.fillText((left?'← ':'')+label+' outside'+(left?'':' →'),left?22:w-22,target.y+dy)}ctx.restore();
   }
-  if(showVP)family(vp,FAMILY_A,[[[-4,0,16],[-4,0,150]],[[4,0,16],[4,0,150]],[[-11,24,118],[-11,24,161]]],'VP A · street',-13);
+  if(showVP)family(vp,FAMILY_A,[[[-4,0,observerZ+16],[-4,0,observerZ+150]],[[4,0,observerZ+16],[4,0,observerZ+150]],[[-11,24,118],[-11,24,161]]],'VP A · street',-13);
   if(showB)family(crossVP,FAMILY_B,[[[-11,0,118],[11,0,118]],[[-11,13,118],[11,13,118]],[[-11,24,118],[11,24,118]]],'VP B · across',24);
  }
  ctx.save();ctx.strokeStyle='#334b40';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(w/2-8,h/2);ctx.lineTo(w/2+8,h/2);ctx.moveTo(w/2,h/2-8);ctx.lineTo(w/2,h/2+8);ctx.stroke();ctx.restore();
@@ -227,10 +247,12 @@ function drawYaw(){
 }
 el('view-yaw').addEventListener('input',drawYaw);['yaw-a','yaw-b'].forEach(id=>el(id).addEventListener('input',drawYaw));
 el('yaw-two-point').addEventListener('click',()=>{el('view-yaw').value=45;el('yaw-a').checked=true;el('yaw-b').checked=true;drawYaw()});
+const DEFAULT_TRAVEL=20;
+const travel={preview:DEFAULT_TRAVEL,duomo:DEFAULT_TRAVEL};
 function drawDuomo(prefix='duomo'){
  const {canvas,ctx,w,h}=prepare(prefix+'-scene');
  const height=Number(el(prefix+'-height').value),offset=Number(el(prefix+'-offset').value),pitch=Number(el(prefix+'-pitch').value),yaw=Number(el(prefix+'-yaw').value);
- const result=renderScene(ctx,w,h,{...base,height,pitch,yaw,fov:100},{annotations:false,observerX:offset,architecture:'cathedral'});
+ const result=renderScene(ctx,w,h,{...base,height,pitch,yaw,fov:100,distance:90},{annotations:false,observerX:offset,observerZ:travel[prefix],architecture:'cathedral'});
  const {horizon,forwardVP:vp,crossVP,project}=result;
  const inside=vp.x>=0&&vp.x<=w;
  cameraGuides(ctx,w,h,result,{showVP:el(prefix+'-vp').checked,showB:el(prefix+'-vpb').checked,showHorizon:el(prefix+'-horizon').checked});
@@ -239,13 +261,48 @@ function drawDuomo(prefix='duomo'){
  if(el(prefix+'-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
  sideView(prefix+'-side',pitch,height);
  el(prefix+'-status').textContent=`Tilt: ${Math.abs(pitch)}°. ${yaw===0?'A centered; B at infinity.':'A & B share the horizon; VPs may be offscreen.'}`;
- canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
+ el(prefix+'-travel').value=(118-travel[prefix])+' m away';
+ el(prefix+'-forward').disabled=travel[prefix]>=90;el(prefix+'-back').disabled=travel[prefix]<=-80;
+ canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, distance to facade ${118-travel[prefix]} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
 }
 for(const prefix of ['preview','duomo']){
+ const canvas=el(prefix+'-scene');
+ const setRange=(suffix,value)=>{const input=el(prefix+'-'+suffix),step=Number(input.step)||1;input.value=Math.max(Number(input.min),Math.min(Number(input.max),Math.round(value/step)*step))};
+ const moveForward=step=>{travel[prefix]=Math.max(-80,Math.min(90,travel[prefix]+step));drawDuomo(prefix)};
+ el(prefix+'-forward').addEventListener('click',()=>moveForward(10));
+ el(prefix+'-back').addEventListener('click',()=>moveForward(-10));
+ let drag=null;
+ canvas.addEventListener('pointerdown',event=>{
+  if(event.button!==0||!event.isPrimary)return;
+  drag={id:event.pointerId,x:event.clientX,y:event.clientY,yaw:Number(el(prefix+'-yaw').value),pitch:Number(el(prefix+'-pitch').value)};
+  canvas.setPointerCapture(event.pointerId);canvas.classList.add('is-dragging');canvas.focus({preventScroll:true});
+ });
+ canvas.addEventListener('pointermove',event=>{
+  if(!drag||event.pointerId!==drag.id)return;
+  const bounds=canvas.getBoundingClientRect();
+  setRange('yaw',drag.yaw-(event.clientX-drag.x)*160/bounds.width);
+  setRange('pitch',drag.pitch+(event.clientY-drag.y)*80/bounds.height);
+  drawDuomo(prefix);
+ });
+ const endDrag=()=>{drag=null;canvas.classList.remove('is-dragging')};
+ ['pointerup','pointercancel','lostpointercapture'].forEach(type=>canvas.addEventListener(type,endDrag));
+ canvas.addEventListener('wheel',event=>{
+  if(event.ctrlKey)return;
+  event.preventDefault();
+  const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?canvas.clientHeight:1);
+  setRange('height',Number(el(prefix+'-height').value)-Math.max(-100,Math.min(100,pixels))*.01);
+  drawDuomo(prefix);
+ },{passive:false});
+ canvas.addEventListener('keydown',event=>{
+  const arrows={ArrowLeft:['yaw',-2],ArrowRight:['yaw',2],ArrowUp:['pitch',2],ArrowDown:['pitch',-2]};
+  if(arrows[event.key]){event.preventDefault();const [suffix,delta]=arrows[event.key];setRange(suffix,Number(el(prefix+'-'+suffix).value)+delta);drawDuomo(prefix)}
+  else if(event.key==='+'||event.key==='='){event.preventDefault();moveForward(10)}
+  else if(event.key==='-'){event.preventDefault();moveForward(-10)}
+ });
  el(prefix+'-two-point').addEventListener('click',()=>{el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=45;el(prefix+'-vpb').checked=true;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
  el(prefix+'-center').addEventListener('click',()=>{el(prefix+'-pitch').value=0;el(prefix+'-yaw').value=0;drawDuomo(prefix)});
  ['height','offset','pitch','yaw','vp','vpb','horizon'].forEach(suffix=>el(prefix+'-'+suffix).addEventListener('input',()=>drawDuomo(prefix)));
- el(prefix+'-reset').addEventListener('click',()=>{for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vpb').checked=false;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
+ el(prefix+'-reset').addEventListener('click',()=>{travel[prefix]=DEFAULT_TRAVEL;for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vpb').checked=false;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
 }
 document.querySelectorAll('[data-range-reset]').forEach(button=>button.addEventListener('click',()=>{const input=el(button.dataset.rangeReset);input.value=input.defaultValue;input.dispatchEvent(new Event('input',{bubbles:true}))}));
 function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo();drawDuomo('preview')}window.addEventListener('resize',drawAll,{passive:true});drawAll();

@@ -62,3 +62,10 @@
  .experiment--free .mirror-bottom p{min-height:0}
 }
 @media(max-width:540px){.experiment--free .experiment-controls .free-controls{grid-template-columns:1fr}}
+.scene-help{font-size:11px;color:var(--muted);margin:-8px 0 9px}
+.experiment--free canvas{cursor:grab;touch-action:none;user-select:none}
+.experiment--free canvas.is-dragging{cursor:grabbing}
+.scene-navigation{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:4px;border:1px solid #ddd7c9;border-radius:8px;background:#fffdf7ed;box-shadow:0 2px 8px #334b4015}
+.scene-navigation button{display:grid;place-items:center;width:28px;height:28px;padding:0;background:transparent;border:1px solid var(--line);border-radius:5px;font-size:20px;line-height:1;color:var(--green)}
+.scene-navigation button:disabled{opacity:.35;cursor:default}
+.scene-navigation output{min-width:78px;text-align:center;font-size:11px;font-weight:600}

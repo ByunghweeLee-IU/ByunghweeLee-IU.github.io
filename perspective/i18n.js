@@ -130,7 +130,7 @@ const korean={
   "04 · Fixed viewpoint · Brunelleschi’s mirror": "04 · 고정된 시점 · 브루넬레스키의 거울",
   "Does the painting still match when you move?": "옆으로 움직여도 그림이 맞아 보일까요?",
   "Move sideways, then return to the original position. Drag the image divider to compare.": "옆으로 움직였다가 원래 위치로 돌아와 보세요. 경계선을 드래그해 두 영상을 비교합니다.",
-  "At the center, the cathedral’s edges line up. Move sideways and the direct view shifts while the painting stays fixed.": "가운데에서는 성당의 모서리가 일치합니다. 옆으로 움직이면 실제 풍경 쪽은 달라지지만 그림은 고정되어 있습니다.",
+  "At the center, the cathedral’s edges line up. Move sideways and the direct view shifts while the painting stays fixed.": "가운데에서는 성당의 모서리가 일치합니다. 옆으로 움직이면 직접 보는 풍경은 달라지지만 그림은 고정되어 있습니다.",
   "A reflected fixed painting on the left and the current virtual piazza on the right": "왼쪽의 거울에 비친 고정된 그림과 오른쪽의 현재 가상 광장 풍경",
   "REFLECTED PAINTING": "거울에 비친 그림",
   "DIRECT VIEW": "직접 보는 풍경",
@@ -191,7 +191,16 @@ const korean={
   "The simulations use level ground, upright people, and an ideal pinhole camera. Earth’s curvature, lens distortion, and binocular depth are omitted.": "이 모형은 평평한 지면, 똑바로 선 사람, 이상적인 핀홀 카메라를 가정합니다. 지구의 곡률, 렌즈 왜곡, 양안 시차는 생략했습니다.",
   "Brunelleschi’s View · Byunghwee Lee": "브루넬레스키의 시선 · Byunghwee Lee",
   "Language": "언어",
-  "Five simple drawing experiments: eye height, viewing direction, vanishing points, fixed viewpoints, and turning your gaze.": "눈높이, 시선 방향, 소실점, 고정된 시점과 좌우 회전을 탐구하는 다섯 가지 원근법 실험."
+  "Five simple drawing experiments: eye height, viewing direction, vanishing points, fixed viewpoints, and turning your gaze.": "눈높이, 시선 방향, 소실점, 고정된 시점과 좌우 회전을 탐구하는 다섯 가지 원근법 실험.",
+  "The horizon stays at the center.": "수평선은 화면 중앙에 머뭅니다.",
+  "As you rise, people drop below it and low rooftops come into view.": "눈높이가 올라가면 사람은 수평선 아래로 내려가고, 낮은 건물의 지붕이 보입니다.",
+  "Look up: the horizon moves down; look down: it moves up.": "위를 보면 수평선은 내려가고, 아래를 보면 올라갑니다.",
+  "The crosshair is your gaze direction. Its vertical angular separation from the horizon equals your tilt.": "중앙 십자 표시는 시선 방향입니다. 시선과 수평선 사이의 수직 각도가 상하 시선 각도입니다.",
+  "Parallel lines in the same direction meet at one vanishing point.": "같은 방향의 평행선은 하나의 소실점으로 모입니다.",
+  "Here, the road’s extensions meet on the horizon.": "여기서는 길의 가장자리를 연장한 선들이 수평선 위에서 만납니다.",
+  "Moving your viewpoint breaks the match with a fixed drawing.": "시점을 바꾸면 고정된 그림과 풍경의 일치가 깨집니다.",
+  "Different directions of parallel lines have different vanishing points.": "다른 방향의 평행선은 서로 다른 소실점으로 모입니다.",
+  "Eye height, position, and gaze change different parts of the view.": "눈높이·위치·시선은 서로 다른 변화를 만듭니다."
 };
 
 const key='brunelleschi-language';

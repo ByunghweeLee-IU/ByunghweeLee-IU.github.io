@@ -261,14 +261,14 @@ function drawDuomo(prefix='duomo'){
  if(el(prefix+'-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
  sideView(prefix+'-side',pitch,height);
  el(prefix+'-status').textContent=`Tilt: ${Math.abs(pitch)}°. ${yaw===0?'A centered; B at infinity.':'A & B share the horizon; VPs may be offscreen.'}`;
- el(prefix+'-travel').value=(118-travel[prefix])+' m away';
+ el(prefix+'-travel').value=Number((118-travel[prefix]).toFixed(1))+' m away';
  el(prefix+'-forward').disabled=travel[prefix]>=90;el(prefix+'-back').disabled=travel[prefix]<=-80;
  canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, distance to facade ${118-travel[prefix]} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
 }
 for(const prefix of ['preview','duomo']){
  const canvas=el(prefix+'-scene');
  const setRange=(suffix,value)=>{const input=el(prefix+'-'+suffix),step=Number(input.step)||1;input.value=Math.max(Number(input.min),Math.min(Number(input.max),Math.round(value/step)*step))};
- const moveForward=step=>{travel[prefix]=Math.max(-80,Math.min(90,travel[prefix]+step));drawDuomo(prefix)};
+ const moveForward=step=>{travel[prefix]=Math.max(-80,Math.min(90,Math.round((travel[prefix]+step)*10)/10));drawDuomo(prefix)};
  el(prefix+'-forward').addEventListener('click',()=>moveForward(10));
  el(prefix+'-back').addEventListener('click',()=>moveForward(-10));
  let drag=null;
@@ -290,8 +290,7 @@ for(const prefix of ['preview','duomo']){
   if(event.ctrlKey)return;
   event.preventDefault();
   const pixels=event.deltaY*(event.deltaMode===1?16:event.deltaMode===2?canvas.clientHeight:1);
-  setRange('height',Number(el(prefix+'-height').value)-Math.max(-100,Math.min(100,pixels))*.01);
-  drawDuomo(prefix);
+  moveForward(-Math.max(-100,Math.min(100,pixels))*.1);
  },{passive:false});
  canvas.addEventListener('keydown',event=>{
   const arrows={ArrowLeft:['yaw',-2],ArrowRight:['yaw',2],ArrowUp:['pitch',2],ArrowDown:['pitch',-2]};

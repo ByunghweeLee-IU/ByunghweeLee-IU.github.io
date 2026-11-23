@@ -1,1 +1,35 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0; url=/museum/"><link rel="canonical" href="https://byunghweelee-iu.github.io/museum/"><title>Mini Museum has moved</title><p><a href="/museum/">Continue to Mini Museum →</a></p><script>location.replace('/museum/'+location.search+location.hash)</script></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://byunghweelee-iu.github.io/museum/">
+  <title>Mini Museum has moved</title>
+  <script>
+    // Preserve bookmarks to exhibitions that used to share this page.
+    const legacySections = {
+      'brunelleschis-view-2026': '/perspective/',
+      'interactive-perspective-lab-2026': '/perspective/',
+      'interactive-perspective-lab': '/perspective/',
+      'mapping-five-centuries-of-korean-history-2015': '/museum/joseon/',
+      'the-annals-of-the-joseon-dynasty': '/museum/joseon/',
+      'locations-mentioned-with-three-historical-figures-yi-sun-sin-kim-jong-seo-jeong-yak-yong': '/museum/joseon/#locations-mentioned-with-three-historical-figures-yi-sun-sin-kim-jong-seo-jeong-yak-yong',
+      'increasing-concentration-of-place-mentions-around-seoul-in-the-historical-text': '/museum/joseon/',
+      'individuals-recorded-in-the-sillok-over-time': '/museum/joseon/',
+      'temporal-changes-in-frequently-mentioned-cities-in-the-annals-of-the-joseon-dynasty': '/museum/joseon/',
+      'project-notes': '/museum/joseon/#project-notes',
+      'dissecting-landscape-painting-using-information-theory': '/museum/landscape/',
+      'project-notes_1': '/museum/landscape/#project-notes'
+    };
+    const section = location.hash.slice(1);
+    const target = new URL(legacySections[section] || '/museum/', location.origin);
+    target.search = location.search;
+    if (!legacySections[section]) target.hash = location.hash;
+    location.replace(target.href);
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url=/museum/"></noscript>
+</head>
+<body>
+  <p>This collection is now the Mini Museum. <a href="/museum/">Continue to Mini Museum →</a></p>
+</body>
+</html>

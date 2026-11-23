@@ -4,7 +4,7 @@
     "path": "Home",
     "url": "/wiki/Home/",
     "content": "## About This Wiki\n\nWelcome to the public wiki section of my site!\ud83d\udc4b \nThis wiki is where I collect my thoughts, essays, research ideas and useful information. \n## Science Essays\n\n**The Hidden Secrets of Art Through Data**\n\nOriginally written in Korean. Each essay is also available in English.\n\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (1) - \ud669\uae08\ube44\uc728\uc758 \ube44\ubc00: \uc815\ubcf4\uc774\ub860\uc73c\ub85c \ubc14\ub77c\ubcf8 \ubbf8\uc220\uc0ac \uc18d \uad6c\ub3c4\uc640 \ube44\ub840](notes/blogs/01_art-goldenratio.md)  \n  [Read in English \u2014 The Golden Ratio and Composition](notes/blogs/01_art-goldenratio_en.md)\n- \ud83c\udfa8 [\ub370\uc774\ud130\ub85c \ubcf8 \uc608\uc220 (2) -",
-    "published": "2026-11-23T16:05:52.884002+00:00",
+    "published": "2026-11-23T16:11:35.968854+00:00",
     "tags": []
   },
   {
@@ -20,23 +20,23 @@
     "path": "index",
     "url": "/index/",
     "content": "<div class=\"home-hero\">\n  <div class=\"home-hero-copy\">\n    <p><strong>Byunghwee Lee (\uc774\ubcd1\ud718)</strong> is a Postdoctoral Research Associate at the University of Virginia School of Data Science, working with Prof. Yong-Yeol Ahn. He received his Ph.D. in Physics from KAIST. He aims to develop interpretable frameworks to uncover the principles underlying the structure and evolution of human beliefs, behavior, and creativity. His research combines statistical physics, network science, and machine learni",
-    "published": "2026-11-23T04:12:13.347853+00:00",
+    "published": "2026-11-23T16:16:37.749494+00:00",
     "tags": []
   },
   {
     "title": "Mapping Five Centuries of Korean History",
     "path": "museum/joseon",
     "url": "/museum/joseon/",
-    "content": "[\u2190 Mini Museum](museum.md)\n\n<div class=\"museum-exhibit-meta\">HISTORY &amp; GEOGRAPHY \u00b7 VIDEO EXHIBIT \u00b7 2015</div>\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/f-Gb-oGZdOs?si=S4rM4yjhjELXpZRA\"\n    title=\"Mapping 500 Years of Korean History | The Annals of Joseon Visualized\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n    referrerpolicy=\"strict-origin-when-cross-origin\"\n    allowfullscreen>\n  </ifram",
-    "published": "2026-11-23T04:12:52.270384+00:00",
+    "content": "[\u2190 Mini Museum](/museum/)\n\n<div class=\"museum-exhibit-meta\">HISTORY &amp; GEOGRAPHY \u00b7 VIDEO EXHIBIT \u00b7 2015</div>\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/f-Gb-oGZdOs?si=S4rM4yjhjELXpZRA\"\n    title=\"Mapping 500 Years of Korean History | The Annals of Joseon Visualized\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n    referrerpolicy=\"strict-origin-when-cross-origin\"\n    allowfullscreen>\n  </iframe",
+    "published": "2026-11-23T16:16:37.748492+00:00",
     "tags": []
   },
   {
     "title": "Dissecting Landscape Painting",
     "path": "museum/landscape",
     "url": "/museum/landscape/",
-    "content": "[\u2190 Mini Museum](museum.md)\n\n<div class=\"museum-exhibit-meta\">ART &amp; INFORMATION THEORY \u00b7 VIDEO EXHIBIT</div>\n\nHow can the composition of a painting be described through information? Watch an image divide into smaller regions as its structure emerges.\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/Bb23lO3dzxM\"\n    title=\"Dissecting landscape painting using information theory\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-i",
-    "published": "2026-11-23T04:12:52.270506+00:00",
+    "content": "[\u2190 Mini Museum](/museum/)\n\n<div class=\"museum-exhibit-meta\">ART &amp; INFORMATION THEORY \u00b7 VIDEO EXHIBIT</div>\n\nHow can the composition of a painting be described through information? Watch an image divide into smaller regions as its structure emerges.\n\n<div class=\"video-embed\">\n  <iframe\n    src=\"https://www.youtube.com/embed/Bb23lO3dzxM\"\n    title=\"Dissecting landscape painting using information theory\"\n    allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in",
+    "published": "2026-11-23T16:16:37.748672+00:00",
     "tags": []
   },
   {

@@ -117,6 +117,26 @@ article {
   border-radius: 4px;
 }
 
+.content.page-intro-illustrated > .page-intro-illustration {
+  float: right;
+  margin: 0 0 1rem 1.5rem;
+}
+
+.content.page-intro-illustrated > h2:first-of-type {
+  margin-top: 1.25rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.content.page-intro-illustrated > h2:nth-of-type(2) {
+  clear: both;
+  border-top: 0;
+}
+
+.page-header-illustrated + .content > h2:first-of-type {
+  border-top: 0;
+}
+
 section {
   width: 100%;
   padding: 0.5rem 0;
@@ -1054,6 +1074,10 @@ html[data-theme="dark"] .social-github {
     flex-basis: 88px;
     width: 88px;
     height: 88px;
+  }
+
+  .content > .page-intro-illustration {
+    margin-left: 1rem;
   }
 
   body {

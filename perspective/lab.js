@@ -216,19 +216,21 @@ function drawYaw(){
  canvas.setAttribute('aria-label',`Step 5: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}; the street vanishing point moves ${yaw>0?'left':yaw<0?'right':'to center'} on the horizon.`);
 }
 el('view-yaw').addEventListener('input',drawYaw);
-function drawDuomo(){
- const {canvas,ctx,w,h}=prepare('duomo-scene');
- const height=Number(el('duomo-height').value),offset=Number(el('duomo-offset').value),pitch=Number(el('duomo-pitch').value),yaw=Number(el('duomo-yaw').value);
+function drawDuomo(prefix='duomo'){
+ const {canvas,ctx,w,h}=prepare(prefix+'-scene');
+ const height=Number(el(prefix+'-height').value),offset=Number(el(prefix+'-offset').value),pitch=Number(el(prefix+'-pitch').value),yaw=Number(el(prefix+'-yaw').value);
  const {horizon,forwardVP:vp,project}=renderScene(ctx,w,h,{...base,height,pitch,yaw},{annotations:false,observerX:offset,architecture:'cathedral'});
  const inside=vp.x>=0&&vp.x<=w;
- cameraGuides(ctx,w,h,{horizon,forwardVP:vp,project},{showVP:el('duomo-vp').checked,showHorizon:el('duomo-horizon').checked});
- el('duomo-height-value').value=height.toFixed(2)+' m';el('duomo-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
- el('duomo-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el('duomo-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
- if(el('duomo-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
- sideView('duomo-side',pitch,height);
- el('duomo-status').textContent=`Gaze-to-horizon angle: ${Math.abs(pitch)}°. Horizon ${pitch===0?'at center':pitch>0?'below center':'above center'} · street VP ${!inside?(vp.x<0?'beyond left edge':'beyond right edge'):yaw===0?'horizontally centered':yaw>0?'left of center':'right of center'}.`;
+ cameraGuides(ctx,w,h,{horizon,forwardVP:vp,project},{showVP:el(prefix+'-vp').checked,showHorizon:el(prefix+'-horizon').checked});
+ el(prefix+'-height-value').value=height.toFixed(2)+' m';el(prefix+'-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
+ el(prefix+'-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el(prefix+'-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
+ if(el(prefix+'-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
+ sideView(prefix+'-side',pitch,height);
+ el(prefix+'-status').textContent=`Gaze-to-horizon angle: ${Math.abs(pitch)}°. Horizon ${pitch===0?'at center':pitch>0?'below center':'above center'} · street VP ${!inside?(vp.x<0?'beyond left edge':'beyond right edge'):yaw===0?'horizontally centered':yaw>0?'left of center':'right of center'}.`;
  canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
 }
-['duomo-height','duomo-offset','duomo-pitch','duomo-yaw','duomo-vp','duomo-horizon'].forEach(id=>el(id).addEventListener('input',drawDuomo));
-el('duomo-reset').addEventListener('click',()=>{for(const [id,value] of Object.entries({'duomo-height':1.6,'duomo-offset':0,'duomo-pitch':0,'duomo-yaw':0}))el(id).value=value;el('duomo-vp').checked=true;el('duomo-horizon').checked=true;drawDuomo()});
-function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo()}window.addEventListener('resize',drawAll,{passive:true});drawAll();
+for(const prefix of ['preview','duomo']){
+ ['height','offset','pitch','yaw','vp','horizon'].forEach(suffix=>el(prefix+'-'+suffix).addEventListener('input',()=>drawDuomo(prefix)));
+ el(prefix+'-reset').addEventListener('click',()=>{for(const [suffix,value] of Object.entries({height:1.6,offset:0,pitch:0,yaw:0}))el(prefix+'-'+suffix).value=value;el(prefix+'-vp').checked=true;el(prefix+'-horizon').checked=true;drawDuomo(prefix)});
+}
+function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo();drawDuomo('preview')}window.addEventListener('resize',drawAll,{passive:true});drawAll();

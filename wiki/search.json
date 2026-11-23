@@ -43,8 +43,8 @@
     "title": "Mini Museum",
     "path": "museum",
     "url": "/museum/",
-    "content": "A small online museum for curious minds. Step into an experiment, explore a historical landscape, or watch a painting reveal its structure.\n\n<section class=\"museum-gallery\" aria-label=\"Museum exhibitions\">\n<a class=\"perspective-feature museum-card museum-featured\" href=\"/perspective/\">\n  <img src=\"/assets/files/perspective-lab-preview.svg\" alt=\"An imagined Florentine piazza with a horizon and perspective grid\" width=\"1200\" height=\"620\">\n  <span class=\"perspective-feature-body\">\n    <span class=\"",
-    "published": "2026-11-23T04:00:43.961434+00:00",
+    "content": "A small online museum for curious minds. Step into an experiment, explore a historical landscape, or watch a painting reveal its structure.\n\n<section class=\"museum-gallery\" aria-label=\"Museum exhibitions\">\n<a class=\"perspective-feature museum-card museum-featured\" href=\"/perspective/\">\n  <img src=\"/assets/files/brunelleschi-duomo-preview.svg\" alt=\"An imagined Florentine cathedral with a terracotta dome, a perspective street, and a horizon\" width=\"1200\" height=\"620\">\n  <span class=\"perspective-fe",
+    "published": "2026-11-23T05:22:26.611753+00:00",
     "tags": []
   },
   {

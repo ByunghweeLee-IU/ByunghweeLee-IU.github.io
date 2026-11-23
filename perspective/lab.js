@@ -307,3 +307,40 @@ document.querySelectorAll('[data-range-reset]').forEach(button=>button.addEventL
 function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo();drawDuomo('preview')}window.addEventListener('resize',drawAll,{passive:true});drawAll();
 
 let layoutFrame;const sceneResize=new ResizeObserver(()=>{cancelAnimationFrame(layoutFrame);layoutFrame=requestAnimationFrame(drawAll)});document.querySelectorAll('.experiment-view').forEach(view=>sceneResize.observe(view));
+
+// Follow the reading position without changing the URL while scrolling.
+const contents=el('contents-nav'),contentsSummary=contents.querySelector('summary');
+const sectionLinks=[...contents.querySelectorAll('a[data-section]')];
+const readingSections=sectionLinks.map(link=>el(link.dataset.section));
+const compactContents=window.matchMedia('(max-width:1179px)');
+function sizeContents(){contents.open=!compactContents.matches;contentsSummary.tabIndex=compactContents.matches?0:-1}
+sizeContents();compactContents.addEventListener('change',sizeContents);
+sectionLinks.forEach(link=>link.addEventListener('click',()=>{if(compactContents.matches)contents.open=false}));
+let readingFrame=0;
+function markReadingSection(){
+ readingFrame=0;
+ const threshold=Math.min(160,window.innerHeight*.25);
+ let active=0;
+ readingSections.forEach((section,index)=>{if(section.getBoundingClientRect().top<=threshold)active=index});
+ if(window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-2)active=readingSections.length-1;
+ sectionLinks.forEach((link,index)=>{if(index===active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current')});
+ el('contents-current').textContent=sectionLinks[active].lastElementChild.textContent;
+}
+function queueReadingSection(){if(!readingFrame)readingFrame=requestAnimationFrame(markReadingSection)}
+window.addEventListener('scroll',queueReadingSection,{passive:true});
+window.addEventListener('resize',queueReadingSection,{passive:true});
+window.addEventListener('load',queueReadingSection);
+contents.addEventListener('toggle',queueReadingSection);
+markReadingSection();
+
+// Keep the angle diagrams visible without covering the smaller drawing.
+const mobileDiagrams=window.matchMedia('(max-width:700px)');
+const diagramHomes=[...document.querySelectorAll('.side-inset')].map(diagram=>{
+ const home=diagram.parentElement,controls=home.closest('.experiment').querySelector('.experiment-controls');
+ const row=document.createElement('div'),caption=document.createElement('span');
+ row.className='mobile-inset';caption.textContent=diagram.id==='yaw-plan'?'Your gaze · top view':'Your gaze · side view';
+ row.append(caption);controls.prepend(row);
+ return {diagram,home,row};
+});
+function placeDiagrams(){diagramHomes.forEach(({diagram,home,row})=>(mobileDiagrams.matches?row:home).append(diagram))}
+placeDiagrams();mobileDiagrams.addEventListener('change',placeDiagrams);

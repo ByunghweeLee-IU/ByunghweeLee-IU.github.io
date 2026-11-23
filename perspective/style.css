@@ -71,3 +71,35 @@
 .scene-navigation button:hover{background:#fffdf770}
 .scene-navigation button:disabled{opacity:.35;cursor:default}
 .scene-navigation output{min-width:78px;text-align:center;font-size:11px;font-weight:600}
+.mobile-inset{display:none}
+@media(max-width:700px){
+ .mobile-inset{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:1px solid var(--line)}
+ .mobile-inset>span{font-size:11px;color:var(--muted)}
+ .mobile-inset .side-inset{position:static;width:120px;flex-shrink:0;filter:none}
+}
+
+/* A quiet section rail, kept outside the drawing and its controls. */
+body{padding-left:168px}
+.contents-nav{position:fixed;z-index:10;top:96px;left:max(14px,calc((100vw - 1248px)/2 + 12px));width:140px;max-height:calc(100dvh - 120px);overflow:auto;scrollbar-width:thin}
+.contents-nav summary{display:flex;align-items:center;gap:12px;padding:0 10px 12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);list-style:none;pointer-events:none}
+.contents-nav summary::-webkit-details-marker{display:none}
+.contents-nav ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+.contents-nav li{margin:2px 0}
+.contents-nav a{display:flex;align-items:baseline;gap:8px;padding:7px 8px 7px 10px;border-left:2px solid transparent;margin-left:-1px;border-radius:0 5px 5px 0;text-decoration:none;color:var(--muted);font-size:11px;line-height:1.4}
+.contents-nav a>span:first-child{flex:0 0 17px;font-size:9px;font-variant-numeric:tabular-nums;color:#9c9c8c}
+.contents-nav a:hover{color:var(--green);background:#fffdf77a}
+.contents-nav a[aria-current]{border-left-color:var(--accent);color:var(--green);background:#fffdf7b3;font-weight:700}
+.contents-nav a[aria-current]>span:first-child{color:var(--accent)}
+.contents-current{display:none}
+#intro,#the-apparatus,#drawing-notes{scroll-margin-top:24px}
+@media(max-width:1179px){
+ body{padding-left:0;padding-top:48px}
+ .contents-nav{top:10px;left:14px;width:min(280px,calc(100vw - 28px));max-height:calc(100dvh - 24px);border:1px solid var(--line);border-radius:8px;background:#fffdf7f2;box-shadow:0 3px 12px #334b400d}
+ .contents-nav summary{padding:8px 11px;cursor:pointer;pointer-events:auto;letter-spacing:.04em}
+ .contents-nav summary:after{content:'⌄';margin-left:auto;font-size:13px}
+ .contents-nav[open] summary:after{content:'⌃'}
+ .contents-current{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-transform:none;letter-spacing:0;font-weight:500}
+ .contents-nav nav{padding:0 10px 10px}
+ .contents-nav a{padding-top:9px;padding-bottom:9px;font-size:12px}
+ .step,#intro,#the-apparatus,#drawing-notes{scroll-margin-top:62px}
+}

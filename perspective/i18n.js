@@ -200,7 +200,17 @@ const korean={
   "Here, the road’s extensions meet on the horizon.": "여기서는 길의 가장자리를 연장한 선들이 수평선 위에서 만납니다.",
   "Moving your viewpoint breaks the match with a fixed drawing.": "시점을 바꾸면 고정된 그림과 풍경의 일치가 깨집니다.",
   "Different directions of parallel lines have different vanishing points.": "다른 방향의 평행선은 서로 다른 소실점으로 모입니다.",
-  "Eye height, position, and gaze change different parts of the view.": "눈높이·위치·시선은 서로 다른 변화를 만듭니다."
+  "Eye height, position, and gaze change different parts of the view.": "눈높이·위치·시선은 서로 다른 변화를 만듭니다.",
+  "Five experiments · Quick recap": "다섯 실험 · 한눈에 정리",
+  "What you learned.": "한눈에 보는 핵심.",
+  "Quick recap": "핵심 요약",
+  "05 · Two-point perspective": "05 · 2점 투시",
+  "Before drawing, choose your eye height and gaze direction. Keep your observation position consistent.": "그림을 그릴 때는 눈높이와 시선 방향을 먼저 정하고, 관찰 위치를 일관되게 유지하세요.",
+  "With a level gaze, changing eye height keeps the horizon at image center.": "시선이 수평이면, 눈높이를 바꿔도 수평선은 화면 중앙에 머뭅니다.",
+  "Tilt up: horizon down. Tilt down: horizon up.": "위를 보면 수평선은 내려가고, 아래를 보면 올라갑니다.",
+  "Parallel lines in the same direction converge toward one vanishing point.": "같은 방향의 평행선은 하나의 소실점으로 모입니다.",
+  "A fixed drawing matches the scene from its original viewpoint.": "고정된 그림은 원래의 관찰 위치에서 풍경과 일치합니다.",
+  "An oblique, level view reveals two vanishing points on one horizon.": "수평을 유지하고 비스듬히 보면 두 방향의 소실점이 같은 수평선 위에 나타납니다."
 };
 
 const key='brunelleschi-language';

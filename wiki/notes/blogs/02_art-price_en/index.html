@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Art Through Data (2): The Secrets of Art Prices—Visual Features vs. Social Signals - Byunghwee Lee</title>
+
+    <!-- Description for search engines -->
+    
+    <meta name="description" content="Social signals predict contemporary art prices far better than visual features in a large auction dataset. What, then, are collectors paying for?">
+    
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Art Through Data (2): The Secrets of Art Prices—Visual Features vs. Social Signals">
+    
+    <meta property="og:description" content="Social signals predict contemporary art prices far better than visual features in a large auction dataset. What, then, are collectors paying for?">
+    
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/02_art-price_en/">
+    
+    <meta property="article:published_time" content="2026-03-18">
+    
+    
+    <meta property="article:modified_time" content="2026-11-23">
+    
+
+    <!-- Canonical URL (treat /index/ as duplicate of /) -->
+    
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/02_art-price_en/">
+    
+
+    <!-- JSON-LD structured data for author/site -->
+    
+    
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/files/kslee_img1.png">
+    
+    <meta property="og:site_name" content="Byunghwee Lee">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Art Through Data (2): The Secrets of Art Prices—Visual Features vs. Social Signals">
+    
+    <meta name="twitter:description" content="Social signals predict contemporary art prices far better than visual features in a large auction dataset. What, then, are collectors paying for?">
+    
+    
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/kslee_img1.png">
+    
+
+    <script>
+        (function() {
+            const storageKey = "theme-preference";
+            const storedTheme = localStorage.getItem(storageKey);
+            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = document.documentElement.dataset.forcedTheme || storedTheme || (systemPrefersDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/assets/site-icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/site-icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/site-icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-art-translations">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WQNHVCTPN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3WQNHVCTPN');
+    </script>
+
+    <!-- Atom Feed autodiscovery -->
+    
+    <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
+    
+</head>
+<body data-page-path="notes/blogs/02_art-price_en" class="has-page-toc">
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
+            <div class="nav-controls">
+                <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav-links">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="visually-hidden">Menu</span>
+                </button>
+                <div class="nav-links" id="site-nav-links">
+                
+                <a href="/">
+                    
+                        Home
+                    
+                </a>
+                
+                <a href="/research/">
+                    
+                        Research
+                    
+                </a>
+                
+                <a href="/publications/">
+                    
+                        Publications
+                    
+                </a>
+                
+                <a href="/museum/">
+                    
+                        Mini Museum
+                    
+                </a>
+                
+                <a href="/talks/">
+                    
+                        Talks
+                    
+                </a>
+                
+                <a href="/wiki/Home/">
+                    
+                        Hwiki
+                    
+                </a>
+                
+                <a href="/cv/">
+                    
+                        CV
+                    
+                </a>
+                
+                </div>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+                    <span class="visually-hidden theme-toggle-label">Dark mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article>
+        
+
+
+<div class="page-with-toc">
+
+
+
+<header>
+    <h1>Art Through Data (2): The Secrets of Art Prices—Visual Features vs. Social Signals</h1>
+    
+    <p class="page-author" rel="author">Byunghwee Lee</p>
+    
+    
+    <p class="page-dates">
+        
+        
+        
+            
+                2026-03-18 → 2026-11-23
+            
+        
+    </p>
+    
+</header>
+
+
+
+<aside class="page-toc" aria-label="Table of contents">
+    <button class="page-toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-nav">
+        <span>On this page</span>
+        <span class="page-toc-chevron" aria-hidden="true">⌄</span>
+    </button>
+    <nav class="page-toc-nav" id="page-toc-nav" aria-label="On this page">
+        <p class="page-toc-title">On this page</p>
+        <ol class="page-toc-list"></ol>
+    </nav>
+</aside>
+
+
+<section class="content">
+    <p class="translation-note">Originally written in Korean; translated with ChatGPT. <a href="/wiki/notes/blogs/02_art-price/">Read the Korean original</a>.</p>
+
+<h2 id="a-conversation-at-the-museum-where-does-a-paintings-value-come-from"><strong>A Conversation at the Museum: Where Does a Painting&rsquo;s Value Come From?</strong><a class="header-anchor" href="#a-conversation-at-the-museum-where-does-a-paintings-value-come-from" title="Link to this section">#</a></h2>
+<p>Sehyeon: Wow, these paintings are wonderful! Anything hanging in a museum like this must cost a fortune, right?</p>
+<p>Nayeon: Quite possibly. Experts estimate that some expensive paintings are worth tens of billions of won. But have you ever wondered how a single painting gets that expensive?</p>
+<p>Sehyeon: Hmm… Maybe it has an original technique, delicate brushwork, beautifully balanced colors—that sort of thing?</p>
+<p>Nayeon: Those must be part of the story. But recent research suggests that, in contemporary art, “social signals” predict prices far better than the painting&rsquo;s visual features do. Their role is surprisingly large.</p>
+<p>Sehyeon: Social signals? What are those? Does the artist&rsquo;s Instagram like count make the list?</p>
+<p>Nayeon: Well, that could be a signal too! Social signals are pieces of information about artists and the art market, beyond the artwork itself, that matter to its valuation. Think of an artist&rsquo;s reputation, the prestige of the market where the work is sold, exhibition history, awards, and expert assessments, rather than just what the picture looks like.</p>
+<p>Sehyeon: Interesting. So an artist&rsquo;s fame and career can matter more to the price than the beauty of the painting? But the masterpieces we know are beautiful in themselves. You look at one and feel something, even if you can&rsquo;t quite explain it. I find it hard to believe that visual qualities barely matter to price.</p>
+<p>Nayeon: I agree! Great works certainly have visual beauty. But once professional artists have developed distinctive styles, judging their work by visual features alone becomes difficult and rather ambiguous. Their paintings are already impressive in different ways! Yet their prices can range from tens of millions of won to billions or more. Doesn&rsquo;t that suggest some hidden factors, beyond the work&rsquo;s appearance, are helping set the price?</p>
+<p>Sehyeon: True. Contemporary art is so diverse, and each artist has such a distinctive voice, that saying which painting is “better” can be tricky in the first place.</p>
+<p>Nayeon: Exactly. Social signals seem especially important in the contemporary art market, where evaluation is difficult. Recently, scientists investigated which factors best predict prices in that market.</p>
+<h2 id="visual-features-vs-social-signals"><strong>Visual Features vs. Social Signals</strong><a class="header-anchor" href="#visual-features-vs-social-signals" title="Link to this section">#</a></h2>
+<p>In 1958, a portrait of Jesus called <em>Salvator Mundi</em> appeared at a Sotheby&rsquo;s auction. At the time, it was associated with one of Leonardo da Vinci&rsquo;s pupils, and years of changing hands had left it in poor condition. It sold for <a href="https://www.christies.com/presscenter/pdf/8839/RELEASE_LdV%20Salvator%20Mundi_8839_1.pdf">just £45, according to Christie&rsquo;s provenance</a>. In the early 2000s, however, debate over its authorship flared up again. Following close examination, it was reattributed to Leonardo himself, joining the small number of paintings accepted by the experts involved as his own work. After restoration, it sold at Christie&rsquo;s in New York in 2017 for $450 million, setting the auction record at the time. Art history offers plenty of similar stories: a change in attribution sends a work&rsquo;s value soaring, or a painting loses value when it is no longer accepted as the work of a famous artist.</p>
+<p>The story of <em>Salvator Mundi</em> leaves us with an important question: <strong>What determines the price of a painting?</strong> A work might occupy the same spot in a museum for years, yet the value people assign to it changes. Is an artist&rsquo;s reputation really the whole explanation? Do the painting&rsquo;s own qualities—its technique, composition, and colors—have nothing to do with its value?</p>
+<h2 id="what-big-data-reveals-about-art-prices"><strong>What Big Data Reveals About Art Prices</strong><a class="header-anchor" href="#what-big-data-reveals-about-art-prices" title="Link to this section">#</a></h2>
+<p>In a 2024 paper [1], Kangsan Lee of New York University Abu Dhabi, Jaehyuk Park of the KDI School of Public Policy and Management, Sam Goree of Stonehill College in the United States, and their colleagues investigated which factors matter to prices in today&rsquo;s art market. They collected more than 34,000 auction records for works by 590 living artists across 23 countries, spanning the 17 years from 1996 to 2012. The team developed two machine learning models to predict auction prices. One used only the works&rsquo; visual features; the other used only socioeconomic characteristics associated with the artists and their markets. Comparing the models would reveal which kinds of information contributed more to predicting a work&rsquo;s economic value.</p>
+<p>The first model used numerical measures from computer vision, a field that develops ways for computers to analyze images. To capture different aspects of appearance, the researchers combined several measures: (1) color histograms, which describe the colors in a painting; (2) GIST feature vectors, which capture overall orientation and composition; (3) HOG feature vectors, which describe shapes and edges; and (4) features extracted from a convolutional neural network, or CNN, trained to classify image content (Figure 1). This gave them several ways to turn each painting&rsquo;s visual characteristics into numbers. Despite that variety, the model performed poorly. It explained just 5.5% of the variation in prices. Here, “5.5%” refers to the proportion of variance explained: how much of the data&rsquo;s variability the model could account for. A low proportion means that the model has little predictive power. In this dataset, these methods did not uncover a general set of visual features that reliably tracked a work&rsquo;s market value.</p>
+<p><img alt="Visual features used in the art-price study" src="/assets/files/kslee_img1.png" />
+<em>Figure 1. Source: Lee, K., Park, J., Goree, S. et al. Sci Rep 14, 11615 (2024). <a href="https://doi.org/10.1038/s41598-024-60957-z" rel="nofollow">https://doi.org/10.1038/s41598-024-60957-z</a></em></p>
+<p>What happened when the researchers ignored the images entirely and used socioeconomic information instead? From the auction records, they extracted 30 artist-level features, including age, gender, exhibition count, awards, and previous sale prices, along with eight market-level features, such as market size and the prestige of the auction house. As a benchmark, they also considered the estimates provided by auction-house experts. Those experts draw on extensive information about works, artists, and collectors. Their estimates can themselves influence the final price, which helps explain their strong predictive performance. The expert estimates accounted for roughly 90% of the variance in actual sale prices.</p>
+<p>The second model, using socioeconomic indicators alone, explained an impressive 73% of price variation—far above the visual model&rsquo;s 5.5%. The result suggests that a substantial amount of information about a work&rsquo;s likely price resides in its artist&rsquo;s social context, even before we look at the work itself. There was another intriguing finding: combining expert estimates with socioeconomic indicators improved predictions further. Together, they explained 92% of price variance. This suggests that the information used by auction-house experts and the socioeconomic features captured by the model were not quite identical. Human judgment and machine learning brought complementary information to the table.</p>
+<h2 id="three-social-signals-that-matter-to-art-prices"><strong>Three Social Signals That Matter to Art Prices</strong><a class="header-anchor" href="#three-social-signals-that-matter-to-art-prices" title="Link to this section">#</a></h2>
+<p>Which of these many social signals did the most work? The researchers identified three particularly important factors.</p>
+<p>First, the most important predictor was the price of the same artist&rsquo;s previous works. The average price of an artist&rsquo;s ten previous works had a correlation of about 0.5 with the price of the next one. In other words, a new work by an artist whose paintings already command high prices is likely to sell for a high price too. That fits our everyday expectations. Sociologists call this kind of accumulating advantage the <em>Matthew effect</em>: those who already have an advantage tend to acquire more of it.</p>
+<p>The second factor was the auction house. Even for works by the same artist, the venue mattered. The data showed that the reputation and standing of the auction house were important predictors of price, pointing to the role of prestigious institutions in art valuation. An auction house&rsquo;s reputation and authority can serve as signals that support a higher valuation. High-priced sales, in turn, reinforce the house&rsquo;s standing, creating a self-reinforcing relationship. This resembles French sociologist Pierre Bourdieu&rsquo;s account of cultural capital: a sale at a prestigious auction house can help convert an artist&rsquo;s cultural capital into economic capital, while raising the social standing of both the artist and the institution.</p>
+<p>The third factor was the geographical market where the auction took place. Alongside the established markets of Europe and the United States, markets in China and the Middle East have grown rapidly. Interestingly, the relative predictive value of social indicators differed across markets. In emerging markets such as China, South Korea, Brazil, and Qatar, expert estimates were comparatively less accurate, while the model based on social signals performed better relative to its performance in established markets. One possible explanation is that, where information about artists and individual works is scarcer, buyers may rely more heavily on socioeconomic indicators when deciding what a work is worth.</p>
+<h2 id="why-visual-features-need-historical-context"><strong>Why Visual Features Need Historical Context</strong><a class="header-anchor" href="#why-visual-features-need-historical-context" title="Link to this section">#</a></h2>
+<p>The comparison makes a strong case for the importance of social signals in the contemporary art market. When I first encountered the findings, I was surprised by how little predictive value the visual features seemed to have.</p>
+<p>Still, I think we should be careful before concluding that a work&rsquo;s formal qualities have only a negligible effect on price. Several questions remain open. The sample consisted of living contemporary artists who had already achieved a degree of influence, and the visual measures themselves may have limitations. Most crucially, a work&rsquo;s creativity is not determined by its formal features in isolation. Its methods and forms can only be evaluated in relation to earlier works and to those of its contemporaries. Van Gogh&rsquo;s intense colors and distinctive techniques were unusual in their time. They set him apart from other artists and helped earn his work the esteem it received later. If I copied his visual methods perfectly today, my painting would hardly sell for the same price as a Van Gogh. To measure the influence of a work&rsquo;s artistic features fully, we need to compare them with those of other works.</p>
+<p>There is another puzzle. An artist with a history of expensive sales is likely to sell the next work for a high price—but why did those earlier works sell for so much? It is a little like a job market that hires only experienced applicants: experience predicts who gets hired, but how did anyone land that first job? Why did famous artists become famous? Was it simply chance? Or did their work have distinctive qualities that other works lacked? If we could develop visual measures that account for historical context, perhaps we would move a little closer to the hidden rules behind artistic value.</p>
+<h2 id="further-reading">Further Reading<a class="header-anchor" href="#further-reading" title="Link to this section">#</a></h2>
+<p>This essay draws on the following paper.</p>
+<ol>
+<li>Lee, K., Park, J., Goree, S. <em>et al.</em> Social signals predict contemporary art prices better than visual features, particularly in emerging markets. <em>Sci Rep</em> 14, 11615 (2024). <a href="https://doi.org/10.1038/s41598-024-60957-z">https://doi.org/10.1038/s41598-024-60957-z</a></li>
+</ol>
+</section>
+
+
+<footer class="content-license">
+    <p>Text is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>. Cited images remain the property of their respective rights holders.</p>
+</footer>
+
+
+
+</div>
+<script src="/static/toc.js?v=20260825b" defer></script>
+
+
+
+
+
+
+    </article>
+
+    <div class="image-lightbox" aria-hidden="true" hidden>
+        <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Show previous image">←</button>
+        <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+        <img class="image-lightbox-media" alt="">
+        <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Show next image">→</button>
+    </div>
+
+    <div class="footer-separator"></div>
+
+    <footer>
+        <p class="footer-text">
+            
+            &copy; 2026
+            
+            Byunghwee Lee
+            
+            
+        </p>
+    </footer>
+
+    <!-- KaTeX for math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false,
+                ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const storageKey = "theme-preference";
+            const themeToggle = document.querySelector(".theme-toggle");
+            const themeToggleLabel = document.querySelector(".theme-toggle-label");
+            const themeToggleIcon = document.querySelector(".theme-toggle-icon");
+            const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            const mobileNavQuery = window.matchMedia("(max-width: 720px)");
+            const lightbox = document.querySelector(".image-lightbox");
+            const lightboxImage = document.querySelector(".image-lightbox-media");
+            const lightboxClose = document.querySelector(".image-lightbox-close");
+            const lightboxPrev = document.querySelector(".image-lightbox-prev");
+            const lightboxNext = document.querySelector(".image-lightbox-next");
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+                .filter(image => !image.closest('a'));
+            let activeLightboxIndex = -1;
+
+            const applyTheme = (theme) => {
+                theme = document.documentElement.dataset.forcedTheme || theme;
+                document.documentElement.setAttribute("data-theme", theme);
+                window.dispatchEvent(new CustomEvent("site-theme-change", {
+                    detail: { theme }
+                }));
+                if (themeToggle) {
+                    const isDark = theme === "dark";
+                    themeToggle.setAttribute("aria-pressed", String(isDark));
+                    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    if (themeToggleLabel) {
+                        themeToggleLabel.textContent = isDark ? "Light mode" : "Dark mode";
+                    }
+                    if (themeToggleIcon) {
+                        themeToggleIcon.textContent = isDark ? "☀" : "☾";
+                    }
+                }
+            };
+
+            const setNavOpen = (isOpen) => {
+                if (!navToggle || !navLinks) return;
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navLinks.dataset.open = String(isOpen);
+            };
+
+            const syncNavWithViewport = () => {
+                if (!navToggle || !navLinks) return;
+                if (mobileNavQuery.matches) {
+                    if (!navLinks.dataset.open) {
+                        setNavOpen(false);
+                    }
+                } else {
+                    navLinks.dataset.open = "true";
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            };
+
+            applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+            syncNavWithViewport();
+
+            if (themeToggle) {
+                if (document.documentElement.dataset.forcedTheme) {
+                    themeToggle.hidden = true;
+                    themeToggle.style.display = "none";
+                }
+                themeToggle.addEventListener("click", function() {
+                    if (document.documentElement.dataset.forcedTheme) return;
+                    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+                    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+                    localStorage.setItem(storageKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener("click", function() {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setNavOpen(!isOpen);
+                });
+
+                navLinks.querySelectorAll("a").forEach((link) => {
+                    link.addEventListener("click", function() {
+                        if (mobileNavQuery.matches) {
+                            setNavOpen(false);
+                        }
+                    });
+                });
+            }
+
+            const syncWithSystemTheme = (event) => {
+                if (localStorage.getItem(storageKey)) return;
+                applyTheme(event.matches ? "dark" : "light");
+            };
+
+            const syncNavMedia = () => {
+                syncNavWithViewport();
+            };
+
+            if (typeof systemThemeQuery.addEventListener === "function") {
+                systemThemeQuery.addEventListener("change", syncWithSystemTheme);
+            } else if (typeof systemThemeQuery.addListener === "function") {
+                systemThemeQuery.addListener(syncWithSystemTheme);
+            }
+
+            if (typeof mobileNavQuery.addEventListener === "function") {
+                mobileNavQuery.addEventListener("change", syncNavMedia);
+            } else if (typeof mobileNavQuery.addListener === "function") {
+                mobileNavQuery.addListener(syncNavMedia);
+            }
+
+            const renderLightboxImage = (index) => {
+                if (!lightbox || !lightboxImage) return;
+                const boundedIndex = Math.max(0, Math.min(index, zoomableImages.length - 1));
+                const image = zoomableImages[boundedIndex];
+                if (!image) return;
+                activeLightboxIndex = boundedIndex;
+                lightboxImage.src = image.currentSrc || image.src;
+                lightboxImage.alt = image.alt || "";
+                if (lightboxPrev) lightboxPrev.disabled = boundedIndex === 0;
+                if (lightboxNext) lightboxNext.disabled = boundedIndex === zoomableImages.length - 1;
+            };
+
+            const openLightbox = (image) => {
+                if (!lightbox || !lightboxImage) return;
+                const index = zoomableImages.indexOf(image);
+                renderLightboxImage(index >= 0 ? index : 0);
+                lightbox.hidden = false;
+                lightbox.setAttribute("aria-hidden", "false");
+                document.body.classList.add("lightbox-open");
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox || !lightboxImage) return;
+                lightbox.hidden = true;
+                lightbox.setAttribute("aria-hidden", "true");
+                lightboxImage.src = "";
+                lightboxImage.alt = "";
+                activeLightboxIndex = -1;
+                document.body.classList.remove("lightbox-open");
+            };
+
+            const stepLightbox = (delta) => {
+                if (activeLightboxIndex < 0) return;
+                renderLightboxImage(activeLightboxIndex + delta);
+            };
+
+            zoomableImages.forEach((image) => {
+                image.classList.add("zoomable-image");
+                image.setAttribute("tabindex", "0");
+                image.setAttribute("role", "button");
+                image.setAttribute("aria-label", (image.alt || "Image") + ". Open larger view");
+
+                image.addEventListener("click", () => openLightbox(image));
+                image.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openLightbox(image);
+                    }
+                });
+            });
+
+            if (lightbox && lightboxClose) {
+                lightboxClose.addEventListener("click", closeLightbox);
+                if (lightboxPrev) {
+                    lightboxPrev.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(-1);
+                    });
+                }
+                if (lightboxNext) {
+                    lightboxNext.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(1);
+                    });
+                }
+                lightbox.addEventListener("click", (event) => {
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+                    closeLightbox();
+                }
+                if (event.key === "ArrowLeft" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(-1);
+                }
+                if (event.key === "ArrowRight" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(1);
+                }
+            });
+
+            document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+                const track = carousel.querySelector("[data-carousel-track]");
+                const prevButton = carousel.querySelector("[data-carousel-prev]");
+                const nextButton = carousel.querySelector("[data-carousel-next]");
+                const dotsContainer = carousel.querySelector("[data-carousel-dots]");
+                if (!track) return;
+
+                const slides = Array.from(track.querySelectorAll(".gallery-card"));
+                if (!slides.length) return;
+
+                let currentIndex = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                const updateControls = () => {
+                    track.dataset.activeIndex = String(currentIndex);
+                    slides.forEach((slide, index) => {
+                        slide.hidden = index !== currentIndex;
+                    });
+                    if (prevButton) prevButton.disabled = currentIndex === 0;
+                    if (nextButton) nextButton.disabled = currentIndex === slides.length - 1;
+                    if (dotsContainer) {
+                        dotsContainer.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+                            dot.setAttribute("aria-pressed", String(index === currentIndex));
+                        });
+                    }
+                };
+
+                const scrollToSlide = (index) => {
+                    const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
+                    currentIndex = boundedIndex;
+                    updateControls();
+                };
+
+                if (dotsContainer) {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.className = "gallery-dot";
+                        dot.setAttribute("aria-label", `Go to figure ${index + 1}`);
+                        dot.setAttribute("aria-pressed", String(index === 0));
+                        dot.addEventListener("click", () => scrollToSlide(index));
+                        dotsContainer.appendChild(dot);
+                    });
+                }
+
+                if (prevButton) {
+                    prevButton.addEventListener("click", () => scrollToSlide(currentIndex - 1));
+                }
+
+                if (nextButton) {
+                    nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
+                }
+
+                track.addEventListener("touchstart", (event) => {
+                    const touch = event.changedTouches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                }, { passive: true });
+
+                track.addEventListener("touchend", (event) => {
+                    const touch = event.changedTouches[0];
+                    const deltaX = touch.clientX - touchStartX;
+                    const deltaY = touch.clientY - touchStartY;
+                    if (Math.abs(deltaX) < 40) return;
+                    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+                    if (deltaX < 0) {
+                        scrollToSlide(currentIndex + 1);
+                    } else {
+                        scrollToSlide(currentIndex - 1);
+                    }
+                }, { passive: true });
+
+                updateControls();
+            });
+
+            const homepagePaths = new Set(["index", "research", "visualization", "museum", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
+            });
+        });
+    </script>
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+        const mermaidStart = /^(?:flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|xychart-beta|sankey-beta|packet-beta|architecture-beta|block-beta)\b/;
+        const codeBlocks = Array.from(document.querySelectorAll(".content .highlight > pre > code, .content .codehilite > pre > code"));
+        const diagrams = codeBlocks
+            .filter((code) => mermaidStart.test(code.textContent.trim()))
+            .map((code) => {
+                const container = document.createElement("div");
+                container.className = "mermaid-diagram";
+                container.dataset.mermaidSource = code.textContent.trim();
+                container.setAttribute("role", "img");
+                container.setAttribute("aria-label", "Flowchart");
+                code.closest(".highlight, .codehilite").replaceWith(container);
+                return container;
+            });
+
+        let renderVersion = 0;
+
+        async function renderMermaid(theme) {
+            if (!diagrams.length) return;
+
+            renderVersion += 1;
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: "strict",
+                theme: theme === "dark" ? "dark" : "default",
+                flowchart: {
+                    htmlLabels: true,
+                    useMaxWidth: true
+                }
+            });
+
+            await Promise.all(diagrams.map(async (container, index) => {
+                const source = container.dataset.mermaidSource;
+                try {
+                    const result = await mermaid.render(`mermaid-${renderVersion}-${index}`, source);
+                    container.innerHTML = result.svg;
+                    if (result.bindFunctions) result.bindFunctions(container);
+                    container.classList.remove("mermaid-error");
+                } catch (error) {
+                    container.classList.add("mermaid-error");
+                    container.textContent = source;
+                    console.error("Mermaid rendering failed:", error);
+                }
+            }));
+        }
+
+        let themeRenderTimer;
+        window.addEventListener("site-theme-change", (event) => {
+            window.clearTimeout(themeRenderTimer);
+            themeRenderTimer = window.setTimeout(() => renderMermaid(event.detail.theme), 0);
+        });
+
+        await renderMermaid(document.documentElement.getAttribute("data-theme") || "light");
+    </script>
+    <script src="/static/iframe-resize.js?v=20260910b" defer></script>
+</body>
+</html>

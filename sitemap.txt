@@ -17,10 +17,15 @@ https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/03_word2vec_app
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/04_embedding_research_companion_en/
 https://byunghweelee-iu.github.io/wiki/notes/all-about-embedding/README/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/01_art-goldenratio/
+https://byunghweelee-iu.github.io/wiki/notes/blogs/01_art-goldenratio_en/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/02_art-price/
+https://byunghweelee-iu.github.io/wiki/notes/blogs/02_art-price_en/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/03_art-network/
+https://byunghweelee-iu.github.io/wiki/notes/blogs/03_art-network_en/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/04_art-impression/
+https://byunghweelee-iu.github.io/wiki/notes/blogs/04_art-impression_en/
 https://byunghweelee-iu.github.io/wiki/notes/blogs/05_art-fractal/
+https://byunghweelee-iu.github.io/wiki/notes/blogs/05_art-fractal_en/
 https://byunghweelee-iu.github.io/wiki/notes/papers/Candellon2026Disentangling/
 https://byunghweelee-iu.github.io/wiki/notes/papers/Seckin2026Emergence/
 https://byunghweelee-iu.github.io/wiki/notes/papers/news-press-polarization/

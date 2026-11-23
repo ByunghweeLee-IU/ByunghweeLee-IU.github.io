@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Art Through Data (5): What Makes a Tree a Tree? Leonardo, Mondrian, and Fractals - Byunghwee Lee</title>
+
+    <!-- Description for search engines -->
+    
+    <meta name="description" content="From Leonardo’s rule for branching to Mondrian’s trees, fractals and self-similarity offer a way to explore what makes a subject recognizable.">
+    
+
+    <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Art Through Data (5): What Makes a Tree a Tree? Leonardo, Mondrian, and Fractals">
+    
+    <meta property="og:description" content="From Leonardo’s rule for branching to Mondrian’s trees, fractals and self-similarity offer a way to explore what makes a subject recognizable.">
+    
+    <meta property="og:url" content="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal_en/">
+    
+    <meta property="article:published_time" content="2026-06-13">
+    
+    
+    <meta property="article:modified_time" content="2026-11-23">
+    
+
+    <!-- Canonical URL (treat /index/ as duplicate of /) -->
+    
+    <link rel="canonical" href="https://ByunghweeLee-IU.github.io/wiki/notes/blogs/05_art-fractal_en/">
+    
+
+    <!-- JSON-LD structured data for author/site -->
+    
+    
+    <meta property="og:image" content="https://ByunghweeLee-IU.github.io/assets/files/tree-fig1.png">
+    
+    <meta property="og:site_name" content="Byunghwee Lee">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Art Through Data (5): What Makes a Tree a Tree? Leonardo, Mondrian, and Fractals">
+    
+    <meta name="twitter:description" content="From Leonardo’s rule for branching to Mondrian’s trees, fractals and self-similarity offer a way to explore what makes a subject recognizable.">
+    
+    
+    <meta name="twitter:image" content="https://ByunghweeLee-IU.github.io/assets/files/tree-fig1.png">
+    
+
+    <script>
+        (function() {
+            const storageKey = "theme-preference";
+            const storedTheme = localStorage.getItem(storageKey);
+            const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const theme = document.documentElement.dataset.forcedTheme || storedTheme || (systemPrefersDark ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/svg+xml" href="/assets/site-icon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/site-icon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/site-icon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/site-icon-180.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/main.css?v=20261123-art-translations">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3WQNHVCTPN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3WQNHVCTPN');
+    </script>
+
+    <!-- Atom Feed autodiscovery -->
+    
+    <link rel="alternate" type="application/atom+xml" title="Byunghwee Lee" href="https://ByunghweeLee-IU.github.io/feed.xml">
+    
+</head>
+<body data-page-path="notes/blogs/05_art-fractal_en" class="has-page-toc">
+    <nav class="top-nav">
+        <div class="nav-inner">
+            <a class="site-wordmark" href="/">Byunghwee Lee<img src="/assets/site-icon.svg" alt="" class="site-wordmark-icon" aria-hidden="true"></a>
+            <div class="nav-controls">
+                <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="site-nav-links">
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="nav-toggle-bar" aria-hidden="true"></span>
+                    <span class="visually-hidden">Menu</span>
+                </button>
+                <div class="nav-links" id="site-nav-links">
+                
+                <a href="/">
+                    
+                        Home
+                    
+                </a>
+                
+                <a href="/research/">
+                    
+                        Research
+                    
+                </a>
+                
+                <a href="/publications/">
+                    
+                        Publications
+                    
+                </a>
+                
+                <a href="/museum/">
+                    
+                        Mini Museum
+                    
+                </a>
+                
+                <a href="/talks/">
+                    
+                        Talks
+                    
+                </a>
+                
+                <a href="/wiki/Home/">
+                    
+                        Hwiki
+                    
+                </a>
+                
+                <a href="/cv/">
+                    
+                        CV
+                    
+                </a>
+                
+                </div>
+                <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" title="Toggle dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">☾</span>
+                    <span class="visually-hidden theme-toggle-label">Dark mode</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <article>
+        
+
+
+<div class="page-with-toc">
+
+
+
+<header>
+    <h1>Art Through Data (5): What Makes a Tree a Tree? Leonardo, Mondrian, and Fractals</h1>
+    
+    <p class="page-author" rel="author">Byunghwee Lee</p>
+    
+    
+    <p class="page-dates">
+        
+        
+        
+            
+                2026-06-13 → 2026-11-23
+            
+        
+    </p>
+    
+</header>
+
+
+
+<aside class="page-toc" aria-label="Table of contents">
+    <button class="page-toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-nav">
+        <span>On this page</span>
+        <span class="page-toc-chevron" aria-hidden="true">⌄</span>
+    </button>
+    <nav class="page-toc-nav" id="page-toc-nav" aria-label="On this page">
+        <p class="page-toc-title">On this page</p>
+        <ol class="page-toc-list"></ol>
+    </nav>
+</aside>
+
+
+<section class="content">
+    <p class="translation-note">Originally written in Korean; translated with ChatGPT. <a href="/wiki/notes/blogs/05_art-fractal/">Read the Korean original</a>.</p>
+
+<h2 id="how-do-you-draw-a-tree-that-looks-like-a-tree">How Do You Draw a Tree That Looks Like a Tree?<a class="header-anchor" href="#how-do-you-draw-a-tree-that-looks-like-a-tree" title="Link to this section">#</a></h2>
+<p>How do you make a tree look like a tree? The question is harder than it first appears. We can tell a pine from a cherry tree. We also recognize both a leafy summer tree and a bare winter tree as trees. What, then, is the essential feature that makes a tree recognizable?</p>
+<p>Leonardo da Vinci was asking much the same question during the Renaissance.</p>
+<p>Leonardo was an artist and a relentlessly curious observer of nature. While studying the structure of branches so that he could draw trees, he noticed an intriguing regularity. When a large branch divides into smaller ones, the combined “thickness” of the smaller branches is roughly equal to that of the original branch.</p>
+<p>More than five hundred years ago, he recorded the idea in his notebooks:</p>
+<blockquote>
+<p>When a tree’s branches have completed a year’s growth, their combined thickness equals the thickness of the original trunk.</p>
+</blockquote>
+<p><img alt="Illustration of Leonardo’s branching rule" src="/assets/files/tree-fig1.png" />
+Figure 1. Image credit: Gao et al. (2025).</p>
+<p>Today, <strong>Leonardo’s rule</strong> is usually expressed in terms of branch radii:</p>
+<p>$$ r_a^2 + r_b^2 = r_c^2 $$</p>
+<p>Here, $r_c$ is the radius of the larger branch before it divides, while $r_a$ and $r_b$ are the radii of the two branches after the split. In other words, the combined cross-sectional area of the two daughter branches is approximately equal to the cross-sectional area of the parent branch.</p>
+<p>Biologists now interpret this as more than a useful rule for drawing. It is a scaling relationship connected to water transport and growth. They have also found that real trees do not all obey the equation exactly, in every situation. A more general version is therefore useful:</p>
+<p>$$ r_a^\alpha + r_b^\alpha = r_c^\alpha $$</p>
+<p>The key is the exponent, $\alpha$. Some trees need to move large amounts of water. Others must withstand strong winds or reach more sunlight. Different environmental demands can be associated with different exponents.</p>
+<p>When $\alpha=2$, the relationship is close to the conservation of cross-sectional area described by Leonardo’s rule. When $\alpha=3$, it approaches Murray’s law, associated with efficient fluid transport. Values in real trees are often described as lying roughly between 2 and 3, depending on the circumstances.</p>
+<p>In this picture, a branch gives rise to more branches, which give rise to still more branches, and the repeated structure follows a recognizable pattern. That helps explain why a tree viewed from a distance can resemble one of its branches viewed up close. In mathematics, such patterns are described in terms of <strong>self-similarity</strong> and <strong>fractals</strong>.</p>
+<h2 id="what-counting-branch-thickness-can-tell-us">What Counting Branch Thickness Can Tell Us<a class="header-anchor" href="#what-counting-branch-thickness-can-tell-us" title="Link to this section">#</a></h2>
+<p>Leonardo’s rule does more than describe how a single branch divides. Because it characterizes a recurring branching pattern, it can also help us estimate how many branches of a particular thickness occur in a whole tree.</p>
+<p>Suppose there are $n$ branches with radius $r$, and the radius at the base of the tree is $r_0$. Following the branching relationship above gives the approximate scaling relation</p>
+<p>$$ n \approx \left( \frac{r_0}{r} \right)^\alpha $$</p>
+<p>As branch radius decreases, the number of branches at that scale increases according to a <em>power law</em>. A tree has relatively few thick branches and many thin ones. The important point is that this increase is not arbitrary: its pattern can be characterized by an exponent, $\alpha$.</p>
+<h2 id="do-painted-trees-grow-like-real-ones">Do Painted Trees Grow Like Real Ones?<a class="header-anchor" href="#do-painted-trees-grow-like-real-ones" title="Link to this section">#</a></h2>
+<p>In 2025, Jingyi Gao and colleagues brought this question to actual artworks (Gao et al., 2025, <em>PNAS Nexus</em>). To analyze painted trees, they used the relationship between branch radius and branch number. They first measured the thickness of individual branches, then counted how many branches fell into different thickness ranges. By checking whether the resulting distribution followed a power law, they could ask whether the branches in a picture had a statistical pattern similar to branches in nature.</p>
+<p>The researchers examined trees from different periods and cultural traditions. Their examples ranged from the window carvings of India’s Sidi Saiyyed Mosque to cherry trees painted by the Japanese artist Matsumura Goshun and Gustav Klimt’s <em>Tree of Life</em>. Some trees were ornamental, some painterly, and some nearly abstract.</p>
+<p><img alt="Trees from different artistic traditions" src="/assets/files/tree2.png" />
+Figure 2. Image credit: Gao et al. (2025).</p>
+<p>The team measured the branches, counted them by thickness, and plotted their distributions. The results were striking. Although the trees differed in appearance and style, several works showed power-law patterns resembling those of real trees. Their exponents were also in a range close to the value of 2 associated with Leonardo’s rule—not far removed from patterns observed in nature. The artists may never have set out to apply Leonardo’s rule. Yet in making a tree look convincingly like a tree, they may have captured something of the statistical organization of branch thickness. Different media, different cultures, and different visual languages could still carry traces of a shared self-similarity.</p>
+<p>That is a lovely puzzle about looking at art. We glance at a picture and immediately decide, “That’s a tree.” Somehow, trees with different shapes, colors, and styles still belong to the same recognizable category. Alongside the forms of leaves and branches, perhaps our judgment also draws on a sense of how thick and thin lines are distributed.</p>
+<h2 id="mondrians-trees-without-trees">Mondrian’s Trees Without Trees<a class="header-anchor" href="#mondrians-trees-without-trees" title="Link to this section">#</a></h2>
+<p>The paper also takes an intriguing look at Piet Mondrian. Today, we tend to remember him for crisp, spare abstract paintings with red, yellow, and blue rectangles. But the young Mondrian was deeply interested in trees, exploring them in a way quite different from Leonardo. He was doing more than painting beautiful specimens. By progressively simplifying trees, he investigated what made them trees in the first place. His work seems to ask:</p>
+<p>“What can you take away from a tree before it stops being a tree?”</p>
+<p>He pursued that question by making his trees increasingly abstract.</p>
+<p><img alt="Mondrian’s progressively abstracted trees" src="/assets/files/tree3.png" />
+Figure 3. Image credit: Gao et al. (2025).</p>
+<p>Consider <em>Gray Tree</em> (1911), on the left in Figure 3. The abstraction is already well underway. Curves that do not closely resemble a real tree fill the canvas, and the branches do not connect in a realistic way. Yet we still recognize a tree. Why?</p>
+<p>The researchers measured the thickness of the lines. Remarkably, the distribution in <em>Gray Tree</em> showed a power-law pattern with an exponent roughly in the range $\alpha = 2.7 \sim 3$, reasonably close to values associated with real trees. The overall form and connections may be unrealistic, but the distribution of thick and thin lines still has something tree-like about it.</p>
+<p>In the next stage, <em>Blooming Apple Tree</em>, things change. Without the title to give us a hint, we might hesitate before declaring, “Tree!” Curves remain, but the differences in line thickness are much smaller. Most lines have similar thicknesses, and the natural-looking power-law relationship becomes less apparent. The researchers estimated an exponent of about $\alpha=6$, considerably farther from the values discussed for real trees.</p>
+<p>At this point, recognizing a tree becomes harder. One viewer might see dancing figures; another might see flowers, fish, or an abstract pattern.</p>
+<p>Whether he intended it or not, Mondrian had carried out a fascinating experiment in statistical physics. Remove the color, the leaves, and even the realistic connections, and some sense of a tree remains. But once the natural scaling of branch thickness disappears as well, the tree seems to slip away with it.</p>
+<h2 id="perhaps-a-trees-essence-is-statistical">Perhaps a Tree’s Essence Is Statistical<a class="header-anchor" href="#perhaps-a-trees-essence-is-statistical" title="Link to this section">#</a></h2>
+<p>We often look for an object’s essence in its visible shape. This research suggests another possibility. Trees differ in form, leaves, color, and growing conditions. Yet the physical laws and biological constraints of nature can produce common patterns of statistical self-similarity. Perhaps some of our sense that an image is “tree-like” comes from those patterns.</p>
+<p>Reading the paper, I found myself thinking about generative AI. Does an AI model simply memorize enormous numbers of images? Or does it learn some of the hidden structures that people recognize intuitively? Could the compressed latent spaces of these models help us discover something about what makes a subject itself?</p>
+<p>A question that began with one of Leonardo’s observations is still branching out, five centuries later.</p>
+<h2 id="further-reading">Further Reading<a class="header-anchor" href="#further-reading" title="Link to this section">#</a></h2>
+<ul>
+<li>Gao, Jingyi, and Mitchell G. Newberry. “Scaling in branch thickness and the fractal aesthetic of trees.” <em>PNAS Nexus</em> 4.2 (2025): pgaf003.</li>
+</ul>
+</section>
+
+
+<footer class="content-license">
+    <p>Text is licensed under <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">CC BY-NC 4.0</a>. Cited images remain the property of their respective rights holders.</p>
+</footer>
+
+
+
+</div>
+<script src="/static/toc.js?v=20260825b" defer></script>
+
+
+
+
+
+
+    </article>
+
+    <div class="image-lightbox" aria-hidden="true" hidden>
+        <button class="image-lightbox-nav image-lightbox-prev" type="button" aria-label="Show previous image">←</button>
+        <button class="image-lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+        <img class="image-lightbox-media" alt="">
+        <button class="image-lightbox-nav image-lightbox-next" type="button" aria-label="Show next image">→</button>
+    </div>
+
+    <div class="footer-separator"></div>
+
+    <footer>
+        <p class="footer-text">
+            
+            &copy; 2026
+            
+            Byunghwee Lee
+            
+            
+        </p>
+    </footer>
+
+    <!-- KaTeX for math rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                ],
+                throwOnError: false,
+                ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                ignoredClasses: ['no-katex']
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const storageKey = "theme-preference";
+            const themeToggle = document.querySelector(".theme-toggle");
+            const themeToggleLabel = document.querySelector(".theme-toggle-label");
+            const themeToggleIcon = document.querySelector(".theme-toggle-icon");
+            const systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+            const navToggle = document.querySelector(".nav-toggle");
+            const navLinks = document.querySelector(".nav-links");
+            const mobileNavQuery = window.matchMedia("(max-width: 720px)");
+            const lightbox = document.querySelector(".image-lightbox");
+            const lightboxImage = document.querySelector(".image-lightbox-media");
+            const lightboxClose = document.querySelector(".image-lightbox-close");
+            const lightboxPrev = document.querySelector(".image-lightbox-prev");
+            const lightboxNext = document.querySelector(".image-lightbox-next");
+            const zoomableImages = Array.from(document.querySelectorAll('.content img:not(.profile-image):not(.nav-logo)'))
+                .filter(image => !image.closest('a'));
+            let activeLightboxIndex = -1;
+
+            const applyTheme = (theme) => {
+                theme = document.documentElement.dataset.forcedTheme || theme;
+                document.documentElement.setAttribute("data-theme", theme);
+                window.dispatchEvent(new CustomEvent("site-theme-change", {
+                    detail: { theme }
+                }));
+                if (themeToggle) {
+                    const isDark = theme === "dark";
+                    themeToggle.setAttribute("aria-pressed", String(isDark));
+                    themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    themeToggle.setAttribute("title", isDark ? "Switch to light mode" : "Switch to dark mode");
+                    if (themeToggleLabel) {
+                        themeToggleLabel.textContent = isDark ? "Light mode" : "Dark mode";
+                    }
+                    if (themeToggleIcon) {
+                        themeToggleIcon.textContent = isDark ? "☀" : "☾";
+                    }
+                }
+            };
+
+            const setNavOpen = (isOpen) => {
+                if (!navToggle || !navLinks) return;
+                navToggle.setAttribute("aria-expanded", String(isOpen));
+                navLinks.dataset.open = String(isOpen);
+            };
+
+            const syncNavWithViewport = () => {
+                if (!navToggle || !navLinks) return;
+                if (mobileNavQuery.matches) {
+                    if (!navLinks.dataset.open) {
+                        setNavOpen(false);
+                    }
+                } else {
+                    navLinks.dataset.open = "true";
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            };
+
+            applyTheme(document.documentElement.getAttribute("data-theme") || "light");
+            syncNavWithViewport();
+
+            if (themeToggle) {
+                if (document.documentElement.dataset.forcedTheme) {
+                    themeToggle.hidden = true;
+                    themeToggle.style.display = "none";
+                }
+                themeToggle.addEventListener("click", function() {
+                    if (document.documentElement.dataset.forcedTheme) return;
+                    const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
+                    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+                    localStorage.setItem(storageKey, nextTheme);
+                    applyTheme(nextTheme);
+                });
+            }
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener("click", function() {
+                    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
+                    setNavOpen(!isOpen);
+                });
+
+                navLinks.querySelectorAll("a").forEach((link) => {
+                    link.addEventListener("click", function() {
+                        if (mobileNavQuery.matches) {
+                            setNavOpen(false);
+                        }
+                    });
+                });
+            }
+
+            const syncWithSystemTheme = (event) => {
+                if (localStorage.getItem(storageKey)) return;
+                applyTheme(event.matches ? "dark" : "light");
+            };
+
+            const syncNavMedia = () => {
+                syncNavWithViewport();
+            };
+
+            if (typeof systemThemeQuery.addEventListener === "function") {
+                systemThemeQuery.addEventListener("change", syncWithSystemTheme);
+            } else if (typeof systemThemeQuery.addListener === "function") {
+                systemThemeQuery.addListener(syncWithSystemTheme);
+            }
+
+            if (typeof mobileNavQuery.addEventListener === "function") {
+                mobileNavQuery.addEventListener("change", syncNavMedia);
+            } else if (typeof mobileNavQuery.addListener === "function") {
+                mobileNavQuery.addListener(syncNavMedia);
+            }
+
+            const renderLightboxImage = (index) => {
+                if (!lightbox || !lightboxImage) return;
+                const boundedIndex = Math.max(0, Math.min(index, zoomableImages.length - 1));
+                const image = zoomableImages[boundedIndex];
+                if (!image) return;
+                activeLightboxIndex = boundedIndex;
+                lightboxImage.src = image.currentSrc || image.src;
+                lightboxImage.alt = image.alt || "";
+                if (lightboxPrev) lightboxPrev.disabled = boundedIndex === 0;
+                if (lightboxNext) lightboxNext.disabled = boundedIndex === zoomableImages.length - 1;
+            };
+
+            const openLightbox = (image) => {
+                if (!lightbox || !lightboxImage) return;
+                const index = zoomableImages.indexOf(image);
+                renderLightboxImage(index >= 0 ? index : 0);
+                lightbox.hidden = false;
+                lightbox.setAttribute("aria-hidden", "false");
+                document.body.classList.add("lightbox-open");
+            };
+
+            const closeLightbox = () => {
+                if (!lightbox || !lightboxImage) return;
+                lightbox.hidden = true;
+                lightbox.setAttribute("aria-hidden", "true");
+                lightboxImage.src = "";
+                lightboxImage.alt = "";
+                activeLightboxIndex = -1;
+                document.body.classList.remove("lightbox-open");
+            };
+
+            const stepLightbox = (delta) => {
+                if (activeLightboxIndex < 0) return;
+                renderLightboxImage(activeLightboxIndex + delta);
+            };
+
+            zoomableImages.forEach((image) => {
+                image.classList.add("zoomable-image");
+                image.setAttribute("tabindex", "0");
+                image.setAttribute("role", "button");
+                image.setAttribute("aria-label", (image.alt || "Image") + ". Open larger view");
+
+                image.addEventListener("click", () => openLightbox(image));
+                image.addEventListener("keydown", (event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        openLightbox(image);
+                    }
+                });
+            });
+
+            if (lightbox && lightboxClose) {
+                lightboxClose.addEventListener("click", closeLightbox);
+                if (lightboxPrev) {
+                    lightboxPrev.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(-1);
+                    });
+                }
+                if (lightboxNext) {
+                    lightboxNext.addEventListener("click", (event) => {
+                        event.stopPropagation();
+                        stepLightbox(1);
+                    });
+                }
+                lightbox.addEventListener("click", (event) => {
+                    if (event.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && lightbox && !lightbox.hidden) {
+                    closeLightbox();
+                }
+                if (event.key === "ArrowLeft" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(-1);
+                }
+                if (event.key === "ArrowRight" && lightbox && !lightbox.hidden) {
+                    event.preventDefault();
+                    stepLightbox(1);
+                }
+            });
+
+            document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+                const track = carousel.querySelector("[data-carousel-track]");
+                const prevButton = carousel.querySelector("[data-carousel-prev]");
+                const nextButton = carousel.querySelector("[data-carousel-next]");
+                const dotsContainer = carousel.querySelector("[data-carousel-dots]");
+                if (!track) return;
+
+                const slides = Array.from(track.querySelectorAll(".gallery-card"));
+                if (!slides.length) return;
+
+                let currentIndex = 0;
+                let touchStartX = 0;
+                let touchStartY = 0;
+
+                const updateControls = () => {
+                    track.dataset.activeIndex = String(currentIndex);
+                    slides.forEach((slide, index) => {
+                        slide.hidden = index !== currentIndex;
+                    });
+                    if (prevButton) prevButton.disabled = currentIndex === 0;
+                    if (nextButton) nextButton.disabled = currentIndex === slides.length - 1;
+                    if (dotsContainer) {
+                        dotsContainer.querySelectorAll(".gallery-dot").forEach((dot, index) => {
+                            dot.setAttribute("aria-pressed", String(index === currentIndex));
+                        });
+                    }
+                };
+
+                const scrollToSlide = (index) => {
+                    const boundedIndex = Math.max(0, Math.min(index, slides.length - 1));
+                    currentIndex = boundedIndex;
+                    updateControls();
+                };
+
+                if (dotsContainer) {
+                    slides.forEach((_, index) => {
+                        const dot = document.createElement("button");
+                        dot.type = "button";
+                        dot.className = "gallery-dot";
+                        dot.setAttribute("aria-label", `Go to figure ${index + 1}`);
+                        dot.setAttribute("aria-pressed", String(index === 0));
+                        dot.addEventListener("click", () => scrollToSlide(index));
+                        dotsContainer.appendChild(dot);
+                    });
+                }
+
+                if (prevButton) {
+                    prevButton.addEventListener("click", () => scrollToSlide(currentIndex - 1));
+                }
+
+                if (nextButton) {
+                    nextButton.addEventListener("click", () => scrollToSlide(currentIndex + 1));
+                }
+
+                track.addEventListener("touchstart", (event) => {
+                    const touch = event.changedTouches[0];
+                    touchStartX = touch.clientX;
+                    touchStartY = touch.clientY;
+                }, { passive: true });
+
+                track.addEventListener("touchend", (event) => {
+                    const touch = event.changedTouches[0];
+                    const deltaX = touch.clientX - touchStartX;
+                    const deltaY = touch.clientY - touchStartY;
+                    if (Math.abs(deltaX) < 40) return;
+                    if (Math.abs(deltaY) > Math.abs(deltaX)) return;
+                    if (deltaX < 0) {
+                        scrollToSlide(currentIndex + 1);
+                    } else {
+                        scrollToSlide(currentIndex - 1);
+                    }
+                }, { passive: true });
+
+                updateControls();
+            });
+
+            const homepagePaths = new Set(["index", "research", "visualization", "museum", "publications", "talks", "cv"]);
+            const pagePath = document.body.dataset.pagePath || "";
+            const currentDir = pagePath.includes("/") ? pagePath.slice(0, pagePath.lastIndexOf("/")) : "";
+
+            const normalize = (value) => {
+                const parts = [];
+                for (const part of value.split("/")) {
+                    if (!part || part === ".") continue;
+                    if (part === "..") {
+                        parts.pop();
+                    } else {
+                        parts.push(part);
+                    }
+                }
+                return parts.join("/");
+            };
+
+            const toSiteUrl = (sourcePath) => {
+                const withoutExt = sourcePath.replace(/\.md$/, "").replace(/\/index$/, "").replace(/\/$/, "");
+                if (homepagePaths.has(withoutExt)) {
+                    return withoutExt === "index" ? "/index/" : `/${withoutExt}/`;
+                }
+                return `/wiki/${withoutExt}/`;
+            };
+
+            document.querySelectorAll('a[href]').forEach((link) => {
+                const href = link.getAttribute("href");
+                if (!href) return;
+                if (href.startsWith("http://") || href.startsWith("https://")) return;
+                if (href.startsWith("#") || href.startsWith("/") || href.startsWith("mailto:")) return;
+
+                const extMatch = href.match(/\.([a-zA-Z0-9]+)$/);
+                if (extMatch && extMatch[1].toLowerCase() !== "md") return;
+
+                const resolved = normalize(`/${currentDir}/${href}`).replace(/^\/+/, "");
+                link.setAttribute("href", toSiteUrl(resolved));
+            });
+        });
+    </script>
+    <script type="module">
+        import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+        const mermaidStart = /^(?:flowchart|graph|sequenceDiagram|classDiagram|stateDiagram(?:-v2)?|erDiagram|journey|gantt|pie|mindmap|timeline|quadrantChart|xychart-beta|sankey-beta|packet-beta|architecture-beta|block-beta)\b/;
+        const codeBlocks = Array.from(document.querySelectorAll(".content .highlight > pre > code, .content .codehilite > pre > code"));
+        const diagrams = codeBlocks
+            .filter((code) => mermaidStart.test(code.textContent.trim()))
+            .map((code) => {
+                const container = document.createElement("div");
+                container.className = "mermaid-diagram";
+                container.dataset.mermaidSource = code.textContent.trim();
+                container.setAttribute("role", "img");
+                container.setAttribute("aria-label", "Flowchart");
+                code.closest(".highlight, .codehilite").replaceWith(container);
+                return container;
+            });
+
+        let renderVersion = 0;
+
+        async function renderMermaid(theme) {
+            if (!diagrams.length) return;
+
+            renderVersion += 1;
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: "strict",
+                theme: theme === "dark" ? "dark" : "default",
+                flowchart: {
+                    htmlLabels: true,
+                    useMaxWidth: true
+                }
+            });
+
+            await Promise.all(diagrams.map(async (container, index) => {
+                const source = container.dataset.mermaidSource;
+                try {
+                    const result = await mermaid.render(`mermaid-${renderVersion}-${index}`, source);
+                    container.innerHTML = result.svg;
+                    if (result.bindFunctions) result.bindFunctions(container);
+                    container.classList.remove("mermaid-error");
+                } catch (error) {
+                    container.classList.add("mermaid-error");
+                    container.textContent = source;
+                    console.error("Mermaid rendering failed:", error);
+                }
+            }));
+        }
+
+        let themeRenderTimer;
+        window.addEventListener("site-theme-change", (event) => {
+            window.clearTimeout(themeRenderTimer);
+            themeRenderTimer = window.setTimeout(() => renderMermaid(event.detail.theme), 0);
+        });
+
+        await renderMermaid(document.documentElement.getAttribute("data-theme") || "light");
+    </script>
+    <script src="/static/iframe-resize.js?v=20260910b" defer></script>
+</body>
+</html>

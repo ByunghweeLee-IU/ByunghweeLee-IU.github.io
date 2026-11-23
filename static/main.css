@@ -80,6 +80,23 @@ article {
   padding: 1.25rem 0 3rem;
 }
 
+.content .translation-note {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.65;
+  margin: 0.25rem 0 1.4rem;
+}
+
+.content .translation-note a {
+  color: inherit;
+  text-decoration-color: var(--border-medium);
+  text-underline-offset: 3px;
+}
+
+.content .translation-note a:hover {
+  color: var(--text-primary);
+}
+
 section {
   width: 100%;
   padding: 0.5rem 0;

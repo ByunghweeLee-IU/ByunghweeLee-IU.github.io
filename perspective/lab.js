@@ -1,4 +1,8 @@
 'use strict';
+const tr=(english,korean)=>window.PerspectiveLanguage.text(english,korean);
+const lateral=value=>value>0?tr('Right','오른쪽'):tr('Left','왼쪽');
+const pitchLabel=value=>value===0?tr('Level · 0°','수평 · 0°'):`${value>0?tr('Up','위'):tr('Down','아래')} · ${Math.abs(value)}°`;
+const yawLabel=value=>value===0?tr('Ahead · 0°','정면 · 0°'):`${lateral(value)} · ${Math.abs(value)}°`;
     function renderScene(ctx,w,h,state,{annotations=true,observerX=0,observerZ=0,architecture='piazza',showVP=true,showHorizon=true}={}){
     function polygon(points,fill,stroke,width=1) {
       if(points.some(p=>!p))return;
@@ -142,8 +146,8 @@
         return {eye,foot:p};
       }
       // Farther person is drawn first, so the scene follows approximate depth order.
-      person(-3.3,Math.min(260,state.distance*2.2),state.person,'#6c8793','Far person');
-      const focus=person(3.3,state.distance,state.person,'#254c65','Near person',annotations);
+      person(-3.3,Math.min(260,state.distance*2.2),state.person,'#6c8793',tr('Far person','먼 사람'));
+      const focus=person(3.3,state.distance,state.person,'#254c65',tr('Near person','가까운 사람'),annotations);
       if(annotations){
       // Horizon and vanishing point are separate teaching overlays.
       const inFrame=horizon>=0&&horizon<=h;
@@ -151,17 +155,17 @@
         if(inFrame){
           segment({x:0,y:horizon},{x:w,y:horizon},'#d47738',2,[9,6]);
           ctx.fillStyle='#95501f';ctx.font='bold 12px system-ui,sans-serif';ctx.textAlign='left';
-          ctx.fillText('Horizon',13,horizon>28?horizon-11:horizon+20);
+          ctx.fillText(tr('Horizon','수평선'),13,horizon>28?horizon-11:horizon+20);
         }else{
           ctx.fillStyle='rgba(255,253,247,.9)';ctx.fillRect(12,12,230,33);
           ctx.font='bold 12px system-ui,sans-serif';ctx.fillStyle='#98531e';ctx.textAlign='left';
-          ctx.fillText(horizon>h?'↓ Horizon below the image':'↑ Horizon above the image',22,33);
+          ctx.fillText(horizon>h?tr('↓ Horizon below the image','↓ 수평선이 화면 아래에 있음'):tr('↑ Horizon above the image','↑ 수평선이 화면 위에 있음'),22,33);
         }
       }
       if(showVP&&inFrame){
         circle(cx,horizon,6,'#526d61','#fffdf7');
         ctx.fillStyle='#334b40';ctx.font='bold 12px system-ui,sans-serif';ctx.textAlign='left';
-        ctx.fillText('V · forward VP',cx+12,horizon>25?horizon-12:horizon+22);
+        ctx.fillText(tr('V · forward VP','V · 정면 소실점'),cx+12,horizon>25?horizon-12:horizon+22);
       }
       // Optical axis indicator is always at screen center.
       segment({x:cx-9,y:cy},{x:cx+9,y:cy},'#2b4855',1.8);segment({x:cx,y:cy-9},{x:cx,y:cy+9},'#2b4855',1.8);
@@ -174,10 +178,10 @@ const el=id=>document.getElementById(id);
 const base={height:1.6,pitch:0,distance:22,person:1.72};
 function prepare(id){const canvas=el(id),w=Math.max(280,Math.round(canvas.getBoundingClientRect().width)),h=Math.max(200,Math.round(canvas.getBoundingClientRect().height)),dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {canvas,ctx,w,h}}
 function guides(ctx,w,h,{vp=false,horizon=false,offset=0,height=1.6}={}){
- if(horizon){ctx.save();ctx.strokeStyle='#ad5b3c';ctx.lineWidth=1.8;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#80513c';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,h/2-12);ctx.restore()}
- if(vp){ctx.save();ctx.strokeStyle='#436f7e';ctx.lineWidth=1.8;ctx.setLineDash([6,5]);for(const x of [-4,4]){ctx.beginPath();ctx.moveTo(w/2+(x-offset)*h/2/height,h);ctx.lineTo(w/2,h/2);ctx.stroke()}ctx.setLineDash([]);ctx.beginPath();ctx.arc(w/2,h/2,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.strokeStyle='#334b40';ctx.stroke();ctx.fillStyle='#334b40';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('V · forward VP',w/2+13,h/2-13);ctx.restore()}
+ if(horizon){ctx.save();ctx.strokeStyle='#ad5b3c';ctx.lineWidth=1.8;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#80513c';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText(tr('Horizon','수평선'),18,h/2-12);ctx.restore()}
+ if(vp){ctx.save();ctx.strokeStyle='#436f7e';ctx.lineWidth=1.8;ctx.setLineDash([6,5]);for(const x of [-4,4]){ctx.beginPath();ctx.moveTo(w/2+(x-offset)*h/2/height,h);ctx.lineTo(w/2,h/2);ctx.stroke()}ctx.setLineDash([]);ctx.beginPath();ctx.arc(w/2,h/2,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.strokeStyle='#334b40';ctx.stroke();ctx.fillStyle='#334b40';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText(tr('V · forward VP','V · 정면 소실점'),w/2+13,h/2-13);ctx.restore()}
 }
-function drawHeight(){const {canvas,ctx,w,h}=prepare('height-scene'),height=Number(el('eye-height').value);renderScene(ctx,w,h,{...base,height},{showVP:false,showHorizon:true});el('eye-height-value').value=height.toFixed(2)+' m';canvas.setAttribute('aria-label',`Step 1: eye height ${height.toFixed(2)} meters, viewing direction level. Horizon stays at image center.`)}
+function drawHeight(){const {canvas,ctx,w,h}=prepare('height-scene'),height=Number(el('eye-height').value);renderScene(ctx,w,h,{...base,height},{showVP:false,showHorizon:true});el('eye-height-value').value=height.toFixed(2)+' m';canvas.setAttribute('aria-label',tr(`Step 1: eye height ${height.toFixed(2)} meters, viewing direction level. Horizon stays at image center.`,`실험 1: 눈높이 ${height.toFixed(2)} 미터, 시선 수평. 수평선은 화면 중앙에 있습니다.`))}
 function sideView(id,pitch,height=1.6){
  const eyeX=38,eyeY=92-(height-1.6)*1.6,ground=119,angle=pitch*Math.PI/180;
  let length=170,endY=eyeY-length*Math.tan(angle);
@@ -185,9 +189,9 @@ function sideView(id,pitch,height=1.6){
  if(endY<26){length=(eyeY-26)/Math.tan(angle);endY=26}
  const radius=21,endAngle=-angle,arcX=eyeX+radius*Math.cos(endAngle),arcY=eyeY+radius*Math.sin(endAngle);
  const arc=Math.abs(pitch)<.1?'':`<path d="M ${eyeX+radius} ${eyeY} A ${radius} ${radius} 0 0 ${pitch>0?0:1} ${arcX} ${arcY}" fill="none" stroke="#436f7e" stroke-width="1.3"/>`;
- el(id).innerHTML=`<title>Side view: gaze ${Math.abs(pitch)} degrees ${pitch>0?'above':pitch<0?'below':'along'} the horizontal</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".95" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="13" y="18" font-size="9" letter-spacing=".8" fill="#697267">SIDE VIEW · PITCH ONLY</text><path d="M15 ${ground}H224" stroke="#bdc3b3" stroke-width="1.5"/><rect x="176" y="48" width="39" height="71" fill="#e4dfcc" stroke="#889b85"/><path d="m171 48 24-17 25 17Z" fill="#b97953" stroke="#889b85"/><path d="M186 119V101Q195 91 204 101V119M176 72H215M176 87H215" fill="none" stroke="#889b85"/><circle cx="${eyeX}" cy="${eyeY}" r="5" fill="#334b40"/><path d="M${eyeX} ${eyeY+7}V${ground-12}m0 0-8 12m8-12 8 12" fill="none" stroke="#334b40" stroke-width="2.6" stroke-linecap="round"/><path d="M${eyeX} ${eyeY}H224" stroke="#ad5b3c" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M${eyeX} ${eyeY}L${eyeX+length} ${endY}" stroke="#436f7e" stroke-width="2" stroke-dasharray="5 3"/>${arc}<text x="69" y="${pitch>0?eyeY-11:eyeY+17}" font-size="11" font-weight="700" fill="#436f7e">${pitch>0?'+':''}${pitch}°</text><text x="18" y="138" font-size="9" fill="#697267">Eye</text><text x="174" y="138" font-size="9" fill="#697267">Building</text></g>`;
+ el(id).innerHTML=`<title>${tr(`Side view: gaze ${Math.abs(pitch)} degrees ${pitch>0?'above':pitch<0?'below':'along'} the horizontal`,`옆에서 보기: 수평 기준 ${pitch>0?'위로':pitch<0?'아래로':'수평으로'} ${Math.abs(pitch)}도 시선`)}</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".95" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="13" y="18" font-size="9" letter-spacing=".8" fill="#697267">${tr('SIDE VIEW · PITCH ONLY','옆에서 보기 · 상하 시선')}</text><path d="M15 ${ground}H224" stroke="#bdc3b3" stroke-width="1.5"/><rect x="176" y="48" width="39" height="71" fill="#e4dfcc" stroke="#889b85"/><path d="m171 48 24-17 25 17Z" fill="#b97953" stroke="#889b85"/><path d="M186 119V101Q195 91 204 101V119M176 72H215M176 87H215" fill="none" stroke="#889b85"/><circle cx="${eyeX}" cy="${eyeY}" r="5" fill="#334b40"/><path d="M${eyeX} ${eyeY+7}V${ground-12}m0 0-8 12m8-12 8 12" fill="none" stroke="#334b40" stroke-width="2.6" stroke-linecap="round"/><path d="M${eyeX} ${eyeY}H224" stroke="#ad5b3c" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M${eyeX} ${eyeY}L${eyeX+length} ${endY}" stroke="#436f7e" stroke-width="2" stroke-dasharray="5 3"/>${arc}<text x="69" y="${pitch>0?eyeY-11:eyeY+17}" font-size="11" font-weight="700" fill="#436f7e">${pitch>0?'+':''}${pitch}°</text><text x="18" y="138" font-size="9" fill="#697267">${tr('Eye','눈')}</text><text x="174" y="138" font-size="9" fill="#697267">${tr('Building','건물')}</text></g>`;
 }
-function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);const {horizon}=renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});sideView('pitch-side',pitch);el('view-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;canvas.setAttribute('aria-label',`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. The horizon is ${Math.abs(pitch)} degrees ${pitch>0?'below':pitch<0?'above':'level with'} the central gaze direction.`)}
+function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);const {horizon}=renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});sideView('pitch-side',pitch);el('view-pitch-value').value=pitchLabel(pitch);canvas.setAttribute('aria-label',tr(`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. The horizon is ${Math.abs(pitch)} degrees ${pitch>0?'below':pitch<0?'above':'level with'} the central gaze direction.`,`실험 2: 눈높이 1.60 미터 고정, 상하 시선 ${pitch}도. 수평선은 중앙 시선에서 ${Math.abs(pitch)}도 ${pitch>0?'아래':pitch<0?'위':'수평'}에 있습니다.`))}
 
 function drawVP(){const {ctx,w,h}=prepare('vp-scene');renderScene(ctx,w,h,base,{annotations:false});guides(ctx,w,h,{vp:el('vp-visible').checked,horizon:el('horizon-visible').checked})}
 let mirrorOn=true;
@@ -196,9 +200,9 @@ function drawMirror(){
  renderScene(ctx,w,h,base,{annotations:false,observerX:offset,architecture:'cathedral'});
  guides(ctx,w,h,{vp:el('mirror-vp').checked,horizon:el('mirror-horizon').checked,offset});
  if(share>0){ctx.save();ctx.beginPath();ctx.rect(0,0,w*share,h);ctx.clip();renderScene(ctx,w,h,base,{annotations:false,architecture:'cathedral'});ctx.fillStyle='rgba(181,130,66,.09)';ctx.fillRect(0,0,w,h);guides(ctx,w,h,{vp:el('mirror-vp').checked,horizon:el('mirror-horizon').checked});ctx.restore()}
- el('mirror-frame').style.setProperty('--mirror-share',`${share*100}%`);el('mirror-frame').classList.toggle('has-panel',share>0);el('mirror-divider').hidden=!mirrorOn;el('mirror-divider').setAttribute('aria-valuenow',coverage);el('mirror-divider').setAttribute('aria-valuetext',`${coverage} percent reflected painting`);el('mirror-badge').hidden=share<.18;el('mirror-direct-badge').hidden=share>.82;el('mirror-toggle').textContent=mirrorOn?'Hide mirror':'Show mirror';el('mirror-toggle').setAttribute('aria-pressed',mirrorOn);
- el('mirror-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;el('mirror-reveal-value').value=coverage+'%';el('mirror-status').textContent=offset===0?'Centered: the two views line up.':'Moved sideways: the direct view shifts; the painting stays fixed.';
- canvas.setAttribute('aria-label',`Step 4: ${Math.round(share*100)} percent fixed painting, current view shifted ${offset.toFixed(1)} meters sideways.`)
+ el('mirror-frame').style.setProperty('--mirror-share',`${share*100}%`);el('mirror-frame').classList.toggle('has-panel',share>0);el('mirror-divider').hidden=!mirrorOn;el('mirror-divider').setAttribute('aria-valuenow',coverage);el('mirror-divider').setAttribute('aria-valuetext',tr(`${coverage} percent reflected painting`,`거울에 비친 그림 ${coverage}퍼센트`));el('mirror-badge').hidden=share<.18;el('mirror-direct-badge').hidden=share>.82;el('mirror-toggle').textContent=mirrorOn?tr('Hide mirror','거울 숨기기'):tr('Show mirror','거울 보기');el('mirror-toggle').setAttribute('aria-pressed',mirrorOn);
+ el('mirror-offset-value').value=offset===0?tr('Centered','가운데'):`${lateral(offset)} · ${Math.abs(offset).toFixed(1)} m`;el('mirror-reveal-value').value=coverage+'%';el('mirror-status').textContent=offset===0?tr('Centered: the two views line up.','가운데: 두 영상이 일치합니다.'):tr('Moved sideways: the direct view shifts; the painting stays fixed.','옆으로 이동: 직접 보는 풍경은 달라지고 그림은 고정됩니다.');
+ canvas.setAttribute('aria-label',tr(`Step 4: ${Math.round(share*100)} percent fixed painting, current view shifted ${offset.toFixed(1)} meters sideways.`,`실험 4: 고정된 그림 ${Math.round(share*100)}퍼센트, 현재 시점은 옆으로 ${offset.toFixed(1)} 미터 이동했습니다.`))
 }
 el('eye-height').addEventListener('input',drawHeight);el('view-pitch').addEventListener('input',drawPitch);['vp-visible','horizon-visible'].forEach(id=>el(id).addEventListener('change',drawVP));['mirror-offset','mirror-reveal','mirror-vp','mirror-horizon'].forEach(id=>el(id).addEventListener('input',drawMirror));el('mirror-toggle').addEventListener('click',()=>{mirrorOn=!mirrorOn;drawMirror()});el('mirror-reset').addEventListener('click',()=>{el('mirror-offset').value=0;el('mirror-reveal').value=50;mirrorOn=true;drawMirror()});
 const divider=el('mirror-divider');let dragging=false;
@@ -206,7 +210,7 @@ function dragMirror(event){const r=el('mirror-frame').getBoundingClientRect();el
 divider.addEventListener('pointerdown',event=>{if(event.button!==0)return;dragging=true;divider.setPointerCapture(event.pointerId);dragMirror(event)});divider.addEventListener('pointermove',event=>{if(dragging)dragMirror(event)});['pointerup','pointercancel','lostpointercapture'].forEach(type=>divider.addEventListener(type,()=>{dragging=false}));divider.addEventListener('keydown',event=>{const value=Number(el('mirror-reveal').value),step=event.shiftKey?10:1,next=event.key==='ArrowLeft'?value-step:event.key==='ArrowRight'?value+step:event.key==='Home'?0:event.key==='End'?100:null;if(next!==null){event.preventDefault();el('mirror-reveal').value=Math.max(0,Math.min(100,next));drawMirror()}});
 const FAMILY_A='#286b83',FAMILY_B='#92517a';
 function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project,observerZ=0},{showVP=true,showB=false,showHorizon=true}={}){
- if(showHorizon){ctx.save();ctx.strokeStyle='#9b8d70';ctx.lineWidth=1.5;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(w,horizon);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#756448';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,horizon>25?horizon-12:horizon+20);ctx.restore()}
+ if(showHorizon){ctx.save();ctx.strokeStyle='#9b8d70';ctx.lineWidth=1.5;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(w,horizon);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#756448';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText(tr('Horizon','수평선'),18,horizon>25?horizon-12:horizon+20);ctx.restore()}
  if(showVP||showB){
   function family(target,color,lines,label,dy){
    ctx.save();ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=2;ctx.setLineDash([5,5]);
@@ -215,26 +219,26 @@ function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project,observerZ=0}
     else{ctx.moveTo(0,p.y);ctx.lineTo(w,p.y)}ctx.stroke();
    }
    ctx.setLineDash([]);ctx.font='bold 12px system-ui,sans-serif';
-   if(!target){ctx.textAlign='right';ctx.fillText('B · parallel here (VP at ∞)',w-14,Math.min(h-12,horizon+24))}
+   if(!target){ctx.textAlign='right';ctx.fillText(tr('B · parallel here (VP at ∞)','B · 평행 (소실점 ∞)'),w-14,Math.min(h-12,horizon+24))}
    else if(target.x>=10&&target.x<=w-10){ctx.beginPath();ctx.arc(target.x,target.y,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.stroke();ctx.fillStyle=color;const right=target.x>w-150;ctx.textAlign=right?'right':'left';ctx.fillText(label,target.x+(right?-12:12),target.y+dy)}
-   else{const left=target.x<w/2,x=left?9:w-9;ctx.beginPath();ctx.moveTo(x,target.y);ctx.lineTo(x+(left?10:-10),target.y-6);ctx.lineTo(x+(left?10:-10),target.y+6);ctx.closePath();ctx.fill();ctx.textAlign=left?'left':'right';ctx.fillText((left?'← ':'')+label+' outside'+(left?'':' →'),left?22:w-22,target.y+dy)}ctx.restore();
+   else{const left=target.x<w/2,x=left?9:w-9;ctx.beginPath();ctx.moveTo(x,target.y);ctx.lineTo(x+(left?10:-10),target.y-6);ctx.lineTo(x+(left?10:-10),target.y+6);ctx.closePath();ctx.fill();ctx.textAlign=left?'left':'right';ctx.fillText((left?'← ':'')+label+tr(' outside',' · 화면 밖')+(left?'':' →'),left?22:w-22,target.y+dy)}ctx.restore();
   }
   if(showVP)family(vp,FAMILY_A,[[[-4,0,observerZ+16],[-4,0,observerZ+150]],[[4,0,observerZ+16],[4,0,observerZ+150]],[[-11,24,118],[-11,24,161]]],'VP A',-13);
-  if(showB)family(crossVP,FAMILY_B,[[[-11,0,118],[11,0,118]],[[-11,13,118],[11,13,118]],[[-11,24,118],[11,24,118]]],'VP B · across',24);
+  if(showB)family(crossVP,FAMILY_B,[[[-11,0,118],[11,0,118]],[[-11,13,118],[11,13,118]],[[-11,24,118],[11,24,118]]],tr('VP B · across','VP B'),24);
  }
  ctx.save();ctx.strokeStyle='#334b40';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(w/2-8,h/2);ctx.lineTo(w/2+8,h/2);ctx.moveTo(w/2,h/2-8);ctx.lineTo(w/2,h/2+8);ctx.stroke();ctx.restore();
 }
 function yawPlan(yaw){
  const a=yaw*Math.PI/180,x=120,y=112,r=23,endX=x+r*Math.sin(a),endY=y-r*Math.cos(a);
  const arc=yaw===0?'':`<path d="M ${x} ${y-r} A ${r} ${r} 0 0 ${yaw>0?1:0} ${endX} ${endY}" fill="none" stroke="#436f7e" stroke-width="1.4"/>`;
- el('yaw-plan').innerHTML=`<title>Top view: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".96" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="12" y="18" font-size="9" letter-spacing=".8" fill="#697267">TOP VIEW · TURNING ONLY</text><path d="M82 29V141M158 29V141" stroke="#bac0ae" stroke-width="2"/><path d="M120 112V32m-5 7 5-7 5 7" stroke="#286b83" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/><text x="130" y="39" font-size="9" fill="#286b83">A · Street</text><path d="M50 112H198m-7-5 7 5-7 5" fill="none" stroke="#92517a" stroke-width="1.3" stroke-dasharray="4 3"/><text x="13" y="108" font-size="9" fill="#92517a">B</text><path d="M120 112L${120+72*Math.sin(a)} ${112-72*Math.cos(a)}" stroke="#436f7e" stroke-width="2"/>${arc}<circle cx="120" cy="112" r="4" fill="#334b40"/><text x="${yaw<0?55:164}" y="78" font-size="11" font-weight="700" fill="#436f7e">${yaw>0?'+':''}${yaw}°</text><text x="12" y="136" font-size="9" fill="#436f7e">Gaze</text><text x="99" y="136" font-size="9" fill="#697267">Observer</text></g>`;
+ el('yaw-plan').innerHTML=`<title>${tr(`Top view: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}`,`위에서 보기: 시선을 ${yaw>0?'오른쪽':yaw<0?'왼쪽':'정면'}으로 ${Math.abs(yaw)}도 돌림`)}</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".96" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="12" y="18" font-size="9" letter-spacing=".8" fill="#697267">${tr('TOP VIEW · TURNING ONLY','위에서 보기 · 좌우 회전')}</text><path d="M82 29V141M158 29V141" stroke="#bac0ae" stroke-width="2"/><path d="M120 112V32m-5 7 5-7 5 7" stroke="#286b83" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/><text x="130" y="39" font-size="9" fill="#286b83">${tr('A · Street','A · 길 방향')}</text><path d="M50 112H198m-7-5 7 5-7 5" fill="none" stroke="#92517a" stroke-width="1.3" stroke-dasharray="4 3"/><text x="13" y="108" font-size="9" fill="#92517a">B</text><path d="M120 112L${120+72*Math.sin(a)} ${112-72*Math.cos(a)}" stroke="#436f7e" stroke-width="2"/>${arc}<circle cx="120" cy="112" r="4" fill="#334b40"/><text x="${yaw<0?55:164}" y="78" font-size="11" font-weight="700" fill="#436f7e">${yaw>0?'+':''}${yaw}°</text><text x="12" y="136" font-size="9" fill="#436f7e">${tr('Gaze','시선')}</text><text x="99" y="136" font-size="9" fill="#697267">${tr('Observer','관찰자')}</text></g>`;
 }
 function drawYaw(){
  const {canvas,ctx,w,h}=prepare('yaw-scene'),yaw=Number(el('view-yaw').value);
  const result=renderScene(ctx,w,h,{...base,yaw,fov:100},{annotations:false,architecture:'cathedral'});cameraGuides(ctx,w,h,result,{showVP:el('yaw-a').checked,showB:el('yaw-b').checked});
- el('view-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;yawPlan(yaw);
- el('yaw-status').textContent=yaw===0?'One-point alignment: A is centered; B is at infinity.':`Two finite horizontal VPs: A (blue) and B (purple) share the horizon. ${Math.abs(yaw)===45?'Both fit in this wide-angle view.':'A point may be outside the image.'}`;
- canvas.setAttribute('aria-label',`Step 5: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}; the street vanishing point moves ${yaw>0?'left':yaw<0?'right':'to center'} on the horizon.`);
+ el('view-yaw-value').value=yawLabel(yaw);yawPlan(yaw);
+ el('yaw-status').textContent=yaw===0?tr('One-point alignment: A is centered; B is at infinity.','1점 투시 정렬: A는 중앙, B는 무한대에 있습니다.'):tr(`Two finite horizontal VPs: A (blue) and B (purple) share the horizon. ${Math.abs(yaw)===45?'Both fit in this wide-angle view.':'A point may be outside the image.'}`,`파란 A와 보라색 B가 같은 수평선 위에 있습니다. ${Math.abs(yaw)===45?'넓은 시야에서 두 점을 함께 볼 수 있습니다.':'소실점이 화면 밖에 있을 수도 있습니다.'}`);
+ canvas.setAttribute('aria-label',tr(`Step 5: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}; the street vanishing point moves ${yaw>0?'left':yaw<0?'right':'to center'} on the horizon.`,`실험 5: 시선을 ${yaw>0?'오른쪽':yaw<0?'왼쪽':'정면'}으로 ${Math.abs(yaw)}도 돌렸습니다. 길의 소실점은 수평선의 ${yaw>0?'왼쪽':yaw<0?'오른쪽':'중앙'}에 있습니다.`));
 }
 el('view-yaw').addEventListener('input',drawYaw);['yaw-a','yaw-b'].forEach(id=>el(id).addEventListener('input',drawYaw));
 el('yaw-two-point').addEventListener('click',()=>{el('view-yaw').value=45;el('yaw-a').checked=true;el('yaw-b').checked=true;drawYaw()});
@@ -247,13 +251,13 @@ function drawDuomo(prefix='duomo'){
  const {horizon,forwardVP:vp,crossVP,project}=result;
  const inside=vp.x>=0&&vp.x<=w;
  cameraGuides(ctx,w,h,result,{showVP:el(prefix+'-vp').checked,showB:el(prefix+'-vpb').checked,showHorizon:el(prefix+'-horizon').checked});
- el(prefix+'-height-value').value=height.toFixed(2)+' m';el(prefix+'-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
- el(prefix+'-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el(prefix+'-yaw-value').value=yaw===0?'Ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
+ el(prefix+'-height-value').value=height.toFixed(2)+' m';el(prefix+'-offset-value').value=offset===0?tr('Centered','가운데'):`${lateral(offset)} · ${Math.abs(offset).toFixed(1)} m`;
+ el(prefix+'-pitch-value').value=pitchLabel(pitch);el(prefix+'-yaw-value').value=yawLabel(yaw);
  sideView(prefix+'-side',pitch,height);
- el(prefix+'-status').textContent=`Tilt: ${Math.abs(pitch)}°. ${yaw===0?'A centered; B at infinity.':'A & B share the horizon; VPs may be offscreen.'}`;
- el(prefix+'-travel').value=Number((118-travel[prefix]).toFixed(1))+' m away';
+ el(prefix+'-status').textContent=tr(`Tilt: ${Math.abs(pitch)}°. ${yaw===0?'A centered; B at infinity.':'A & B share the horizon; VPs may be offscreen.'}`,`상하 각도 ${Math.abs(pitch)}°. ${yaw===0?'A는 중앙, B는 무한대.':'A·B는 같은 수평선 위에 있으며 화면 밖에 있을 수도 있습니다.'}`);
+ el(prefix+'-travel').value=Number((118-travel[prefix]).toFixed(1))+tr(' m away',' m 거리');
  el(prefix+'-forward').disabled=travel[prefix]>=90;el(prefix+'-back').disabled=travel[prefix]<=-80;
- canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, distance to facade ${118-travel[prefix]} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
+ canvas.setAttribute('aria-label',tr(`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, distance to facade ${118-travel[prefix]} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`,`성당 탐색: 눈높이 ${height.toFixed(2)} 미터, 좌우 위치 ${offset.toFixed(1)} 미터, 정면까지 거리 ${Number((118-travel[prefix]).toFixed(1))} 미터, 상하 시선 ${pitch}도, 좌우 시선 ${yaw}도. 수평선은 중앙 ${pitch===0?'':pitch>0?'아래':'위'}에 있습니다.`));
 }
 for(const prefix of ['preview','duomo']){
  const canvas=el(prefix+'-scene');
@@ -323,3 +327,5 @@ window.addEventListener('load',queueReadingSection);
 contents.addEventListener('toggle',queueReadingSection);
 markReadingSection();
 
+
+window.addEventListener('perspective-language-change',()=>{drawAll();queueReadingSection()});

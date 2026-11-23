@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 360" role="img" aria-labelledby="title desc">
+<title id="title">브루넬레스키의 거울 비교 실험: 간단한 장치 모식도</title><desc id="desc">왼쪽부터 눈, 관찰 구멍이 있는 그림판, 그림 면을 향한 이동식 거울, 그 너머의 실제 세례당입니다. 거울을 치워 같은 시선 방향으로 비교합니다. 실제 광선 추적이나 축척 도면이 아닌 모식도입니다.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="m0 0 8 4-8 4Z" fill="#ad5b3c"/></marker><pattern id="silver" width="8" height="8" patternUnits="userSpaceOnUse"><path d="m0 8 8-8" stroke="#b9cbd0" stroke-width="2"/></pattern></defs>
+<rect width="1100" height="360" rx="16" fill="#fffdf7"/>
+<g font-family="system-ui,sans-serif" fill="#334b40"><text x="30" y="36" font-size="12" letter-spacing="2" fill="#ad5b3c">옆에서 본 실험 장치 · 축척 없는 모식도</text>
+<path d="M100 200H1000" stroke="#a9b8ae" stroke-width="2" stroke-dasharray="8 7"/>
+<text x="350" y="225" font-size="13" fill="#6d7d71">같은 시선 방향</text>
+<path d="M67 200Q100 165 134 200Q100 235 67 200Z" fill="#e3e9df" stroke="#526d61" stroke-width="2"/><circle cx="104" cy="200" r="10" fill="#526d61"/>
+<rect x="280" y="75" width="15" height="112" fill="#a87950"/><rect x="280" y="213" width="15" height="72" fill="#a87950"/>
+<path d="M295 75V187M295 213V285" stroke="#ad5b3c" stroke-width="5"/>
+<path d="M280 188 295 194M280 212 295 206" stroke="#80513c" stroke-width="2"/>
+<text x="205" y="175" font-size="13">관찰 구멍 →</text>
+<path d="M310 110H390" stroke="#ad5b3c" stroke-width="2" marker-end="url(#arrow)"/><text x="313" y="94" font-size="13" fill="#ad5b3c">그림이 그려진 면</text>
+<rect x="545" y="123" width="14" height="151" rx="3" fill="#c6d5d8" stroke="#526d61" stroke-width="2"/><rect x="545" y="124" width="7" height="149" fill="url(#silver)"/>
+<path d="M565 120Q630 90 630 53" stroke="#ad5b3c" stroke-width="2" fill="none" marker-end="url(#arrow)"/><text x="650" y="76" font-size="13" fill="#ad5b3c">거울을 옆으로 치우기</text>
+<text x="446" y="302" font-size="12" fill="#6d7d71">반사면은 그림판을 향함</text>
+<g stroke="#718773" stroke-width="2"><path d="M858 137 896 116 1000 128 1017 151V275L858 275Z" fill="#e9e4d3"/><path d="M858 137 944 144 1017 151" fill="none"/><path d="M858 137 937 91 1000 128 896 116Z" fill="#c4ac8a"/><path d="M896 116 944 144V275M858 173H944M858 211H944M944 173 1017 180M944 211 1017 218" fill="none"/><path d="M886 275V233Q900 215 914 233V275" fill="#526d61"/><path d="M936 91V75H949V98" fill="#e9e4d3"/></g>
+<g font-size="16" font-weight="700"><text x="49" y="334">01 · 눈</text><text x="217" y="334">02 · 그림판</text><text x="484" y="334">03 · 거울</text><text x="865" y="334">04 · 건물</text></g>
+<text x="30" y="65" font-size="13" fill="#6d7d71">거울을 들면 반사된 그림, 치우면 실제 건물이 보입니다.</text>
+</g></svg>

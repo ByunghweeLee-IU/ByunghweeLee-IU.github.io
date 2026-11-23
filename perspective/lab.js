@@ -13,12 +13,15 @@
     }
     function circle(x,y,r,fill,stroke){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=1.5;ctx.stroke()}}
       const pitch=state.pitch*Math.PI/180, cp=Math.cos(pitch),sp=Math.sin(pitch);
+      const yaw=(state.yaw||0)*Math.PI/180,cyaw=Math.cos(yaw),syaw=Math.sin(yaw);
       const f=h/(2*Math.tan(29*Math.PI/180)), cx=w/2,cy=h/2;
       const horizon=cy+f*Math.tan(pitch);
       function proj(x,y,z){
-        const relativeY=y-state.height,depth=z*cp+relativeY*sp;
+        const relativeX=x-observerX,relativeY=y-state.height;
+        const cameraX=relativeX*cyaw-z*syaw,cameraZ=relativeX*syaw+z*cyaw;
+        const depth=cameraZ*cp+relativeY*sp;
         if(depth<=0.13)return null;
-        return {x:cx+f*(x-observerX)/depth,y:cy-f*(relativeY*cp-z*sp)/depth,depth};
+        return {x:cx+f*cameraX/depth,y:cy-f*(relativeY*cp-cameraZ*sp)/depth,depth};
       }
       ctx.clearRect(0,0,w,h);
       const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#dce5ea');sky.addColorStop(1,'#f0f3f4');ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
@@ -144,7 +147,7 @@
       segment({x:cx-9,y:cy},{x:cx+9,y:cy},'#2b4855',1.8);segment({x:cx,y:cy-9},{x:cx,y:cy+9},'#2b4855',1.8);
 
       }
-      return {horizon};
+      return {horizon,forwardVP:{x:cx-f*Math.tan(yaw)/cp,y:horizon},project:proj};
     }
 
 const el=id=>document.getElementById(id);
@@ -155,7 +158,26 @@ function guides(ctx,w,h,{vp=false,horizon=false,offset=0,height=1.6}={}){
  if(vp){ctx.save();ctx.strokeStyle='#436f7e';ctx.lineWidth=1.8;ctx.setLineDash([6,5]);for(const x of [-4,4]){ctx.beginPath();ctx.moveTo(w/2+(x-offset)*h/2/height,h);ctx.lineTo(w/2,h/2);ctx.stroke()}ctx.setLineDash([]);ctx.beginPath();ctx.arc(w/2,h/2,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.strokeStyle='#334b40';ctx.stroke();ctx.fillStyle='#334b40';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('V · forward VP',w/2+13,h/2-13);ctx.restore()}
 }
 function drawHeight(){const {canvas,ctx,w,h}=prepare('height-scene'),height=Number(el('eye-height').value);renderScene(ctx,w,h,{...base,height},{showVP:false,showHorizon:true});el('eye-height-value').value=height.toFixed(2)+' m';canvas.setAttribute('aria-label',`Step 1: eye height ${height.toFixed(2)} meters, viewing direction level. Horizon stays at image center.`)}
-function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});el('view-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;canvas.setAttribute('aria-label',`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. Horizon moves ${pitch>0?'down':pitch<0?'up':'to center'}.`)}
+function sideView(id,pitch,height=1.6){
+ const eyeX=38,eyeY=92-(height-1.6)*1.6,ground=119,angle=pitch*Math.PI/180;
+ let length=170,endY=eyeY-length*Math.tan(angle);
+ if(endY>ground){length=(ground-eyeY)/(-Math.tan(angle));endY=ground}
+ if(endY<26){length=(eyeY-26)/Math.tan(angle);endY=26}
+ const radius=21,endAngle=-angle,arcX=eyeX+radius*Math.cos(endAngle),arcY=eyeY+radius*Math.sin(endAngle);
+ const arc=Math.abs(pitch)<.1?'':`<path d="M ${eyeX+radius} ${eyeY} A ${radius} ${radius} 0 0 ${pitch>0?0:1} ${arcX} ${arcY}" fill="none" stroke="#436f7e" stroke-width="1.3"/>`;
+ el(id).innerHTML=`<title>Side view: gaze ${Math.abs(pitch)} degrees ${pitch>0?'above':pitch<0?'below':'along'} the horizontal</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".95" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="13" y="18" font-size="9" letter-spacing=".8" fill="#697267">SIDE VIEW · PITCH ONLY</text><path d="M15 ${ground}H224" stroke="#bdc3b3" stroke-width="1.5"/><rect x="176" y="48" width="39" height="71" fill="#e4dfcc" stroke="#889b85"/><path d="m171 48 24-17 25 17Z" fill="#b97953" stroke="#889b85"/><path d="M186 119V101Q195 91 204 101V119M176 72H215M176 87H215" fill="none" stroke="#889b85"/><circle cx="${eyeX}" cy="${eyeY}" r="5" fill="#334b40"/><path d="M${eyeX} ${eyeY+7}V${ground-12}m0 0-8 12m8-12 8 12" fill="none" stroke="#334b40" stroke-width="2.6" stroke-linecap="round"/><path d="M${eyeX} ${eyeY}H224" stroke="#ad5b3c" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M${eyeX} ${eyeY}L${eyeX+length} ${endY}" stroke="#436f7e" stroke-width="2" stroke-dasharray="5 3"/>${arc}<text x="69" y="${pitch>0?eyeY-11:eyeY+17}" font-size="11" font-weight="700" fill="#436f7e">${pitch>0?'+':''}${pitch}°</text><text x="18" y="138" font-size="9" fill="#697267">Eye</text><text x="174" y="138" font-size="9" fill="#697267">Building</text></g>`;
+}
+function pitchAngle(ctx,w,h,pitch,horizon){
+ const x=w/2+28,y=h/2;
+ ctx.save();ctx.strokeStyle='#526d61';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,horizon);ctx.stroke();ctx.setLineDash([]);
+ for(const yy of [y,horizon]){ctx.beginPath();ctx.moveTo(x-4,yy);ctx.lineTo(x+4,yy);ctx.stroke()}
+ const text=pitch===0?'0° · level':`${Math.abs(pitch)}° · look ${pitch>0?'up':'down'}`;
+ const yy=pitch===0?y+22:(y+horizon)/2;
+ ctx.font='bold 12px system-ui,sans-serif';const tw=ctx.measureText(text).width;
+ ctx.fillStyle='rgba(255,253,247,.94)';ctx.fillRect(x+8,yy-13,tw+12,22);ctx.fillStyle='#334b40';ctx.fillText(text,x+14,yy+2);ctx.restore();
+}
+function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);const {horizon}=renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});pitchAngle(ctx,w,h,pitch,horizon);sideView('pitch-side',pitch);el('view-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;canvas.setAttribute('aria-label',`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. The horizon is ${Math.abs(pitch)} degrees ${pitch>0?'below':pitch<0?'above':'level with'} the central gaze direction.`)}
+
 function drawVP(){const {ctx,w,h}=prepare('vp-scene');renderScene(ctx,w,h,base,{annotations:false});guides(ctx,w,h,{vp:el('vp-visible').checked,horizon:el('horizon-visible').checked})}
 let mirrorOn=true;
 function drawMirror(){
@@ -171,4 +193,42 @@ el('eye-height').addEventListener('input',drawHeight);el('view-pitch').addEventL
 const divider=el('mirror-divider');let dragging=false;
 function dragMirror(event){const r=el('mirror-frame').getBoundingClientRect();el('mirror-reveal').value=Math.round(Math.max(0,Math.min(100,(event.clientX-r.left)/r.width*100)));drawMirror()}
 divider.addEventListener('pointerdown',event=>{if(event.button!==0)return;dragging=true;divider.setPointerCapture(event.pointerId);dragMirror(event)});divider.addEventListener('pointermove',event=>{if(dragging)dragMirror(event)});['pointerup','pointercancel','lostpointercapture'].forEach(type=>divider.addEventListener(type,()=>{dragging=false}));divider.addEventListener('keydown',event=>{const value=Number(el('mirror-reveal').value),step=event.shiftKey?10:1,next=event.key==='ArrowLeft'?value-step:event.key==='ArrowRight'?value+step:event.key==='Home'?0:event.key==='End'?100:null;if(next!==null){event.preventDefault();el('mirror-reveal').value=Math.max(0,Math.min(100,next));drawMirror()}});
-function drawAll(){drawHeight();drawPitch();drawVP();drawMirror()}window.addEventListener('resize',drawAll,{passive:true});drawAll();
+function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,project},{showVP=true,showHorizon=true}={}){
+ const inside=vp.x>=0&&vp.x<=w;
+ if(showHorizon){ctx.save();ctx.strokeStyle='#ad5b3c';ctx.lineWidth=1.8;ctx.setLineDash([9,6]);ctx.beginPath();ctx.moveTo(0,horizon);ctx.lineTo(w,horizon);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#80513c';ctx.font='bold 12px system-ui,sans-serif';ctx.fillText('Horizon',18,horizon>25?horizon-12:horizon+20);ctx.restore()}
+ if(showVP){
+  ctx.save();ctx.strokeStyle='#436f7e';ctx.lineWidth=1.8;ctx.setLineDash([6,5]);for(const x of [-4,4]){const point=project(x,0,16);if(point){ctx.beginPath();ctx.moveTo(point.x,point.y);ctx.lineTo(vp.x,vp.y);ctx.stroke()}}ctx.setLineDash([]);
+  ctx.fillStyle='#fffdf7';ctx.strokeStyle='#334b40';ctx.lineWidth=2;ctx.font='bold 12px system-ui,sans-serif';
+  if(inside){ctx.beginPath();ctx.arc(vp.x,vp.y,6,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle='#334b40';ctx.textAlign=vp.x>w-140?'right':'left';ctx.fillText('V · street VP',vp.x+(vp.x>w-140?-12:12),vp.y>25?vp.y-12:vp.y+20)}
+  else{const x=vp.x<0?10:w-10,dir=vp.x<0?-1:1;ctx.fillStyle='#334b40';ctx.beginPath();ctx.moveTo(x,vp.y);ctx.lineTo(x-dir*10,vp.y-6);ctx.lineTo(x-dir*10,vp.y+6);ctx.closePath();ctx.fill();ctx.textAlign=dir<0?'left':'right';ctx.fillText(dir<0?'← VP outside image':'VP outside image →',dir<0?22:w-22,vp.y-12)}ctx.restore();
+ }
+ ctx.save();ctx.strokeStyle='#334b40';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(w/2-8,h/2);ctx.lineTo(w/2+8,h/2);ctx.moveTo(w/2,h/2-8);ctx.lineTo(w/2,h/2+8);ctx.stroke();ctx.restore();
+}
+function yawPlan(yaw){
+ const a=yaw*Math.PI/180,x=120,y=112,r=23,endX=x+r*Math.sin(a),endY=y-r*Math.cos(a);
+ const arc=yaw===0?'':`<path d="M ${x} ${y-r} A ${r} ${r} 0 0 ${yaw>0?1:0} ${endX} ${endY}" fill="none" stroke="#436f7e" stroke-width="1.4"/>`;
+ el('yaw-plan').innerHTML=`<title>Top view: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".96" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="12" y="18" font-size="9" letter-spacing=".8" fill="#697267">TOP VIEW · TURNING ONLY</text><path d="M82 29V141M158 29V141" stroke="#bac0ae" stroke-width="2"/><path d="M120 112V32m-5 7 5-7 5 7" stroke="#ad5b3c" stroke-width="1.5" stroke-dasharray="4 3" fill="none"/><text x="130" y="39" font-size="9" fill="#80513c">Street</text><path d="M120 112L${120+72*Math.sin(a)} ${112-72*Math.cos(a)}" stroke="#436f7e" stroke-width="2"/>${arc}<circle cx="120" cy="112" r="4" fill="#334b40"/><text x="${yaw<0?55:164}" y="78" font-size="11" font-weight="700" fill="#436f7e">${yaw>0?'+':''}${yaw}°</text><text x="12" y="136" font-size="9" fill="#436f7e">Gaze</text><text x="99" y="136" font-size="9" fill="#697267">Observer</text></g>`;
+}
+function drawYaw(){
+ const {canvas,ctx,w,h}=prepare('yaw-scene'),yaw=Number(el('view-yaw').value);
+ const result=renderScene(ctx,w,h,{...base,yaw},{annotations:false,architecture:'cathedral'});cameraGuides(ctx,w,h,result);
+ el('view-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;yawPlan(yaw);
+ canvas.setAttribute('aria-label',`Step 5: gaze turned ${Math.abs(yaw)} degrees ${yaw>0?'right':yaw<0?'left':'straight ahead'}; the street vanishing point moves ${yaw>0?'left':yaw<0?'right':'to center'} on the horizon.`);
+}
+el('view-yaw').addEventListener('input',drawYaw);
+function drawDuomo(){
+ const {canvas,ctx,w,h}=prepare('duomo-scene');
+ const height=Number(el('duomo-height').value),offset=Number(el('duomo-offset').value),pitch=Number(el('duomo-pitch').value),yaw=Number(el('duomo-yaw').value);
+ const {horizon,forwardVP:vp,project}=renderScene(ctx,w,h,{...base,height,pitch,yaw},{annotations:false,observerX:offset,architecture:'cathedral'});
+ const inside=vp.x>=0&&vp.x<=w;
+ cameraGuides(ctx,w,h,{horizon,forwardVP:vp,project},{showVP:el('duomo-vp').checked,showHorizon:el('duomo-horizon').checked});
+ el('duomo-height-value').value=height.toFixed(2)+' m';el('duomo-offset-value').value=offset===0?'Centered':`${offset>0?'Right':'Left'} · ${Math.abs(offset).toFixed(1)} m`;
+ el('duomo-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;el('duomo-yaw-value').value=yaw===0?'Straight ahead · 0°':`${yaw>0?'Right':'Left'} · ${Math.abs(yaw)}°`;
+ if(el('duomo-horizon').checked)pitchAngle(ctx,w,h,pitch,horizon);
+ sideView('duomo-side',pitch,height);
+ el('duomo-status').textContent=`Gaze-to-horizon angle: ${Math.abs(pitch)}°. Horizon ${pitch===0?'at center':pitch>0?'below center':'above center'} · street VP ${!inside?(vp.x<0?'beyond left edge':'beyond right edge'):yaw===0?'horizontally centered':yaw>0?'left of center':'right of center'}.`;
+ canvas.setAttribute('aria-label',`Duomo exploration: eye height ${height.toFixed(2)} meters, sideways position ${offset.toFixed(1)} meters, pitch ${pitch} degrees, yaw ${yaw} degrees. Horizon ${pitch===0?'at':pitch>0?'below':'above'} center.`);
+}
+['duomo-height','duomo-offset','duomo-pitch','duomo-yaw','duomo-vp','duomo-horizon'].forEach(id=>el(id).addEventListener('input',drawDuomo));
+el('duomo-reset').addEventListener('click',()=>{for(const [id,value] of Object.entries({'duomo-height':1.6,'duomo-offset':0,'duomo-pitch':0,'duomo-yaw':0}))el(id).value=value;el('duomo-vp').checked=true;el('duomo-horizon').checked=true;drawDuomo()});
+function drawAll(){drawHeight();drawPitch();drawVP();drawMirror();drawYaw();drawDuomo()}window.addEventListener('resize',drawAll,{passive:true});drawAll();

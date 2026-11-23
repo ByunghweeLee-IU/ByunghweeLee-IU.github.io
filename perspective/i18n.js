@@ -210,7 +210,24 @@ const korean={
   "Tilt up: horizon down. Tilt down: horizon up.": "위를 보면 수평선은 내려가고, 아래를 보면 올라갑니다.",
   "Parallel lines in the same direction converge toward one vanishing point.": "같은 방향의 평행선은 하나의 소실점으로 모입니다.",
   "A fixed drawing matches the scene from its original viewpoint.": "고정된 그림은 원래의 관찰 위치에서 풍경과 일치합니다.",
-  "An oblique, level view reveals two vanishing points on one horizon.": "수평을 유지하고 비스듬히 보면 두 방향의 소실점이 같은 수평선 위에 나타납니다."
+  "An oblique, level view reveals two vanishing points on one horizon.": "수평을 유지하고 비스듬히 보면 두 방향의 소실점이 같은 수평선 위에 나타납니다.",
+  "The picture was painted left–right reversed in advance.": "그림은 처음부터 좌우를 반전해 그렸습니다.",
+  "A single reflection then restores the scene’s orientation. The peephole is in the painted panel, not in the mirror.": "이 그림이 거울에 한 번 반사되면 실제 풍경과 같은 방향으로 보입니다. 작은 구멍은 거울이 아니라 그림판에 있습니다.",
+  "A reversed painting, a matching view.": "반전해 그린 그림이, 풍경과 같은 방향으로.",
+  "Pre-reversed painted panel with the blue flag on the right": "미리 반전해 그린 그림판. 파란 깃발이 오른쪽에 있습니다.",
+  "Mirror reflection with the blue flag restored to the left": "거울에 비친 그림. 파란 깃발이 다시 왼쪽에 보입니다.",
+  "Direct view of the building with the blue flag on the left": "직접 보는 건물. 파란 깃발이 왼쪽에 있습니다.",
+  "Preparation": "미리 준비한 그림",
+  "Painted panel · reversed": "그림판 앞면 · 좌우 반전",
+  "The blue flag is on the opposite side in the painting.": "그림에서는 파란 깃발이 실제 풍경과 반대쪽에 있습니다.",
+  "What the eye sees": "눈에 보이는 모습",
+  "Mirror raised": "거울을 들었을 때",
+  "The reflected painting has the same left–right orientation as the real scene.": "거울에 비친 그림은 실제 풍경과 좌우 방향이 같습니다.",
+  "Mirror removed": "거울을 치웠을 때",
+  "The same eye position now sees the real building directly.": "같은 눈 위치에서 실제 건물을 직접 보게 됩니다.",
+  "The blue flag is only an orientation cue. The original panels are lost; these are explanatory drawings based on later accounts and reconstructions. Sources:": "파란 깃발은 방향을 구분하기 위한 설명용 표식입니다. 원래 그림판은 남아 있지 않으며, 이 그림은 후대의 기록과 재구성을 바탕으로 만든 설명용 일러스트입니다. 참고 근거:",
+  "Museo Galileo [1]": "갈릴레오 박물관 [1]",
+  "National Gallery [2]": "내셔널 갤러리 [2]"
 };
 
 const key='brunelleschi-language';

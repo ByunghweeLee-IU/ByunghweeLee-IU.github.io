@@ -86,6 +86,14 @@ body{padding-left:168px}
 .contents-nav a[aria-current]{border-left-color:var(--accent);color:var(--green);background:#fffdf7b3;font-weight:700}
 .contents-nav a[aria-current]>span:first-child{color:var(--accent)}
 .contents-current{display:none}
+@media(min-width:1180px){
+ .contents-nav summary{font-weight:500;color:#8a8f84}
+ .contents-nav ol{border:0}
+ .contents-nav a{border:0;border-radius:0;margin-left:0;background:none;color:#8a8f84;font-weight:400}
+ .contents-nav a:hover{background:none;color:var(--muted)}
+ .contents-nav a[aria-current]{background:none;color:var(--ink);font-weight:700}
+ .contents-nav a>span:first-child{display:none}
+}
 #intro,#the-apparatus,#drawing-notes{scroll-margin-top:24px}
 .top{align-items:center;flex-wrap:wrap;gap:12px 20px}
 .top nav{align-items:center;flex-wrap:wrap;gap:12px 20px}

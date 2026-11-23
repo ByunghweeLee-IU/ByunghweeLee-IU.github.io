@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f6f3ed">
   <meta name="description" content="Explore how eye height and camera pitch shape the horizon, vanishing points, and people in a perspective scene.">
-  <title>Sightlines & Horizons — Perspective Lab</title>
+  <title>Sightlines & Horizons — A Brunelleschi-inspired Perspective Lab</title>
   <style>
     :root{--ink:#1f3038;--muted:#5f7178;--paper:#f6f3ed;--panel:#fffefa;--line:#dce2df;--orange:#cb723e;--blue:#3c7894;--dark:#1c313c;--shadow:0 12px 40px rgba(28,49,60,.07)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;line-height:1.65}
@@ -17,14 +17,22 @@
     @media(max-width:900px){.hero{gap:26px}.studio-body{grid-template-columns:1fr}.controls{border-left:0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,1fr);gap:0 22px}.interpret{grid-template-columns:1fr 1fr}.concepts{grid-template-columns:1fr 1fr}}
     @media(max-width:640px){.shell{padding:0 17px}.hero{grid-template-columns:1fr;padding:30px 0 25px;gap:12px}.heroaside{margin:0 0 8px}.hero p{font-size:15px}.studio-heading{padding:18px}.studio-heading .hint{display:none}.controls{padding:18px;grid-template-columns:1fr}.control{margin-bottom:16px}.presets{padding:17px}.viewport .legend{font-size:10px}.readout{grid-template-columns:1fr 1fr}.readout .metric:last-child{grid-column:1/-1}.metric{padding:13px}.metric .value{font-size:17px}.interpret,.concepts,.rule{grid-template-columns:1fr}.interpret{margin-bottom:50px}.interpret article{padding:22px}.section{margin:50px 0}.rule{padding:25px}.footer{flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  
+    /* Warm paper, green marble, and terracotta recall a Florentine workshop. */
+    :root{--ink:#30392f;--muted:#697267;--paper:#f5f0e6;--panel:#fffdf7;--line:#ddd7c9;--orange:#ad5b3c;--blue:#526d61;--dark:#334b40}
+    h1,.section h2,.simple h2{font-family:Georgia,"Times New Roman",serif;font-weight:500;letter-spacing:-.045em}
+    .hero{border-top:1px solid var(--line)}
+    .heroaside{border-color:#b16b49}.history-source{display:inline-block;margin-top:15px;font-size:12px;color:#80513c;text-underline-offset:4px}
+    .interpret article{background:#e6ebe2}.interpret article.secondary{background:#ebe1cf}
+    .rule{background:#334b40}.viewport{background:#e6e3d5}
   </style>
 </head>
 <body>
   <header class="shell top"><a class="brand" href="/visualization/"><i aria-hidden="true"></i>Sightlines & Horizons</a><a href="#studio">Explore the lab ↗</a></header>
   <main class="shell">
     <section class="hero">
-      <div><span class="eyebrow">Interactive perspective lab</span><h1>Where do we stand?<br>Which way<br>do we look?</h1><p>The horizon in perspective represents the observer’s <strong>eye level</strong>. Its position in the image, however, depends on <strong>camera pitch</strong>. Adjust these two variables independently and see what changes.</p></div>
-      <aside class="heroaside"><strong>Height and direction are different.</strong><small>Even from a high viewpoint, looking straight ahead can place the horizon at the center of the image. Sit low and look up, and the horizon moves down.</small></aside>
+      <div><span class="eyebrow">In Brunelleschi’s footsteps · Florence, c. 1420</span><h1>Where do we stand?<br>Which way<br>do we look?</h1><p>Inspired by <strong>Filippo Brunelleschi’s perspective experiment</strong> in Florence, this lab asks how a fixed viewpoint shapes the image we see. The horizon in perspective represents the observer’s <strong>eye level</strong>. Its position in the image, however, depends on <strong>camera pitch</strong>. Adjust these two variables independently and see what changes.</p></div>
+      <aside class="heroaside"><strong>A panel, a peephole, a mirror.</strong><small>Around 1420, Brunelleschi used a painted view of Florence’s Baptistery, a small viewing hole, and a mirror to compare his image with the real building. This workshop takes inspiration from that experiment to explore eye level and viewing direction.</small><a class="history-source" href="https://smarthistory.org/linear-perspective-brunelleschis-experiment/" target="_blank" rel="noopener">The story of the experiment ↗</a></aside>
     </section>
     <section id="studio" aria-labelledby="studio-title">
       <div class="studio">
@@ -59,7 +67,7 @@
       <div class="concepts"><article class="concept"><span class="n">01 · EYE LEVEL</span><h3>The eye-level plane</h3><p>The horizon represents directions at infinity in the horizontal plane through the observer’s eyes. Vanishing points for lines parallel to the ground therefore lie on the horizon.</p></article><article class="concept"><span class="n">02 · CAMERA PITCH</span><h3>Camera pitch</h3><p>The camera’s forward direction maps to the center of the image. Tilt up and the horizon moves down; tilt down and it moves up.</p></article><article class="concept"><span class="n">03 · OBJECT HEIGHT</span><h3>People in space</h3><p>On level ground, people whose eyes are at the observer’s eye height appear with their eyes on the horizon, whether they are near or far.</p></article></div>
       <div class="rule"><h3>The horizon marks <strong>horizontal directions at eye level</strong>. The <strong>center of your gaze</strong> can point somewhere else.</h3><p>The center of the image lies on the horizon only when the camera is level. Tilting up or down separates the two. The horizon’s image position alone cannot tell you the observer’s physical elevation.</p></div>
     </section>
-    <section class="simple"><h2>Why do horizontal vanishing points lie on the horizon?</h2><p>Parallel horizontal lines extend toward a common direction at infinity. Perspective projection maps that direction to a vanishing point on the horizon. A building’s <strong>vertical direction</strong> is different: when you tilt the camera up, vertical lines can converge toward a third vanishing point above the image; tilt down, and it can lie below.</p><p class="small-note">Model assumptions: level ground, upright people, and an ideal pinhole camera with pitch rotation only. Earth’s curvature and lens distortion are ignored. The geometric horizon still exists when it falls outside the image.</p></section>
+    <section class="simple"><h2>Why do horizontal vanishing points lie on the horizon?</h2><p>Parallel horizontal lines extend toward a common direction at infinity. Perspective projection maps that direction to a vanishing point on the horizon. A building’s <strong>vertical direction</strong> is different: when you tilt the camera up, vertical lines can converge toward a third vanishing point above the image; tilt down, and it can lie below.</p><p class="small-note">A modern geometric exploration inspired by Brunelleschi’s experiment; the buildings form an imagined piazza. Model assumptions: level ground, upright people, and an ideal pinhole camera with pitch rotation only. Earth’s curvature and lens distortion are ignored. The geometric horizon still exists when it falls outside the image.</p></section>
   </main>
   <footer class="shell footer"><span>Sightlines & Horizons · Perspective Lab</span><span>Byunghwee Lee · Interactive perspective lab</span></footer>
   <script>
@@ -107,8 +115,8 @@
         return {x:cx+f*x/depth,y:cy-f*(relativeY*cp-z*sp)/depth,depth};
       }
       ctx.clearRect(0,0,w,h);
-      const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#d1e3ed');sky.addColorStop(1,'#edf4f6');ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
-      if(horizon<h){const ground=ctx.createLinearGradient(0,Math.max(0,horizon),0,h);ground.addColorStop(0,'#d9e0d4');ground.addColorStop(1,'#bfcfc2');ctx.fillStyle=ground;ctx.fillRect(0,Math.max(0,horizon),w,h)}
+      const sky=ctx.createLinearGradient(0,0,0,h);sky.addColorStop(0,'#dddccc');sky.addColorStop(1,'#f7f2e7');ctx.fillStyle=sky;ctx.fillRect(0,0,w,h);
+      if(horizon<h){const ground=ctx.createLinearGradient(0,Math.max(0,horizon),0,h);ground.addColorStop(0,'#e7dec9');ground.addColorStop(1,'#c8c4ab');ctx.fillStyle=ground;ctx.fillRect(0,Math.max(0,horizon),w,h)}
       // Idealized ground grid, forward (z) lines and transverse (x) lines.
       for(let x=-90;x<=90;x+=6){const a=proj(x,0,2),b=proj(x,0,320);segment(a,b,'rgba(100,134,122,.32)',1)}
       for(let z=3;z<=300;z+=z<36?6:z<100?14:35){segment(proj(-120,0,z),proj(120,0,z),'rgba(100,134,122,.25)',1)}
@@ -116,16 +124,38 @@
       segment(proj(-4,0,2),proj(-4,0,360),'rgba(255,255,255,.74)',2.8);
       segment(proj(4,0,2),proj(4,0,360),'rgba(255,255,255,.74)',2.8);
       for(let z=7;z<175;z+=12)segment(proj(0,0,z),proj(0,0,z+4),'rgba(255,255,255,.8)',2.5);
-      // Boxes make the 3D perspective legible even from high eye level.
+      // Build every face from shared world-space corners. Only surfaces facing
+      // the observer are visible; camera pitch does not reveal a hidden roof.
+      const buildingFaces = [];
       function block(x,z,bw,bz,bh,light,dark){
-        const a=proj(x,0,z),b=proj(x+bw,0,z),c=proj(x+bw,0,z+bz),d=proj(x,0,z+bz);
-        const at=proj(x,bh,z),bt=proj(x+bw,bh,z),ct=proj(x+bw,bh,z+bz),dt=proj(x,bh,z+bz);
-        polygon([a,b,bt,at],light,'rgba(69,103,116,.35)');
-        polygon([b,c,ct,bt],dark,'rgba(69,103,116,.35)');
-        polygon([at,bt,ct,dt],'#e4e9df','rgba(69,103,116,.35)');
-        [0.25,.5,.75].forEach(t=>segment(proj(x+bw*t,0,z),proj(x+bw*t,bh,z),'rgba(80,120,136,.35)',.9))
+        const a=[x,0,z], b=[x+bw,0,z], c=[x+bw,0,z+bz], d=[x,0,z+bz];
+        const at=[x,bh,z], bt=[x+bw,bh,z], ct=[x+bw,bh,z+bz], dt=[x,bh,z+bz];
+        function face(corners,fill,panels=[]){
+          const points=corners.map(v=>proj(...v));
+          if(points.some(p=>!p))return;
+          buildingFaces.push({points,fill,panels,
+            depth:points.reduce((total,p)=>total+p.depth,0)/points.length});
+        }
+        const divisions=[.25,.5,.75];
+        face([a,b,bt,at],light,divisions.map(t=>[[x+bw*t,0,z],[x+bw*t,bh,z]]));
+        // On the left of the street we see the right wall; on the right,
+        // we see the left wall. Never draw the wall facing away from us.
+        if(x+bw<0){
+          face([b,c,ct,bt],dark,divisions.map(t=>[[x+bw,0,z+bz*t],[x+bw,bh,z+bz*t]]));
+        } else if(x>0){
+          face([d,a,at,dt],dark,divisions.map(t=>[[x,0,z+bz*t],[x,bh,z+bz*t]]));
+        }
+        if(state.height>bh)face([at,bt,ct,dt],'#c38b69');
       }
-      block(-16,42,7,11,10,'#afc4cd','#8da6b5');block(11,53,11,15,14,'#b3c9cc','#8aa7ac');block(-24,91,11,14,19,'#a5bfca','#789aaa');block(21,111,10,18,27,'#adbec9','#88a2b7');
+      block(-16,42,7,11,10,'#ede3ce','#a3ae98');
+      block(11,53,11,15,14,'#dec3a6','#a28a70');
+      block(-24,91,11,14,19,'#ddd6bd','#8f9f88');
+      block(21,111,10,18,27,'#d8b69c','#9b846f');
+      // Paint far surfaces first so nearer buildings cover the ones behind.
+      buildingFaces.sort((a,b)=>b.depth-a.depth).forEach(face=>{
+        polygon(face.points,face.fill,'#7c8976',1);
+        face.panels.forEach(([a,b])=>segment(proj(...a),proj(...b),'rgba(80,120,136,.35)',.9));
+      });
       function person(x,z,height,color,caption,emphasis=false){
         const yEye=height-.12;
         const p=proj(x,0,z),top=proj(x,height,z),eye=proj(x,yEye,z),hip=proj(x,height*.5,z);
@@ -153,7 +183,7 @@
       else {ctx.fillStyle='rgba(255,253,247,.9)';ctx.fillRect(12,12,Math.min(w-24,255),33);ctx.font='bold 12px system-ui,sans-serif';ctx.fillStyle='#98531e';ctx.textAlign='left';ctx.fillText(horizon>h?'↓ Horizon below the image':'↑ Horizon above the image',22,33)}
       // Optical axis indicator is always at screen center.
       segment({x:cx-9,y:cy},{x:cx+9,y:cy},'#2b4855',1.8);segment({x:cx,y:cy-9},{x:cx,y:cy+9},'#2b4855',1.8);
-      const subtitleY= h-17;ctx.fillStyle='rgba(255,255,255,.85)';ctx.fillRect(12,h-37,Math.min(w-24,280),27);ctx.fillStyle='#3d5761';ctx.font='11px system-ui,sans-serif';ctx.textAlign='left';ctx.fillText('Crosshair = camera’s forward direction',20,subtitleY);
+
       const dy=state.person-.12-state.height;
       el('horizon-status').textContent=Math.abs(state.pitch)<0.001?'Image center':horizon<0?'Outside · above':horizon>h?'Outside · below':state.pitch>0?'Lower in the image':'Higher in the image';
       el('horizon-sub').textContent=`Pitch ${state.pitch>0?'+':''}${state.pitch}° · independent of eye height`;

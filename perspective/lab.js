@@ -188,13 +188,13 @@ function sideView(id,pitch,height=1.6){
  el(id).innerHTML=`<title>Side view: gaze ${Math.abs(pitch)} degrees ${pitch>0?'above':pitch<0?'below':'along'} the horizontal</title><rect x="1" y="1" width="238" height="148" rx="10" fill="#fffdf7" fill-opacity=".95" stroke="#ddd7c9"/><g font-family="system-ui,sans-serif"><text x="13" y="18" font-size="9" letter-spacing=".8" fill="#697267">SIDE VIEW · PITCH ONLY</text><path d="M15 ${ground}H224" stroke="#bdc3b3" stroke-width="1.5"/><rect x="176" y="48" width="39" height="71" fill="#e4dfcc" stroke="#889b85"/><path d="m171 48 24-17 25 17Z" fill="#b97953" stroke="#889b85"/><path d="M186 119V101Q195 91 204 101V119M176 72H215M176 87H215" fill="none" stroke="#889b85"/><circle cx="${eyeX}" cy="${eyeY}" r="5" fill="#334b40"/><path d="M${eyeX} ${eyeY+7}V${ground-12}m0 0-8 12m8-12 8 12" fill="none" stroke="#334b40" stroke-width="2.6" stroke-linecap="round"/><path d="M${eyeX} ${eyeY}H224" stroke="#ad5b3c" stroke-width="1.2" stroke-dasharray="4 4"/><path d="M${eyeX} ${eyeY}L${eyeX+length} ${endY}" stroke="#436f7e" stroke-width="2" stroke-dasharray="5 3"/>${arc}<text x="69" y="${pitch>0?eyeY-11:eyeY+17}" font-size="11" font-weight="700" fill="#436f7e">${pitch>0?'+':''}${pitch}°</text><text x="18" y="138" font-size="9" fill="#697267">Eye</text><text x="174" y="138" font-size="9" fill="#697267">Building</text></g>`;
 }
 function pitchAngle(ctx,w,h,pitch,horizon){
- const x=w/2+28,y=h/2;
+ const compact=w<=500,x=w/2+(compact?18:28),y=h/2;
  ctx.save();ctx.strokeStyle='#526d61';ctx.lineWidth=1.5;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,horizon);ctx.stroke();ctx.setLineDash([]);
  for(const yy of [y,horizon]){ctx.beginPath();ctx.moveTo(x-4,yy);ctx.lineTo(x+4,yy);ctx.stroke()}
- const text=pitch===0?'0° · level':`${Math.abs(pitch)}° · look ${pitch>0?'up':'down'}`;
- const yy=pitch===0?y+22:(y+horizon)/2;
- ctx.font='bold 12px system-ui,sans-serif';const tw=ctx.measureText(text).width;
- ctx.fillStyle='rgba(255,253,247,.94)';ctx.fillRect(x+8,yy-13,tw+12,22);ctx.fillStyle='#334b40';ctx.fillText(text,x+14,yy+2);ctx.restore();
+ const text=`${pitch>0?'+':pitch<0?'−':''}${Math.abs(pitch)}°`;
+ const yy=pitch===0?y+(compact?16:22):(y+horizon)/2;
+ ctx.font=compact?'600 10px system-ui,sans-serif':'bold 12px system-ui,sans-serif';const tw=ctx.measureText(text).width;
+ ctx.fillStyle=compact?'rgba(255,253,247,.65)':'rgba(255,253,247,.85)';ctx.fillRect(x+(compact?6:8),yy-(compact?10:13),tw+(compact?8:12),compact?16:22);ctx.fillStyle='#334b40';ctx.fillText(text,x+(compact?10:14),yy+(compact?1:2));ctx.restore();
 }
 function drawPitch(){const {canvas,ctx,w,h}=prepare('pitch-scene'),pitch=Number(el('view-pitch').value);const {horizon}=renderScene(ctx,w,h,{...base,pitch},{showVP:false,showHorizon:true});pitchAngle(ctx,w,h,pitch,horizon);sideView('pitch-side',pitch);el('view-pitch-value').value=pitch===0?'Level · 0°':`${pitch>0?'Up':'Down'} · ${Math.abs(pitch)}°`;canvas.setAttribute('aria-label',`Step 2: fixed eye height 1.60 meters, camera pitch ${pitch} degrees. The horizon is ${Math.abs(pitch)} degrees ${pitch>0?'below':pitch<0?'above':'level with'} the central gaze direction.`)}
 

@@ -164,6 +164,11 @@ body{font-size:17px}
 .experiment-recap a:hover{text-decoration:underline}
 .experiment-recap li>span{word-break:keep-all;overflow-wrap:break-word}
 .closing .recap-practice{font-family:inherit;font-size:16px;line-height:1.8;color:var(--muted);max-width:850px;margin-top:28px}
+.next-question{margin-top:34px;max-width:850px;scroll-margin-top:24px}
+.next-question>a{font-size:11px;text-decoration:none;letter-spacing:.04em}
+.next-question>a:hover{text-decoration:underline}
+.closing .next-question p{font-family:inherit;font-size:22px;font-weight:600;line-height:1.65;color:var(--green);margin:9px 0 0}
+@media(max-width:700px){.closing .next-question p{font-size:20px}}
 @media(max-width:700px){
  .experiment-recap{gap:20px}
  .experiment-recap li{grid-template-columns:1fr;gap:4px;font-size:16px}

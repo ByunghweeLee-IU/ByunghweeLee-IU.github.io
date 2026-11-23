@@ -235,7 +235,10 @@ const korean={
   "The same viewpoint. Two views to compare.": "같은 시점에서 그림과 풍경을 비교합니다.",
   "The mirror shows the fixed perspective painting.": "거울을 들면 미리 그린 원근법 그림이 비쳐 보입니다.",
   "Removing the mirror reveals the real building along the same line of sight.": "거울을 치우면 같은 시선 방향의 실제 건물이 보입니다.",
-  "Why was the painting reversed?": "보충 설명: 그림을 미리 좌우 반전한 이유"
+  "Why was the painting reversed?": "보충 설명: 그림을 미리 좌우 반전한 이유",
+  "A question to take with you": "다음 탐구로 이어지는 질문",
+  "A further question · Russian icons ↗": "다음 질문 · 러시아 성상화 ↗",
+  "What might a picture reveal if we let go of a single fixed observer?": "하나의 고정된 관찰자라는 가정을 버리면, 그림 속 세계는 어떻게 달라질까요?"
 };
 
 const key='brunelleschi-language';

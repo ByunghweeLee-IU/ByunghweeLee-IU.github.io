@@ -71,12 +71,7 @@
 .scene-navigation button:hover{background:#fffdf770}
 .scene-navigation button:disabled{opacity:.35;cursor:default}
 .scene-navigation output{min-width:78px;text-align:center;font-size:11px;font-weight:600}
-.mobile-inset{display:none}
-@media(max-width:700px){
- .mobile-inset{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;border-bottom:1px solid var(--line)}
- .mobile-inset>span{font-size:11px;color:var(--muted)}
- .mobile-inset .side-inset{position:static;width:120px;flex-shrink:0;filter:none}
-}
+@media(max-width:700px){.side-inset{top:6px;right:6px;width:clamp(80px,28%,110px);filter:drop-shadow(0 1px 3px #334b4015)}}
 
 /* A quiet section rail, kept outside the drawing and its controls. */
 body{padding-left:168px}

@@ -333,14 +333,3 @@ window.addEventListener('load',queueReadingSection);
 contents.addEventListener('toggle',queueReadingSection);
 markReadingSection();
 
-// Keep the angle diagrams visible without covering the smaller drawing.
-const mobileDiagrams=window.matchMedia('(max-width:700px)');
-const diagramHomes=[...document.querySelectorAll('.side-inset')].map(diagram=>{
- const home=diagram.parentElement,controls=home.closest('.experiment').querySelector('.experiment-controls');
- const row=document.createElement('div'),caption=document.createElement('span');
- row.className='mobile-inset';caption.textContent=diagram.id==='yaw-plan'?'Your gaze · top view':'Your gaze · side view';
- row.append(caption);controls.prepend(row);
- return {diagram,home,row};
-});
-function placeDiagrams(){diagramHomes.forEach(({diagram,home,row})=>(mobileDiagrams.matches?row:home).append(diagram))}
-placeDiagrams();mobileDiagrams.addEventListener('change',placeDiagrams);

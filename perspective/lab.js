@@ -219,7 +219,7 @@ function cameraGuides(ctx,w,h,{horizon,forwardVP:vp,crossVP,project,observerZ=0}
    else if(target.x>=10&&target.x<=w-10){ctx.beginPath();ctx.arc(target.x,target.y,6,0,Math.PI*2);ctx.fillStyle='#fffdf7';ctx.fill();ctx.stroke();ctx.fillStyle=color;const right=target.x>w-150;ctx.textAlign=right?'right':'left';ctx.fillText(label,target.x+(right?-12:12),target.y+dy)}
    else{const left=target.x<w/2,x=left?9:w-9;ctx.beginPath();ctx.moveTo(x,target.y);ctx.lineTo(x+(left?10:-10),target.y-6);ctx.lineTo(x+(left?10:-10),target.y+6);ctx.closePath();ctx.fill();ctx.textAlign=left?'left':'right';ctx.fillText((left?'← ':'')+label+' outside'+(left?'':' →'),left?22:w-22,target.y+dy)}ctx.restore();
   }
-  if(showVP)family(vp,FAMILY_A,[[[-4,0,observerZ+16],[-4,0,observerZ+150]],[[4,0,observerZ+16],[4,0,observerZ+150]],[[-11,24,118],[-11,24,161]]],'VP A · street',-13);
+  if(showVP)family(vp,FAMILY_A,[[[-4,0,observerZ+16],[-4,0,observerZ+150]],[[4,0,observerZ+16],[4,0,observerZ+150]],[[-11,24,118],[-11,24,161]]],'VP A',-13);
   if(showB)family(crossVP,FAMILY_B,[[[-11,0,118],[11,0,118]],[[-11,13,118],[11,13,118]],[[-11,24,118],[11,24,118]]],'VP B · across',24);
  }
  ctx.save();ctx.strokeStyle='#334b40';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(w/2-8,h/2);ctx.lineTo(w/2+8,h/2);ctx.moveTo(w/2,h/2-8);ctx.lineTo(w/2,h/2+8);ctx.stroke();ctx.restore();

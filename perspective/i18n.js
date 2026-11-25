@@ -1,6 +1,11 @@
 'use strict';
 (() => {
 const korean={
+  "Renaissance Florence · Learning to see in perspective": "르네상스의 피렌체 · 원근법으로 바라보기",
+  "In Renaissance Florence, Brunelleschi studied perspective to make paintings look more lifelike. Let’s explore those principles for ourselves: change your viewpoint and see how the picture changes.": "르네상스 시대, 브루넬레스키는 더욱 사실적인 그림을 그리기 위해 원근법을 연구했습니다. 이제 직접 시점을 바꾸며, 그림이 어떻게 달라지는지 그 원리를 알아봅시다.",
+  "Move higher, tilt your view, and follow parallel lines. Start by exploring, then learn what the horizon and vanishing points reveal.": "눈높이를 바꾸고, 시선을 기울이고, 평행선을 따라가 보세요. 먼저 자유롭게 탐색한 뒤, 수평선과 소실점이 알려주는 원리를 하나씩 배웁니다.",
+  "Optional history & sources": "더 읽기: 역사적 배경과 출처",
+
   "Brunelleschi’s View — Five Experiments in Seeing": "브루넬레스키의 시선 — 원근법을 배우는 다섯 실험",
   "Contents": "목차",
   "Welcome": "처음으로",

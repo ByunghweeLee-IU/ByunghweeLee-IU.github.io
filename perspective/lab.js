@@ -349,3 +349,16 @@ markReadingSection();
 
 
 window.addEventListener('perspective-language-change',()=>{drawAll();queueReadingSection()});
+
+// Keep historical bookmarks and source links usable inside optional reading.
+function revealLinkedReading(){
+ let id;try{id=decodeURIComponent(location.hash.slice(1))}catch{return}
+ const target=document.getElementById(id);if(!target)return;
+ let opened=false;
+ for(let parent=target.parentElement;parent;parent=parent.parentElement){
+  if(parent.tagName==='DETAILS'&&!parent.open){parent.open=true;opened=true}
+ }
+ if(opened)requestAnimationFrame(()=>target.scrollIntoView({block:'start'}));
+}
+window.addEventListener('hashchange',revealLinkedReading);
+revealLinkedReading();

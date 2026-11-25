@@ -186,3 +186,8 @@ body{font-size:17px}
  .experiment--free .experiment-controls .scale{font-size:10px}
  .experiment--free .mirror-bottom p{font-size:12px}
 }
+
+/* A short introduction leads directly into the first interactive view. */
+.hero{padding-top:42px;padding-bottom:18px}
+.hero+#preview-explorer{margin-top:28px}
+@media(max-width:700px){.hero{padding-top:30px;padding-bottom:10px}.hero+#preview-explorer{margin-top:22px}}

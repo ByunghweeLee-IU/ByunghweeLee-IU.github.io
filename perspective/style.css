@@ -194,3 +194,51 @@ body{font-size:17px}
 @media(max-width:700px){.hero{padding-top:30px;padding-bottom:10px}.hero+#preview-explorer{margin-top:22px}}
 
 @media(max-width:700px){.journey>.eyebrow{font-size:16px;word-break:keep-all}.journey a{font-size:15px}.journey nav{gap:8px 18px}}
+
+/* Give finger drags a generous target without enlarging desktop controls. */
+@media (max-width:900px), (pointer:coarse) {
+ .experiment-controls input[type=range],
+ .experiment--free .experiment-controls input[type=range] {
+  -webkit-appearance:none;
+  appearance:none;
+  height:48px;
+  min-height:48px;
+  margin:0;
+  padding:0;
+  background:transparent;
+  touch-action:none;
+ }
+ .experiment-controls input[type=range]::-webkit-slider-runnable-track {
+  height:8px;
+  border-radius:4px;
+  background:#d4d9cd;
+ }
+ .experiment-controls input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance:none;
+  box-sizing:border-box;
+  width:30px;
+  height:30px;
+  margin-top:-11px;
+  border:2px solid var(--panel);
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 1px 4px #334b4030;
+ }
+ .experiment-controls input[type=range]::-moz-range-track {
+  height:8px;
+  border-radius:4px;
+  background:#d4d9cd;
+ }
+ .experiment-controls input[type=range]::-moz-range-thumb {
+  box-sizing:border-box;
+  width:30px;
+  height:30px;
+  border:2px solid var(--panel);
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 1px 4px #334b4030;
+ }
+ .experiment-controls .control,
+ .experiment--free .experiment-controls .control {padding:8px 18px}
+ .experiment-controls .range-reset {width:32px;height:32px}
+}

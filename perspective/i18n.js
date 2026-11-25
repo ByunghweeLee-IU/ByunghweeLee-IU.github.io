@@ -1,6 +1,18 @@
 'use strict';
 (() => {
 const korean={
+  "Fixed viewpoint": "고정된 시점",
+  "A fixed painting on the left and the current scene on the right": "왼쪽의 고정된 그림과 오른쪽의 현재 풍경",
+  "PAINTING": "그림",
+  "Comparison edge position": "비교 경계 위치",
+  "Hide painting": "그림 숨기기",
+  "Optional guides & comparison settings": "추가 보조선과 비교 설정",
+  "Comparison guides": "비교 보조선",
+  "Painting coverage": "그림이 덮는 비율",
+  "Reset Painting coverage": "그림 비율 초기화",
+  "Reset Painting coverage to 50": "그림 비율을 50으로 초기화",
+  "Brunelleschi used a real mirror to compare his painting with the actual building. Here, the split view lets you compare the painting and scene directly.": "브루넬레스키는 실제 거울을 이용해 그림과 건물을 비교했습니다. 여기서는 화면을 나누어 그림과 풍경을 바로 비교합니다.",
+
   "Renaissance Florence · Learning to see in perspective": "르네상스의 피렌체 · 원근법으로 바라보기",
   "In Renaissance Florence, Brunelleschi studied perspective to make paintings look more lifelike. Let’s explore those principles for ourselves: change your viewpoint and see how the picture changes.": "르네상스 시대, 브루넬레스키는 더욱 사실적인 그림을 그리기 위해 원근법을 연구했습니다. 이제 직접 시점을 바꾸며, 그림이 어떻게 달라지는지 그 원리를 알아봅시다.",
   "Move higher, tilt your view, and follow parallel lines. Start by exploring, then learn what the horizon and vanishing points reveal.": "눈높이를 바꾸고, 시선을 기울이고, 평행선을 따라가 보세요. 먼저 자유롭게 탐색한 뒤, 수평선과 소실점이 알려주는 원리를 하나씩 배웁니다.",

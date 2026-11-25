@@ -711,6 +711,19 @@ footer {
   min-width: 0;
 }
 
+.name-pronunciation {
+  color: var(--text-muted);
+  font-size: 0.82em;
+  font-weight: 400;
+  white-space: nowrap;
+  cursor: help;
+}
+
+.name-pronunciation:focus-visible {
+  outline: 1px dotted var(--text-secondary);
+  outline-offset: 3px;
+}
+
 .home-hero-copy p:first-child {
   margin-top: 0;
 }

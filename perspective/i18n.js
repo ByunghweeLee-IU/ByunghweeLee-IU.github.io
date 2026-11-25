@@ -74,7 +74,7 @@ const korean={
   "Move toward or away from the cathedral": "성당 쪽으로 다가가거나 멀어지기",
   "Move farther from the cathedral": "성당에서 멀어지기",
   "Move farther": "멀어지기",
-  "98 m away": "98 m 거리",
+  "93 m away": "93 m 거리",
   "Move closer to the cathedral": "성당으로 다가가기",
   "Move closer": "다가가기",
   "Experiment controls": "실험 조작",

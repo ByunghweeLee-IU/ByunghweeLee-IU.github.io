@@ -242,7 +242,7 @@ function drawYaw(){
 }
 el('view-yaw').addEventListener('input',drawYaw);['yaw-a','yaw-b'].forEach(id=>el(id).addEventListener('input',drawYaw));
 el('yaw-two-point').addEventListener('click',()=>{el('view-yaw').value=45;el('yaw-a').checked=true;el('yaw-b').checked=true;drawYaw()});
-const DEFAULT_TRAVEL=20;
+const DEFAULT_TRAVEL=25;
 const travel={preview:DEFAULT_TRAVEL,duomo:DEFAULT_TRAVEL};
 function drawDuomo(prefix='duomo'){
  const {canvas,ctx,w,h}=prepare(prefix+'-scene');
